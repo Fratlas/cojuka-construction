@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 class GroupLoginController {
  public function form(){return view('gestion.group-login');}
- public function login(Request $request){$credentials=$request->validate(['email'=>'required|email','password'=>'required|string']);if(Auth::attempt($credentials)){ $request->session()->regenerate();return redirect()->intended($request->user()->is_group_admin ? route('gestion.group.dashboard') : route('account.pending'));}return back()->withErrors(['email'=>'Identifiants incorrects.'])->onlyInput('email');}
+ public function login(Request $request){$credentials=$request->validate(['email'=>'required|email','password'=>'required|string']);if(Auth::attempt($credentials)){ $request->session()->regenerate();return $request->user()->is_group_admin ? redirect()->intended(route('gestion.group.dashboard')) : redirect()->route('account.pending');}return back()->withErrors(['email'=>'Identifiants incorrects.'])->onlyInput('email');}
  public function pending(){return view('gestion.group-pending');}
  public function registerForm(){return view('gestion.group-register');}
  public function register(Request $request){

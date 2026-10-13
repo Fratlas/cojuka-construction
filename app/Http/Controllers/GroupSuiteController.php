@@ -10,23 +10,26 @@ use Illuminate\Support\Facades\Schema;
 
 class GroupSuiteController {
  public const MODULES=[
-  'rh'=>['label'=>'Ressources humaines','fields'=>['poste'=>'Poste','departement'=>'Département','telephone'=>'Téléphone']],
-  'finances'=>['label'=>'Finances et dépenses','fields'=>['beneficiaire'=>'Bénéficiaire','categorie'=>'Catégorie','mode_paiement'=>'Mode de paiement']],
-  'contrats'=>['label'=>'Contrats','fields'=>['partenaire'=>'Partenaire','date_echeance'=>'Échéance','type_contrat'=>'Type de contrat']],
-  'achats'=>['label'=>'Achats et fournisseurs','fields'=>['fournisseur'=>'Fournisseur','quantite'=>'Quantité','produit'=>'Produit / service']],
-  'logistique'=>['label'=>'Logistique et transport','fields'=>['vehicule'=>'Véhicule','chauffeur'=>'Chauffeur','destination'=>'Destination']],
-  'immobilier'=>['label'=>'Immobilier et foncier','fields'=>['parcelle'=>'Référence parcelle','superficie'=>'Superficie','titre_foncier'=>'Titre foncier']],
-  'mines'=>['label'=>'Mines et concessions','fields'=>['permis'=>'Référence permis','substance'=>'Substance','superficie'=>'Superficie']],
-  'consulting'=>['label'=>'Missions de conseil','fields'=>['client'=>'Client','livrable'=>'Livrable','responsable'=>'Responsable']],
+  'rh'=>['label'=>'Ressources humaines','fields'=>['matricule'=>'Matricule','poste'=>'Poste','departement'=>'Département','telephone'=>'Téléphone','date_embauche'=>'Date embauche (AAAA-MM-JJ)','type_contrat'=>'Type de contrat','responsable'=>'Responsable']],
+  'finances'=>['label'=>'Finances et dépenses','fields'=>['beneficiaire'=>'Bénéficiaire','categorie'=>'Catégorie','mode_paiement'=>'Mode de paiement','compte'=>'Compte / caisse','numero_piece'=>'Numéro de pièce','centre_cout'=>'Centre de coût']],
+  'contrats'=>['label'=>'Contrats','fields'=>['partenaire'=>'Partenaire','date_signature'=>'Date signature (AAAA-MM-JJ)','date_echeance'=>'Échéance (AAAA-MM-JJ)','type_contrat'=>'Type de contrat','responsable'=>'Responsable','conditions'=>'Conditions essentielles']],
+  'achats'=>['label'=>'Achats et fournisseurs','fields'=>['fournisseur'=>'Fournisseur','quantite'=>'Quantité','produit'=>'Produit / service','prix_unitaire'=>'Prix unitaire','numero_commande'=>'Numéro commande','livraison'=>'Livraison prévue']],
+  'logistique'=>['label'=>'Logistique et transport','fields'=>['vehicule'=>'Véhicule','immatriculation'=>'Immatriculation','chauffeur'=>'Chauffeur','origine'=>'Origine','destination'=>'Destination','date_livraison'=>'Date livraison (AAAA-MM-JJ)','numero_bon'=>'Numéro bon']],
+  'immobilier'=>['label'=>'Immobilier et foncier','fields'=>['parcelle'=>'Référence parcelle','superficie'=>'Superficie','titre_foncier'=>'Titre foncier','proprietaire'=>'Propriétaire','usage'=>'Usage','adresse'=>'Adresse du bien']],
+  'mines'=>['label'=>'Mines et concessions','fields'=>['permis'=>'Référence permis','substance'=>'Substance','superficie'=>'Superficie','titulaire'=>'Titulaire','province'=>'Province','date_expiration'=>'Expiration permis (AAAA-MM-JJ)','autorite'=>'Autorité émettrice']],
+  'consulting'=>['label'=>'Missions de conseil','fields'=>['client'=>'Client','livrable'=>'Livrable','responsable'=>'Responsable','date_echeance'=>'Échéance (AAAA-MM-JJ)','type_mission'=>'Type de mission','contact'=>'Contact client']],
  ];
+ public const STATUSES=['brouillon'=>'Brouillon','en_cours'=>'En cours','en_attente'=>'En attente','valide'=>'Validé','termine'=>'Terminé','archive'=>'Archivé'];
  private function config(string $module):array {abort_unless(isset(self::MODULES[$module]),404);return self::MODULES[$module];}
  public function index(Request $request,string $module){
   $config=$this->config($module);
-  if (!Schema::hasTable('group_suite_records')) return view('gestion.suite-unavailable',['module'=>$module,'config'=>$config]);
+  if (!Schema::hasTable('group_suite_records') || !Schema::hasTable('group_suite_audit')) return view('gestion.suite-unavailable',['module'=>$module,'config'=>$config]);
   $query=GroupSuiteRecord::with('entity')->where('module',$module);
   if($request->filled('entity')){$request->validate(['entity'=>'integer|exists:group_entities,id']);$query->where('group_entity_id',$request->query('entity'));}
   if($request->filled('q')){$request->validate(['q'=>'string|max:100']);$q=$request->query('q');$query->where(fn($builder)=>$builder->where('title','like','%'.$q.'%')->orWhere('reference','like','%'.$q.'%'));}
-  return view('gestion.suite-index',['module'=>$module,'config'=>$config,'rows'=>$query->latest()->paginate(15)->withQueryString(),'entities'=>GroupEntity::orderBy('name')->get()]);
+  if($request->filled('status')){$request->validate(['status'=>Rule::in(array_keys(self::STATUSES))]);$query->where('status',$request->query('status'));}
+  $totals=(clone $query)->selectRaw('currency, COUNT(*) AS total, SUM(amount) AS amount_total')->groupBy('currency')->get();
+  return view('gestion.suite-index',['module'=>$module,'config'=>$config,'rows'=>$query->latest()->paginate(15)->withQueryString(),'entities'=>GroupEntity::orderBy('name')->get(),'totals'=>$totals]);
  }
  public function export(Request $request,string $module){
   $this->config($module);
@@ -51,7 +54,7 @@ class GroupSuiteController {
   return redirect()->route('gestion.suite.index',$module)->with('status','Enregistrement créé.');
  }
  public function update(Request $request,string $module,int $id){
-  $config=$this->config($module);$data=$this->validateData($request,$config);
+  $config=$this->config($module);$this->ensureReady();$data=$this->validateData($request,$config);
   DB::transaction(function()use($data,$module,$id,$request){
    $item=GroupSuiteRecord::where('module',$module)->findOrFail($id);$before=$item->toArray();
    $item->update($data+['updated_by'=>$request->user()->id]);$this->audit($request,'update',$item,$before);
@@ -67,7 +70,7 @@ class GroupSuiteController {
  }
  private function ensureReady():void {abort_unless(Schema::hasTable('group_suite_records') && Schema::hasTable('group_suite_audit'),503,'Module non installé : exécutez les migrations.');}
  private function validateData(Request $request,array $config):array {
-  $rules=['group_entity_id'=>'required|integer|exists:group_entities,id','title'=>'required|string|max:255','reference'=>'nullable|string|max:255','status'=>['required',Rule::in(['brouillon','en_cours','en_attente','valide','termine','archive'])],'record_date'=>'nullable|date','amount'=>'nullable|numeric|min:0','currency'=>['required',Rule::in(['USD','CDF','EUR'])],'location'=>'nullable|string|max:255','description'=>'nullable|string|max:5000'];
+  $rules=['group_entity_id'=>'required|integer|exists:group_entities,id','title'=>'required|string|max:255','reference'=>'nullable|string|max:255','status'=>['required',Rule::in(array_keys(self::STATUSES))],'record_date'=>'nullable|date','amount'=>'nullable|numeric|min:0','currency'=>['required',Rule::in(['USD','CDF','EUR'])],'location'=>'nullable|string|max:255','description'=>'nullable|string|max:5000'];
   foreach($config['fields'] as $field=>$label){$rules['details.'.$field]='nullable|string|max:255';}
   $data=$request->validate($rules);$data['details']=$data['details']??[];
   return $data;

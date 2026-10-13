@@ -1,0 +1,27 @@
+Options -Indexes
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Block direct access to private Laravel files and folders.
+RewriteRule ^(?:app|bootstrap|config|database|docs|resources|routes|storage|tests|vendor)(?:/|$) - [F,L,NC]
+RewriteRule ^(?:\.git|\.env|\.ht|artisan(?:$|/)|composer\.(?:json|lock)$|phpunit\.xml$|README(?:\.md)?$) - [F,L,NC]
+RewriteRule ^(?:public/)?(?:index\.php|\.htaccess)$ - [F,L,NC]
+
+# Allow Laravel front controller at the domain root only.
+RewriteRule ^$ index.php [L]
+
+# Serve public assets without exposing the Laravel project directories.
+RewriteCond %{DOCUMENT_ROOT}/public/$1 -f
+RewriteRule ^(.+)$ public/$1 [L]
+
+# Pass all other requests to Laravel.
+RewriteRule ^ index.php [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-Frame-Options "DENY"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

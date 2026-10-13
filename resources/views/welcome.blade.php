@@ -71,7 +71,7 @@
 @include('partials.cojuka-header')
 <main>
 <section id="accueil" class="hero" aria-labelledby="hero-title">
-<video class="cojuka-hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" poster="{{ asset('images/cojuka-hero-poster.jpg') }}"><source src="{{ asset('videos/cojuka-hero.mp4') }}" type="video/mp4"></video>
+@include('partials.cojuka-hero-carousel')
 <div class="container hero-content">
 <div class="eyebrow">COJUKA CONSTRUCTION · RDC</div>
 <h1 id="hero-title">Bâtir avec<br>vision.</h1>

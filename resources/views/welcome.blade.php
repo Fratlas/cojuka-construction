@@ -18,9 +18,49 @@
 .statement{min-height:620px;display:flex;align-items:center;background:linear-gradient(90deg,rgba(0,0,0,.65),rgba(0,0,0,.1)),url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=2000&q=85') center/cover;color:white}.statement h2{font-size:clamp(3rem,7vw,7rem);letter-spacing:-.07em;line-height:1.02;font-weight:720;max-width:900px}.feature-line{border-top:1px solid #dedee2;padding:1.7rem 0}.feature-number{color:#aaa;font-size:.9rem}.feature-title{font-size:1.4rem;font-weight:650;letter-spacing:-.035em}.feature-description{color:#74747a;line-height:1.7}.contact-section{background:#111214;color:#fff}.contact-section .muted{color:#b4b4b9}.contact-section h2{font-size:clamp(3.1rem,7vw,7rem);font-weight:720;letter-spacing:-.07em;line-height:1.05}.footer{background:#111214;color:#a6a6aa;border-top:1px solid #343438;font-size:.85rem}.footer a{color:#dedee0}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease}.reveal.visible{opacity:1;transform:none}
 @media(max-width:991px){.site-nav .nav-link{margin-left:0;padding:.8rem 0}.hero-content{padding-bottom:6rem}.hero h1{max-width:700px}.service-img{height:260px}}@media(max-width:575px){.hero{min-height:760px}.hero-content{padding-bottom:5rem}.hero h1{font-size:3.65rem}.statement{min-height:510px}.service-content{padding:1.5rem}.section-pad{padding:5rem 0}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.service-card,.btn-pill{transition:none}}
+
+/* Premium cinematic motion, with accessibility fallbacks */
+@keyframes heroReveal{from{opacity:0;transform:translateY(55px);filter:blur(10px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes softZoom{from{transform:scale(1.14)}to{transform:scale(1.015)}}
+@keyframes glowShift{0%,100%{opacity:.25;transform:translate(-20%,-10%)}50%{opacity:.55;transform:translate(15%,10%)}}
+@keyframes lineExpand{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes scrollCue{0%,100%{transform:translateY(0);opacity:.5}55%{transform:translateY(9px);opacity:1}}
+.hero:before{animation:softZoom 2.5s cubic-bezier(.2,.8,.2,1) both;will-change:transform}
+.hero-content>.eyebrow{animation:heroReveal .85s .15s both}
+.hero-content>h1{animation:heroReveal 1.1s .3s both}
+.hero-content>.hero-sub{animation:heroReveal 1.1s .5s both}
+.hero-content>.d-flex{animation:heroReveal 1s .72s both}
+.hero:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 75% 55%,rgba(120,175,255,.13),transparent 45%);animation:glowShift 12s ease-in-out infinite alternate}
+.hero-content{z-index:2}
+.site-nav{transition:box-shadow .3s,background .3s}
+.site-nav.is-scrolled{box-shadow:0 8px 35px rgba(0,0,0,.07);background:rgba(255,255,255,.94)}
+.nav-link{position:relative}
+.site-nav .nav-link:not(.nav-contact):after{content:"";position:absolute;bottom:4px;left:0;right:0;height:1px;background:#0066cc;transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.site-nav .nav-link:not(.nav-contact):hover:after{transform:scaleX(1)}
+.reveal{transition:opacity .95s cubic-bezier(.22,1,.36,1),transform .95s cubic-bezier(.22,1,.36,1)}
+.reveal[data-reveal="left"]{transform:translateX(-42px)}
+.reveal[data-reveal="right"]{transform:translateX(42px)}
+.reveal.visible{transform:translate(0,0)}
+.service-card{transform-style:preserve-3d;will-change:transform;transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s}
+.service-img{transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.service-card:hover .service-img{transform:scale(1.075)}
+.service-card:hover{box-shadow:0 28px 70px rgba(0,0,0,.12)}
+.feature-line{transition:padding-left .35s,background .35s}
+.feature-line:hover{padding-left:12px;background:rgba(0,102,204,.025)}
+.btn-pill{position:relative;overflow:hidden}
+.btn-pill:before{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.3) 50%,transparent 75%);transform:translateX(-150%);transition:transform .65s}
+.btn-pill:hover:before{transform:translateX(150%)}
+.statement{background-attachment:fixed}
+.progress-line{position:fixed;z-index:1050;top:0;left:0;height:3px;width:100%;background:#0066cc;transform:scaleX(0);transform-origin:left;pointer-events:none}
+.scroll-indicator{position:absolute;bottom:28px;right:max(5%,20px);z-index:3;font-size:11px;letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.8)}
+.scroll-indicator span{font-size:24px;animation:scrollCue 2s infinite}
+@media(max-width:767px){.statement{background-attachment:scroll}.service-card{will-change:auto}.hero:after{display:none}}
+@media(prefers-reduced-motion:reduce){.hero:before,.hero:after,.hero-content>.eyebrow,.hero-content>h1,.hero-content>.hero-sub,.hero-content>.d-flex,.scroll-indicator span{animation:none!important}.reveal,.reveal[data-reveal]{opacity:1!important;transform:none!important;transition:none!important}.service-img,.service-card,.btn-pill{transition:none!important}.statement{background-attachment:scroll}}
+
 </style>
 </head>
 <body>
+<div class="progress-line" id="readingProgress" aria-hidden="true"></div>
 <nav class="navbar navbar-expand-lg sticky-top site-nav" aria-label="Navigation principale">
 <div class="container">
 <a class="navbar-brand brand" href="#accueil" aria-label="COJUKA Construction, accueil">COJUKA<span class="brand-mark"></span></a>
@@ -40,7 +80,7 @@
 <h1 id="hero-title">Bâtir avec<br>vision.</h1>
 <p class="hero-sub mb-4">L'architecture et la construction pensées pour demain. Des idées ambitieuses, des espaces qui inspirent.</p>
 <div class="d-flex gap-3 flex-wrap"><a href="#expertises" class="btn-pill btn-white">Découvrir nos expertises <span aria-hidden="true">↗</span></a><a href="#apropos" class="btn-pill btn-outline-light-custom">Notre approche <span aria-hidden="true">↓</span></a></div>
-</div>
+</div><div class="scroll-indicator" aria-hidden="true">Défiler <span>↓</span></div>
 </section>
 <section id="apropos" class="section-pad">
 <div class="container">
@@ -72,6 +112,23 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script>
 (function(){const elements=document.querySelectorAll('.reveal');if(!('IntersectionObserver' in window)){elements.forEach(el=>el.classList.add('visible'));return;}const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}})},{threshold:.12});elements.forEach(el=>observer.observe(el));document.querySelectorAll('#mainNav .nav-link').forEach(link=>link.addEventListener('click',()=>{const nav=document.getElementById('mainNav');if(nav.classList.contains('show'))bootstrap.Collapse.getOrCreateInstance(nav).hide();}));})();
+
+(function(){
+ const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const progress=document.getElementById('readingProgress');
+ const nav=document.querySelector('.site-nav');
+ let ticking=false;
+ function updateScroll(){const max=document.documentElement.scrollHeight-window.innerHeight;const fraction=max>0?Math.min(1,window.scrollY/max):0;if(progress)progress.style.transform='scaleX('+fraction+')';if(nav)nav.classList.toggle('is-scrolled',window.scrollY>25);ticking=false;}
+ window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(updateScroll);ticking=true;}},{passive:true});updateScroll();
+ if(reduced)return;
+ const cards=document.querySelectorAll('.service-card');
+ if(window.matchMedia('(hover: hover) and (pointer: fine)').matches){
+  cards.forEach(card=>{
+   card.addEventListener('pointermove',event=>{const rect=card.getBoundingClientRect();const x=(event.clientX-rect.left)/rect.width-.5;const y=(event.clientY-rect.top)/rect.height-.5;card.style.transform='perspective(950px) rotateY('+(x*5)+'deg) rotateX('+(-y*5)+'deg) translateY(-5px)';});
+   card.addEventListener('pointerleave',()=>{card.style.transform='';});
+  });
+ }
+})();
 </script>
 </body>
 </html>

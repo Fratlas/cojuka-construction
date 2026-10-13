@@ -39,7 +39,7 @@
 <div id="mobileOverlay" class="mobile-overlay"></div>
 <div class="app-shell">
 <aside id="sideNav" class="sidebar" aria-label="Navigation de gestion">
- <div class="brand"><div class="brand-symbol">C</div><div><div class="brand-name">COJUKA GROUP</div><div class="brand-caption">EXECUTIVE SUITE</div></div></div>
+ <div class="brand">@include('partials.cojuka-logo', ['logoClass'=>'cojuka-brand-logo--small'])<div><div class="brand-name">COJUKA GROUP</div><div class="brand-caption">EXECUTIVE SUITE</div></div></div>
  <div class="nav-caption">Vue générale</div>
  <a class="side-link {{ request()->routeIs('gestion.group.dashboard') ? 'active' : '' }}" href="{{ route('gestion.group.dashboard') }}"><i class="bi bi-grid-1x2"></i> Tableau de bord</a>
  <a class="side-link {{ request()->is('gestion/entites*') ? 'active' : '' }}" href="{{ route('gestion.group.list', 'entites') }}"><i class="bi bi-buildings"></i> Sociétés & filiales</a>

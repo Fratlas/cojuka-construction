@@ -1,10 +1,12 @@
 <div class="cojuka-video-carousel" data-cojuka-video-carousel aria-label="Diaporama vidéo COJUKA">
   <video class="cojuka-carousel-video is-active" muted autoplay playsinline preload="metadata" aria-hidden="true"><source src="{{ asset('videos/cojuka-hero.mp4') }}" type="video/mp4"></video>
-  <video class="cojuka-carousel-video" muted playsinline preload="none" aria-hidden="true"><source src="{{ asset('videos/cojuka-hero-2.mp4') }}" type="video/mp4"></video>
+  <video class="cojuka-carousel-video" muted playsinline preload="metadata" aria-hidden="true"><source src="{{ asset('videos/cojuka-hero-2.mp4') }}" type="video/mp4"></video>
+  <video class="cojuka-carousel-video" muted playsinline preload="metadata" aria-hidden="true"><source src="{{ asset('videos/cojuka-hero-3.mp4') }}" type="video/mp4"></video>
 </div>
 <div class="cojuka-carousel-controls" role="group" aria-label="Choix de la vidéo">
     <button type="button" class="cojuka-carousel-dot is-active" data-video-index="0" aria-label="Afficher la vidéo 1" aria-pressed="true"></button>
     <button type="button" class="cojuka-carousel-dot" data-video-index="1" aria-label="Afficher la vidéo 2" aria-pressed="false"></button>
+    <button type="button" class="cojuka-carousel-dot" data-video-index="2" aria-label="Afficher la vidéo 3" aria-pressed="false"></button>
 </div>
 @once
 <style>
@@ -18,28 +20,44 @@
 @media(prefers-reduced-motion:reduce){.cojuka-video-carousel .cojuka-carousel-video{transition:none}.cojuka-carousel-controls{display:none}}
 </style>
 <script>
-document.addEventListener('DOMContentLoaded',function(){
- document.querySelectorAll('[data-cojuka-video-carousel]').forEach(function(root){
-  const videos=Array.from(root.querySelectorAll('video'));
-  const dots=Array.from(root.querySelectorAll('[data-video-index]'));
-  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let active=0;
-  function show(index){
-   if(reduced)return;
-   const previous=active;active=index;
-   videos.forEach((video,i)=>{video.classList.toggle('is-active',i===active);if(i!==active){video.pause();video.currentTime=0;}});
-   dots.forEach((dot,i)=>{dot.classList.toggle('is-active',i===active);dot.setAttribute('aria-pressed',String(i===active));});
-   const current=videos[active];current.load();current.play().catch(()=>{});
+document.addEventListener('DOMContentLoaded', function () {
+ document.querySelectorAll('[data-cojuka-video-carousel]').forEach(function (root) {
+  const videos = Array.from(root.querySelectorAll('video'));
+  const controls = root.parentElement.querySelector('.cojuka-carousel-controls');
+  const dots = controls ? Array.from(controls.querySelectorAll('[data-video-index]')) : [];
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let active = 0;
+  let switching = false;
+  function show(index) {
+   if (reduced || switching || index === active) return;
+   switching = true;
+   const old = videos[active];
+   const next = videos[index];
+   next.currentTime = 0;
+   const play = next.play();
+   if (play && typeof play.catch === 'function') play.catch(function () { advance(); });
+   next.classList.add('is-active');
+   old.classList.remove('is-active');
+   old.pause();
+   active = index;
+   dots.forEach((dot, i) => {
+    dot.classList.toggle('is-active', i === active);
+    dot.setAttribute('aria-pressed', String(i === active));
+   });
+   window.setTimeout(() => { old.currentTime = 0; switching = false; }, 850);
   }
-  videos.forEach((video,i)=>{
-   video.addEventListener('ended',()=>{if(i===active)show((i+1)%videos.length);});
-   video.addEventListener('error',()=>{if(i===active && !reduced)show((i+1)%videos.length);});
-   const source=video.querySelector('source');
-   if(source)source.addEventListener('error',()=>{if(i===active && !reduced)show((i+1)%videos.length);});
+  function advance() {
+   if (switching || reduced) return;
+   show((active + 1) % videos.length);
+  }
+  videos.forEach((video, i) => {
+   video.addEventListener('ended', () => { if (i === active) advance(); });
+   video.addEventListener('error', () => { if (i === active) advance(); });
   });
-  dots.forEach((dot,i)=>dot.addEventListener('click',()=>show(i)));
-  if(reduced){videos.forEach(v=>v.pause());return;}
-  videos[0].play().catch(()=>{});
+  dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)));
+  if (reduced) { videos.forEach(v => v.pause()); return; }
+  const start = videos[0].play();
+  if (start && typeof start.catch === 'function') start.catch(() => {});
  });
 });
 </script>

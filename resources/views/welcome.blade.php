@@ -68,35 +68,7 @@
 <body>
 @include('partials.cojuka-intro')
 <div class="progress-line" id="readingProgress" aria-hidden="true"></div>
-<nav class="navbar navbar-expand-lg sticky-top site-nav" aria-label="Navigation principale">
-<div class="container">
-<a class="navbar-brand brand" href="#accueil" aria-label="COJUKA Construction, accueil">@include('partials.cojuka-logo', ['logoClass'=>'cojuka-brand-logo--small'])</a>
-<button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Ouvrir le menu"><span class="navbar-toggler-icon"></span></button>
-<div class="collapse navbar-collapse" id="mainNav"><div class="navbar-nav ms-auto align-items-lg-center">
-<a class="nav-link" href="{{ route('group') }}">Le Groupe</a>
-<a class="nav-link" href="{{ route('group.portal') }}">Nos entités</a>
-<div class="nav-item dropdown">
-<a class="nav-link dropdown-toggle" href="#" id="filieresMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Toutes les filières</a>
-<ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="filieresMenu" style="max-height:70vh;overflow-y:auto">
-@foreach(['Construction','Logistique','Cargo','Génie','Éducation','Santé','Énergie','Investissement','Communication','Médical','Agro-industrie','Haute technologie','Médias','Matériel','Conseil'] as $filiere)
-<li><a class="dropdown-item" href="{{ route('group.portal') }}?secteur={{ urlencode($filiere) }}">{{ $filiere }}</a></li>
-@endforeach
-<li><hr class="dropdown-divider"></li>
-<li><a class="dropdown-item fw-bold" href="{{ route('group.portal') }}">Voir toutes les entités →</a></li>
-</ul></div>
-<a class="nav-link" href="#apropos">À propos</a>
-<a class="nav-link" href="#expertises">Expertises</a>
-<a class="nav-link" href="#vision">Notre vision</a>
-<a class="nav-link nav-contact" href="#contact">Nous contacter ↗</a>
-@auth
-<a class="nav-link" href="{{ url('/gestion') }}">Tableau de bord</a>
-<form method="POST" action="{{ route('logout') }}" class="ms-lg-2">@csrf<button type="submit" class="btn btn-sm btn-outline-secondary rounded-pill">Déconnexion</button></form>
-@else
-<a class="nav-link" href="{{ route('login') }}">Connexion</a>
-@endauth
-</div></div>
-</div>
-</nav>
+@include('partials.cojuka-header')
 <main>
 <section id="accueil" class="hero" aria-labelledby="hero-title">
 <video class="cojuka-hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" poster="{{ asset('images/cojuka-hero-poster.jpg') }}"><source src="{{ asset('videos/cojuka-hero.mp4') }}" type="video/mp4"></video>

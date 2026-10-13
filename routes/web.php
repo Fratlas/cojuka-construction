@@ -5,6 +5,7 @@ use App\Http\Controllers\GroupAdminController;
 use App\Http\Controllers\GroupLoginController;
 use App\Http\Controllers\GroupSuiteController;
 use App\Http\Controllers\GroupUsersController;
+use App\Http\Controllers\GroupImportController;
 Route::view('/', 'welcome')->name('home');
 Route::view('/groupe', 'group')->name('group');
 Route::get('/groupe/entites', [GroupPublicController::class, 'index'])->name('group.portal');
@@ -21,6 +22,8 @@ Route::middleware(['auth', 'group.admin'])->prefix('gestion')->name('gestion.')-
  Route::get('/', [GroupAdminController::class, 'dashboard'])->name('group.dashboard');
  Route::get('/utilisateurs', [GroupUsersController::class, 'index'])->name('users.index');
  Route::patch('/utilisateurs/{user}', [GroupUsersController::class, 'update'])->name('users.update');
+ Route::get('/import/{module}/modele', [GroupImportController::class, 'template'])->name('import.template');
+ Route::post('/import/{module}', [GroupImportController::class, 'import'])->middleware('throttle:5,1')->name('import.store');
  Route::get('/modules/{module}', [GroupSuiteController::class, 'index'])->name('suite.index');
  Route::get('/modules/{module}/historique', [GroupSuiteController::class, 'history'])->name('suite.history');
  Route::get('/modules/{module}/export', [GroupSuiteController::class, 'export'])->name('suite.export');

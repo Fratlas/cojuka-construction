@@ -34,6 +34,7 @@
 .page-content .text-secondary{color:#768397!important}
 @media(max-width:575px){.page-content{padding:19px 13px}.page-content h1{font-size:1.55rem}.topbar{padding:0 14px}.top-title{font-size:15px}.modal-body{padding:18px}.table{min-width:610px}}
 </style>
+@include('partials.cojuka-design')
 </head>
 <body>
 <div id="mobileOverlay" class="mobile-overlay"></div>

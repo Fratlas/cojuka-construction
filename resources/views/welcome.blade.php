@@ -63,7 +63,7 @@
 <div class="progress-line" id="readingProgress" aria-hidden="true"></div>
 <nav class="navbar navbar-expand-lg sticky-top site-nav" aria-label="Navigation principale">
 <div class="container">
-<a class="navbar-brand brand" href="#accueil" aria-label="COJUKA Construction, accueil">COJUKA<span class="brand-mark"></span></a>
+<a class="navbar-brand brand" href="#accueil" aria-label="COJUKA Construction, accueil"><img src="{{ asset('images/cojuka-logo.svg') }}" alt="COJUKA Construction" width="155" height="45" style="width:155px;height:45px;object-fit:contain;border-radius:4px"></a>
 <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Ouvrir le menu"><span class="navbar-toggler-icon"></span></button>
 <div class="collapse navbar-collapse" id="mainNav"><div class="navbar-nav ms-auto align-items-lg-center">
 <a class="nav-link" href="#apropos">À propos</a>

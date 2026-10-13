@@ -1,17 +1,17 @@
 <div class="cojuka-video-carousel" data-cojuka-video-carousel aria-label="Diaporama vidéo COJUKA">
   <video class="cojuka-carousel-video is-active" muted autoplay playsinline preload="metadata" aria-hidden="true"><source src="{{ asset('videos/cojuka-hero.mp4') }}" type="video/mp4"></video>
   <video class="cojuka-carousel-video" muted playsinline preload="none" aria-hidden="true"><source src="{{ asset('videos/cojuka-hero-2.mp4') }}" type="video/mp4"></video>
-  <div class="cojuka-carousel-controls" role="group" aria-label="Choix de la vidéo">
+</div>
+<div class="cojuka-carousel-controls" role="group" aria-label="Choix de la vidéo">
     <button type="button" class="cojuka-carousel-dot is-active" data-video-index="0" aria-label="Afficher la vidéo 1" aria-pressed="true"></button>
     <button type="button" class="cojuka-carousel-dot" data-video-index="1" aria-label="Afficher la vidéo 2" aria-pressed="false"></button>
-  </div>
 </div>
 @once
 <style>
 .cojuka-video-carousel{position:absolute;inset:0;overflow:hidden;z-index:0}
 .cojuka-video-carousel .cojuka-carousel-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease;pointer-events:none}
 .cojuka-video-carousel .cojuka-carousel-video.is-active{opacity:1}
-.cojuka-carousel-controls{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:5;display:flex;gap:12px;padding:10px 14px;border-radius:99px;background:rgba(0,0,0,.3)}
+.cojuka-carousel-controls{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:6;display:flex;gap:12px;padding:10px 14px;border-radius:99px;background:rgba(0,0,0,.3)}
 .cojuka-carousel-dot{width:12px;height:12px;padding:0;border:2px solid white;border-radius:50%;background:transparent;cursor:pointer}
 .cojuka-carousel-dot.is-active{background:white}
 .cojuka-carousel-dot:focus-visible{outline:3px solid #e8ba77;outline-offset:4px}

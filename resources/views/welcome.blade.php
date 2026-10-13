@@ -72,7 +72,15 @@
 <div class="collapse navbar-collapse" id="mainNav"><div class="navbar-nav ms-auto align-items-lg-center">
 <a class="nav-link" href="{{ route('group') }}">Le Groupe</a>
 <a class="nav-link" href="{{ route('group.portal') }}">Nos entités</a>
-<a class="nav-link" href="{{ route('group.portal') }}">Filiales & projets</a>
+<div class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href="#" id="filieresMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Toutes les filières</a>
+<ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="filieresMenu" style="max-height:70vh;overflow-y:auto">
+@foreach(['Construction','Logistique','Cargo','Génie','Éducation','Santé','Énergie','Investissement','Communication','Médical','Agro-industrie','Haute technologie','Médias','Matériel','Conseil'] as $filiere)
+<li><a class="dropdown-item" href="{{ route('group.portal') }}?secteur={{ urlencode($filiere) }}">{{ $filiere }}</a></li>
+@endforeach
+<li><hr class="dropdown-divider"></li>
+<li><a class="dropdown-item fw-bold" href="{{ route('group.portal') }}">Voir toutes les entités →</a></li>
+</ul></div>
 <a class="nav-link" href="#apropos">À propos</a>
 <a class="nav-link" href="#expertises">Expertises</a>
 <a class="nav-link" href="#vision">Notre vision</a>

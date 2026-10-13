@@ -19,6 +19,20 @@
 @media(max-width:1100px){.sidebar{width:245px;flex-basis:245px}.page-content{padding:26px}.topbar{padding:0 25px}}
 @media(max-width:900px){.sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%);transition:transform .25s;box-shadow:12px 0 35px #0002}.sidebar.open{transform:translateX(0)}.mobile-toggle{display:inline-flex}.mobile-overlay.show{display:block;position:fixed;inset:0;background:#0b152b9c;z-index:1030}.topbar{height:70px}.page-content{padding:23px 17px}.today-pill,.user-meta{display:none}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important}}
+
+/* COJUKA Executive UI refinements */
+.page-content>div:first-child h1{font-weight:800;letter-spacing:-.045em}
+.page-content>.card,.page-content>.row .card{transition:transform .2s ease,box-shadow .2s ease}
+.page-content>.row .card:hover{transform:translateY(-3px)}
+.table-responsive{border-radius:12px}
+.table tbody tr{transition:background-color .16s ease}
+.table tbody tr:hover{background:#f8fafc}
+.form-label{color:#3c4a5f;font-size:12px;letter-spacing:.01em}
+.modal-header{padding:24px 26px 18px}.modal-body{padding:22px 26px}.modal-footer{padding:16px 26px 24px}
+.btn:focus-visible,.side-link:focus-visible{outline:3px solid #c5a06b;outline-offset:2px}
+.page-content .display-5,.page-content .display-6{font-family:Manrope,sans-serif;letter-spacing:-.06em}
+.page-content .text-secondary{color:#768397!important}
+@media(max-width:575px){.page-content{padding:19px 13px}.page-content h1{font-size:1.55rem}.topbar{padding:0 14px}.top-title{font-size:15px}.modal-body{padding:18px}.table{min-width:610px}}
 </style>
 </head>
 <body>

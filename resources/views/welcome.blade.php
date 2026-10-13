@@ -61,6 +61,7 @@
 /* Interactive 3D construction showcase */
 .showcase-3d{background:#101216;color:#fff;overflow:hidden}.showcase-3d .section-kicker{color:#9bc7ff}.showcase-3d .muted{color:#b6bac2}.model-card{background:radial-gradient(ellipse at 50% 40%,#303b4b,#191d25 70%);border:1px solid #353b45;border-radius:24px;overflow:hidden;position:relative}.model-card canvas{display:block;width:100%;height:350px;touch-action:pan-y;cursor:grab}.model-card canvas:active{cursor:grabbing}.model-card .model-label{padding:20px 24px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}.model-label h3{font-size:1.35rem;letter-spacing:-.04em;font-weight:700;margin:0}.model-label p{font-size:.82rem;color:#b6bac2;margin:5px 0 0}.model-hint{font-size:.75rem;color:#b6bac2;white-space:nowrap}.model-fallback{display:grid;place-items:center;height:350px;font-size:5rem;color:#e3c28b;background:radial-gradient(circle,#344252,#151921)}@media(max-width:575px){.model-card canvas,.model-fallback{height:280px}.model-hint{display:none}}
 
+.cojuka-hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}.hero:before{z-index:1;background:linear-gradient(90deg,rgba(6,12,21,.72),rgba(6,12,21,.35) 65%,rgba(6,12,21,.25))!important;transform:none!important}.hero-content,.scroll-indicator{position:relative;z-index:3}.hero:after{z-index:2}@media(prefers-reduced-motion:reduce){.cojuka-hero-video{display:none}.hero:before{background:linear-gradient(90deg,rgba(6,12,21,.62),rgba(6,12,21,.28)),url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2200&q=85') center/cover no-repeat!important}}
 </style>
 @include('partials.cojuka-design')
 </head>
@@ -98,6 +99,7 @@
 </nav>
 <main>
 <section id="accueil" class="hero" aria-labelledby="hero-title">
+<video class="cojuka-hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" poster="{{ asset('images/cojuka-hero-poster.jpg') }}"><source src="{{ asset('videos/cojuka-hero.mp4') }}" type="video/mp4"></video>
 <div class="container hero-content">
 <div class="eyebrow">COJUKA CONSTRUCTION · RDC</div>
 <h1 id="hero-title">Bâtir avec<br>vision.</h1>

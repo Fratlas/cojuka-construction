@@ -1,1 +1,66 @@
-@extends('gestion.group-layout') @section('title','Tableau de bord') @section('content')<h1 class="h2 fw-bold mb-4">Vue d’ensemble du groupe</h1>@if(!$suiteReady)<div class="alert alert-warning"><strong>Installation incomplète :</strong> les modules opérationnels nécessitent la migration MySQL <code>group_suite_records</code>. Le tableau de bord principal reste disponible.</div>@endif<div class="row g-4 mb-5">@foreach([['Entités',$entities,'entites'],['Projets',$projects,'projets'],['Actifs',$assets,'actifs']] as $stat)<div class="col-md-4"><a href="{{ route('gestion.group.list',$stat[2]) }}" class="text-decoration-none text-dark"><div class="card border-0 shadow-sm rounded-4 p-4"><p class="text-secondary">{{ $stat[0] }}</p><div class="display-5 fw-bold">{{ $stat[1] }}</div></div></a></div>@endforeach</div><h2 class="h4">Projets récents</h2><div class="table-responsive bg-white rounded-4 p-3"><table class="table"><thead><tr><th>Projet</th><th>Entité</th><th>Statut</th></tr></thead><tbody>@forelse($recent as $project)<tr><td>{{ $project->title }}</td><td>{{ $project->entity?->name }}</td><td>{{ $project->status }}</td></tr>@empty<tr><td colspan="3">Aucun projet enregistré.</td></tr>@endforelse</tbody></table></div><h2 class="h4 mt-5 mb-4">Activités des directions et sociétés</h2><div class="row g-3">@foreach(\App\Http\Controllers\GroupSuiteController::MODULES as $slug=>$config)<div class="col-md-6 col-xl-3"><a href="{{ route('gestion.suite.index',$slug) }}" class="text-decoration-none text-dark"><div class="card h-100 border-0 shadow-sm p-4"><p class="small text-secondary">{{ $config['label'] }}</p><div class="display-6 fw-bold">{{ $suiteStats[$slug] ?? 0 }}</div><span class="small text-primary">Ouvrir le module →</span></div></a></div>@endforeach</div>@endsection
+@extends('gestion.group-layout')
+@section('title', 'Tableau de bord')
+@section('content')
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <p class="text-uppercase text-secondary small fw-bold mb-1">Direction générale · COJUKA Group</p>
+        <h1 class="h2 fw-bold mb-0">Tableau de bord</h1>
+        <p class="text-secondary mt-2 mb-0">Vue consolidée des filiales, projets et activités du groupe.</p>
+    </div>
+    <a class="btn btn-dark rounded-pill px-4" href="{{ route('gestion.group.list', 'projets') }}">Gérer les projets →</a>
+</div>
+@if(!$suiteReady)
+    <div class="alert alert-warning border-0 rounded-4" role="alert">
+        <strong>Configuration en attente :</strong> les modules opérationnels nécessitent la création des tables MySQL. Le suivi des entités, projets et actifs reste accessible.
+    </div>
+@endif
+<div class="row g-3 mb-5">
+    @foreach([['Entités du groupe', $entities, 'entites'], ['Projets enregistrés', $projects, 'projets'], ['Actifs suivis', $assets, 'actifs']] as $stat)
+        <div class="col-md-4">
+            <a class="text-decoration-none text-dark" href="{{ route('gestion.group.list', $stat[2]) }}">
+                <div class="card border-0 shadow-sm h-100 p-4">
+                    <p class="text-secondary mb-3">{{ $stat[0] }}</p>
+                    <div class="display-5 fw-bold">{{ $stat[1] }}</div>
+                    <span class="text-primary small mt-3">Consulter →</span>
+                </div>
+            </a>
+        </div>
+    @endforeach
+</div>
+<h2 class="h4 fw-bold mb-3">Directions et opérations</h2>
+<div class="row g-3 mb-5">
+    @foreach(\App\Http\Controllers\GroupSuiteController::MODULES as $slug => $config)
+        <div class="col-sm-6 col-xl-3">
+            <a href="{{ route('gestion.suite.index', $slug) }}" class="text-decoration-none text-dark">
+                <div class="card h-100 border-0 shadow-sm p-4">
+                    <div class="d-flex justify-content-between align-items-start gap-2">
+                        <p class="fw-semibold mb-3">{{ $config['label'] }}</p>
+                        <span class="badge {{ $suiteReady ? 'bg-light text-dark' : 'bg-warning text-dark' }}">{{ $suiteReady ? 'Actif' : 'À installer' }}</span>
+                    </div>
+                    <div class="display-6 fw-bold">{{ $suiteStats[$slug] ?? 0 }}</div>
+                    <span class="text-primary small mt-3">Ouvrir le module →</span>
+                </div>
+            </a>
+        </div>
+    @endforeach
+</div>
+<h2 class="h4 fw-bold mb-3">Projets récents</h2>
+<div class="card border-0 shadow-sm p-3">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead><tr><th>Projet</th><th>Filiale</th><th>Statut</th></tr></thead>
+            <tbody>
+                @forelse($recent as $project)
+                    <tr>
+                        <td class="fw-semibold">{{ $project->title }}</td>
+                        <td>{{ $project->entity?->name ?? 'Non renseignée' }}</td>
+                        <td><span class="badge bg-secondary">{{ str_replace('_', ' ', $project->status) }}</span></td>
+                    </tr>
+                @empty
+                    <tr><td colspan="3" class="text-center text-secondary py-4">Aucun projet enregistré.</td></tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</div>
+@endsection

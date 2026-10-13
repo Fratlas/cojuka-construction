@@ -3,10 +3,11 @@ namespace App\Http\Controllers;
 use App\Models\GroupEntity;
 use App\Models\GroupProject;
 use App\Models\GroupAsset;
+use App\Models\GroupSuiteRecord;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 class GroupAdminController {
- public function dashboard(){return view('gestion.group-dashboard',['entities'=>GroupEntity::count(),'projects'=>GroupProject::count(),'assets'=>GroupAsset::count(),'recent'=>GroupProject::with('entity')->latest()->limit(7)->get()]);}
+ public function dashboard(){return view('gestion.group-dashboard',['entities'=>GroupEntity::count(),'projects'=>GroupProject::count(),'assets'=>GroupAsset::count(),'recent'=>GroupProject::with('entity')->latest()->limit(7)->get(),'suiteStats'=>GroupSuiteRecord::selectRaw('module, count(*) as total')->groupBy('module')->pluck('total','module')->all()]);}
  public function listing(string $module){$model=$this->model($module);return view('gestion.group-list',['module'=>$module,'rows'=>$model::latest()->paginate(15),'entities'=>GroupEntity::orderBy('name')->get()]);}
  public function save(Request $r,string $module){$model=$this->model($module);$data=$this->validated($r,$module);$model::create($data);return back()->with('status','Enregistrement créé.');}
  public function edit(Request $r,string $module,int $id){$model=$this->model($module);$item=$model::findOrFail($id);$item->update($this->validated($r,$module,$id));return back()->with('status','Enregistrement mis à jour.');}

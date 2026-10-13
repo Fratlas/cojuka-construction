@@ -1,0 +1,12 @@
+<div class="row g-3">
+<div class="col-md-6"><label class="form-label">Société *</label><select name="group_entity_id" class="form-select" required><option value="">Sélectionner</option>@foreach($entities as $entity)<option value="{{ $entity->id }}" @selected($record?->group_entity_id==$entity->id)>{{ $entity->name }}</option>@endforeach</select></div>
+<div class="col-md-6"><label class="form-label">Intitulé *</label><input name="title" required maxlength="255" class="form-control" value="{{ $record?->title }}"></div>
+<div class="col-md-6"><label class="form-label">Référence</label><input name="reference" class="form-control" value="{{ $record?->reference }}"></div>
+<div class="col-md-6"><label class="form-label">Statut *</label><select name="status" class="form-select">@foreach(['brouillon'=>'Brouillon','en_cours'=>'En cours','en_attente'=>'En attente','valide'=>'Validé','termine'=>'Terminé','archive'=>'Archivé'] as $key=>$label)<option value="{{ $key }}" @selected(($record?->status ?? 'brouillon')===$key)>{{ $label }}</option>@endforeach</select></div>
+<div class="col-md-4"><label class="form-label">Date</label><input type="date" name="record_date" class="form-control" value="{{ $record?->record_date?->format('Y-m-d') }}"></div>
+<div class="col-md-4"><label class="form-label">Montant</label><input type="number" min="0" step="0.01" name="amount" class="form-control" value="{{ $record?->amount }}"></div>
+<div class="col-md-4"><label class="form-label">Devise</label><select name="currency" class="form-select">@foreach(['USD','CDF','EUR'] as $currency)<option value="{{ $currency }}" @selected(($record?->currency ?? 'USD')===$currency)>{{ $currency }}</option>@endforeach</select></div>
+<div class="col-12"><label class="form-label">Localisation</label><input name="location" class="form-control" value="{{ $record?->location }}"></div>
+@foreach($config['fields'] as $key=>$label)<div class="col-md-6"><label class="form-label">{{ $label }}</label><input name="details[{{ $key }}]" class="form-control" maxlength="255" value="{{ data_get($record?->details,$key) }}"></div>@endforeach
+<div class="col-12"><label class="form-label">Description / observations</label><textarea name="description" class="form-control" rows="4">{{ $record?->description }}</textarea></div>
+</div>

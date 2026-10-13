@@ -57,6 +57,10 @@
 @media(max-width:767px){.statement{background-attachment:scroll}.service-card{will-change:auto}.hero:after{display:none}}
 @media(prefers-reduced-motion:reduce){.hero:before,.hero:after,.hero-content>.eyebrow,.hero-content>h1,.hero-content>.hero-sub,.hero-content>.d-flex,.scroll-indicator span{animation:none!important}.reveal,.reveal[data-reveal]{opacity:1!important;transform:none!important;transition:none!important}.service-img,.service-card,.btn-pill{transition:none!important}.statement{background-attachment:scroll}}
 
+
+/* Interactive 3D construction showcase */
+.showcase-3d{background:#101216;color:#fff;overflow:hidden}.showcase-3d .section-kicker{color:#9bc7ff}.showcase-3d .muted{color:#b6bac2}.model-card{background:radial-gradient(ellipse at 50% 40%,#303b4b,#191d25 70%);border:1px solid #353b45;border-radius:24px;overflow:hidden;position:relative}.model-card canvas{display:block;width:100%;height:350px;touch-action:pan-y;cursor:grab}.model-card canvas:active{cursor:grabbing}.model-card .model-label{padding:20px 24px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}.model-label h3{font-size:1.35rem;letter-spacing:-.04em;font-weight:700;margin:0}.model-label p{font-size:.82rem;color:#b6bac2;margin:5px 0 0}.model-hint{font-size:.75rem;color:#b6bac2;white-space:nowrap}.model-fallback{display:grid;place-items:center;height:350px;font-size:5rem;color:#e3c28b;background:radial-gradient(circle,#344252,#151921)}@media(max-width:575px){.model-card canvas,.model-fallback{height:280px}.model-hint{display:none}}
+
 </style>
 </head>
 <body>
@@ -100,6 +104,15 @@
 </div>
 </div>
 </section>
+
+<section id="modeles-3d" class="section-pad showcase-3d">
+<div class="container">
+<div class="row align-items-end g-4 mb-5"><div class="col-lg-8 reveal"><div class="section-kicker mb-3">EXPÉRIENCE INTERACTIVE</div><h2 class="display-heading">La construction<br>prend vie en 3D.</h2></div><div class="col-lg-4 reveal"><p class="muted fs-5 mb-0">Explorez nos univers en trois dimensions. Faites glisser pour observer les détails sous tous les angles.</p></div></div>
+<div class="row g-4">
+<div class="col-lg-6 reveal"><article class="model-card"><div id="tractor-model" class="model-fallback" role="img" aria-label="Modèle 3D interactif d'un tracteur de chantier">🚜</div><div class="model-label"><div><h3>Engins de chantier</h3><p>Tracteur 3D animé · modèle conceptuel</p></div><span class="model-hint">↔ Glisser pour tourner</span></div></article></div>
+<div class="col-lg-6 reveal"><article class="model-card"><div id="house-model" class="model-fallback" role="img" aria-label="Modèle 3D interactif d'une maison moderne">⌂</div><div class="model-label"><div><h3>Architecture résidentielle</h3><p>Maison contemporaine · modèle conceptuel</p></div><span class="model-hint">↔ Glisser pour tourner</span></div></article></div>
+</div><p class="small mt-4 muted">Visualisations conceptuelles non contractuelles. Les modèles ne représentent pas des réalisations spécifiques de COJUKA.</p>
+</div></section>
 <section id="vision" class="statement"><div class="container reveal"><div class="eyebrow mb-4">03 / NOTRE VISION</div><h2>Le futur prend forme aujourd'hui.</h2><p class="fs-5 mt-4" style="max-width:600px;color:rgba(255,255,255,.85)">Chaque espace peut devenir une nouvelle façon de vivre, de travailler et d'imaginer demain.</p></div></section>
 <section class="section-pad"><div class="container"><div class="row g-5"><div class="col-lg-5 reveal"><div class="section-kicker mb-3">NOTRE APPROCHE</div><h2 class="display-heading">Chaque détail compte.</h2></div><div class="col-lg-7 reveal">
 <div class="feature-line row g-3"><div class="col-2 feature-number">01</div><div class="col-10"><h3 class="feature-title">Écouter et comprendre</h3><p class="feature-description mb-0">Prendre le temps de saisir les besoins et les ambitions derrière chaque projet.</p></div></div>
@@ -129,6 +142,62 @@
   });
  }
 })();
+</script>
+
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js';
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const mobile=window.matchMedia('(max-width: 650px)').matches;
+function setup(id,build){
+ const root=document.getElementById(id);if(!root)return;
+ const scene=new THREE.Scene();
+ const camera=new THREE.PerspectiveCamera(36,1,.1,100);camera.position.set(7,5.2,8.5);camera.lookAt(0,.9,0);
+ const renderer=new THREE.WebGLRenderer({antialias:!mobile,alpha:true,powerPreference:'low-power'});
+ renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));renderer.outputColorSpace=THREE.SRGBColorSpace;
+ renderer.shadowMap.enabled=!mobile;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+ root.textContent='';root.classList.remove('model-fallback');root.appendChild(renderer.domElement);
+ const ambient=new THREE.HemisphereLight(0xe9f2ff,0x364254,2.3);scene.add(ambient);
+ const sun=new THREE.DirectionalLight(0xfff4dc,3.3);sun.position.set(5,9,6);sun.castShadow=!mobile;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-10;sun.shadow.camera.right=10;sun.shadow.camera.top=10;sun.shadow.camera.bottom=-10;scene.add(sun);
+ const group=new THREE.Group();scene.add(group);
+ const mat=(color,metalness=0,roughness=.55)=>new THREE.MeshStandardMaterial({color,metalness,roughness});
+ const addBox=(parent,w,h,d,x,y,z,material)=>{const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o};
+ const addCylinder=(parent,r,depth,x,y,z,material,axis='z')=>{const o=new THREE.Mesh(new THREE.CylinderGeometry(r,r,depth,24),material);o.position.set(x,y,z);if(axis==='z')o.rotation.x=Math.PI/2;o.castShadow=true;parent.add(o);return o};
+ const floor=new THREE.Mesh(new THREE.CylinderGeometry(4.3,4.3,.14,64),mat(0x283342,.12,.8));floor.position.y=-.14;floor.receiveShadow=true;scene.add(floor);
+ build({group,mat,addBox,addCylinder,THREE});
+ let dragging=false,last=0,target=.35,rotation=.35,visible=true,frame=0;
+ const canvas=renderer.domElement;
+ canvas.addEventListener('pointerdown',e=>{dragging=true;last=e.clientX;canvas.setPointerCapture(e.pointerId)});
+ canvas.addEventListener('pointermove',e=>{if(!dragging)return;target+=(e.clientX-last)*.009;last=e.clientX});
+ canvas.addEventListener('pointerup',()=>dragging=false);canvas.addEventListener('pointercancel',()=>dragging=false);
+ function resize(){const w=root.clientWidth,h=mobile?280:350;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()}
+ const ro=new ResizeObserver(resize);ro.observe(root);resize();
+ const io=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting},{threshold:.05});io.observe(root);
+ function tick(){frame=requestAnimationFrame(tick);if(!visible||document.hidden)return;if(!reduce&&!dragging)target+=.002;rotation+=(target-rotation)*.09;group.rotation.y=rotation;renderer.render(scene,camera)}
+ tick();
+ window.addEventListener('pagehide',()=>{cancelAnimationFrame(frame);ro.disconnect();io.disconnect();renderer.dispose()},{once:true});
+}
+try{
+setup('tractor-model',({group,mat,addBox,addCylinder})=>{
+ const yellow=mat(0xe3a828,.28,.32),dark=mat(0x242b34,.12,.65),glass=mat(0x78b7cf,.45,.22),rim=mat(0x8d969e,.75,.3),light=mat(0xffe8ae);
+ addBox(group,3.3,.7,1.5,0,1.2,0,yellow);addBox(group,1.55,.6,1.45,-.85,1.75,0,yellow);
+ addBox(group,1.25,1.35,1.3,.75,2.18,0,dark);addBox(group,1.16,.93,.08,.75,2.25,.69,glass);addBox(group,1.16,.93,.08,.75,2.25,-.69,glass);
+ addBox(group,.08,.9,1.13,.09,2.25,0,glass);addBox(group,.08,.9,1.13,1.41,2.25,0,glass);
+ addBox(group,.4,.16,1.55,-1.75,1.35,0,dark);
+ for(const x of [-1.15,1.1])for(const z of [-.89,.89]){const r=x<0?.56:.73;addCylinder(group,r,.27,x,r+.1,z,dark);addCylinder(group,r*.48,.3,x,r+.1,z+(z>0?.025:-.025),rim)}
+ addBox(group,.2,.22,.25,-1.8,1.8,.48,light);addBox(group,.2,.22,.25,-1.8,1.8,-.48,light);
+ addBox(group,.15,.8,.15,-.75,2.12,-.46,dark);
+});
+setup('house-model',({group,mat,addBox,THREE})=>{
+ const white=mat(0xe9e9e5,.04,.62),stone=mat(0xb3a99c,.08,.8),glass=mat(0x4b879d,.45,.19),frame=mat(0x252b30,.6,.35),wood=mat(0x9e6d45,.1,.7),green=mat(0x4d7250);
+ addBox(group,3.9,1.9,2.8,0,1.05,0,white);addBox(group,2.4,1.6,2.3,-.6,2.78,-.1,white);
+ addBox(group,4.4,.19,3.2,0,2.06,0,frame);addBox(group,2.65,.2,2.6,-.6,3.64,-.1,frame);
+ addBox(group,1.6,1.32,.07,-.55,2.78,1.08,glass);addBox(group,.08,1.32,.1,-.55,2.78,1.14,frame);
+ addBox(group,1.45,1.5,.07,1,1.15,1.44,glass);addBox(group,.08,1.5,.1,1,1.15,1.49,frame);
+ addBox(group,.72,1.5,.08,-1.32,1.15,1.44,wood);addBox(group,1.3,.12,2.6,1.5,.3,.15,stone);
+ addBox(group,4.6,.12,3.6,0,.03,0,stone);
+ for(const x of [-1.8,1.9]){addBox(group,.55,.45,.55,x,.29,1.4,green)}
+});
+}catch(e){console.warn('3D preview unavailable',e)}
 </script>
 </body>
 </html>

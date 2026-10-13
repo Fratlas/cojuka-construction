@@ -22,6 +22,7 @@ Route::middleware(['auth', 'group.admin'])->prefix('gestion')->name('gestion.')-
  Route::get('/utilisateurs', [GroupUsersController::class, 'index'])->name('users.index');
  Route::patch('/utilisateurs/{user}', [GroupUsersController::class, 'update'])->name('users.update');
  Route::get('/modules/{module}', [GroupSuiteController::class, 'index'])->name('suite.index');
+ Route::get('/modules/{module}/export', [GroupSuiteController::class, 'export'])->name('suite.export');
  Route::post('/modules/{module}', [GroupSuiteController::class, 'store'])->name('suite.store');
  Route::put('/modules/{module}/{id}', [GroupSuiteController::class, 'update'])->name('suite.update');
  Route::delete('/modules/{module}/{id}', [GroupSuiteController::class, 'destroy'])->name('suite.destroy');

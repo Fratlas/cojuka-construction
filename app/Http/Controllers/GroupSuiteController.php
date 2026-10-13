@@ -26,6 +26,19 @@ class GroupSuiteController {
   if($request->filled('q')){$request->validate(['q'=>'string|max:100']);$q=$request->query('q');$query->where(fn($builder)=>$builder->where('title','like','%'.$q.'%')->orWhere('reference','like','%'.$q.'%'));}
   return view('gestion.suite-index',['module'=>$module,'config'=>$config,'rows'=>$query->latest()->paginate(15)->withQueryString(),'entities'=>GroupEntity::orderBy('name')->get()]);
  }
+ public function export(Request $request,string $module){
+  $this->config($module);
+  $records=GroupSuiteRecord::with('entity')->where('module',$module)->orderBy('id')->cursor();
+  return response()->streamDownload(function()use($records){
+   $out=fopen('php://output','w');fwrite($out,"\xEF\xBB\xBF");
+   fputcsv($out,['ID','Société','Titre','Référence','Statut','Date','Montant','Devise','Localisation','Description'],';');
+   foreach($records as $item){
+    $clean=fn($value)=>preg_replace('/^[\x00-\x20]*([=+@\-])/u',"'$1",(string)($value??''));
+    fputcsv($out,[$item->id,$clean($item->entity?->name),$clean($item->title),$clean($item->reference),$item->status,$item->record_date?->format('Y-m-d'),$item->amount,$item->currency,$clean($item->location),$clean($item->description)],';');
+   }
+   fclose($out);
+  },'cojuka-'.$module.'-'.now()->format('Ymd').'.csv',['Content-Type'=>'text/csv; charset=UTF-8']);
+ }
  public function store(Request $request,string $module){
   $config=$this->config($module);$data=$this->validateData($request,$config);
   DB::transaction(function()use($data,$module,$request){

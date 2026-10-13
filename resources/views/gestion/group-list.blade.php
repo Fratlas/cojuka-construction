@@ -7,7 +7,7 @@
   <h1 class="h2 fw-bold mb-1">{{ ucfirst($module) }}</h1>
   <p class="text-secondary mb-0">Consultez et gérez les enregistrements de votre organisation.</p>
  </div>
- <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-plus-lg me-2"></i>Ajouter</button>
+ <div class="d-flex gap-2 flex-wrap"><button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#importModal"><i class="bi bi-cloud-arrow-up me-2"></i>Importer CSV</button><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-plus-lg me-2"></i>Ajouter</button></div>
 </div>
 <div class="card p-3 p-md-4">
  <div class="d-flex justify-content-between align-items-center mb-3">
@@ -62,6 +62,22 @@
    <div class="modal-header"><h5 class="modal-title">Nouvel enregistrement — {{ ucfirst($module) }}</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button></div>
    <div class="modal-body">@include('gestion.group-fields', ['item' => null])</div>
    <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuler</button><button type="submit" class="btn btn-dark">Créer</button></div>
+  </form>
+ </div>
+</div>
+<div class="modal fade" id="importModal" tabindex="-1" aria-hidden="true">
+ <div class="modal-dialog modal-dialog-centered">
+  <form method="post" enctype="multipart/form-data" action="{{ route('gestion.import.store', $module) }}" class="modal-content">
+   @csrf
+   <div class="modal-header border-0 pb-0"><h5 class="modal-title fw-bold"><i class="bi bi-cloud-arrow-up me-2"></i>Importer des données</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button></div>
+   <div class="modal-body">
+    <p class="text-secondary">Téléchargez le modèle CSV, remplissez-le avec vos données puis importez-le ici. Maximum 500 lignes et 2 Mo.</p>
+    <a class="btn btn-outline-dark mb-4" href="{{ route('gestion.import.template', $module) }}"><i class="bi bi-filetype-csv me-2"></i>Télécharger le modèle CSV</a>
+    <label for="importFile" class="form-label fw-semibold">Fichier CSV (.csv)</label>
+    <input id="importFile" type="file" name="file" class="form-control" accept=".csv,.txt,text/csv" required>
+    <p class="small text-secondary mt-2 mb-0">Séparateur « ; » recommandé. Les identifiants de filiale doivent correspondre aux filiales existantes. L'import ne remplace pas les données existantes.</p>
+   </div>
+   <div class="modal-footer border-0 pt-0"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuler</button><button class="btn btn-dark" type="submit">Importer les données</button></div>
   </form>
  </div>
 </div>

@@ -12,9 +12,15 @@
         <button type="button" class="btn btn-dark rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#newItem">+ Ajouter</button>
     </div>
 </div>
+<div class="row g-3 mb-4">
+    <div class="col-md-4"><div class="card border-0 shadow-sm p-3 h-100"><div class="small text-secondary">Enregistrements filtrés</div><div class="h3 mb-0">{{ $totals->sum('total') }}</div></div></div>
+    @foreach($totals as $total)
+        <div class="col-md-4"><div class="card border-0 shadow-sm p-3 h-100"><div class="small text-secondary">Total {{ $total->currency }} (données filtrées)</div><div class="h3 mb-0">{{ number_format((float) $total->amount_total, 2, ',', ' ') }} {{ $total->currency }}</div></div></div>
+    @endforeach
+</div>
 <form method="get" class="row g-2 mb-4">
-    <div class="col-md-5"><input class="form-control" name="q" maxlength="100" value="{{ request('q') }}" placeholder="Titre ou référence"></div>
-    <div class="col-md-4">
+    <div class="col-md-4"><input class="form-control" name="q" maxlength="100" value="{{ request('q') }}" placeholder="Titre ou référence"></div>
+    <div class="col-md-3">
         <select class="form-select" name="entity">
             <option value="">Toutes les filiales</option>
             @foreach($entities as $entity)
@@ -22,7 +28,8 @@
             @endforeach
         </select>
     </div>
-    <div class="col-md-3"><button class="btn btn-outline-dark w-100">Rechercher</button></div>
+    <div class="col-md-3"><select class="form-select" name="status"><option value="">Tous les statuts</option>@foreach(\App\Http\Controllers\GroupSuiteController::STATUSES as $key=>$label)<option value="{{ $key }}" @selected(request('status')===$key)>{{ $label }}</option>@endforeach</select></div>
+    <div class="col-md-2"><button class="btn btn-outline-dark w-100">Filtrer</button></div>
 </form>
 <div class="card border-0 shadow-sm p-3">
     <div class="table-responsive">

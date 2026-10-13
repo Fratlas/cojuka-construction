@@ -1,12 +1,22 @@
-# Installation locale
+# Installation COJUKA Construction sur Hostinger
 
-Ce dépôt est destiné à une application Laravel 13 avec Bootstrap 5 et MySQL.
+Ce projet utilise Laravel 13, Blade, Bootstrap 5 par CDN et MySQL. Aucun Node.js, npm ou Vite n'est nécessaire.
 
-1. Installer PHP et Composer, puis créer une application Laravel 13 dans un dossier local distinct.
-2. Copier les fichiers de ce dépôt dans cette application en conservant les fichiers Laravel générés.
-3. Exécuter `composer install`.
-4. Copier `.env.example` vers `.env`, configurer MySQL, puis lancer `php artisan key:generate`.
-5. Créer la base `cojuka_construction`, puis exécuter `php artisan migrate`.
-6. Lancer `php artisan serve`.
+## Prérequis
+- Hébergement avec PHP 8.3 ou supérieur et les extensions requises par Laravel 13
+- Composer (sur le serveur ou sur une machine locale)
+- Base MySQL
 
-Les dépendances `vendor` et `node_modules` ne sont pas versionnées. Ne jamais publier le fichier `.env`.
+## Installation
+1. Cloner ou télécharger le dépôt.
+2. Exécuter `composer install --no-dev --optimize-autoloader` dans la racine du projet.
+3. Copier `.env.example` vers `.env` et configurer `APP_URL`, `DB_HOST`, `DB_DATABASE`, `DB_USERNAME` et `DB_PASSWORD`.
+4. Exécuter `php artisan key:generate`.
+5. Exécuter `php artisan migrate --force` après avoir sauvegardé la base de données si nécessaire.
+6. Configurer le domaine pour pointer vers le dossier `public/` de Laravel.
+7. Vérifier les permissions d'écriture de `storage/` et `bootstrap/cache/`.
+8. En production, définir `APP_ENV=production` et `APP_DEBUG=false`.
+
+**Sécurité :** ne jamais placer le fichier `.env` ni la racine Laravel dans un dossier accessible publiquement. Si Hostinger ne permet pas de modifier la racine web vers `public/`, adapter le déploiement selon les options de l'hébergement sans exposer les fichiers sensibles.
+
+Bootstrap est chargé par CDN dans la vue Blade. Les dépendances PHP restent nécessaires via Composer.

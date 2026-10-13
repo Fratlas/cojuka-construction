@@ -24,7 +24,7 @@
 <div id="cojuka-intro" role="status" aria-label="Bienvenue chez COJUKA" aria-live="off">
  <div class="ci-glow" aria-hidden="true"></div>
  <div class="ci-stage">
-  <div class="ci-symbol" aria-hidden="true"><div class="ci-globe"></div><div class="ci-arc ci-top"></div><div class="ci-arc ci-bottom"></div><div class="ci-arc ci-left"></div><div class="ci-arc ci-right"></div></div>
+  <div class="mb-4">@include('partials.cojuka-logo', ['logoClass'=>'cojuka-brand-logo--large'])</div>
   <div class="ci-name">COJUKA</div>
   <div class="ci-caption">CONSULTING GROUP · CONSTRUCTION</div>
   <div class="ci-line"></div>

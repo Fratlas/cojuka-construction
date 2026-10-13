@@ -8,6 +8,8 @@ Route::view('/groupe', 'group')->name('group');
 Route::get('/groupe/entites', [GroupPublicController::class, 'index'])->name('group.portal');
 Route::get('/groupe/entites/{slug}', [GroupPublicController::class, 'entity'])->name('group.entity');
 Route::middleware('guest')->group(function () {
+ Route::get('/inscription', [GroupLoginController::class, 'registerForm'])->name('register');
+ Route::post('/inscription', [GroupLoginController::class, 'register'])->middleware('throttle:5,1')->name('register.submit');
  Route::get('/connexion', [GroupLoginController::class, 'form'])->name('login');
  Route::post('/connexion', [GroupLoginController::class, 'login'])->middleware('throttle:5,1')->name('login.submit');
 });

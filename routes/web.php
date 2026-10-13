@@ -14,6 +14,7 @@ Route::middleware('guest')->group(function () {
  Route::get('/connexion', [GroupLoginController::class, 'form'])->name('login');
  Route::post('/connexion', [GroupLoginController::class, 'login'])->middleware('throttle:5,1')->name('login.submit');
 });
+Route::get('/compte-en-attente', [GroupLoginController::class, 'pending'])->middleware('auth')->name('account.pending');
 Route::post('/deconnexion', [GroupLoginController::class, 'logout'])->middleware('auth')->name('logout');
 Route::middleware(['auth', 'group.admin'])->prefix('gestion')->name('gestion.')->group(function () {
  Route::get('/', [GroupAdminController::class, 'dashboard'])->name('group.dashboard');

@@ -8,6 +8,7 @@
         <p class="text-secondary mt-2 mb-0">Enregistrements, suivi et opérations par filiale.</p>
     </div>
     <div class="d-flex gap-2">
+        <a class="btn btn-outline-secondary rounded-pill" href="{{ route('gestion.suite.history', $module) }}">Historique</a>
         <a class="btn btn-outline-dark rounded-pill" href="{{ route('gestion.suite.export', $module) }}">Exporter CSV</a>
         <button type="button" class="btn btn-dark rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#newItem">+ Ajouter</button>
     </div>

@@ -1,62 +1,84 @@
 <!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Tableau de bord') — COJUKA Gestion</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background: #f4f5f8; font-family: system-ui, sans-serif; }
-        .sidebar { background: #141923; color: white; min-height: 100vh; }
-        .sidebar a { display: block; color: #d3d5dc; text-decoration: none; padding: 12px 14px; border-radius: 12px; }
-        .sidebar a:hover, .sidebar a.active { background: #ffffff20; color: white; }
-        .card { border-radius: 20px; }
-        main { padding: 35px; }
-        @media(max-width: 991px) { .sidebar { min-height: auto; } main { padding: 20px; } }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<title>@yield('title', 'Direction générale') — COJUKA Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<style>
+:root{--navy:#101a2a;--navy2:#172337;--ink:#142139;--muted:#758095;--line:#e8edf3;--accent:#b98a54;--bg:#f5f7fa}
+*{box-sizing:border-box}body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);margin:0;font-size:14px}h1,h2,h3,h4,h5{font-family:Manrope,sans-serif;letter-spacing:-.035em}a{text-decoration:none}
+.app-shell{display:flex;min-height:100vh}.sidebar{width:270px;flex:0 0 270px;background:var(--navy);color:#e4e9f0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow:auto;scrollbar-width:thin;scrollbar-color:#39475b transparent;z-index:1040}
+.brand{padding:30px 25px 26px;border-bottom:1px solid #ffffff12;display:flex;gap:13px;align-items:center}.brand-symbol{width:40px;height:40px;background:linear-gradient(140deg,#e2c18d,#997047);color:#172033;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:19px;box-shadow:0 8px 22px #0003}.brand-name{font:800 16px Manrope;letter-spacing:.045em;color:#fff}.brand-caption{font-size:10px;letter-spacing:.17em;color:#9aa8b8;font-weight:700}
+.nav-caption{color:#74849a;font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;padding:24px 27px 9px}.side-link{display:flex;align-items:center;gap:13px;color:#aeb9c9;padding:11px 15px;margin:2px 13px;border-radius:11px;font-weight:600;transition:background .2s,color .2s,transform .2s}.side-link i{font-size:17px;width:20px;text-align:center}.side-link:hover{background:#ffffff12;color:#fff;transform:translateX(2px)}.side-link.active{background:linear-gradient(90deg,#ffffff1c,#ffffff0a);color:#fff;box-shadow:inset 3px 0 var(--accent)}.side-link.active i{color:#dfbd8e}.side-bottom{margin-top:auto;padding:17px 14px 23px;border-top:1px solid #ffffff12}.side-bottom .side-link{margin:2px 0}.workspace{min-width:0;flex:1}.topbar{height:82px;background:#ffffffed;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:15px;padding:0 36px;position:sticky;top:0;z-index:1020;backdrop-filter:blur(15px)}.top-eyebrow{font-size:10px;letter-spacing:.15em;color:var(--muted);font-weight:800;text-transform:uppercase}.top-title{font:800 18px Manrope;letter-spacing:-.04em}.top-actions{display:flex;align-items:center;gap:15px}.today-pill{border:1px solid var(--line);border-radius:30px;padding:9px 14px;color:#647187;background:#fff;font-size:12px}.avatar{width:39px;height:39px;display:grid;place-items:center;border-radius:12px;background:#e8edf5;color:#34455e;font-weight:800}.user-label{font-weight:800;font-size:12px}.user-role{font-size:11px;color:var(--muted)}.page-content{padding:35px 38px 65px;max-width:1800px;margin:auto}.card{border-radius:18px!important;border:1px solid #edf0f4!important;box-shadow:0 9px 28px #162c4609!important}.card:hover{box-shadow:0 15px 40px #162c4610!important}.btn{font-weight:700;border-radius:10px;padding:.6rem 1rem}.btn-dark{background:var(--navy);border-color:var(--navy)}.btn-dark:hover{background:#283b54}.btn-outline-dark{border-color:#dce3eb;color:var(--ink)}.form-control,.form-select{border-radius:10px;border-color:#e0e5ed;min-height:43px}.form-control:focus,.form-select:focus{border-color:#b99b77;box-shadow:0 0 0 .2rem #b98a541b}.table{--bs-table-bg:transparent}.table thead th{font-size:11px;letter-spacing:.065em;text-transform:uppercase;color:#7d8899;font-weight:800;border-bottom-color:#e8edf3;padding:15px 13px}.table tbody td{padding:17px 13px;border-bottom-color:#f0f2f6}.badge{padding:7px 10px;border-radius:7px;font-weight:700}.text-primary{color:#b18755!important}.alert{border-radius:12px}.modal-content{border:0;border-radius:19px;box-shadow:0 28px 90px #0003}.modal-header,.modal-footer{border-color:var(--line)}.mobile-toggle{display:none}.mobile-overlay{display:none}
+@media(max-width:1100px){.sidebar{width:245px;flex-basis:245px}.page-content{padding:26px}.topbar{padding:0 25px}}
+@media(max-width:900px){.sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%);transition:transform .25s;box-shadow:12px 0 35px #0002}.sidebar.open{transform:translateX(0)}.mobile-toggle{display:inline-flex}.mobile-overlay.show{display:block;position:fixed;inset:0;background:#0b152b9c;z-index:1030}.topbar{height:70px}.page-content{padding:23px 17px}.today-pill,.user-meta{display:none}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important}}
+</style>
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row">
-        <aside class="col-lg-2 sidebar p-4">
-            <h4 class="fw-bold mb-4">COJUKA <span style="color:#e56b7e">GROUP</span></h4>
-            <a href="{{ route('gestion.group.dashboard') }}">Tableau de bord</a>
-            <a href="{{ route('gestion.group.list', 'entites') }}">Entités</a>
-            <a href="{{ route('gestion.group.list', 'projets') }}">Projets</a>
-            <a href="{{ route('gestion.group.list', 'actifs') }}">Actifs</a>
-            <a href="{{ route('gestion.users.index') }}">Utilisateurs et accès</a>
-            <hr>
-            <p class="small text-uppercase text-white-50 fw-bold mt-3">Opérations</p>
-            @foreach(\App\Http\Controllers\GroupSuiteController::MODULES as $slug => $config)
-                <a href="{{ route('gestion.suite.index', $slug) }}">{{ $config['label'] }}</a>
-            @endforeach
-            <hr>
-            <a href="{{ route('group.portal') }}" target="_blank" rel="noopener noreferrer">Voir le portail ↗</a>
-            <form method="post" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="btn btn-outline-light mt-3">Déconnexion</button>
-            </form>
-        </aside>
-        <main class="col-lg-10">
-            @if(session('status'))
-                <div class="alert alert-success">{{ session('status') }}</div>
-            @endif
-
-            @if($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            @yield('content')
-        </main>
-    </div>
+<div id="mobileOverlay" class="mobile-overlay"></div>
+<div class="app-shell">
+<aside id="sideNav" class="sidebar" aria-label="Navigation de gestion">
+ <div class="brand"><div class="brand-symbol">C</div><div><div class="brand-name">COJUKA GROUP</div><div class="brand-caption">EXECUTIVE SUITE</div></div></div>
+ <div class="nav-caption">Vue générale</div>
+ <a class="side-link {{ request()->routeIs('gestion.group.dashboard') ? 'active' : '' }}" href="{{ route('gestion.group.dashboard') }}"><i class="bi bi-grid-1x2"></i> Tableau de bord</a>
+ <a class="side-link {{ request()->is('gestion/entites*') ? 'active' : '' }}" href="{{ route('gestion.group.list', 'entites') }}"><i class="bi bi-buildings"></i> Sociétés & filiales</a>
+ <a class="side-link {{ request()->is('gestion/projets*') ? 'active' : '' }}" href="{{ route('gestion.group.list', 'projets') }}"><i class="bi bi-kanban"></i> Projets</a>
+ <a class="side-link {{ request()->is('gestion/actifs*') ? 'active' : '' }}" href="{{ route('gestion.group.list', 'actifs') }}"><i class="bi bi-box-seam"></i> Actifs</a>
+ <a class="side-link {{ request()->is('gestion/utilisateurs*') ? 'active' : '' }}" href="{{ route('gestion.users.index') }}"><i class="bi bi-people"></i> Utilisateurs & accès</a>
+ <div class="nav-caption">Départements</div>
+ @php
+ $moduleIcons=['rh'=>'bi-person-vcard','finances'=>'bi-wallet2','contrats'=>'bi-file-earmark-text','achats'=>'bi-bag-check','logistique'=>'bi-truck','immobilier'=>'bi-houses','mines'=>'bi-gem','consulting'=>'bi-briefcase'];
+ @endphp
+ @foreach(\App\Http\Controllers\GroupSuiteController::MODULES as $slug => $config)
+ <a class="side-link {{ request()->is('gestion/modules/'.$slug.'*') ? 'active' : '' }}" href="{{ route('gestion.suite.index', $slug) }}"><i class="bi {{ $moduleIcons[$slug] ?? 'bi-circle' }}"></i> {{ $config['label'] }}</a>
+ @endforeach
+ <div class="side-bottom">
+ <a class="side-link" href="{{ route('group.portal') }}" target="_blank" rel="noopener noreferrer"><i class="bi bi-box-arrow-up-right"></i> Portail public</a>
+ <form method="post" action="{{ route('logout') }}">
+ @csrf
+ <button class="side-link border-0 bg-transparent w-100 text-start" type="submit"><i class="bi bi-box-arrow-right"></i> Déconnexion</button>
+ </form>
+ </div>
+</aside>
+<div class="workspace">
+<header class="topbar">
+ <div class="d-flex align-items-center gap-3">
+  <button class="btn btn-light mobile-toggle" id="menuToggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false"><i class="bi bi-list fs-5"></i></button>
+  <div><div class="top-eyebrow">COJUKA / Gestion stratégique</div><div class="top-title">@yield('title', 'Tableau de bord')</div></div>
+ </div>
+ <div class="top-actions">
+  <span class="today-pill"><i class="bi bi-calendar3 me-2"></i>{{ now()->locale('fr')->translatedFormat('d M Y') }}</span>
+  <div class="user-meta text-end"><div class="user-label">{{ auth()->user()?->name ?? 'Administrateur' }}</div><div class="user-role">Administration du groupe</div></div>
+  <div class="avatar">{{ strtoupper(mb_substr(auth()->user()?->name ?? 'C', 0, 1)) }}</div>
+ </div>
+</header>
+<main class="page-content">
+ @if(session('status'))
+ <div class="alert alert-success border-0 shadow-sm"><i class="bi bi-check-circle me-2"></i>{{ session('status') }}</div>
+ @endif
+ @if($errors->any())
+ <div class="alert alert-danger border-0 shadow-sm"><strong>Veuillez vérifier les informations :</strong><ul class="mb-0 mt-2">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>
+ @endif
+ @yield('content')
+ <footer class="mt-5 pt-4 border-top d-flex flex-wrap justify-content-between gap-2 text-secondary small"><span>© {{ date('Y') }} COJUKA GROUP · Espace de gestion privé</span><span>Plateforme de gestion interne</span></footer>
+</main>
+</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+(function(){
+ const toggle=document.getElementById('menuToggle'),sidebar=document.getElementById('sideNav'),overlay=document.getElementById('mobileOverlay');
+ function close(){sidebar.classList.remove('open');overlay.classList.remove('show');toggle.setAttribute('aria-expanded','false')}
+ toggle.addEventListener('click',()=>{const open=sidebar.classList.toggle('open');overlay.classList.toggle('show',open);toggle.setAttribute('aria-expanded',open?'true':'false')});
+ overlay.addEventListener('click',close);document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+})();
+</script>
 </body>
 </html>

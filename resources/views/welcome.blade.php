@@ -64,6 +64,7 @@
 </style>
 </head>
 <body>
+@include('partials.cojuka-intro')
 <div class="progress-line" id="readingProgress" aria-hidden="true"></div>
 <nav class="navbar navbar-expand-lg sticky-top site-nav" aria-label="Navigation principale">
 <div class="container">

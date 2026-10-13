@@ -6,6 +6,7 @@ use App\Models\GroupSuiteAudit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Schema;
 
 class GroupSuiteController {
  public const MODULES=[
@@ -21,6 +22,7 @@ class GroupSuiteController {
  private function config(string $module):array {abort_unless(isset(self::MODULES[$module]),404);return self::MODULES[$module];}
  public function index(Request $request,string $module){
   $config=$this->config($module);
+  if (!Schema::hasTable('group_suite_records')) return view('gestion.suite-unavailable',['module'=>$module,'config'=>$config]);
   $query=GroupSuiteRecord::with('entity')->where('module',$module);
   if($request->filled('entity')){$request->validate(['entity'=>'integer|exists:group_entities,id']);$query->where('group_entity_id',$request->query('entity'));}
   if($request->filled('q')){$request->validate(['q'=>'string|max:100']);$q=$request->query('q');$query->where(fn($builder)=>$builder->where('title','like','%'.$q.'%')->orWhere('reference','like','%'.$q.'%'));}
@@ -28,6 +30,7 @@ class GroupSuiteController {
  }
  public function export(Request $request,string $module){
   $this->config($module);
+  abort_unless(Schema::hasTable('group_suite_records'),503,'Module non installé : exécutez les migrations.');
   $records=GroupSuiteRecord::with('entity')->where('module',$module)->orderBy('id')->cursor();
   return response()->streamDownload(function()use($records){
    $out=fopen('php://output','w');fwrite($out,"\xEF\xBB\xBF");
@@ -40,7 +43,7 @@ class GroupSuiteController {
   },'cojuka-'.$module.'-'.now()->format('Ymd').'.csv',['Content-Type'=>'text/csv; charset=UTF-8']);
  }
  public function store(Request $request,string $module){
-  $config=$this->config($module);$data=$this->validateData($request,$config);
+  $config=$this->config($module);$this->ensureReady();$data=$this->validateData($request,$config);
   DB::transaction(function()use($data,$module,$request){
    $item=GroupSuiteRecord::create($data+['module'=>$module,'created_by'=>$request->user()->id,'updated_by'=>$request->user()->id]);
    $this->audit($request,'create',$item,null);
@@ -56,12 +59,13 @@ class GroupSuiteController {
   return back()->with('status','Enregistrement mis à jour.');
  }
  public function destroy(Request $request,string $module,int $id){
-  $this->config($module);
+  $this->config($module);$this->ensureReady();
   DB::transaction(function()use($module,$id,$request){
    $item=GroupSuiteRecord::where('module',$module)->findOrFail($id);$this->audit($request,'delete',$item,$item->toArray());$item->delete();
   });
   return back()->with('status','Enregistrement supprimé.');
  }
+ private function ensureReady():void {abort_unless(Schema::hasTable('group_suite_records') && Schema::hasTable('group_suite_audit'),503,'Module non installé : exécutez les migrations.');}
  private function validateData(Request $request,array $config):array {
   $rules=['group_entity_id'=>'required|integer|exists:group_entities,id','title'=>'required|string|max:255','reference'=>'nullable|string|max:255','status'=>['required',Rule::in(['brouillon','en_cours','en_attente','valide','termine','archive'])],'record_date'=>'nullable|date','amount'=>'nullable|numeric|min:0','currency'=>['required',Rule::in(['USD','CDF','EUR'])],'location'=>'nullable|string|max:255','description'=>'nullable|string|max:5000'];
   foreach($config['fields'] as $field=>$label){$rules['details.'.$field]='nullable|string|max:255';}

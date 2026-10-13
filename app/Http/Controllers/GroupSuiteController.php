@@ -31,6 +31,12 @@ class GroupSuiteController {
   $totals=(clone $query)->selectRaw('currency, COUNT(*) AS total, SUM(amount) AS amount_total')->groupBy('currency')->get();
   return view('gestion.suite-index',['module'=>$module,'config'=>$config,'rows'=>$query->latest()->paginate(15)->withQueryString(),'entities'=>GroupEntity::orderBy('name')->get(),'totals'=>$totals]);
  }
+ public function history(string $module){
+  $config=$this->config($module);
+  if(!Schema::hasTable('group_suite_audit'))return view('gestion.suite-unavailable',['module'=>$module,'config'=>$config]);
+  $events=GroupSuiteAudit::where('module',$module)->orderByDesc('id')->paginate(30);
+  return view('gestion.suite-history',compact('module','config','events'));
+ }
  public function export(Request $request,string $module){
   $this->config($module);
   abort_unless(Schema::hasTable('group_suite_records'),503,'Module non installé : exécutez les migrations.');

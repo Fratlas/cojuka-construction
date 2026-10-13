@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GroupPublicController;
 use App\Http\Controllers\GroupAdminController;
 use App\Http\Controllers\GroupLoginController;
+use App\Http\Controllers\GroupSuiteController;
 Route::view('/', 'welcome')->name('home');
 Route::view('/groupe', 'group')->name('group');
 Route::get('/groupe/entites', [GroupPublicController::class, 'index'])->name('group.portal');
@@ -16,6 +17,10 @@ Route::middleware('guest')->group(function () {
 Route::post('/deconnexion', [GroupLoginController::class, 'logout'])->middleware('auth')->name('logout');
 Route::middleware(['auth', 'group.admin'])->prefix('gestion')->name('gestion.')->group(function () {
  Route::get('/', [GroupAdminController::class, 'dashboard'])->name('group.dashboard');
+ Route::get('/modules/{module}', [GroupSuiteController::class, 'index'])->name('suite.index');
+ Route::post('/modules/{module}', [GroupSuiteController::class, 'store'])->name('suite.store');
+ Route::put('/modules/{module}/{id}', [GroupSuiteController::class, 'update'])->name('suite.update');
+ Route::delete('/modules/{module}/{id}', [GroupSuiteController::class, 'destroy'])->name('suite.destroy');
  Route::get('/{module}', [GroupAdminController::class, 'listing'])->where('module','entites|projets|actifs')->name('group.list');
  Route::post('/{module}', [GroupAdminController::class, 'save'])->where('module','entites|projets|actifs')->name('group.save');
  Route::put('/{module}/{id}', [GroupAdminController::class, 'edit'])->where('module','entites|projets|actifs')->name('group.edit');

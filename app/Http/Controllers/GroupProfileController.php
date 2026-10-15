@@ -97,7 +97,7 @@ class GroupProfileController
                 ['Développement','Présentation des initiatives et projets à venir après validation.'],
             ],
         ],
-        'cojuka-mining' => [
+        'kojuka-mining' => [
             'mission'=>'Structurer la présentation et le développement progressif des activités minières du groupe, avec une attention particulière à la documentation et à la coordination des projets.',
             'vision'=>'Contribuer à un développement minier organisé, tenant compte des exigences techniques, administratives, environnementales et sociales applicables.',
             'audiences'=>[
@@ -129,7 +129,7 @@ class GroupProfileController
                 ['Planifier','Définir les étapes de développement appropriées.'],
             ],
             'video_url'=>'https://d8j0ntlcm91z4.cloudfront.net/user_35sq0uUmKRerZDm8Ty4efx2WQSL/hf_20261015_161148_e24a7720-8b37-44eb-aa21-d63f68adde8b.mp4',
-            'video'=>'cojuka-mining.mp4',
+            'video'=>'kojuka-mining.mp4',
             'name'=>'COJUKA Mining',
             'category'=>'Activités minières · SA',
             'location'=>'Zone 30, Haut-Katanga, RDC',

@@ -5,6 +5,7 @@
 <div class="collapse navbar-collapse" id="cojukaGlobalNav"><div class="navbar-nav ms-auto align-items-lg-center">
 <a class="nav-link" href="{{ route('group') }}">Le Groupe</a>
 <a class="nav-link" href="{{ route('group.portal') }}">Nos entités</a>
+<a class="nav-link" href="{{ route('group') }}#ecosysteme">Écosystème</a>
 <div class="nav-item dropdown">
 <a class="nav-link dropdown-toggle" href="#" id="cojukaFilieres" role="button" data-bs-toggle="dropdown" aria-expanded="false">Toutes les filières</a>
 <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="cojukaFilieres" style="max-height:70vh;overflow-y:auto">

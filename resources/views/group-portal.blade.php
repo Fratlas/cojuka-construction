@@ -2,12 +2,12 @@
 </style>@include('partials.cojuka-design')
 </head><body>@include('partials.cojuka-header')@php
 $presentationSlides = [
- ['name'=>'Eden Park Investments','category'=>'Investissement immobilier · SA','description'=>'Investissements fonciers et immobiliers, avec des projets en cours au Congo et à l’étranger.','number'=>'01'],
- ['name'=>'Impact Center','category'=>'Participation internationale · Belgique','description'=>'Société de droit belge détenue majoritairement par COJUKA Group.','number'=>'02'],
- ['name'=>'Kojuka Mining','category'=>'Mines · SA','description'=>'Environ cinquante carrés miniers dans la zone stratégique 30 du Haut-Katanga, avec des activités en développement.','number'=>'03'],
- ['name'=>'Construction','category'=>'Direction opérationnelle','description'=>'Construction et développement de projets au sein du groupe.','number'=>'04'],
- ['name'=>'Logistique','category'=>'Direction opérationnelle','description'=>'Coordination des opérations de transport et de logistique.','number'=>'05'],
- ['name'=>'Consultance stratégique','category'=>'Conseil et développement','description'=>'Accompagnement des acteurs privés, des entreprises et des institutions étatiques.','number'=>'06'],
+ ['name'=>'Eden Park Investments','category'=>'Investissement immobilier · SA','description'=>'Investissements fonciers et immobiliers, avec des projets en cours au Congo et à l’étranger.','number'=>'01','slug'=>'eden-park-investments'],
+ ['name'=>'Impact Center','category'=>'Participation internationale · Belgique','description'=>'Société de droit belge détenue majoritairement par COJUKA Group.','number'=>'02','slug'=>'impact-center'],
+ ['name'=>'Kojuka Mining','category'=>'Mines · SA','description'=>'Environ cinquante carrés miniers dans la zone stratégique 30 du Haut-Katanga, avec des activités en développement.','number'=>'03','slug'=>'kojuka-mining'],
+ ['name'=>'Construction','category'=>'Direction opérationnelle','description'=>'Construction et développement de projets au sein du groupe.','number'=>'04','slug'=>'construction'],
+ ['name'=>'Logistique','category'=>'Direction opérationnelle','description'=>'Coordination des opérations de transport et de logistique.','number'=>'05','slug'=>'logistique'],
+ ['name'=>'Consultance stratégique','category'=>'Conseil et développement','description'=>'Accompagnement des acteurs privés, des entreprises et des institutions étatiques.','number'=>'06','slug'=>'consultance'],
 ];
 @endphp
 <header class="hero cojuka-entities-hero" aria-label="Présentation des entités du groupe">
@@ -23,7 +23,7 @@ $presentationSlides = [
        <h1>{{ $slide['name'] }}</h1>
        <p class="lead text-white-50 mt-4">{{ $slide['description'] }}</p>
        <div class="d-flex flex-wrap gap-3 mt-4">
-        <a href="#entites" class="btn btn-light rounded-pill px-4 py-3">Explorer nos entités ↗</a>
+        <a href="{{ route('group.profile', $slide['slug']) }}" class="btn btn-light rounded-pill px-4 py-3">Découvrir cette entité ↗</a>
         <a href="{{ route('home') }}" class="btn btn-outline-light rounded-pill px-4 py-3">← Accueil</a>
        </div>
       </div>

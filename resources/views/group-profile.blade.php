@@ -1,11 +1,10 @@
-<!doctype html>
-<html lang="fr">
-<head>
+@extends('layouts.cojuka-public')
+@section('page_head')
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="{{ $profile['summary'] }}">
 <title>COJUKA Consulting Group — {{ $profile['name'] }}</title>
 <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <style>
 body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#151923}a{text-decoration:none}
 .entity-hero{min-height:76vh;display:flex;align-items:center;position:relative;overflow:hidden;color:#fff;background:radial-gradient(circle at 85% 40%,#78283e 0%,#20253b 42%,#090f1d 90%);padding:100px 0}
@@ -31,41 +30,13 @@ footer{background:#111724;color:#fff;padding:32px 0}
 @keyframes entityLogoSpin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.entity-video-loader .spinner{animation:none}}
 </style>
-@include('partials.cojuka-design')
-</head>
-<body>
-@include('partials.cojuka-header')
+@endsection
+@section('content')
 <main>
 <header class="entity-hero">
 <div class="entity-video-loader" aria-live="polite"><img src="{{ asset('images/cojuka-logo.svg') }}" alt="COJUKA Consulting Group" width="190" height="60"><span class="spinner" aria-hidden="true"></span><span class="label">Chargement de la vidéo…</span></div>
 <video class="entity-background-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" data-local="{{ asset('videos/entities/'.$profile['video']) }}" data-remote="{{ $profile['video_url'] ?? '' }}" poster="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1800&q=85"></video>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
- document.querySelectorAll('.entity-background-video').forEach(function(video){
-  const loader=video.parentElement.querySelector('.entity-video-loader');
-  const remote=video.dataset.remote;
-  let source=0,timeout=null,finished=false;
-  function hide(){if(loader)loader.classList.add('is-hidden');clearTimeout(timeout)}
-  function start(url){
-   if(!url){video.style.display='none';hide();return}
-   clearTimeout(timeout);video.src=url;video.load();
-   const promise=video.play();
-   if(promise&&promise.catch)promise.catch(e=>{if(e&&e.name==='NotAllowedError'){hide();return}if(video.error)fail()});
-   timeout=setTimeout(()=>{if(video.readyState<2)fail();else hide()},8500);
-  }
-  function fail(){
-   if(finished)return;
-   if(source===0&&remote){source=1;start(remote)}
-   else{finished=true;video.pause();video.style.display='none';hide()}
-  }
-  video.addEventListener('error',fail);
-  video.addEventListener('loadeddata',hide);
-  video.addEventListener('playing',hide);
-  video.addEventListener('waiting',()=>{if(video.readyState<2&&loader&&!finished)loader.classList.remove('is-hidden')});
-  start(video.dataset.local);
- });
-});
-</script><div class="entity-video-overlay" aria-hidden="true"></div>
+<div class="entity-video-overlay" aria-hidden="true"></div>
 <div class="container">
 <p class="eyebrow mb-3">COJUKA CONSULTING GROUP</p><p class="text-white-50 mb-4">Entité / {{ $profile['category'] }}</p>
 <h1 class="mb-4">{{ $profile['name'] }}</h1>
@@ -106,6 +77,33 @@ document.addEventListener('DOMContentLoaded',function(){
 <section class="section-pad"><div class="container"><div class="row align-items-center g-4"><div class="col-lg-8"><p class="eyebrow">Écosystème numérique</p><h2 class="display-title mb-3">Une entité, une présence digitale.</h2><p class="text-secondary lead">Cette page institutionnelle fait partie du portail COJUKA Consulting Group. Une application web dédiée pourra être reliée ici lors de son développement et de sa mise en service.</p></div><div class="col-lg-4 text-lg-end"><a class="btn btn-dark btn-pill" href="{{ route('group.portal') }}">Explorer le groupe ↗</a></div></div></div></section>
 <section class="section-pad" style="background:#111724;color:#fff"><div class="container"><div class="row align-items-center g-4"><div class="col-lg-8"><p class="eyebrow mb-3">Entrons en contact</p><h2 class="display-title mb-3">Parlons de votre projet.</h2><p class="lead text-white-50 mb-0">Présentez votre besoin à COJUKA Consulting Group pour être orienté vers l'entité et les interlocuteurs concernés.</p></div><div class="col-lg-4 text-lg-end"><a class="btn btn-light btn-pill" href="{{ route('home') }}#contact">Contacter le groupe ↗</a></div></div></div></section>
 </main>
-<footer><div class="container d-flex flex-wrap justify-content-between gap-3"><strong>COJUKA Consulting Group · {{ $profile['name'] }}</strong><span>© {{ date('Y') }}</span><a class="text-white" href="{{ route('home') }}">← Accueil</a></div></footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body></html>
+@endsection
+@section('page_scripts')
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+ document.querySelectorAll('.entity-background-video').forEach(function(video){
+  const loader=video.parentElement.querySelector('.entity-video-loader');
+  const remote=video.dataset.remote;
+  let source=0,timeout=null,finished=false;
+  function hide(){if(loader)loader.classList.add('is-hidden');clearTimeout(timeout)}
+  function start(url){
+   if(!url){video.style.display='none';hide();return}
+   clearTimeout(timeout);video.src=url;video.load();
+   const promise=video.play();
+   if(promise&&promise.catch)promise.catch(e=>{if(e&&e.name==='NotAllowedError'){hide();return}if(video.error)fail()});
+   timeout=setTimeout(()=>{if(video.readyState<2)fail();else hide()},8500);
+  }
+  function fail(){
+   if(finished)return;
+   if(source===0&&remote){source=1;start(remote)}
+   else{finished=true;video.pause();video.style.display='none';hide()}
+  }
+  video.addEventListener('error',fail);
+  video.addEventListener('loadeddata',hide);
+  video.addEventListener('playing',hide);
+  video.addEventListener('waiting',()=>{if(video.readyState<2&&loader&&!finished)loader.classList.remove('is-hidden')});
+  start(video.dataset.local);
+ });
+});
+</script>
+@endsection

@@ -21,4 +21,6 @@
 @else
 <a class="nav-link" href="{{ route('login') }}">Connexion</a>
 @endauth
+<div class="cojuka-language-switch ms-lg-2" role="group" aria-label="Choisir la langue / Select language / Elegir idioma"><button type="button" data-cojuka-lang="fr" aria-pressed="true" lang="fr">FR</button><span aria-hidden="true">/</span><button type="button" data-cojuka-lang="en" aria-pressed="false" lang="en">EN</button><span aria-hidden="true">/</span><button type="button" data-cojuka-lang="es" aria-pressed="false" lang="es">ES</button></div>
 </div></div></div></nav>
+@include('partials.cojuka-languages')

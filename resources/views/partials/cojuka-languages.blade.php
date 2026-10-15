@@ -13,6 +13,19 @@
 .cojuka-mobile-nav-actions .navbar-toggler{margin:0;padding:7px}
 @media(max-width:480px){.cojuka-mobile-nav-actions{gap:3px}.cojuka-language-switch{gap:0;padding:3px}.cojuka-language-switch button{font-size:.7rem;padding:5px 3px}.cojuka-language-switch button span{font-size:1rem}.cojuka-mobile-nav-actions .navbar-toggler{padding:5px}}
 @media(max-width:360px){.cojuka-language-switch button{font-size:0;gap:0}.cojuka-language-switch button span{font-size:1.1rem}}
+
+/* Compact flag language dropdown */
+.cojuka-language-switch{position:relative;display:inline-block!important;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;margin:0!important}
+.cojuka-language-trigger{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:78px;height:38px;border:1px solid #e7dadd;border-radius:22px;background:#fff;color:#26262b;font-size:.79rem;font-weight:800;padding:5px 12px;box-shadow:0 2px 12px #0000000a;cursor:pointer}
+.cojuka-language-trigger:hover,.cojuka-language-trigger:focus-visible{background:#faf3f4;border-color:#cdb1b7}
+.cojuka-current-flag{font-size:1.17rem;line-height:1}
+.cojuka-language-trigger.dropdown-toggle::after{margin-left:1px;font-size:.65rem}
+.cojuka-language-menu{min-width:168px!important;padding:7px!important;margin-top:9px!important;border:1px solid #eee4e6!important;border-radius:14px!important;box-shadow:0 14px 38px #11182720!important;z-index:1080!important}
+.cojuka-language-menu .dropdown-item{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:9px;font-size:.86rem;font-weight:650;color:#26262b}
+.cojuka-language-menu .dropdown-item span{font-size:1.18rem;line-height:1}
+.cojuka-language-menu .dropdown-item[aria-pressed="true"]{background:#f8ecee;color:#86212e}
+.cojuka-mobile-nav-actions .cojuka-language-switch{margin:0!important}
+@media(max-width:480px){.cojuka-language-trigger{height:36px;min-width:66px;padding:5px 9px;font-size:.73rem}.cojuka-current-flag{font-size:1.07rem}}
 </style>
 <script>
 (function(){
@@ -24,6 +37,13 @@ function apply(lang){
  if(!['fr','en','es'].includes(lang))lang='fr';
  document.documentElement.lang=lang;
  document.querySelectorAll('[data-cojuka-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.cojukaLang===lang)));
+ const flags={fr:'🇫🇷',en:'🇬🇧',es:'🇪🇸'};
+ document.querySelectorAll('.cojuka-language-switch').forEach(s=>{
+  const flag=s.querySelector('.cojuka-current-flag');
+  const code=s.querySelector('.cojuka-current-code');
+  if(flag)flag.textContent=flags[lang];
+  if(code)code.textContent=lang.toUpperCase();
+ });
  const root=document.querySelector('main')||document.body;
  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(node){
   const parent=node.parentElement;

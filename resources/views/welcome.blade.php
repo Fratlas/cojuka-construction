@@ -75,6 +75,20 @@
 
 .cojuka-hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}.hero:before{z-index:1;background:linear-gradient(90deg,rgba(6,12,21,.72),rgba(6,12,21,.35) 65%,rgba(6,12,21,.25))!important;transform:none!important}.hero-content,.scroll-indicator{position:relative;z-index:3}.hero .cojuka-carousel-controls{z-index:6}.hero .cojuka-video-carousel{z-index:0}.hero .cojuka-video-carousel video{object-fit:cover}.hero:after{z-index:2}@media(prefers-reduced-motion:reduce){.cojuka-hero-video{display:none}.hero:before{background:linear-gradient(90deg,rgba(6,12,21,.62),rgba(6,12,21,.28)),url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2200&q=85') center/cover no-repeat!important}}
 .hero h1{font-size:clamp(3.3rem,7.6vw,7.8rem);max-width:1200px}.hero .cojuka-video-carousel{position:absolute;inset:0;z-index:0}.hero .cojuka-carousel-controls{z-index:6}.hero .hero-content{z-index:3}.hero:before{pointer-events:none;background:linear-gradient(90deg,rgba(5,11,22,.78),rgba(5,11,22,.45) 65%,rgba(5,11,22,.28))!important}@media(max-width:767px){.hero-content{padding-top:7rem;padding-bottom:9rem}.hero h1{font-size:clamp(3.1rem,11vw,5.5rem)}}
+
+/* Editorial hierarchy and a calmer premium motion language */
+.hero h1{max-width:1050px;font-weight:760;line-height:.98;letter-spacing:-.075em;text-wrap:balance}
+.hero .eyebrow{font-size:.74rem;letter-spacing:.18em;color:#f5dce2}
+.hero-sub{font-size:clamp(1.08rem,1.7vw,1.34rem);max-width:630px;line-height:1.75}
+.hero:before{background:linear-gradient(90deg,rgba(7,12,20,.78),rgba(7,12,20,.4) 68%,rgba(7,12,20,.2))!important}
+.display-heading{font-weight:760;letter-spacing:-.065em;text-wrap:balance}
+.section-kicker{color:#86212e}
+.btn-pill{min-height:48px}
+.btn-white{background:#fff;color:#151517}
+.btn-outline-light-custom{background:#ffffff08}
+.service-card,.photo-showcase{border-radius:24px}
+@media(max-width:575px){.hero h1{font-size:clamp(2.85rem,11.2vw,4.2rem)}.hero .eyebrow{letter-spacing:.12em}.hero-content{padding-top:6rem}}
+@media(prefers-reduced-motion:reduce){.hero:before,.hero:after,.hero-content>*{animation:none!important}}
 </style>
 @include('partials.cojuka-design')
 </head>
@@ -86,8 +100,8 @@
 <section id="accueil" class="hero" aria-labelledby="hero-title">
 @include('partials.cojuka-hero-carousel')
 <div class="container hero-content">
-<div class="eyebrow">GROUPE MULTISECTORIEL · RDC</div>
-<h1 id="hero-title">COJUKA <span style="color:#f2a7b7">Consulting</span><br>Group.</h1>
+<div class="eyebrow">GROUPE MULTISECTORIEL · RÉPUBLIQUE DÉMOCRATIQUE DU CONGO</div>
+<h1 id="hero-title">COJUKA <span style="color:#f2a7b7">Consulting</span><br>Group</h1>
 <p class="hero-sub mb-4">Construction, logistique, consultance étatique et privée, investissements et développement des secteurs stratégiques.</p>
 <div class="d-flex gap-3 flex-wrap"><a href="{{ route('group') }}" class="btn-pill btn-white">Découvrir Consulting Group <span aria-hidden="true">↗</span></a><a href="{{ route('group.portal') }}" class="btn-pill btn-outline-light-custom">Nos entités <span aria-hidden="true">↓</span></a></div>
 </div><div class="scroll-indicator" aria-hidden="true">Défiler <span>↓</span></div>
@@ -151,7 +165,7 @@
 <div class="feature-line row g-3"><div class="col-2 feature-number">02</div><div class="col-10"><h3 class="feature-title">Concevoir avec précision</h3><p class="feature-description mb-0">Faire dialoguer créativité, faisabilité et cohérence architecturale.</p></div></div>
 <div class="feature-line row g-3"><div class="col-2 feature-number">03</div><div class="col-10"><h3 class="feature-title">Construire pour durer</h3><p class="feature-description mb-0">Privilégier des choix réfléchis et une vision à long terme.</p></div></div>
 </div></div></div></section>
-<section id="contact" class="section-pad contact-section"><div class="container reveal"><div class="section-kicker mb-4" style="color:#9dc8ff">04 / CONTACT</div><h2>Votre prochain projet<br>commence ici.</h2><p class="muted fs-4 mt-4 mb-5">Parlons de votre vision et donnons-lui forme ensemble.</p><a href="mailto:contact@cojuka.example?subject=Projet%20COJUKA" class="btn-pill btn-white" aria-label="Préparer un courriel de contact (adresse provisoire)">Nous écrire <span aria-hidden="true">↗</span></a><p class="small muted mt-3">Coordonnées officielles à renseigner avant publication.</p></div></section>
+<section id="contact" class="section-pad contact-section"><div class="container reveal"><div class="section-kicker mb-4" style="color:#9dc8ff">04 / CONTACT</div><h2>Votre prochain projet<br>commence ici.</h2><p class="muted fs-4 mt-4 mb-5">Parlons de votre vision et donnons-lui forme ensemble.</p><a href="mailto:contact@cojuka.com?subject=Projet%20COJUKA" class="btn-pill btn-white" aria-label="Préparer un courriel de contact (adresse provisoire)">Nous écrire <span aria-hidden="true">↗</span></a><p class="small muted mt-3">Coordonnées officielles à renseigner avant publication.</p></div></section>
 </main>
 <footer class="footer py-4"><div class="container d-flex flex-column flex-md-row justify-content-between gap-2"><span>© {{ date('Y') }} COJUKA Construction. Tous droits réservés.</span><span>Architecture · Construction · RDC</span></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

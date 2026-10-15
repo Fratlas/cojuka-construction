@@ -8,6 +8,7 @@ class GroupProfileController
 {
     public const PROFILES = [
         'eden-park-investments' => [
+            'video'=>'eden-park-investments.mp4',
             'name'=>'Eden Park Investments',
             'category'=>'Investissement immobilier · SA',
             'location'=>'RDC et international',
@@ -21,6 +22,7 @@ class GroupProfileController
             ],
         ],
         'impact-center' => [
+            'video'=>'impact-center.mp4',
             'name'=>'Impact Center',
             'category'=>'Participation internationale',
             'location'=>'Belgique',
@@ -34,6 +36,7 @@ class GroupProfileController
             ],
         ],
         'kojuka-mining' => [
+            'video'=>'kojuka-mining.mp4',
             'name'=>'Kojuka Mining',
             'category'=>'Activités minières · SA',
             'location'=>'Zone 30, Haut-Katanga, RDC',
@@ -47,6 +50,7 @@ class GroupProfileController
             ],
         ],
         'construction' => [
+            'video'=>'construction.mp4',
             'name'=>'COJUKA Consulting Group Construction',
             'category'=>'Département construction',
             'location'=>'République démocratique du Congo',
@@ -60,6 +64,7 @@ class GroupProfileController
             ],
         ],
         'logistique' => [
+            'video'=>'logistique.mp4',
             'name'=>'COJUKA Consulting Group Logistique',
             'category'=>'Direction logistique',
             'location'=>'République démocratique du Congo',
@@ -73,6 +78,7 @@ class GroupProfileController
             ],
         ],
         'consultance' => [
+            'video'=>'consultance.mp4',
             'name'=>'COJUKA Consulting Group Consultance',
             'category'=>'Conseil et secteurs stratégiques',
             'location'=>'RDC et international',

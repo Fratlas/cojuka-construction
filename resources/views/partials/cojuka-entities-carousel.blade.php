@@ -8,12 +8,12 @@ $homeEntities = [
  ['COJUKA Mining','kojuka-mining','Développement d’activités minières dans la zone 30 du Haut-Katanga.','Secteur minier'],
 ];
 $entityPhotos = [
- 'construction' => 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=76&fm=webp',
- 'logistique' => 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1400&q=76&fm=webp',
- 'consultance' => 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1400&q=76&fm=webp',
- 'eden-park-investments' => 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1400&q=76&fm=webp',
- 'impact-center' => 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=76&fm=webp',
- 'kojuka-mining' => 'https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1400&q=76&fm=webp',
+ 'construction' => 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=72&fm=webp',
+ 'logistique' => 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=72&fm=webp',
+ 'consultance' => 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=72&fm=webp',
+ 'eden-park-investments' => 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=72&fm=webp',
+ 'impact-center' => 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=72&fm=webp',
+ 'kojuka-mining' => 'https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1200&q=72&fm=webp',
 ];
 @endphp
 <section id="carrousel-entites" class="cojuka-home-entities" aria-labelledby="cojuka-home-entities-title">
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded',function(){
  if(panels[0])panels[0].dataset.photoLoaded='1';
  carousel.addEventListener('slide.bs.carousel',function(e){
   setPhoto(e.to);
-  if(e.to+1<panels.length)setTimeout(function(){setPhoto(e.to+1)},900);
+  if(e.to+1<panels.length && !(navigator.connection&&navigator.connection.saveData))setTimeout(function(){setPhoto(e.to+1)},1200);
  });
  const section=carousel.closest('section');
  if('IntersectionObserver' in window && section){

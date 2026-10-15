@@ -80,6 +80,7 @@
 <div class="d-flex gap-3 flex-wrap"><a href="{{ route('group') }}" class="btn-pill btn-white">Découvrir Consulting Group <span aria-hidden="true">↗</span></a><a href="{{ route('group.portal') }}" class="btn-pill btn-outline-light-custom">Nos entités <span aria-hidden="true">↓</span></a></div>
 </div><div class="scroll-indicator" aria-hidden="true">Défiler <span>↓</span></div>
 </section>
+@include('partials.cojuka-entities-carousel')
 <section id="apropos" class="section-pad">
 <div class="container">
  <div class="row g-5 align-items-start">

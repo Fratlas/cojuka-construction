@@ -4,6 +4,15 @@
 .cojuka-language-switch button[aria-pressed="true"]{color:#86212e;background:#f8e9ed}
 .cojuka-language-switch span{color:#c5bfc2;font-size:.7rem}
 @media(max-width:991.98px){.cojuka-language-switch{margin-top:14px;margin-bottom:8px}}
+.cojuka-language-switch{gap:3px;padding:5px 7px;border:1px solid #e7dadd;box-shadow:0 2px 12px #0000000a}
+.cojuka-language-switch button{display:inline-flex;align-items:center;justify-content:center;gap:4px;font-size:.79rem;font-weight:800;color:#505057;padding:7px 6px;min-height:34px}
+.cojuka-language-switch button span{font-size:1.15rem;line-height:1;filter:saturate(1.1)}
+.cojuka-language-switch button[aria-pressed="true"]{color:#86212e;background:#f5e4e8}
+.cojuka-mobile-nav-actions{gap:10px;flex-shrink:0}
+.cojuka-mobile-nav-actions .cojuka-language-switch{margin:0!important}
+.cojuka-mobile-nav-actions .navbar-toggler{margin:0;padding:7px}
+@media(max-width:480px){.cojuka-mobile-nav-actions{gap:3px}.cojuka-language-switch{gap:0;padding:3px}.cojuka-language-switch button{font-size:.7rem;padding:5px 3px}.cojuka-language-switch button span{font-size:1rem}.cojuka-mobile-nav-actions .navbar-toggler{padding:5px}}
+@media(max-width:360px){.cojuka-language-switch button{font-size:0;gap:0}.cojuka-language-switch button span{font-size:1.1rem}}
 </style>
 <script>
 (function(){

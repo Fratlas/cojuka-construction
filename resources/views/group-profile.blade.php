@@ -23,6 +23,13 @@ body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#151923}a{tex
 .btn-pill{border-radius:99px;padding:13px 25px}
 footer{background:#111724;color:#fff;padding:32px 0}
 @media(max-width:767px){.entity-hero{min-height:70vh;padding:90px 0}.entity-hero h1{font-size:clamp(2.7rem,10vw,4.5rem)}.info-card{padding:24px}}@media(prefers-reduced-motion:reduce){.info-card{transition:none}}
+.entity-video-loader{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#f7f7f7;transition:opacity .5s ease;pointer-events:none}
+.entity-video-loader img{width:190px;max-width:55vw;height:auto;max-height:80px;object-fit:contain}
+.entity-video-loader .spinner{width:32px;height:32px;border:3px solid #e8dfe1;border-top-color:#86212e;border-radius:50%;animation:entityLogoSpin .85s linear infinite}
+.entity-video-loader .label{color:#86212e;font-weight:650;font-size:.78rem;letter-spacing:.04em}
+.entity-video-loader.is-hidden{opacity:0;visibility:hidden}
+@keyframes entityLogoSpin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.entity-video-loader .spinner{animation:none}}
 </style>
 @include('partials.cojuka-design')
 </head>
@@ -30,16 +37,32 @@ footer{background:#111724;color:#fff;padding:32px 0}
 @include('partials.cojuka-header')
 <main>
 <header class="entity-hero">
+<div class="entity-video-loader" aria-live="polite"><img src="{{ asset('images/cojuka-logo.svg') }}" alt="COJUKA Consulting Group" width="190" height="60"><span class="spinner" aria-hidden="true"></span><span class="label">Chargement de la vidéo…</span></div>
 <video class="entity-background-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" data-local="{{ asset('videos/entities/'.$profile['video']) }}" data-remote="{{ $profile['video_url'] ?? '' }}" poster="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1800&q=85"></video>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
  document.querySelectorAll('.entity-background-video').forEach(function(video){
-  const local=video.dataset.local,remote=video.dataset.remote;
-  let source=0;
-  function load(url){if(!url){video.style.display='none';return;}video.src=url;video.load();const play=video.play();if(play&&play.catch)play.catch(function(){if(video.error)fail();});}
-  function fail(){if(source===0&&remote){source=1;load(remote);}else{video.style.display='none';}}
+  const loader=video.parentElement.querySelector('.entity-video-loader');
+  const remote=video.dataset.remote;
+  let source=0,timeout=null,finished=false;
+  function hide(){if(loader)loader.classList.add('is-hidden');clearTimeout(timeout)}
+  function start(url){
+   if(!url){video.style.display='none';hide();return}
+   clearTimeout(timeout);video.src=url;video.load();
+   const promise=video.play();
+   if(promise&&promise.catch)promise.catch(e=>{if(e&&e.name==='NotAllowedError'){hide();return}if(video.error)fail()});
+   timeout=setTimeout(()=>{if(video.readyState<2)fail();else hide()},8500);
+  }
+  function fail(){
+   if(finished)return;
+   if(source===0&&remote){source=1;start(remote)}
+   else{finished=true;video.pause();video.style.display='none';hide()}
+  }
   video.addEventListener('error',fail);
-  load(local);
+  video.addEventListener('loadeddata',hide);
+  video.addEventListener('playing',hide);
+  video.addEventListener('waiting',()=>{if(video.readyState<2&&loader&&!finished)loader.classList.remove('is-hidden')});
+  start(video.dataset.local);
  });
 });
 </script><div class="entity-video-overlay" aria-hidden="true"></div>

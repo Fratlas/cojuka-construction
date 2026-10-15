@@ -8,6 +8,23 @@ class GroupProfileController
 {
     public const PROFILES = [
         'eden-park-investments' => [
+            'mission'=>'Accompagner une stratégie patrimoniale durable en reliant l’identification d’opportunités, la préparation des projets et le suivi des actifs immobiliers.',
+            'vision'=>'Favoriser une lecture à long terme de l’investissement immobilier, fondée sur l’analyse des territoires, la qualité de l’information et la coordination des parties prenantes.',
+            'audiences'=>[
+                ['Propriétaires et porteurs de projets','Échanges autour des actifs, du foncier et des possibilités de développement.'],
+                ['Investisseurs et partenaires','Présentation d’opportunités documentées et de cadres de collaboration à étudier.'],
+                ['Professionnels de l’immobilier','Dialogue avec les expertises techniques, juridiques et opérationnelles concernées.'],
+            ],
+            'deliverables'=>[
+                ['Dossier d’opportunité','Contexte, caractéristiques et points de vigilance d’une initiative immobilière.'],
+                ['Plan de développement','Étapes, acteurs et priorités pour organiser la progression d’un projet.'],
+                ['Suivi patrimonial','Vue structurée des informations et échéances relatives aux actifs.'],
+            ],
+            'faq'=>[
+                ['Eden Park Investments intervient-elle uniquement en RDC ?','La présentation du groupe mentionne des actifs et projets au Congo ainsi qu’à l’international.'],
+                ['Peut-on consulter la liste des biens ?','Un catalogue public ne sera présenté qu’après validation des informations et des droits de publication.'],
+                ['Comment proposer un partenariat ?','Utilisez le contact du groupe en précisant la localisation et la nature du projet.'],
+            ],
             'intro'=>'Notre approche immobilière',
             'details'=>'L’investissement immobilier s’inscrit dans une logique de valorisation patrimoniale, de suivi des opportunités foncières et de développement de projets. Cette page présente les orientations de la société sans préjuger du statut d’un projet ou de sa commercialisation.',
             'services'=>[
@@ -36,6 +53,23 @@ class GroupProfileController
             ],
         ],
         'impact-center' => [
+            'mission'=>'Créer un espace de visibilité pour la participation belge du groupe et faciliter la structuration de coopérations internationales pertinentes.',
+            'vision'=>'Développer des passerelles professionnelles entre partenaires, territoires et projets, dans un cadre documenté et progressif.',
+            'audiences'=>[
+                ['Partenaires institutionnels','Échanges exploratoires autour de coopérations et d’initiatives transfrontalières.'],
+                ['Entreprises et réseaux','Identification de complémentarités avec l’écosystème du groupe.'],
+                ['Porteurs de projets','Orientation vers les interlocuteurs et entités concernés selon les besoins.'],
+            ],
+            'deliverables'=>[
+                ['Fiche de partenariat','Présentation des objectifs, interlocuteurs et champs de collaboration.'],
+                ['Note de cadrage','Définition du périmètre et des étapes d’une initiative.'],
+                ['Suivi des échanges','Documentation des décisions et des prochaines actions.'],
+            ],
+            'faq'=>[
+                ['Où se situe Impact Center ?','Impact Center est présenté comme une société de droit belge.'],
+                ['Quel est son lien avec COJUKA ?','Le groupe indique détenir une participation majoritaire dans cette société.'],
+                ['Quels programmes sont ouverts ?','Les programmes et activités spécifiques seront publiés après confirmation par la structure.'],
+            ],
             'intro'=>'Une passerelle internationale',
             'details'=>'Cette participation belge contribue à la dimension internationale du groupe. Les collaborations, programmes et projets propres à Impact Center pourront être présentés progressivement après validation de leurs informations.',
             'services'=>[
@@ -64,6 +98,23 @@ class GroupProfileController
             ],
         ],
         'kojuka-mining' => [
+            'mission'=>'Structurer la présentation et le développement progressif des activités minières du groupe, avec une attention particulière à la documentation et à la coordination des projets.',
+            'vision'=>'Contribuer à un développement minier organisé, tenant compte des exigences techniques, administratives, environnementales et sociales applicables.',
+            'audiences'=>[
+                ['Partenaires techniques','Échanges sur les études, besoins et modalités d’intervention à documenter.'],
+                ['Acteurs institutionnels','Présentation des orientations et des informations publiques validées.'],
+                ['Partenaires opérationnels','Coordination éventuelle des compétences nécessaires aux projets.'],
+            ],
+            'deliverables'=>[
+                ['Dossier de périmètre','Informations de localisation et pièces disponibles sous réserve de vérification.'],
+                ['Feuille de route','Priorités d’études, d’autorisations et de préparation opérationnelle.'],
+                ['Tableau de suivi','Jalons, responsables et documents nécessaires au pilotage.'],
+            ],
+            'faq'=>[
+                ['Où se trouvent les zones mentionnées ?','La présentation institutionnelle situe environ cinquante carrés miniers dans la zone 30 du Haut-Katanga.'],
+                ['Les titres miniers sont-ils consultables ?','Les titres et autorisations doivent être vérifiés auprès des autorités et documents compétents ; cette page ne constitue pas une preuve de validité.'],
+                ['La société exploite-t-elle déjà les sites ?','Les informations disponibles indiquent un développement d’activités, sans permettre de confirmer le stade d’exploitation de chaque périmètre.'],
+            ],
             'intro'=>'Une activité ancrée au Haut-Katanga',
             'details'=>'La présentation institutionnelle fait état d’environ cinquante carrés miniers dans la zone 30. La page décrit les orientations de développement, sans remplacer la vérification des titres, autorisations, études ou informations techniques nécessaires à toute opération.',
             'services'=>[
@@ -92,6 +143,23 @@ class GroupProfileController
             ],
         ],
         'construction' => [
+            'mission'=>'Accompagner les projets de construction depuis la compréhension du besoin jusqu’à la coordination des phases de préparation, de réalisation et de suivi.',
+            'vision'=>'Promouvoir une approche de la construction fondée sur la clarté du projet, la collaboration des intervenants et une organisation rigoureuse.',
+            'audiences'=>[
+                ['Maîtres d’ouvrage','Échanges sur les objectifs, contraintes et attentes d’un projet.'],
+                ['Investisseurs et promoteurs','Préparation et coordination d’initiatives immobilières ou de construction.'],
+                ['Partenaires techniques','Collaboration avec les compétences de conception, de chantier et de contrôle.'],
+            ],
+            'deliverables'=>[
+                ['Note de cadrage','Définition des besoins, du périmètre et des hypothèses du projet.'],
+                ['Planning prévisionnel','Organisation indicative des étapes, dépendances et intervenants.'],
+                ['Compte rendu de suivi','Documentation des jalons, décisions et points à traiter.'],
+            ],
+            'faq'=>[
+                ['Quels types de projets peuvent être étudiés ?','Les demandes de construction et de développement sont examinées selon leur nature et les compétences mobilisables.'],
+                ['Peut-on demander une étude de projet ?','Oui, le contact du groupe permet de présenter les objectifs, la localisation et les contraintes du projet.'],
+                ['Où voir les réalisations ?','Les références et photographies de projets seront publiées lorsqu’elles auront été vérifiées et autorisées.'],
+            ],
             'intro'=>'De la vision à la réalisation',
             'details'=>'La direction Construction accompagne le développement de projets et leur coordination au sein de l’écosystème COJUKA Consulting Group. Les réalisations, références et capacités opérationnelles seront présentées ici à mesure de leur validation.',
             'services'=>[
@@ -120,6 +188,23 @@ class GroupProfileController
             ],
         ],
         'logistique' => [
+            'mission'=>'Faciliter la préparation et la coordination des flux logistiques nécessaires aux opérations du groupe et aux projets qui lui sont présentés.',
+            'vision'=>'Développer une organisation logistique lisible, documentée et capable de coordonner efficacement les acteurs concernés.',
+            'audiences'=>[
+                ['Entités du groupe','Appui à l’organisation des besoins logistiques transversaux.'],
+                ['Partenaires de transport','Coordination des échanges, des contraintes et des calendriers.'],
+                ['Porteurs de projets','Analyse préliminaire des besoins de transport et d’acheminement.'],
+            ],
+            'deliverables'=>[
+                ['Plan de coordination','Besoins, intervenants, contraintes et séquence des opérations.'],
+                ['Suivi des mouvements','Informations de référence pour documenter les étapes logistiques.'],
+                ['Dossier opérationnel','Regroupement des pièces et échanges nécessaires au suivi.'],
+            ],
+            'faq'=>[
+                ['La direction possède-t-elle une flotte de véhicules ?','Aucune capacité de flotte n’est confirmée dans les informations actuellement publiées.'],
+                ['Quels besoins peuvent être présentés ?','Les besoins de coordination de transport, de flux et de logistique de projet.'],
+                ['Comment demander un accompagnement ?','Précisez l’origine, la destination, les contraintes et le calendrier souhaité via le contact du groupe.'],
+            ],
             'intro'=>'Coordonner les flux avec méthode',
             'details'=>'La direction Logistique répond aux besoins de coordination des opérations et des flux. Cette présentation expose ses domaines d’intervention envisagés, sans annoncer de flotte, de capacité de transport ou d’infrastructure non documentée.',
             'services'=>[
@@ -148,6 +233,23 @@ class GroupProfileController
             ],
         ],
         'consultance' => [
+            'mission'=>'Accompagner les institutions publiques et les organisations privées dans la compréhension de leurs enjeux, la structuration de leurs projets et la définition de trajectoires de transformation.',
+            'vision'=>'Faire du conseil un levier de coordination, de performance organisationnelle et de développement des secteurs stratégiques.',
+            'audiences'=>[
+                ['Institutions étatiques','Cadrage d’initiatives, réflexion organisationnelle et accompagnement institutionnel.'],
+                ['Entreprises privées','Analyse de besoins, organisation des processus et développement stratégique.'],
+                ['Porteurs de projets','Structuration d’idées, préparation de plans d’action et coordination de partenaires.'],
+            ],
+            'deliverables'=>[
+                ['Diagnostic organisationnel','Synthèse des enjeux, contraintes et opportunités identifiés.'],
+                ['Note stratégique','Orientations proposées et scénarios de mise en œuvre.'],
+                ['Plan d’action','Étapes, responsabilités, indicateurs et modalités de suivi.'],
+            ],
+            'faq'=>[
+                ['Quelle différence entre consultance étatique et privée ?','La consultance étatique s’adresse aux institutions et organismes publics ; la consultance privée concerne les entreprises et autres acteurs privés.'],
+                ['Quels domaines peuvent être accompagnés ?','La structuration de projets, les organisations, les processus et les initiatives de développement stratégique.'],
+                ['Comment présenter une mission ?','Décrivez le contexte, les objectifs, les parties prenantes et le calendrier via le contact du groupe.'],
+            ],
             'intro'=>'Deux branches, une exigence de conseil',
             'details'=>'La consultance est structurée autour de deux publics : les institutions étatiques et les acteurs privés. Les prestations peuvent concerner le cadrage de projets, la transformation des organisations, la coordination et le développement de secteurs stratégiques.',
             'services'=>[

@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GroupPublicController;
+use App\Http\Controllers\GroupProfileController;
 use App\Http\Controllers\GroupAdminController;
 use App\Http\Controllers\GroupLoginController;
 use App\Http\Controllers\GroupSuiteController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\GroupImportController;
 Route::view('/', 'welcome')->name('home');
 Route::view('/groupe', 'group')->name('group');
 Route::get('/groupe/entites', [GroupPublicController::class, 'index'])->name('group.portal');
+Route::get('/groupe/structures/{slug}', [GroupProfileController::class, 'show'])->name('group.profile');
 Route::get('/groupe/entites/{slug}', [GroupPublicController::class, 'entity'])->name('group.entity');
 Route::middleware('guest')->group(function () {
  Route::get('/inscription', [GroupLoginController::class, 'registerForm'])->name('register');

@@ -97,7 +97,7 @@ class GroupProfileController
                 ['Développement','Présentation des initiatives et projets à venir après validation.'],
             ],
         ],
-        'kojuka-mining' => [
+        'cojuka-mining' => [
             'mission'=>'Structurer la présentation et le développement progressif des activités minières du groupe, avec une attention particulière à la documentation et à la coordination des projets.',
             'vision'=>'Contribuer à un développement minier organisé, tenant compte des exigences techniques, administratives, environnementales et sociales applicables.',
             'audiences'=>[
@@ -129,13 +129,13 @@ class GroupProfileController
                 ['Planifier','Définir les étapes de développement appropriées.'],
             ],
             'video_url'=>'https://d8j0ntlcm91z4.cloudfront.net/user_35sq0uUmKRerZDm8Ty4efx2WQSL/hf_20261015_161148_e24a7720-8b37-44eb-aa21-d63f68adde8b.mp4',
-            'video'=>'kojuka-mining.mp4',
-            'name'=>'Kojuka Mining',
+            'video'=>'cojuka-mining.mp4',
+            'name'=>'COJUKA Mining',
             'category'=>'Activités minières · SA',
             'location'=>'Zone 30, Haut-Katanga, RDC',
             'summary'=>'Société minière disposant d’environ cinquante carrés miniers dans la zone stratégique dite « zone 30 » au Haut-Katanga.',
             'headline'=>'Développer les ressources de manière structurée.',
-            'description'=>'Kojuka Mining poursuit le développement de ses activités minières au Haut-Katanga. Selon la présentation institutionnelle du groupe, la société dispose d’environ cinquante carrés miniers situés dans la zone 30. Les données techniques et les titres pourront être documentés ultérieurement.',
+            'description'=>'COJUKA Mining poursuit le développement de ses activités minières au Haut-Katanga. Selon la présentation institutionnelle du groupe, la société dispose d’environ cinquante carrés miniers situés dans la zone 30. Les données techniques et les titres pourront être documentés ultérieurement.',
             'focus'=>[
                 ['Périmètre minier','Présentation des carrés miniers de la zone 30.'],
                 ['Développement','Structuration et progression des activités minières.'],

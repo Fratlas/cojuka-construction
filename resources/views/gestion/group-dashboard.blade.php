@@ -3,12 +3,13 @@
 @section('content')
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <p class="text-uppercase text-secondary small fw-bold mb-1">Direction générale · COJUKA Group</p>
+        <p class="text-uppercase text-secondary small fw-bold mb-1">Direction générale · COJUKA Consulting Group</p>
         <h1 class="h2 fw-bold mb-0">Tableau de bord</h1>
         <p class="text-secondary mt-2 mb-0">Vue consolidée des filiales, projets et activités du groupe.</p>
     </div>
     <a class="btn btn-dark rounded-pill px-4" href="{{ route('gestion.group.list', 'projets') }}">Gérer les projets →</a>
 </div>
+<div class="card p-4 mb-4"><form method="get" action="{{ route('gestion.group.dashboard') }}" class="row g-3 align-items-end"><div class="col-md-8"><label class="form-label" for="entityFilter">Afficher les données de</label><select id="entityFilter" name="entity" class="form-select"><option value="">Toutes les entités</option>@foreach($entityOptions as $entity)<option value="{{ $entity->id }}" @selected($selectedEntity === $entity->id)>{{ $entity->name }}</option>@endforeach</select></div><div class="col-md-4"><button class="btn btn-dark w-100" type="submit">Filtrer le tableau de bord</button></div></form></div>
 @if(!$suiteReady)
     <div class="alert alert-warning border-0 rounded-4" role="alert">
         <strong>Configuration en attente :</strong> les modules opérationnels nécessitent la création des tables MySQL. Le suivi des entités, projets et actifs reste accessible.
@@ -44,7 +45,7 @@
         </div>
     @endforeach
 </div>
-<h2 class="h4 fw-bold mb-3">Projets récents</h2>
+<h2 class="h4 fw-bold mb-3">Suivi des opérations</h2><div class="row g-3 mb-4"><div class="col-md-4"><div class="card p-4"><p class="text-secondary">Opérations enregistrées</p><div class="display-6 fw-bold">{{ $operationCount }}</div></div></div><div class="col-md-8"><div class="card p-4"><p class="text-secondary">Finances validées ou terminées</p>@forelse($financeTotals as $currency => $total)<p class="mb-2"><strong>{{ number_format((float)$total,2,',',' ') }} {{ $currency }}</strong></p>@empty<p class="mb-0 text-secondary">Aucun montant validé.</p>@endforelse<small class="text-secondary">Montants indicatifs des fiches financières, non assimilables à un bilan comptable.</small></div></div></div><h2 class="h4 fw-bold mb-3">Opérations récentes</h2><div class="card p-3 mb-5"><div class="table-responsive"><table class="table"><thead><tr><th>Intitulé</th><th>Entité</th><th>Statut</th></tr></thead><tbody>@forelse($recentOperations as $operation)<tr><td><a href="{{ route('gestion.suite.index',$operation->module) }}">{{ $operation->title }}</a></td><td>{{ $operation->entity?->name ?? 'Non attribuée' }}</td><td>{{ $operation->status }}</td></tr>@empty<tr><td colspan="3" class="text-secondary">Aucune opération enregistrée.</td></tr>@endforelse</tbody></table></div></div><h2 class="h4 fw-bold mb-3">Projets récents</h2>
 <div class="card border-0 shadow-sm p-3">
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">

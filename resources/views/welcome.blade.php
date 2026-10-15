@@ -59,7 +59,7 @@
 
 
 /* Photographic construction gallery */
-.showcase-3d{background:#101216;color:#fff;overflow:hidden}.showcase-3d .section-kicker{color:#f2a7b7}.showcase-3d .muted{color:#b6bac2}
+.showcase-3d{background:#101216;color:#fff;overflow:hidden}.showcase-3d .section-kicker{color:#fff}.showcase-3d .muted{color:#b6bac2}
 .photo-showcase{background:#191e27;border:1px solid #353b45;border-radius:24px;overflow:hidden;height:100%;transition:transform .4s,box-shadow .4s}
 .photo-showcase:hover{transform:translateY(-6px);box-shadow:0 24px 55px #0006}
 .photo-showcase-media{position:relative;overflow:hidden;aspect-ratio:1.24;background:#252b35}
@@ -78,7 +78,7 @@
 
 /* Editorial hierarchy and a calmer premium motion language */
 .hero h1{max-width:1050px;font-weight:760;line-height:.98;letter-spacing:-.075em;text-wrap:balance}
-.hero .eyebrow{font-size:.74rem;letter-spacing:.18em;color:#f5dce2}
+.hero .eyebrow{font-size:.74rem;letter-spacing:.18em;color:#fff}
 .hero-sub{font-size:clamp(1.08rem,1.7vw,1.34rem);max-width:630px;line-height:1.75}
 .hero:before{background:linear-gradient(90deg,rgba(7,12,20,.78),rgba(7,12,20,.4) 68%,rgba(7,12,20,.2))!important}
 .display-heading{font-weight:760;letter-spacing:-.065em;text-wrap:balance}
@@ -170,7 +170,7 @@
 <div class="feature-line row g-3"><div class="col-2 feature-number">02</div><div class="col-10"><h3 class="feature-title">Concevoir avec précision</h3><p class="feature-description mb-0">Faire dialoguer créativité, faisabilité et cohérence architecturale.</p></div></div>
 <div class="feature-line row g-3"><div class="col-2 feature-number">03</div><div class="col-10"><h3 class="feature-title">Construire pour durer</h3><p class="feature-description mb-0">Privilégier des choix réfléchis et une vision à long terme.</p></div></div>
 </div></div></div></section>
-<section id="contact" class="section-pad contact-section"><div class="container reveal"><div class="section-kicker mb-4" style="color:#9dc8ff">04 / CONTACT</div><h2>Votre prochain projet<br>commence ici.</h2><p class="muted fs-4 mt-4 mb-5">Parlons de votre vision et donnons-lui forme ensemble.</p><a href="mailto:contact@cojuka.com?subject=Projet%20COJUKA" class="btn-pill btn-white" aria-label="Préparer un courriel de contact (adresse provisoire)">Nous écrire <span aria-hidden="true">↗</span></a><p class="small muted mt-3">Coordonnées officielles à renseigner avant publication.</p></div></section>
+<section id="contact" class="section-pad contact-section"><div class="container reveal"><div class="section-kicker mb-4" style="color:#fff">04 / CONTACT</div><h2>Votre prochain projet<br>commence ici.</h2><p class="muted fs-4 mt-4 mb-5">Parlons de votre vision et donnons-lui forme ensemble.</p><a href="mailto:contact@cojuka.com?subject=Projet%20COJUKA" class="btn-pill btn-white" aria-label="Préparer un courriel de contact (adresse provisoire)">Nous écrire <span aria-hidden="true">↗</span></a><p class="small muted mt-3">Coordonnées officielles à renseigner avant publication.</p></div></section>
 </main>
 <footer class="footer py-4"><div class="container d-flex flex-column flex-md-row justify-content-between gap-2"><span>© {{ date('Y') }} COJUKA Construction. Tous droits réservés.</span><span>Architecture · Construction · RDC</span></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

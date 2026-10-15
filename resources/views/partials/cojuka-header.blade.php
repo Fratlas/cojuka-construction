@@ -4,19 +4,16 @@
 <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#cojukaGlobalNav" aria-controls="cojukaGlobalNav" aria-expanded="false" aria-label="Ouvrir le menu"><span class="navbar-toggler-icon"></span></button>
 <div class="collapse navbar-collapse" id="cojukaGlobalNav"><div class="navbar-nav ms-auto align-items-lg-center">
 <a class="nav-link" href="{{ route('home') }}">Accueil</a>
-<a class="nav-link" href="{{ route('group.portal') }}">Nos entités</a>
-<a class="nav-link" href="{{ route('group') }}#ecosysteme">Écosystème</a>
+<a class="nav-link" href="{{ route('group') }}">Le Groupe</a>
 <div class="nav-item dropdown">
-<a class="nav-link dropdown-toggle" href="#" id="cojukaFilieres" role="button" data-bs-toggle="dropdown" aria-expanded="false">Toutes les entités</a>
+<a class="nav-link dropdown-toggle" href="#" id="cojukaFilieres" role="button" data-bs-toggle="dropdown" aria-expanded="false">Nos entités</a>
 <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="cojukaFilieres" style="max-height:70vh;overflow-y:auto;min-width:290px">
 @foreach(\App\Http\Controllers\GroupProfileController::PROFILES as $slug => $entity)
 <li><a class="dropdown-item py-2" href="{{ route('group.profile', $slug) }}">{{ $entity['name'] }}</a></li>
 @endforeach
 <li><hr class="dropdown-divider"></li><li><a class="dropdown-item fw-bold" href="{{ route('group.portal') }}">Découvrir toutes les entités →</a></li>
 </ul></div>
-<a class="nav-link" href="{{ route('home') }}#apropos">À propos</a>
-<a class="nav-link" href="{{ route('home') }}#expertises">Expertises</a>
-<a class="nav-link" href="{{ route('home') }}#vision">Notre vision</a>
+<a class="nav-link" href="{{ route('home') }}#expertises">Nos expertises</a>
 <a class="nav-link nav-contact" href="{{ route('home') }}#contact">Nous contacter ↗</a>
 @auth
 <a class="nav-link" href="{{ route('gestion.group.dashboard') }}">Tableau de bord</a>

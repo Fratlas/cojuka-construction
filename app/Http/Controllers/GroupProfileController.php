@@ -47,7 +47,7 @@ class GroupProfileController
             ],
         ],
         'construction' => [
-            'name'=>'COJUKA Construction',
+            'name'=>'COJUKA Consulting Group Construction',
             'category'=>'Département construction',
             'location'=>'République démocratique du Congo',
             'summary'=>'Direction dédiée à la construction et au développement des projets du groupe.',
@@ -60,7 +60,7 @@ class GroupProfileController
             ],
         ],
         'logistique' => [
-            'name'=>'COJUKA Logistique',
+            'name'=>'COJUKA Consulting Group Logistique',
             'category'=>'Direction logistique',
             'location'=>'République démocratique du Congo',
             'summary'=>'Direction consacrée aux activités de logistique et à la coordination des opérations.',
@@ -73,7 +73,7 @@ class GroupProfileController
             ],
         ],
         'consultance' => [
-            'name'=>'COJUKA Consultance',
+            'name'=>'COJUKA Consulting Group Consultance',
             'category'=>'Conseil et secteurs stratégiques',
             'location'=>'RDC et international',
             'summary'=>'Activité de conseil auprès du secteur privé, des entreprises et des institutions étatiques.',

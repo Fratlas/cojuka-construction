@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg sticky-top site-nav cojuka-global-nav" aria-label="Navigation principale">
 <div class="container-fluid px-3 px-lg-4">
 <a class="navbar-brand brand" href="{{ route('home') }}" aria-label="COJUKA, accueil">@include('partials.cojuka-logo', ['logoClass'=>'cojuka-brand-logo--small'])</a>
-<button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#cojukaGlobalNav" aria-controls="cojukaGlobalNav" aria-expanded="false" aria-label="Ouvrir le menu"><span class="navbar-toggler-icon"></span></button>
+<div class="cojuka-mobile-nav-actions d-flex d-lg-none align-items-center ms-auto"><div class="cojuka-language-switch" role="group" aria-label="Choisir la langue / Select language / Elegir idioma"><button type="button" data-cojuka-lang="fr" aria-pressed="true" lang="fr"><span aria-hidden="true">🇫🇷</span> FR</button><span aria-hidden="true">/</span><button type="button" data-cojuka-lang="en" aria-pressed="false" lang="en"><span aria-hidden="true">🇬🇧</span> EN</button><span aria-hidden="true">/</span><button type="button" data-cojuka-lang="es" aria-pressed="false" lang="es"><span aria-hidden="true">🇪🇸</span> ES</button></div><button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#cojukaGlobalNav" aria-controls="cojukaGlobalNav" aria-expanded="false" aria-label="Ouvrir le menu"><span class="navbar-toggler-icon"></span></button></div>
 <div class="collapse navbar-collapse" id="cojukaGlobalNav"><div class="navbar-nav ms-auto align-items-lg-center">
 <a class="nav-link" href="{{ route('home') }}">Accueil</a>
 <a class="nav-link" href="{{ route('group') }}">Le Groupe</a>
@@ -21,6 +21,6 @@
 @else
 <a class="nav-link" href="{{ route('login') }}">Connexion</a>
 @endauth
-<div class="cojuka-language-switch ms-lg-2" role="group" aria-label="Choisir la langue / Select language / Elegir idioma"><button type="button" data-cojuka-lang="fr" aria-pressed="true" lang="fr">FR</button><span aria-hidden="true">/</span><button type="button" data-cojuka-lang="en" aria-pressed="false" lang="en">EN</button><span aria-hidden="true">/</span><button type="button" data-cojuka-lang="es" aria-pressed="false" lang="es">ES</button></div>
+<div class="d-none d-lg-flex align-items-center ms-lg-2"><div class="cojuka-language-switch" role="group" aria-label="Choisir la langue / Select language / Elegir idioma"><button type="button" data-cojuka-lang="fr" aria-pressed="true" lang="fr"><span aria-hidden="true">🇫🇷</span> FR</button><span aria-hidden="true">/</span><button type="button" data-cojuka-lang="en" aria-pressed="false" lang="en"><span aria-hidden="true">🇬🇧</span> EN</button><span aria-hidden="true">/</span><button type="button" data-cojuka-lang="es" aria-pressed="false" lang="es"><span aria-hidden="true">🇪🇸</span> ES</button></div></div>
 </div></div></div></nav>
 @include('partials.cojuka-languages')

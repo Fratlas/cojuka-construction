@@ -56,6 +56,36 @@ body{margin:0;color:var(--cojuka-ink);background:#edf0f2;font-family:Inter,-appl
 @media(max-width:850px){.auth-shell{grid-template-columns:1fr}.auth-intro{min-height:0;padding:25px 25px 33px;gap:24px}.auth-brand img{width:210px}.auth-message{margin:0}.auth-intro h2{font-size:clamp(2.1rem,7vw,3rem);margin:14px 0}.auth-intro p{font-size:.95rem;line-height:1.6}.auth-features{display:none}.auth-note{display:none}.auth-rule{display:none}.auth-workspace{min-height:540px;padding:72px 24px 55px}.auth-panel{max-width:520px}.auth-lang{top:19px;right:24px}}
 @media(max-width:480px){.auth-intro{padding:18px 20px 25px}.auth-brand{padding:8px 11px}.auth-brand img{width:180px}.auth-intro h2{font-size:2rem}.auth-intro p{font-size:.88rem;margin:0}.auth-workspace{padding:70px 20px 42px}.auth-panel h1{font-size:2.45rem}.auth-panel .description{margin-bottom:27px}.auth-panel .form-control{min-height:53px}}
 @media(prefers-reduced-motion:reduce){.auth-panel .btn-primary{transition:none}}
+
+/* COJUKA photographic executive login — reference-matched composition */
+body{background:#19222c}
+.auth-shell{position:relative;display:flex;align-items:center;justify-content:flex-end;min-height:100svh;padding:clamp(20px,2.5vw,42px);overflow:hidden;background:#1d2530 url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=2400&q=90') center center/cover no-repeat}
+.auth-shell::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,16,26,.68) 0%,rgba(9,16,26,.35) 43%,rgba(9,16,26,.08) 75%),linear-gradient(0deg,rgba(8,15,25,.38),transparent 55%);pointer-events:none}
+.auth-intro{position:relative;z-index:1;flex:1 1 52%;width:auto;min-width:0;min-height:calc(100svh - 84px);background:none!important;padding:clamp(22px,3vw,60px) clamp(24px,3.4vw,68px);gap:24px;justify-content:space-between}
+.auth-intro::before{display:none}
+.auth-brand{background:transparent;border-radius:0;box-shadow:none;padding:0}
+.auth-brand img{width:clamp(230px,24vw,330px);max-height:110px;background:transparent;filter:drop-shadow(0 3px 12px #ffffff90)}
+.auth-message{margin:auto 0;max-width:640px}
+.auth-intro .eyebrow{font-size:.78rem;letter-spacing:.28em}
+.auth-intro h2{font-size:clamp(3.2rem,5.2vw,6rem);line-height:1.02;margin:24px 0;letter-spacing:-.06em}
+.auth-intro h2 span{font-weight:350}
+.auth-intro p{font-size:clamp(1rem,1.25vw,1.17rem);max-width:560px;line-height:1.7}
+.auth-features{margin-top:42px;gap:12px}
+.auth-feature{background:rgba(8,16,26,.68);border:1px solid #ffffff3b;box-shadow:0 14px 32px #0002;border-radius:16px;padding:17px 13px}
+.auth-feature-icon{background:#681624;border-color:#f5b9c3}
+.auth-note{font-size:.78rem}
+.auth-workspace{position:relative;z-index:2;flex:0 0 min(44%,650px);width:min(44%,650px);min-height:calc(100svh - 50px);border-radius:24px;padding:clamp(45px,5vw,90px) clamp(32px,4.3vw,75px);background:rgba(255,255,255,.985);box-shadow:0 28px 80px #0004;align-self:center}
+.auth-panel{max-width:500px}
+.auth-panel h1{font-size:clamp(2.8rem,3.7vw,4rem);letter-spacing:-.07em;margin:16px 0}
+.auth-panel .eyebrow{letter-spacing:.22em}
+.auth-panel .description{margin-bottom:42px}
+.auth-panel .form-control{min-height:60px}
+.auth-panel .btn-primary{min-height:62px}
+.auth-panel .btn-outline-primary{border:1.5px solid var(--cojuka-red);background:#fff}
+.auth-back{margin-top:32px}
+@media(max-width:1100px){.auth-shell{padding:20px}.auth-intro{padding:32px 22px}.auth-workspace{flex-basis:47%;width:47%;padding:45px 35px}.auth-intro h2{font-size:clamp(2.8rem,4.5vw,4.4rem)}.auth-features{gap:7px}.auth-feature{padding:12px 8px}}
+@media(max-width:850px){.auth-shell{display:flex;flex-direction:column;justify-content:flex-start;padding:0;background-position:center top}.auth-shell::before{background:linear-gradient(180deg,rgba(9,16,26,.68),rgba(9,16,26,.42) 50%,rgba(9,16,26,.68))}.auth-intro{flex:auto;min-height:0;width:100%;padding:26px 24px 34px;gap:24px}.auth-message{margin:15px 0 0}.auth-intro h2{font-size:clamp(2.35rem,7vw,3.6rem)}.auth-intro p{max-width:600px}.auth-workspace{flex:auto;min-height:0;width:calc(100% - 28px);max-width:680px;align-self:center;border-radius:22px;margin:0 14px 25px;padding:48px clamp(22px,6vw,65px);box-shadow:0 12px 45px #0003}.auth-panel{max-width:100%}.auth-features{display:none}.auth-note{display:none}}
+@media(max-width:480px){.auth-intro{padding:24px 20px 28px}.auth-brand img{width:220px}.auth-intro h2{font-size:2.4rem}.auth-intro p{font-size:.92rem}.auth-workspace{width:calc(100% - 24px);margin:0 12px 18px;padding:35px 22px}.auth-panel h1{font-size:2.8rem}.auth-panel .description{margin-bottom:28px}}
 </style>
 </head>
 <body>

@@ -1,0 +1,46 @@
+<style>
+.cojuka-language-switch{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;padding:5px 8px;border:1px solid #e8e1e3;border-radius:99px;background:#fff}
+.cojuka-language-switch button{border:0;background:transparent;color:#777;font-size:.72rem;font-weight:750;letter-spacing:.03em;padding:5px 3px;border-radius:6px}
+.cojuka-language-switch button[aria-pressed="true"]{color:#86212e;background:#f8e9ed}
+.cojuka-language-switch span{color:#c5bfc2;font-size:.7rem}
+@media(max-width:991.98px){.cojuka-language-switch{margin-top:14px;margin-bottom:8px}}
+</style>
+<script>
+(function(){
+'use strict';
+const dictionary={"Accueil":{"en":"Home","es":"Inicio"},"Le Groupe":{"en":"The Group","es":"El Grupo"},"Nos entités":{"en":"Our entities","es":"Nuestras entidades"},"Nos expertises":{"en":"Our expertise","es":"Nuestras especialidades"},"Nous contacter ↗":{"en":"Contact us ↗","es":"Contáctenos ↗"},"Connexion":{"en":"Sign in","es":"Iniciar sesión"},"Tableau de bord":{"en":"Dashboard","es":"Panel de control"},"Déconnexion":{"en":"Sign out","es":"Cerrar sesión"},"Découvrir toutes les entités →":{"en":"Explore all entities →","es":"Descubrir todas las entidades →"},"GROUPE MULTISECTORIEL · RÉPUBLIQUE DÉMOCRATIQUE DU CONGO":{"en":"MULTISECTOR GROUP · DEMOCRATIC REPUBLIC OF THE CONGO","es":"GRUPO MULTISECTORIAL · REPÚBLICA DEMOCRÁTICA DEL CONGO"},"Construction, logistique, consultance étatique et privée, investissements et développement des secteurs stratégiques.":{"en":"Construction, logistics, public and private consulting, investment and strategic sector development.","es":"Construcción, logística, consultoría pública y privada, inversiones y desarrollo de sectores estratégicos."},"Découvrir Consulting Group":{"en":"Discover the Group","es":"Descubrir el Grupo"},"Défiler":{"en":"Scroll","es":"Desplazar"},"La construction":{"en":"Construction","es":"La construcción"},"prend vie en 3D.":{"en":"comes to life.","es":"cobra vida."},"L'excellence se révèle":{"en":"Excellence is revealed","es":"La excelencia se revela"},"dans chaque détail.":{"en":"in every detail.","es":"en cada detalle."},"Découvrez deux univers visuels : la puissance des chantiers et l'élégance de l'architecture contemporaine.":{"en":"Explore two visual worlds: the power of construction sites and the elegance of contemporary architecture.","es":"Descubra dos universos visuales: la fuerza de las obras y la elegancia de la arquitectura contemporánea."},"Engins et travaux de chantier":{"en":"Construction machinery and works","es":"Maquinaria y obras de construcción"},"Architecture contemporaine":{"en":"Contemporary architecture","es":"Arquitectura contemporánea"},"Puissance, coordination et précision au service des projets.":{"en":"Power, coordination and precision for every project.","es":"Potencia, coordinación y precisión al servicio de los proyectos."},"Volumes raffinés, lumière naturelle et matériaux élégants.":{"en":"Refined volumes, natural light and elegant materials.","es":"Volúmenes refinados, luz natural y materiales elegantes."},"Photographies d'illustration, non présentées comme des réalisations de COJUKA.":{"en":"Illustrative photographs; these are not presented as COJUKA projects.","es":"Fotografías ilustrativas; no se presentan como proyectos realizados por COJUKA."},"Le futur prend forme aujourd'hui.":{"en":"The future takes shape today.","es":"El futuro toma forma hoy."},"Chaque détail compte.":{"en":"Every detail matters.","es":"Cada detalle importa."},"Votre prochain projet":{"en":"Your next project","es":"Su próximo proyecto"},"commence ici.":{"en":"starts here.","es":"comienza aquí."},"Nous écrire":{"en":"Write to us","es":"Escríbanos"},"Présentation institutionnelle":{"en":"Institutional overview","es":"Presentación institucional"},"Découvrir l'entité ↗":{"en":"Explore this entity ↗","es":"Descubrir esta entidad ↗"},"Découvrir cette entité ↗":{"en":"Explore this entity ↗","es":"Descubrir esta entidad ↗"},"Toutes les entités":{"en":"All entities","es":"Todas las entidades"},"Notre mission":{"en":"Our mission","es":"Nuestra misión"},"Notre vision":{"en":"Our vision","es":"Nuestra visión"},"À qui nous nous adressons":{"en":"Who we work with","es":"A quién nos dirigimos"},"Des interlocuteurs, des besoins spécifiques.":{"en":"Different partners, specific needs.","es":"Diferentes interlocutores, necesidades específicas."},"Exemples de livrables":{"en":"Example deliverables","es":"Ejemplos de entregables"},"Des résultats documentés.":{"en":"Documented outcomes.","es":"Resultados documentados."},"Questions fréquentes":{"en":"Frequently asked questions","es":"Preguntas frecuentes"},"L'essentiel à savoir.":{"en":"What you need to know.","es":"Lo esencial que debe saber."},"Entrons en contact":{"en":"Get in touch","es":"Hablemos"},"Parlons de votre projet.":{"en":"Let's discuss your project.","es":"Hablemos de su proyecto."},"Contacter le groupe ↗":{"en":"Contact the Group ↗","es":"Contactar al Grupo ↗"},"Les entités du groupe":{"en":"The Group's entities","es":"Las entidades del grupo"},"Notre organisation":{"en":"Our organisation","es":"Nuestra organización"},"Projets et initiatives":{"en":"Projects and initiatives","es":"Proyectos e iniciativas"}};
+const keys=Object.keys(dictionary).sort((a,b)=>b.length-a.length);
+const originals=new WeakMap();
+function apply(lang){
+ if(!['fr','en','es'].includes(lang))lang='fr';
+ document.documentElement.lang=lang;
+ document.querySelectorAll('[data-cojuka-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.cojukaLang===lang)));
+ const root=document.querySelector('main')||document.body;
+ const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(node){
+  const parent=node.parentElement;
+  if(!parent||parent.closest('script,style,textarea,code,pre,.cojuka-language-switch,[contenteditable]'))return NodeFilter.FILTER_REJECT;
+  return NodeFilter.FILTER_ACCEPT;
+ }});
+ let node;
+ while(node=walker.nextNode()){
+  if(!originals.has(node))originals.set(node,node.nodeValue);
+  const original=originals.get(node);
+  if(lang==='fr'){if(node.nodeValue!==original)node.nodeValue=original;continue;}
+  let translated=original;
+  for(const key of keys){
+   if(translated.includes(key))translated=translated.split(key).join(dictionary[key][lang]);
+  }
+  if(node.nodeValue!==translated)node.nodeValue=translated;
+ }
+}
+function current(){try{return localStorage.getItem('cojuka-language')||'fr'}catch(e){return 'fr'}}
+document.addEventListener('DOMContentLoaded',()=>{
+ document.querySelectorAll('[data-cojuka-lang]').forEach(button=>button.addEventListener('click',()=>{
+  const lang=button.dataset.cojukaLang;
+  try{localStorage.setItem('cojuka-language',lang)}catch(e){}
+  apply(lang);
+ }));
+ apply(current());
+});
+})();
+</script>

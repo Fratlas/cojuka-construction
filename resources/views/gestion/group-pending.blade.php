@@ -1,2 +1,13 @@
-<!doctype html><html lang="fr"><head><link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}?v=2"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Compte en attente — COJUKA</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"><style>body{min-height:100vh;background:radial-gradient(circle at 80% 10%,#71313d,#111722 55%);display:grid;place-items:center;font-family:system-ui}.panel{max-width:570px;width:94%;background:white;border-radius:25px;padding:42px;box-shadow:0 30px 100px #0005}</style>@include('partials.cojuka-design')
-</head><body><main class="panel"><div class="text-center mb-3">@include('partials.cojuka-logo', ['logoClass'=>'cojuka-brand-logo--large'])</div><div class="small fw-bold text-uppercase text-danger mb-3">COJUKA GROUP / Accès</div><h1 class="h2 fw-bold">Votre compte est actif</h1><p class="text-secondary mt-3">Bienvenue, {{ auth()->user()->name }}. Votre compte a été créé, mais les droits d'administration n'ont pas encore été accordés. Un administrateur doit valider votre accès.</p><p class="text-secondary small">Compte : {{ auth()->user()->email }}</p>@if(auth()->user()->is_group_admin)<a class="btn btn-dark w-100 py-3 mb-3" href="{{ route('gestion.group.dashboard') }}">Ouvrir la gestion</a>@else<a class="btn btn-outline-dark w-100 mb-3" href="{{ route('account.pending') }}">Actualiser mon statut</a>@endif<form action="{{ route('logout') }}" method="post">@csrf<button class="btn btn-link w-100">Se déconnecter</button></form></main></body></html>
+@extends('layouts.cojuka-auth')
+@section('title','Accès en attente')
+@section('content')
+<div class="eyebrow">Statut du compte</div><h1>Bienvenue chez COJUKA.</h1>
+<p class="description">Votre compte a été créé. L'accès aux modules de gestion reste soumis à l'autorisation d'un administrateur.</p>
+<div class="alert alert-light border rounded-3 mb-4"><strong>{{ auth()->user()->name }}</strong><div class="small text-secondary">{{ auth()->user()->email }}</div></div>
+@if(auth()->user()->is_group_admin)
+<a class="btn btn-primary w-100" href="{{ route('gestion.group.dashboard') }}">Ouvrir le tableau de bord ↗</a>
+@else
+<a class="btn btn-outline-dark w-100 py-3 rounded-3" href="{{ route('account.pending') }}">Actualiser mon statut</a>
+@endif
+<form method="POST" action="{{ route('logout') }}" class="mt-3">@csrf<button class="btn btn-link w-100" type="submit">Se déconnecter</button></form>
+@endsection

@@ -8,7 +8,25 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Schema;
 class GroupAdminController {
- public function dashboard(){return view('gestion.group-dashboard',['entities'=>GroupEntity::count(),'projects'=>GroupProject::count(),'assets'=>GroupAsset::count(),'recent'=>GroupProject::with('entity')->latest()->limit(7)->get(),'suiteStats'=>Schema::hasTable('group_suite_records') ? GroupSuiteRecord::selectRaw('module, count(*) as total')->groupBy('module')->pluck('total','module')->all() : [],'suiteReady'=>Schema::hasTable('group_suite_records')]);}
+ public function dashboard(Request $request){
+  $request->validate(['entity'=>'nullable|integer|exists:group_entities,id']);
+  $entityId=$request->filled('entity')?(int)$request->query('entity'):null;
+  $projectQuery=GroupProject::query();$assetQuery=GroupAsset::query();
+  if($entityId){$projectQuery->where('group_entity_id',$entityId);$assetQuery->where('group_entity_id',$entityId);}
+  $ready=Schema::hasTable('group_suite_records') && Schema::hasTable('group_suite_audit');
+  $suiteQuery=GroupSuiteRecord::query();
+  if($entityId)$suiteQuery->where('group_entity_id',$entityId);
+  return view('gestion.group-dashboard',[
+    'entities'=>GroupEntity::count(),'projects'=>(clone $projectQuery)->count(),'assets'=>(clone $assetQuery)->count(),
+    'recent'=>(clone $projectQuery)->with('entity')->latest()->limit(7)->get(),
+    'suiteStats'=>$ready?(clone $suiteQuery)->selectRaw('module, count(*) as total')->groupBy('module')->pluck('total','module')->all():[],
+    'suiteReady'=>$ready,'entityOptions'=>GroupEntity::orderBy('name')->get(['id','name']),
+    'selectedEntity'=>$entityId,
+    'recentOperations'=>$ready?(clone $suiteQuery)->with('entity')->latest()->limit(8)->get():collect(),
+    'operationCount'=>$ready?(clone $suiteQuery)->count():0,
+    'financeTotals'=>$ready?(clone $suiteQuery)->where('module','finances')->whereIn('status',['valide','termine'])->whereNotNull('amount')->selectRaw('currency, SUM(amount) as total')->groupBy('currency')->pluck('total','currency')->all():[],
+  ]);
+ }
  public function listing(string $module){$model=$this->model($module);return view('gestion.group-list',['module'=>$module,'rows'=>$model::latest()->paginate(15),'entities'=>GroupEntity::orderBy('name')->get()]);}
  public function save(Request $r,string $module){$model=$this->model($module);$data=$this->validated($r,$module);$model::create($data);return back()->with('status','Enregistrement créé.');}
  public function edit(Request $r,string $module,int $id){$model=$this->model($module);$item=$model::findOrFail($id);$item->update($this->validated($r,$module,$id));return back()->with('status','Enregistrement mis à jour.');}

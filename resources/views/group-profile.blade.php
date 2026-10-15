@@ -30,10 +30,19 @@ footer{background:#111724;color:#fff;padding:32px 0}
 @include('partials.cojuka-header')
 <main>
 <header class="entity-hero">
-<video class="entity-background-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" onerror="this.style.display='none'">
-<source src="{{ asset('videos/entities/'.$profile['video']) }}" type="video/mp4">
-@if(!empty($profile['video_url']))<source src="{{ $profile['video_url'] }}" type="video/mp4">@endif
-</video><div class="entity-video-overlay" aria-hidden="true"></div>
+<video class="entity-background-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" data-local="{{ asset('videos/entities/'.$profile['video']) }}" data-remote="{{ $profile['video_url'] ?? '' }}" poster="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1800&q=85"></video>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+ document.querySelectorAll('.entity-background-video').forEach(function(video){
+  const local=video.dataset.local,remote=video.dataset.remote;
+  let source=0;
+  function load(url){if(!url){video.style.display='none';return;}video.src=url;video.load();const play=video.play();if(play&&play.catch)play.catch(function(){if(video.error)fail();});}
+  function fail(){if(source===0&&remote){source=1;load(remote);}else{video.style.display='none';}}
+  video.addEventListener('error',fail);
+  load(local);
+ });
+});
+</script><div class="entity-video-overlay" aria-hidden="true"></div>
 <div class="container">
 <p class="eyebrow mb-3">COJUKA CONSULTING GROUP</p><p class="text-white-50 mb-4">Entité / {{ $profile['category'] }}</p>
 <h1 class="mb-4">{{ $profile['name'] }}</h1>

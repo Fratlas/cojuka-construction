@@ -9,8 +9,8 @@
 <style>
 body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#151923}a{text-decoration:none}
 .entity-hero{min-height:76vh;display:flex;align-items:center;position:relative;overflow:hidden;color:#fff;background:radial-gradient(circle at 85% 40%,#78283e 0%,#20253b 42%,#090f1d 90%);padding:100px 0}
-.entity-hero:after{content:"";position:absolute;width:46vw;aspect-ratio:1;right:-10%;top:0;border:1px solid #ffffff20;border-radius:50%;box-shadow:0 0 0 80px #ffffff08,0 0 0 160px #ffffff04;pointer-events:none}
-.entity-hero .container{position:relative;z-index:1}
+.entity-hero .entity-background-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.7}.entity-hero .entity-video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(6,12,24,.88),rgba(6,12,24,.42))}.entity-hero:after{content:"";position:absolute;width:46vw;aspect-ratio:1;right:-10%;top:0;border:1px solid #ffffff20;border-radius:50%;box-shadow:0 0 0 80px #ffffff08,0 0 0 160px #ffffff04;pointer-events:none}
+.entity-hero .container{position:relative;z-index:2}
 .eyebrow{font-size:.8rem;font-weight:750;letter-spacing:.17em;text-transform:uppercase;color:#e8aebc}
 .entity-hero h1{font-size:clamp(3.3rem,7vw,7.5rem);line-height:1.02;letter-spacing:-.07em;font-weight:850;overflow-wrap:anywhere}
 .entity-hero .lead{max-width:720px;color:#e4e5ec;line-height:1.8}
@@ -28,7 +28,11 @@ footer{background:#111724;color:#fff;padding:32px 0}
 <body>
 @include('partials.cojuka-header')
 <main>
-<header class="entity-hero"><div class="container">
+<header class="entity-hero">
+<video class="entity-background-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" onerror="this.style.display='none'">
+<source src="{{ asset('videos/entities/'.$profile['video']) }}" type="video/mp4">
+</video><div class="entity-video-overlay" aria-hidden="true"></div>
+<div class="container">
 <p class="eyebrow mb-3">COJUKA CONSULTING GROUP</p><p class="text-white-50 mb-4">Entité / {{ $profile['category'] }}</p>
 <h1 class="mb-4">{{ $profile['name'] }}</h1>
 <p class="lead mb-4">{{ $profile['summary'] }}</p>

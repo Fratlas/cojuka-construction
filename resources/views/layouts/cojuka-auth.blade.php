@@ -11,7 +11,7 @@
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;color:var(--cojuka-ink);background:#edf0f2;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased}
 .auth-shell{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(480px,.88fr);min-height:100vh;overflow:hidden}
-.auth-intro{position:relative;isolation:isolate;display:flex;flex-direction:column;justify-content:space-between;gap:50px;min-height:100vh;padding:clamp(35px,5vw,78px);color:#fff;background:#1b2530 url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2000&q=88') center/cover no-repeat}
+.auth-intro{position:relative;isolation:isolate;display:flex;flex-direction:column;justify-content:space-between;gap:50px;min-height:100vh;padding:clamp(35px,5vw,78px);color:#fff;background:#1b2530 url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=75&fm=webp') center/cover no-repeat}
 .auth-intro::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(9,17,29,.82),rgba(9,17,29,.35) 85%),linear-gradient(0deg,rgba(8,15,25,.88),transparent 70%)}
 .auth-brand{align-self:flex-start;display:inline-flex;background:#fff;border-radius:16px;padding:12px 17px;box-shadow:0 18px 50px #0002;text-decoration:none}
 .auth-brand img{display:block;width:clamp(210px,20vw,265px);height:auto;max-height:77px;object-fit:contain}
@@ -59,7 +59,7 @@ body{margin:0;color:var(--cojuka-ink);background:#edf0f2;font-family:Inter,-appl
 
 /* COJUKA photographic executive login — reference-matched composition */
 body{background:#19222c}
-.auth-shell{position:relative;display:flex;align-items:center;justify-content:flex-end;min-height:100svh;padding:clamp(20px,2.5vw,42px);overflow:hidden;background:#1d2530 url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=2400&q=90') center center/cover no-repeat}
+.auth-shell{position:relative;display:flex;align-items:center;justify-content:flex-end;min-height:100svh;padding:clamp(20px,2.5vw,42px);overflow:hidden;background:#1d2530 url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=78&fm=webp') center center/cover no-repeat}
 .auth-shell::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,16,26,.68) 0%,rgba(9,16,26,.35) 43%,rgba(9,16,26,.08) 75%),linear-gradient(0deg,rgba(8,15,25,.38),transparent 55%);pointer-events:none}
 .auth-intro{position:relative;z-index:1;flex:1 1 52%;width:auto;min-width:0;min-height:calc(100svh - 84px);background:none!important;padding:clamp(22px,3vw,60px) clamp(24px,3.4vw,68px);gap:24px;justify-content:space-between}
 .auth-intro::before{display:none}
@@ -87,6 +87,8 @@ body{background:#19222c}
 @media(max-width:850px){.auth-shell{display:flex;flex-direction:column;justify-content:flex-start;padding:0;background-position:center top}.auth-shell::before{background:linear-gradient(180deg,rgba(9,16,26,.68),rgba(9,16,26,.42) 50%,rgba(9,16,26,.68))}.auth-intro{flex:auto;min-height:0;width:100%;padding:26px 24px 34px;gap:24px}.auth-message{margin:15px 0 0}.auth-intro h2{font-size:clamp(2.35rem,7vw,3.6rem)}.auth-intro p{max-width:600px}.auth-workspace{flex:auto;min-height:0;width:calc(100% - 28px);max-width:680px;align-self:center;border-radius:22px;margin:0 14px 25px;padding:48px clamp(22px,6vw,65px);box-shadow:0 12px 45px #0003}.auth-panel{max-width:100%}.auth-features{display:none}.auth-note{display:none}}
 @media(max-width:480px){.auth-intro{padding:24px 20px 28px}.auth-brand img{width:220px}.auth-intro h2{font-size:2.4rem}.auth-intro p{font-size:.92rem}.auth-workspace{width:calc(100% - 24px);margin:0 12px 18px;padding:35px 22px}.auth-panel h1{font-size:2.8rem}.auth-panel .description{margin-bottom:28px}}
 </style>
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=78&fm=webp" fetchpriority="high">
 </head>
 <body>
 <div class="auth-shell">

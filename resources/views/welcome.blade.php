@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f5f5f7">
-<meta name="description" content="COJUKA Construction — Une nouvelle vision de l'architecture et de la construction en République démocratique du Congo.">
-<title>COJUKA Construction — Bâtir avec vision</title>
+<meta name="description" content="COJUKA Consulting Group — Groupe de construction, logistique, consultance étatique et privée, investissements et mines.">
+<title>COJUKA Consulting Group — Accueil</title>
 <link rel="preconnect" href="https://images.unsplash.com">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -74,9 +74,9 @@
 <section id="accueil" class="hero" aria-labelledby="hero-title">
 @include('partials.cojuka-hero-carousel')
 <div class="container hero-content">
-<div class="eyebrow">COJUKA CONSULTING GROUP · RDC</div>
-<h1 id="hero-title">Construire le <span style="color:#f2a7b7">progrès.</span><br>Ensemble.</h1>
-<p class="hero-sub mb-4">Conseil, transformation des organisations, intégration technologique et services informatiques. Des solutions pensées avec vous.</p>
+<div class="eyebrow">GROUPE MULTISECTORIEL · RDC</div>
+<h1 id="hero-title">COJUKA <span style="color:#f2a7b7">Consulting</span><br>Group.</h1>
+<p class="hero-sub mb-4">Construction, logistique, consultance étatique et privée, investissements et développement des secteurs stratégiques.</p>
 <div class="d-flex gap-3 flex-wrap"><a href="{{ route('group') }}" class="btn-pill btn-white">Découvrir Consulting Group <span aria-hidden="true">↗</span></a><a href="{{ route('group.portal') }}" class="btn-pill btn-outline-light-custom">Nos entités <span aria-hidden="true">↓</span></a></div>
 </div><div class="scroll-indicator" aria-hidden="true">Défiler <span>↓</span></div>
 </section>

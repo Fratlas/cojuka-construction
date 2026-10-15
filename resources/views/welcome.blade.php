@@ -101,7 +101,7 @@
 @include('partials.cojuka-hero-carousel')
 <div class="container hero-content">
 <div class="eyebrow">GROUPE MULTISECTORIEL · RÉPUBLIQUE DÉMOCRATIQUE DU CONGO</div>
-<h1 id="hero-title">COJUKA <span style="color:#f2a7b7">Consulting</span><br>Group</h1>
+<h1 id="hero-title">COJUKA <span style="color:#fff">Consulting</span><br>Group</h1>
 <p class="hero-sub mb-4">Construction, logistique, consultance étatique et privée, investissements et développement des secteurs stratégiques.</p>
 <div class="d-flex gap-3 flex-wrap"><a href="{{ route('group') }}" class="btn-pill btn-white">Découvrir Consulting Group <span aria-hidden="true">↗</span></a><a href="{{ route('group.portal') }}" class="btn-pill btn-outline-light-custom">Nos entités <span aria-hidden="true">↓</span></a></div>
 </div><div class="scroll-indicator" aria-hidden="true">Défiler <span>↓</span></div>

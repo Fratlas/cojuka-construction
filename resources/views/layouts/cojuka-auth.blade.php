@@ -86,6 +86,18 @@ body{background:#19222c}
 @media(max-width:1100px){.auth-shell{padding:20px}.auth-intro{padding:32px 22px}.auth-workspace{flex-basis:47%;width:47%;padding:45px 35px}.auth-intro h2{font-size:clamp(2.8rem,4.5vw,4.4rem)}.auth-features{gap:7px}.auth-feature{padding:12px 8px}}
 @media(max-width:850px){.auth-shell{display:flex;flex-direction:column;justify-content:flex-start;padding:0;background-position:center top}.auth-shell::before{background:linear-gradient(180deg,rgba(9,16,26,.68),rgba(9,16,26,.42) 50%,rgba(9,16,26,.68))}.auth-intro{flex:auto;min-height:0;width:100%;padding:26px 24px 34px;gap:24px}.auth-message{margin:15px 0 0}.auth-intro h2{font-size:clamp(2.35rem,7vw,3.6rem)}.auth-intro p{max-width:600px}.auth-workspace{flex:auto;min-height:0;width:calc(100% - 28px);max-width:680px;align-self:center;border-radius:22px;margin:0 14px 25px;padding:48px clamp(22px,6vw,65px);box-shadow:0 12px 45px #0003}.auth-panel{max-width:100%}.auth-features{display:none}.auth-note{display:none}}
 @media(max-width:480px){.auth-intro{padding:24px 20px 28px}.auth-brand img{width:220px}.auth-intro h2{font-size:2.4rem}.auth-intro p{font-size:.92rem}.auth-workspace{width:calc(100% - 24px);margin:0 12px 18px;padding:35px 22px}.auth-panel h1{font-size:2.8rem}.auth-panel .description{margin-bottom:28px}}
+
+/* Consistent authentication scale and readable small-screen rhythm */
+.auth-panel{font-size:1rem}
+.auth-panel h1{line-height:1.1}
+.auth-panel .description{max-width:46ch}
+.auth-panel .form-label{font-size:.92rem}
+.auth-panel .form-control{font-size:1rem;line-height:1.4}
+.auth-panel .btn{font-size:1rem;line-height:1.4}
+.auth-panel .alert{font-size:.94rem}
+.auth-message p{max-width:54ch}
+@media(min-width:851px) and (max-height:760px){.auth-workspace{padding-top:38px;padding-bottom:38px}.auth-intro h2{font-size:clamp(2.7rem,4.4vw,4.7rem)}.auth-features{margin-top:18px}.auth-panel .description{margin-bottom:24px}}
+@media(max-width:480px){.auth-panel .form-control{font-size:16px}.auth-panel h1{font-size:clamp(2.25rem,10vw,2.8rem)}}
 </style>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
 <link rel="preload" as="image" href="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=78&fm=webp" fetchpriority="high">

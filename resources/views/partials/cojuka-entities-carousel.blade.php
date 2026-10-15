@@ -8,12 +8,12 @@ $homeEntities = [
  ['COJUKA Mining','kojuka-mining','Développement d’activités minières dans la zone 30 du Haut-Katanga.','Secteur minier'],
 ];
 $entityPhotos = [
- 'construction' => 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1800&q=85',
- 'logistique' => 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1800&q=85',
- 'consultance' => 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1800&q=85',
- 'eden-park-investments' => 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1800&q=85',
- 'impact-center' => 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85',
- 'kojuka-mining' => 'https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1800&q=85',
+ 'construction' => 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=76&fm=webp',
+ 'logistique' => 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1400&q=76&fm=webp',
+ 'consultance' => 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1400&q=76&fm=webp',
+ 'eden-park-investments' => 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1400&q=76&fm=webp',
+ 'impact-center' => 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=76&fm=webp',
+ 'kojuka-mining' => 'https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1400&q=76&fm=webp',
 ];
 @endphp
 <section id="carrousel-entites" class="cojuka-home-entities" aria-labelledby="cojuka-home-entities-title">
@@ -26,7 +26,7 @@ $entityPhotos = [
    <div class="carousel-inner">
     @foreach($homeEntities as $i => $entity)
     <div class="carousel-item {{ $i === 0 ? 'active' : '' }}">
-     <article class="cojuka-entity-panel" style="--entity-photo:url('{{ $entityPhotos[$entity[1]] }}')">
+     <article class="cojuka-entity-panel" data-entity-photo="{{ $entityPhotos[$entity[1]] }}" @if($i === 0) style="--entity-photo:url('{{ $entityPhotos[$entity[1]] }}')" @endif>
       <div class="cojuka-entity-content">
        <div class="cojuka-entity-label">COJUKA CONSULTING GROUP / {{ $entity[3] }} <span class="cojuka-entity-count">{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }} / 06</span></div>
        <h3>{{ $entity[0] }}</h3>
@@ -87,3 +87,28 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 </script>
 @endonce
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+ const carousel=document.getElementById('cojukaHomeEntitiesCarousel');
+ if(!carousel)return;
+ const panels=Array.from(carousel.querySelectorAll('[data-entity-photo]'));
+ const setPhoto=function(index){
+  const panel=panels[index];
+  if(!panel||panel.dataset.photoLoaded==='1')return;
+  panel.style.setProperty('--entity-photo','url("'+panel.dataset.entityPhoto+'")');
+  panel.dataset.photoLoaded='1';
+ };
+ if(panels[0])panels[0].dataset.photoLoaded='1';
+ carousel.addEventListener('slide.bs.carousel',function(e){
+  setPhoto(e.to);
+  if(e.to+1<panels.length)setTimeout(function(){setPhoto(e.to+1)},900);
+ });
+ const section=carousel.closest('section');
+ if('IntersectionObserver' in window && section){
+  const observer=new IntersectionObserver(function(entries){
+   if(entries.some(function(e){return e.isIntersecting})){setPhoto(0);observer.disconnect()}
+  },{rootMargin:'250px'});
+  observer.observe(section);
+ }else{setPhoto(0)}
+});
+</script>

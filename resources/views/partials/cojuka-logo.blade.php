@@ -5,4 +5,4 @@
 @media(prefers-reduced-motion:reduce){.cojuka-brand-logo{animation:none!important}}
 </style>
 @php($logoClass = $logoClass ?? '')
-<img class="cojuka-brand-logo {{ $logoClass }}" src="{{ asset('images/cojuka-logo.webp') }}" onerror="this.onerror=null;this.src='{{ asset('images/cojuka-logo.svg') }}'" alt="Logo COJUKA Group" decoding="async" width="52" height="52">
+<img class="cojuka-brand-logo {{ $logoClass }}" src="{{ asset('images/cojuka-logo.svg') }}" alt="Logo COJUKA Group" decoding="async" width="52" height="52">

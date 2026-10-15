@@ -33,6 +33,34 @@
 .page-content .display-5,.page-content .display-6{font-family:Manrope,sans-serif;letter-spacing:-.06em}
 .page-content .text-secondary{color:#768397!important}
 @media(max-width:575px){.page-content{padding:19px 13px}.page-content h1{font-size:1.55rem}.topbar{padding:0 14px}.top-title{font-size:15px}.modal-body{padding:18px}.table{min-width:610px}}
+
+/* Harmonised executive workspace dimensions */
+:root{--accent:#86212e;--cojuka-admin-radius:16px}
+body{font-size:15px;line-height:1.55}
+.page-content{max-width:1540px;padding:clamp(22px,2.8vw,40px) clamp(20px,3vw,46px) 65px}
+.page-content h1{font-size:clamp(1.75rem,2.2vw,2.35rem);line-height:1.2}
+.page-content h2{font-size:clamp(1.35rem,1.7vw,1.75rem)}
+.page-content h3{font-size:clamp(1.12rem,1.35vw,1.4rem)}
+.page-content .h2{font-size:clamp(1.75rem,2.2vw,2.35rem)}
+.page-content .h4{font-size:clamp(1.2rem,1.6vw,1.6rem)}
+.page-content p{line-height:1.65}
+.page-content .card{border-radius:var(--cojuka-admin-radius)!important}
+.page-content .card.p-3,.page-content .card.p-4{padding:clamp(18px,2vw,30px)!important}
+.topbar{height:76px;padding-inline:clamp(20px,2.8vw,40px)}
+.top-title{font-size:clamp(1rem,1.15vw,1.18rem)}
+.side-link{min-height:43px;font-size:.91rem}
+.form-label{font-size:.86rem;font-weight:700;color:#394457}
+.form-control,.form-select{min-height:46px;font-size:1rem}
+.btn{min-height:43px;font-size:.92rem}
+.table thead th{font-size:.75rem;line-height:1.4}
+.table tbody td{font-size:.9rem;line-height:1.5;vertical-align:middle}
+.badge{font-size:.75rem}
+.brand-symbol{background:linear-gradient(140deg,#a52d41,#701527);color:white}
+.side-link.active{box-shadow:inset 3px 0 #ba344a}
+.side-link.active i{color:#fff}
+.page-content .text-primary{color:#86212e!important}
+@media(max-width:900px){.topbar{height:68px}.page-content{padding:24px 18px 50px}}
+@media(max-width:575px){.page-content{padding:18px 14px 45px}.page-content h1,.page-content .h2{font-size:1.65rem}.topbar{padding:0 14px}.page-content .card.p-3,.page-content .card.p-4{padding:17px!important}.modal-header,.modal-body,.modal-footer{padding:18px}}
 </style>
 @include('partials.cojuka-design')
 </head>

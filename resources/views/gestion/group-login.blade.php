@@ -1,2 +1,12 @@
-<!doctype html><html lang="fr"><head><link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}?v=2"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Connexion — COJUKA Gestion</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"><style>body{min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at 80% 10%,#71313d,#111722 50%);font-family:system-ui}.login{max-width:450px;width:92%;background:white;border-radius:24px;padding:42px;box-shadow:0 30px 100px #0004}</style>@include('partials.cojuka-design')
-</head><body><main class="login"><div class="text-center mb-3">@include('partials.cojuka-logo', ['logoClass'=>'cojuka-brand-logo--large'])</div><h1 class="h3 fw-bold">COJUKA GROUP</h1><p class="text-secondary mb-4">Accès réservé à la gestion interne</p>@if(session('status'))<div class="alert alert-success">{{ session('status') }}</div>@endif @if($errors->any())<div class="alert alert-danger">{{ $errors->first() }}</div>@endif<form method="post" action="{{ route('login.submit') }}">@csrf<label class="form-label">Adresse e-mail</label><input type="email" name="email" value="{{ old('email') }}" required autofocus class="form-control mb-3"><label class="form-label">Mot de passe</label><input type="password" name="password" required class="form-control mb-4"><button class="btn btn-dark w-100 py-3">Se connecter</button></form><div class="text-center mt-3"><a href="{{ route('register') }}">Créer un compte</a></div></main></body></html>
+@extends('layouts.cojuka-auth')
+@section('title','Connexion')
+@section('content')
+<div class="eyebrow">Connexion sécurisée</div><h1>Bienvenue.</h1><p class="description">Connectez-vous à votre espace professionnel pour accéder aux outils de gestion de COJUKA Consulting Group.</p>
+@if(session('status'))<div class="alert alert-success">{{ session('status') }}</div>@endif
+@if($errors->any())<div class="alert alert-danger" role="alert">{{ $errors->first() }}</div>@endif
+<form method="POST" action="{{ route('login.submit') }}">@csrf
+<label for="email" class="form-label">Adresse e-mail</label><input id="email" type="email" name="email" value="{{ old('email') }}" autocomplete="email" required autofocus class="form-control mb-3">
+<label for="password" class="form-label">Mot de passe</label><input id="password" type="password" name="password" autocomplete="current-password" required class="form-control mb-4">
+<button class="btn btn-primary w-100" type="submit">Accéder à mon espace ↗</button></form>
+<p class="text-center mt-4 mb-0">Vous n'avez pas de compte ? <a href="{{ route('register') }}">Créer un compte</a></p>
+@endsection

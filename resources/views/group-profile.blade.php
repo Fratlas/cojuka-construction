@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="{{ $profile['summary'] }}">
-<title>{{ $profile['name'] }} — COJUKA Group</title>
+<title>COJUKA Consulting Group — {{ $profile['name'] }}</title>
 <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
@@ -29,7 +29,7 @@ footer{background:#111724;color:#fff;padding:32px 0}
 @include('partials.cojuka-header')
 <main>
 <header class="entity-hero"><div class="container">
-<p class="eyebrow mb-4">COJUKA GROUP / {{ $profile['category'] }}</p>
+<p class="eyebrow mb-3">COJUKA CONSULTING GROUP</p><p class="text-white-50 mb-4">Entité / {{ $profile['category'] }}</p>
 <h1 class="mb-4">{{ $profile['name'] }}</h1>
 <p class="lead mb-4">{{ $profile['summary'] }}</p>
 <div class="d-flex gap-3 flex-wrap"><a class="btn btn-light btn-pill" href="#presentation">Découvrir l'entité ↗</a><a class="btn btn-outline-light btn-pill" href="{{ route('group.portal') }}">Toutes les entités</a></div>
@@ -45,6 +45,6 @@ footer{background:#111724;color:#fff;padding:32px 0}
 </div></div></section>
 <section class="section-pad"><div class="container"><div class="row align-items-center g-4"><div class="col-lg-8"><p class="eyebrow">Écosystème numérique</p><h2 class="display-title mb-3">Une entité, une présence digitale.</h2><p class="text-secondary lead">Cette page institutionnelle fait partie du portail COJUKA Group. Une application web dédiée pourra être reliée ici lors de son développement et de sa mise en service.</p></div><div class="col-lg-4 text-lg-end"><a class="btn btn-dark btn-pill" href="{{ route('group.portal') }}">Explorer le groupe ↗</a></div></div></div></section>
 </main>
-<footer><div class="container d-flex flex-wrap justify-content-between gap-3"><strong>{{ $profile['name'] }} · COJUKA GROUP</strong><span>© {{ date('Y') }}</span><a class="text-white" href="{{ route('home') }}">← Accueil</a></div></footer>
+<footer><div class="container d-flex flex-wrap justify-content-between gap-3"><strong>COJUKA Consulting Group · {{ $profile['name'] }}</strong><span>© {{ date('Y') }}</span><a class="text-white" href="{{ route('home') }}">← Accueil</a></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body></html>

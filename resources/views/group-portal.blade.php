@@ -4,7 +4,7 @@
 $presentationSlides = [
  ['name'=>'Eden Park Investments','category'=>'Investissement immobilier · SA','description'=>'Investissements fonciers et immobiliers, avec des projets en cours au Congo et à l’étranger.','number'=>'01','slug'=>'eden-park-investments'],
  ['name'=>'Impact Center','category'=>'Participation internationale · Belgique','description'=>'Société de droit belge détenue majoritairement par COJUKA Group.','number'=>'02','slug'=>'impact-center'],
- ['name'=>'Kojuka Mining','category'=>'Mines · SA','description'=>'Environ cinquante carrés miniers dans la zone stratégique 30 du Haut-Katanga, avec des activités en développement.','number'=>'03','slug'=>'kojuka-mining'],
+ ['name'=>'COJUKA Mining','category'=>'Mines · SA','description'=>'Environ cinquante carrés miniers dans la zone stratégique 30 du Haut-Katanga, avec des activités en développement.','number'=>'03','slug'=>'kojuka-mining'],
  ['name'=>'COJUKA Consulting Group Construction','category'=>'Direction opérationnelle','description'=>'Construction et développement de projets au sein du groupe.','number'=>'04','slug'=>'construction'],
  ['name'=>'COJUKA Consulting Group Logistique','category'=>'Direction opérationnelle','description'=>'Coordination des opérations de transport et de logistique.','number'=>'05','slug'=>'logistique'],
  ['name'=>'COJUKA Consulting Group Consultance','category'=>'Conseil et développement','description'=>'Accompagnement des acteurs privés, des entreprises et des institutions étatiques.','number'=>'06','slug'=>'consultance'],
@@ -46,7 +46,7 @@ $presentationSlides = [
 @foreach([
 ['Eden Park Investments','Investissement immobilier · SA','Actifs fonciers et immobiliers, projets au Congo et à l’étranger.','eden-park-investments'],
 ['Impact Center','Participation · Belgique','Société de droit belge détenue majoritairement par le groupe.','impact-center'],
-['Kojuka Mining','Mines · SA','Environ cinquante carrés miniers dans la zone 30, Haut-Katanga ; activités en développement.','kojuka-mining'],
+['COJUKA Mining','Mines · SA','Environ cinquante carrés miniers dans la zone 30, Haut-Katanga ; activités en développement.','kojuka-mining'],
 ['COJUKA Consulting Group Construction','Direction opérationnelle','Construction et développement de projets.','construction'],
 ['COJUKA Consulting Group Logistique','Direction opérationnelle','Transport, coordination et logistique.','logistique'],
 ['COJUKA Consulting Group Consultance','Direction stratégique','Conseil pour les secteurs privé, entrepreneurial et étatique.','consultance']

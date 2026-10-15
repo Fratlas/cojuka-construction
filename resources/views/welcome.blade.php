@@ -82,10 +82,34 @@
 </section>
 <section id="apropos" class="section-pad">
 <div class="container">
-<div class="row g-5 align-items-start">
-<div class="col-lg-4 reveal"><div class="section-kicker mb-4">01 / À PROPOS</div><p class="muted">Une nouvelle perspective sur l'environnement bâti.</p></div>
-<div class="col-lg-8 reveal"><h2 class="display-heading mb-4">Plus qu'une construction.<br><span class="muted">Une empreinte durable.</span></h2><p class="intro-copy muted mt-4">Chez COJUKA Construction, nous croyons que chaque projet commence par une vision. Nous abordons l'architecture et la construction avec une attention particulière aux détails, à l'usage et à la qualité des espaces.</p></div>
+ <div class="row g-5 align-items-start">
+  <div class="col-lg-4 reveal"><div class="section-kicker mb-4">01 / LE GROUPE</div><p class="muted">Une vision commune, plusieurs entités complémentaires.</p></div>
+  <div class="col-lg-8 reveal">
+   <h2 class="display-heading mb-4">COJUKA Consulting Group.<br><span class="muted">Un écosystème au service du développement.</span></h2>
+   <p class="intro-copy muted mt-4">COJUKA Consulting Group réunit des directions opérationnelles, des sociétés et des participations dans plusieurs secteurs. Son organisation couvre notamment la construction, la logistique, la consultance étatique et privée, l'investissement immobilier et les activités minières.</p>
+   <p class="intro-copy muted">Le site principal présente le groupe et centralise les informations de ses entités. Chaque structure dispose d'une page dédiée, avec la perspective de développer progressivement sa propre application web.</p>
+   <div class="d-flex flex-wrap gap-3 mt-4"><a class="btn-pill btn-dark-custom" href="{{ route('group') }}">Présentation complète du groupe ↗</a><a class="btn-pill" style="border:1px solid #d9dce2;color:#151517" href="{{ route('group.portal') }}">Découvrir les entités ↗</a></div>
+  </div>
+ </div>
 </div>
+</section>
+<section id="entites-groupe" class="section-pad soft-section">
+<div class="container">
+ <div class="section-kicker mb-3">02 / LES ENTITÉS DU GROUPE</div>
+ <h2 class="display-heading mb-4">Chaque entité.<br><span class="muted">Sa propre présentation.</span></h2>
+ <p class="muted fs-5 mb-5">Explorez les activités, les domaines d'intervention et les perspectives de développement de chaque structure.</p>
+ <div class="row g-4">
+ @foreach([
+ ['COJUKA Consulting Group Construction','construction','Construction et développement de projets.'],
+ ['COJUKA Consulting Group Logistique','logistique','Coordination des activités de transport et de logistique.'],
+ ['COJUKA Consulting Group Consultance','consultance','Consultance étatique et privée, conseil aux organisations.'],
+ ['Eden Park Investments','eden-park-investments','Investissements immobiliers et fonciers au Congo et à l’international.'],
+ ['Impact Center','impact-center','Société de droit belge, participation majoritaire du groupe.'],
+ ['Kojuka Mining','kojuka-mining','Développement des activités minières au Haut-Katanga.']
+ ] as $entity)
+ <div class="col-md-6 col-xl-4 reveal"><article class="service-card h-100"><div class="service-content"><div class="section-kicker mb-3">COJUKA CONSULTING GROUP</div><h3 class="h4 fw-bold">{{ $entity[0] }}</h3><p class="muted">{{ $entity[2] }}</p><a class="fw-semibold d-inline-block mt-3" href="{{ route('group.profile', $entity[1]) }}">Voir la page de l'entité ↗</a></div></article></div>
+ @endforeach
+ </div>
 </div>
 </section>
 <section id="expertises" class="section-pad soft-section">

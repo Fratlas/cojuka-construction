@@ -32,4 +32,26 @@ body{letter-spacing:-.008em}
 .cojuka-global-nav .dropdown-item:hover,.cojuka-global-nav .dropdown-item:focus{background:#f8eff1;color:#86212e}
 @media(min-width:992px) and (max-width:1350px){.cojuka-global-nav .navbar-brand .cojuka-brand-logo{width:190px!important}.cojuka-global-nav .nav-link{font-size:.75rem;padding:.5rem .22rem!important}}
 @media(max-width:991.98px){.cojuka-global-nav .navbar-toggler{padding:10px;border-radius:12px}.cojuka-global-nav .navbar-collapse{padding:18px 4px}.cojuka-global-nav .navbar-nav{align-items:stretch}.cojuka-global-nav .nav-link{font-size:1rem;padding:.75rem .5rem!important}.cojuka-global-nav .nav-contact{justify-content:center;margin-top:8px}.cojuka-global-nav .dropdown-menu{box-shadow:none!important}}
+
+/* COJUKA unified responsive type and spacing tokens — 2026 design review */
+:root{
+ --cojuka-space-1:.5rem;--cojuka-space-2:1rem;--cojuka-space-3:1.5rem;--cojuka-space-4:2rem;
+ --cojuka-section-space:clamp(3.5rem,7vw,6.5rem);
+ --cojuka-content-width:1320px;
+ --cojuka-type-body:clamp(.95rem,.18vw + .92rem,1.06rem);
+ --cojuka-type-h1:clamp(2.65rem,5.5vw,5.7rem);
+ --cojuka-type-h2:clamp(2rem,3.8vw,3.9rem);
+ --cojuka-type-h3:clamp(1.25rem,1.6vw,1.75rem);
+}
+body{font-size:var(--cojuka-type-body);line-height:1.6}
+img,video,svg{max-width:100%}
+img{height:auto}
+.container{--bs-gutter-x:clamp(1.5rem,3vw,3rem)}
+main,section,article{min-width:0}
+h1,h2,h3,h4,h5,h6{overflow-wrap:break-word}
+p{overflow-wrap:break-word}
+.btn{min-height:42px;display:inline-flex;align-items:center;justify-content:center;gap:.4rem}
+.btn:focus-visible,.form-control:focus-visible,.form-select:focus-visible{outline:3px solid #b88a55;outline-offset:2px}
+.form-control,.form-select{font-size:max(16px,1rem)}
+@media(max-width:575.98px){.container{--bs-gutter-x:1.5rem}.btn{max-width:100%}h1{hyphens:auto}}
 </style>

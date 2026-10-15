@@ -76,13 +76,13 @@ class GroupProfileController
             'name'=>'COJUKA Consulting Group Consultance',
             'category'=>'Conseil et secteurs stratégiques',
             'location'=>'RDC et international',
-            'summary'=>'Activité de conseil auprès du secteur privé, des entreprises et des institutions étatiques.',
+            'summary'=>'Consultance étatique et privée, pour les entreprises et les institutions publiques.',
             'headline'=>'Accompagner la transformation.',
-            'description'=>'La consultance de COJUKA Group couvre les acteurs privés, les entreprises et les institutions étatiques. Elle vise également l’accompagnement du développement de secteurs stratégiques.',
+            'description'=>'COJUKA Consulting Group propose deux axes de consultance : la consultance étatique, destinée aux institutions et organismes publics, et la consultance privée, destinée aux entreprises et acteurs privés. Ces services accompagnent également le développement de secteurs stratégiques.',
             'focus'=>[
-                ['Secteur privé','Conseil et accompagnement des initiatives privées.'],
+                ['Consultance privée','Conseil et accompagnement des entreprises et initiatives privées.'],
                 ['Entreprises','Appui aux organisations et à leurs transformations.'],
-                ['Institutions','Consultance et développement des secteurs stratégiques.'],
+                ['Consultance étatique','Conseil aux institutions et organismes publics, et développement des secteurs stratégiques.'],
             ],
         ],
     ];

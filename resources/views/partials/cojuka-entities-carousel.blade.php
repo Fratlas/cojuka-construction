@@ -58,11 +58,11 @@ $entityPhotos = [
 .cojuka-entities-kicker{font-size:.75rem;letter-spacing:.18em;font-weight:800;color:#9a3044}
 .cojuka-entities-heading{font-size:clamp(2.2rem,5vw,4.5rem);font-weight:800;letter-spacing:-.055em;margin:0}
 .cojuka-all-entities{font-weight:700;color:#862738}
-.cojuka-entity-panel{min-height:clamp(410px,47vw,530px);background:#111b27;border-radius:24px;display:flex;align-items:center;position:relative;overflow:hidden;padding:clamp(30px,5vw,76px);color:white}
+.cojuka-entity-panel{min-height:clamp(420px,44vw,530px);background:#111b27;border-radius:24px;display:flex;align-items:center;position:relative;overflow:hidden;padding:clamp(30px,5vw,76px);color:white}
 .cojuka-entity-content{position:relative;z-index:2;max-width:760px}
 .cojuka-entity-label{font-size:.76rem;letter-spacing:.13em;font-weight:800;color:#ffffff;margin-bottom:28px}
 .cojuka-entity-count{margin-left:20px;color:#fff9}
-.cojuka-entity-panel h3{font-size:clamp(2.4rem,5vw,5.5rem);font-weight:850;line-height:1.1;letter-spacing:-.06em;margin-bottom:22px;overflow-wrap:anywhere}
+.cojuka-entity-panel h3{font-size:clamp(2.25rem,4.3vw,4.75rem);font-weight:850;line-height:1.1;letter-spacing:-.06em;margin-bottom:22px;overflow-wrap:anywhere}
 .cojuka-entity-panel p{color:#e2e4ea;font-size:clamp(1rem,1.6vw,1.25rem);max-width:610px;line-height:1.7}
 .cojuka-entity-link{display:inline-flex;margin-top:20px;padding:13px 24px;border-radius:50px;background:#fff;color:#141823;font-weight:750}
 .cojuka-entity-link:hover{background:#f0e6e8;color:#141823}

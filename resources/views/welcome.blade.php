@@ -62,6 +62,7 @@
 .showcase-3d{background:#101216;color:#fff;overflow:hidden}.showcase-3d .section-kicker{color:#9bc7ff}.showcase-3d .muted{color:#b6bac2}.model-card{background:radial-gradient(ellipse at 50% 40%,#303b4b,#191d25 70%);border:1px solid #353b45;border-radius:24px;overflow:hidden;position:relative}.model-card canvas{display:block;width:100%;height:350px;touch-action:pan-y;cursor:grab}.model-card canvas:active{cursor:grabbing}.model-card .model-label{padding:20px 24px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}.model-label h3{font-size:1.35rem;letter-spacing:-.04em;font-weight:700;margin:0}.model-label p{font-size:.82rem;color:#b6bac2;margin:5px 0 0}.model-hint{font-size:.75rem;color:#b6bac2;white-space:nowrap}.model-fallback{display:grid;place-items:center;height:350px;font-size:5rem;color:#e3c28b;background:radial-gradient(circle,#344252,#151921)}@media(max-width:575px){.model-card canvas,.model-fallback{height:280px}.model-hint{display:none}}
 
 .cojuka-hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}.hero:before{z-index:1;background:linear-gradient(90deg,rgba(6,12,21,.72),rgba(6,12,21,.35) 65%,rgba(6,12,21,.25))!important;transform:none!important}.hero-content,.scroll-indicator{position:relative;z-index:3}.hero .cojuka-carousel-controls{z-index:6}.hero .cojuka-video-carousel{z-index:0}.hero .cojuka-video-carousel video{object-fit:cover}.hero:after{z-index:2}@media(prefers-reduced-motion:reduce){.cojuka-hero-video{display:none}.hero:before{background:linear-gradient(90deg,rgba(6,12,21,.62),rgba(6,12,21,.28)),url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2200&q=85') center/cover no-repeat!important}}
+.hero h1{font-size:clamp(3.3rem,7.6vw,7.8rem);max-width:1200px}.hero .cojuka-video-carousel{position:absolute;inset:0;z-index:0}.hero .cojuka-carousel-controls{z-index:6}.hero .hero-content{z-index:3}.hero:before{pointer-events:none;background:linear-gradient(90deg,rgba(5,11,22,.78),rgba(5,11,22,.45) 65%,rgba(5,11,22,.28))!important}@media(max-width:767px){.hero-content{padding-top:7rem;padding-bottom:9rem}.hero h1{font-size:clamp(3.1rem,11vw,5.5rem)}}
 </style>
 @include('partials.cojuka-design')
 </head>
@@ -73,10 +74,10 @@
 <section id="accueil" class="hero" aria-labelledby="hero-title">
 @include('partials.cojuka-hero-carousel')
 <div class="container hero-content">
-<div class="eyebrow">COJUKA CONSTRUCTION · RDC</div>
-<h1 id="hero-title">Bâtir avec<br>vision.</h1>
-<p class="hero-sub mb-4">L'architecture et la construction pensées pour demain. Des idées ambitieuses, des espaces qui inspirent.</p>
-<div class="d-flex gap-3 flex-wrap"><a href="#expertises" class="btn-pill btn-white">Découvrir nos expertises <span aria-hidden="true">↗</span></a><a href="#apropos" class="btn-pill btn-outline-light-custom">Notre approche <span aria-hidden="true">↓</span></a></div>
+<div class="eyebrow">COJUKA CONSULTING GROUP · RDC</div>
+<h1 id="hero-title">Construire le <span style="color:#f2a7b7">progrès.</span><br>Ensemble.</h1>
+<p class="hero-sub mb-4">Conseil, transformation des organisations, intégration technologique et services informatiques. Des solutions pensées avec vous.</p>
+<div class="d-flex gap-3 flex-wrap"><a href="{{ route('group') }}" class="btn-pill btn-white">Découvrir Consulting Group <span aria-hidden="true">↗</span></a><a href="{{ route('group.portal') }}" class="btn-pill btn-outline-light-custom">Nos entités <span aria-hidden="true">↓</span></a></div>
 </div><div class="scroll-indicator" aria-hidden="true">Défiler <span>↓</span></div>
 </section>
 <section id="apropos" class="section-pad">

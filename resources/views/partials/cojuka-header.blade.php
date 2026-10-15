@@ -3,6 +3,7 @@
 <a class="navbar-brand brand" href="{{ route('home') }}" aria-label="COJUKA, accueil">@include('partials.cojuka-logo', ['logoClass'=>'cojuka-brand-logo--small'])</a>
 <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#cojukaGlobalNav" aria-controls="cojukaGlobalNav" aria-expanded="false" aria-label="Ouvrir le menu"><span class="navbar-toggler-icon"></span></button>
 <div class="collapse navbar-collapse" id="cojukaGlobalNav"><div class="navbar-nav ms-auto align-items-lg-center">
+<a class="nav-link" href="{{ route('home') }}">Accueil</a>
 <a class="nav-link" href="{{ route('group') }}">Le Groupe</a>
 <a class="nav-link" href="{{ route('group.portal') }}">Nos entités</a>
 <a class="nav-link" href="{{ route('group') }}#ecosysteme">Écosystème</a>

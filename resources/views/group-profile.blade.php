@@ -9,7 +9,7 @@
 <style>
 body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#151923}a{text-decoration:none}
 .entity-hero{min-height:76vh;display:flex;align-items:center;position:relative;overflow:hidden;color:#fff;background:radial-gradient(circle at 85% 40%,#78283e 0%,#20253b 42%,#090f1d 90%);padding:100px 0}
-.entity-hero .entity-background-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.7}.entity-hero .entity-video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(6,12,24,.88),rgba(6,12,24,.42))}.entity-hero:after{content:"";position:absolute;width:46vw;aspect-ratio:1;right:-10%;top:0;border:1px solid #ffffff20;border-radius:50%;box-shadow:0 0 0 80px #ffffff08,0 0 0 160px #ffffff04;pointer-events:none}
+.entity-hero .entity-background-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.7}.entity-hero .entity-video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(6,12,24,.88),rgba(6,12,24,.42))}
 .entity-hero .container{position:relative;z-index:2}
 .eyebrow{font-size:.8rem;font-weight:750;letter-spacing:.17em;text-transform:uppercase;color:#e8aebc}
 .entity-hero h1{font-size:clamp(3.3rem,7vw,7.5rem);line-height:1.02;letter-spacing:-.07em;font-weight:850;overflow-wrap:anywhere}
@@ -22,6 +22,7 @@ body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#151923}a{tex
 .soft{background:#f5f6f8}
 .btn-pill{border-radius:99px;padding:13px 25px}
 footer{background:#111724;color:#fff;padding:32px 0}
+@media(max-width:767px){.entity-hero{min-height:70vh;padding:90px 0}.entity-hero h1{font-size:clamp(2.7rem,10vw,4.5rem)}.info-card{padding:24px}}@media(prefers-reduced-motion:reduce){.info-card{transition:none}}
 </style>
 @include('partials.cojuka-design')
 </head>
@@ -31,6 +32,7 @@ footer{background:#111724;color:#fff;padding:32px 0}
 <header class="entity-hero">
 <video class="entity-background-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" onerror="this.style.display='none'">
 <source src="{{ asset('videos/entities/'.$profile['video']) }}" type="video/mp4">
+@if(!empty($profile['video_url']))<source src="{{ $profile['video_url'] }}" type="video/mp4">@endif
 </video><div class="entity-video-overlay" aria-hidden="true"></div>
 <div class="container">
 <p class="eyebrow mb-3">COJUKA CONSULTING GROUP</p><p class="text-white-50 mb-4">Entité / {{ $profile['category'] }}</p>
@@ -42,9 +44,27 @@ footer{background:#111724;color:#fff;padding:32px 0}
 <div class="col-lg-8"><p class="eyebrow">Présentation institutionnelle</p><h2 class="display-title mb-4">{{ $profile['headline'] }}</h2><p class="lead text-secondary" style="line-height:1.9">{{ $profile['description'] }}</p></div>
 <div class="col-lg-4"><div class="info-card"><h3 class="h5 fw-bold mb-4">Informations</h3><p><strong>Secteur :</strong> {{ $profile['category'] }}</p><p><strong>Implantation :</strong> {{ $profile['location'] }}</p><p class="text-secondary small mb-0">Les coordonnées, documents et informations complémentaires seront ajoutés après validation par l'administration.</p></div></div>
 </div></div></section>
+<section class="section-pad soft"><div class="container"><p class="eyebrow mb-3">Notre positionnement</p><div class="row g-5 align-items-start"><div class="col-lg-5"><h2 class="display-title">{{ $profile['intro'] }}</h2></div><div class="col-lg-7"><p class="lead text-secondary" style="line-height:1.85">{{ $profile['details'] }}</p><div class="d-flex flex-wrap gap-2 mt-4"><span class="badge rounded-pill text-bg-light border px-3 py-2">{{ $profile['category'] }}</span><span class="badge rounded-pill text-bg-light border px-3 py-2">{{ $profile['location'] }}</span></div></div></div></div></section>
+<section class="section-pad"><div class="container"><p class="eyebrow mb-3">Domaines d'intervention</p><h2 class="display-title mb-5">Nos activités et expertises</h2><div class="row g-4">
+@foreach($profile['services'] as $index => $service)
+<div class="col-md-6"><article class="info-card"><div class="index mb-3">{{ str_pad($index+1,2,'0',STR_PAD_LEFT) }} / EXPERTISE</div><h3 class="h4 fw-bold mb-3">{{ $service[0] }}</h3><p class="text-secondary mb-0">{{ $service[1] }}</p></article></div>
+@endforeach
+</div></div></section>
 <section class="section-pad soft"><div class="container"><p class="eyebrow mb-3">Activités &amp; perspectives</p><h2 class="display-title mb-5">Nos axes de développement</h2><div class="row g-4">
 @foreach($profile['focus'] as $index => $item)
 <div class="col-md-4"><article class="info-card"><div class="index mb-3">{{ str_pad($index+1,2,'0',STR_PAD_LEFT) }}</div><h3 class="h5 fw-bold mb-3">{{ $item[0] }}</h3><p class="text-secondary mb-0">{{ $item[1] }}</p></article></div>
+@endforeach
+</div></div></section>
+<section class="section-pad"><div class="container"><p class="eyebrow mb-3">Notre démarche</p><h2 class="display-title mb-5">Une approche structurée</h2><div class="row g-4">
+@foreach($profile['method'] as $index => $step)
+<div class="col-md-4"><article class="info-card"><div class="index mb-3">ÉTAPE {{ str_pad($index+1,2,'0',STR_PAD_LEFT) }}</div><h3 class="h4 fw-bold mb-3">{{ $step[0] }}</h3><p class="text-secondary mb-0">{{ $step[1] }}</p></article></div>
+@endforeach
+</div></div></section>
+<section class="section-pad soft"><div class="container"><div class="row align-items-center g-4"><div class="col-lg-8"><p class="eyebrow">Une organisation intégrée</p><h2 class="display-title mb-3">La force d'un écosystème.</h2><p class="lead text-secondary">COJUKA Consulting Group associe des expertises complémentaires. Découvrez les autres structures du groupe, leurs domaines d'intervention et leurs perspectives.</p></div><div class="col-lg-4 text-lg-end"><a class="btn btn-dark btn-pill" href="{{ route('group.portal') }}">Voir toutes les entités ↗</a></div></div><div class="row g-3 mt-4">
+@foreach(\App\Http\Controllers\GroupProfileController::PROFILES as $slug => $related)
+@if($related['name'] !== $profile['name'])
+<div class="col-md-6 col-lg-4"><a class="info-card d-block text-dark text-decoration-none" href="{{ route('group.profile', $slug) }}"><div class="eyebrow mb-2">{{ $related['category'] }}</div><h3 class="h5 fw-bold mb-2">{{ $related['name'] }}</h3><span class="text-secondary">Découvrir ↗</span></a></div>
+@endif
 @endforeach
 </div></div></section>
 <section class="section-pad"><div class="container"><div class="row align-items-center g-4"><div class="col-lg-8"><p class="eyebrow">Écosystème numérique</p><h2 class="display-title mb-3">Une entité, une présence digitale.</h2><p class="text-secondary lead">Cette page institutionnelle fait partie du portail COJUKA Group. Une application web dédiée pourra être reliée ici lors de son développement et de sa mise en service.</p></div><div class="col-lg-4 text-lg-end"><a class="btn btn-dark btn-pill" href="{{ route('group.portal') }}">Explorer le groupe ↗</a></div></div></div></section>

@@ -1,6 +1,6 @@
-<!doctype html>
-<html lang="fr">
-<head><link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}?v=2">
+@extends('layouts.cojuka-public')
+@section('page_head')
+<link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}?v=2">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f5f5f7">
@@ -8,7 +8,7 @@
 <title>COJUKA Consulting Group — Accueil</title>
 <link rel="preconnect" href="https://images.unsplash.com">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
 <style>
 :root{--ink:#151517;--muted:#77777d;--surface:#f5f5f7;--blue:#0066cc}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased}a{text-decoration:none}section{scroll-margin-top:76px}
@@ -95,12 +95,11 @@
 .feature-line .feature-number{color:#c5c9d0;font-size:clamp(2.4rem,5vw,4.2rem)!important;font-weight:800!important;line-height:1.05}
 @media(max-width:575px){.feature-line .feature-number{font-size:2.5rem!important}.feature-line .col-2{width:19%}.feature-line .col-10{width:81%}}
 </style>
-@include('partials.cojuka-design')
-</head>
-<body>
+@endsection
+@section('content')
 @include('partials.cojuka-intro')
 <div class="progress-line" id="readingProgress" aria-hidden="true"></div>
-@include('partials.cojuka-header')
+
 <main>
 <section id="accueil" class="hero" aria-labelledby="hero-title">
 @include('partials.cojuka-hero-carousel')
@@ -172,8 +171,8 @@
 </div></div></div></section>
 <section id="contact" class="section-pad contact-section"><div class="container reveal"><div class="section-kicker mb-4" style="color:#fff">04 / CONTACT</div><h2>Votre prochain projet<br>commence ici.</h2><p class="muted fs-4 mt-4 mb-5">Parlons de votre vision et donnons-lui forme ensemble.</p><a href="mailto:contact@cojuka.com?subject=Projet%20COJUKA" class="btn-pill btn-white" aria-label="Préparer un courriel de contact (adresse provisoire)">Nous écrire <span aria-hidden="true">↗</span></a><p class="small muted mt-3">Coordonnées officielles à renseigner avant publication.</p></div></section>
 </main>
-<footer class="footer py-4"><div class="container d-flex flex-column flex-md-row justify-content-between gap-2"><span>© {{ date('Y') }} COJUKA Construction. Tous droits réservés.</span><span>Architecture · Construction · RDC</span></div></footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+@endsection
+@section('page_scripts')
 <script>
 (function(){const elements=document.querySelectorAll('.reveal');if(!('IntersectionObserver' in window)){elements.forEach(el=>el.classList.add('visible'));return;}const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}})},{threshold:.12});elements.forEach(el=>observer.observe(el));document.querySelectorAll('#mainNav .nav-link').forEach(link=>link.addEventListener('click',()=>{const nav=document.getElementById('mainNav');if(nav.classList.contains('show'))bootstrap.Collapse.getOrCreateInstance(nav).hide();}));})();
 
@@ -194,7 +193,4 @@
  }
 })();
 </script>
-
-
-</body>
-</html>
+@endsection

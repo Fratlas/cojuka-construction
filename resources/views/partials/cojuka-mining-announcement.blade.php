@@ -36,6 +36,10 @@
 (function(){
  var dialog=document.getElementById('cojuka-mining-announce');if(!dialog)return;
  var close=document.getElementById('cma-close'),shown=false,previousFocus=null,audioCtx=null,hideTimer=null;
+ var sessionKey='cojuka-mining-announcement-seen-v1';
+ function alreadySeen(){try{return sessionStorage.getItem(sessionKey)==='1'}catch(e){return false}}
+ function markSeen(){try{sessionStorage.setItem(sessionKey,'1')}catch(e){}}
+
  var panel=dialog.querySelector('.cma-panel'),title=document.getElementById('cma-title'),copy=dialog.querySelector('.cma-copy');
  var campaigns=[
   {title:'Le Mining au cœur de notre vision.',copy:'Explorez notre orientation stratégique vers les ressources naturelles, les projets miniers et les carrières.',image:'https://images.hellogravel.com/variants/guides/37e44abca47c0db2/bingham-canyon-mine-aerial-scaled-content-900w.webp'},
@@ -60,9 +64,9 @@
    });
   }catch(e){}
  }
- function open(){if(shown)return;shown=true;setCampaign();clearTimeout(hideTimer);previousFocus=document.activeElement;dialog.style.display='flex';dialog.setAttribute('aria-hidden','false');requestAnimationFrame(function(){dialog.classList.add('cma-visible');close.focus({preventScroll:true});playIntroSound();});}
+ function open(){if(shown||alreadySeen())return;shown=true;markSeen();setCampaign();clearTimeout(hideTimer);previousFocus=document.activeElement;dialog.style.display='flex';dialog.setAttribute('aria-hidden','false');requestAnimationFrame(function(){dialog.classList.add('cma-visible');close.focus({preventScroll:true});playIntroSound();});}
  function hide(){if(!shown)return;shown=false;dialog.classList.remove('cma-visible');dialog.setAttribute('aria-hidden','true');hideTimer=window.setTimeout(function(){dialog.style.display='none';},window.matchMedia('(prefers-reduced-motion: reduce)').matches?0:560);if(previousFocus&&previousFocus.focus)previousFocus.focus({preventScroll:true});}
- function waitForIntro(){var intro=document.getElementById('cojuka-intro');if(!intro||intro.classList.contains('is-hidden')){window.setTimeout(open,450);return;}var obs=new MutationObserver(function(){if(intro.classList.contains('is-hidden')){obs.disconnect();window.setTimeout(open,450);}});obs.observe(intro,{attributes:true,attributeFilter:['class']});}
+ function waitForIntro(){if(alreadySeen())return;var intro=document.getElementById('cojuka-intro');if(!intro||intro.classList.contains('is-hidden')){window.setTimeout(open,450);return;}var obs=new MutationObserver(function(){if(intro.classList.contains('is-hidden')){obs.disconnect();window.setTimeout(open,450);}});obs.observe(intro,{attributes:true,attributeFilter:['class']});}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',waitForIntro,{once:true});else waitForIntro();
  close.addEventListener('click',hide);dialog.addEventListener('click',function(e){if(e.target===dialog)hide();});
  document.addEventListener('keydown',function(e){if(!dialog.classList.contains('cma-visible'))return;if(e.key==='Escape'){hide();return;}if(e.key==='Tab'){var focusable=Array.from(dialog.querySelectorAll('button,a[href]')).filter(function(el){return !el.disabled});if(!focusable.length)return;var first=focusable[0],last=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});

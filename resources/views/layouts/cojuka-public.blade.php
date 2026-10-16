@@ -8,6 +8,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 @yield('page_head')
 @include('partials.cojuka-design')
+@include('partials.cojuka-theme')
 <style>
 .cojuka-site-footer{background:#f5f5f7!important;color:#17191d!important;padding:70px 0 22px!important;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
 .cojuka-footer-main{display:grid;grid-template-columns:2.2fr repeat(3,1fr);gap:clamp(24px,4vw,65px);padding-bottom:55px}

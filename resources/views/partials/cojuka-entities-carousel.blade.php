@@ -13,7 +13,7 @@ $entityPhotos = [
  'consultance' => 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=72&fm=webp',
  'eden-park-investments' => 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=72&fm=webp',
  'impact-center' => 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=72&fm=webp',
- 'kojuka-mining' => 'https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1200&q=72&fm=webp',
+ 'kojuka-mining' => 'https://images.hellogravel.com/variants/guides/37e44abca47c0db2/bingham-canyon-mine-aerial-scaled-content-900w.webp',
 ];
 @endphp
 <section id="carrousel-entites" class="cojuka-home-entities" aria-labelledby="cojuka-home-entities-title">

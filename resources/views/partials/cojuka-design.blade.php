@@ -96,4 +96,14 @@ main :is(.service-card,.info-card,.entity-photo-tile):focus-within{outline:2px s
 .cojuka-global-nav .dropdown-item:focus-visible{outline:2px solid #a22a40;outline-offset:2px}
 @media(hover:hover){.cojuka-global-nav .dropdown-item:hover{background:rgba(134,33,46,.075)}}
 @media(prefers-reduced-motion:reduce){.cojuka-global-nav .dropdown-item{transition:none!important}}
+
+/* Bordeaux photographic grading, readable white type and cinematic hover across public pages */
+:root{--cojuka-photo-wine:#611324;--cojuka-photo-red:#922a43}
+main :is(.entity-photo-tile,.entity-service-photo,.service-card){overflow:hidden}
+main :is(.entity-photo-tile,.entity-service-photo,.service-card) img{transition:transform .85s cubic-bezier(.22,1,.36,1),filter .7s ease}
+@media(hover:hover){main :is(.entity-photo-tile,.entity-service-photo,.service-card):hover img{transform:scale(1.065);filter:saturate(1.09)}}
+main :is(.entity-photo-tile,.entity-service-photo,.service-card){transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s ease}
+@media(hover:hover){main :is(.entity-photo-tile,.entity-service-photo,.service-card):hover{transform:translateY(-6px);box-shadow:0 24px 55px rgba(94,19,39,.14)}}
+@media(prefers-reduced-motion:reduce){main :is(.entity-photo-tile,.entity-service-photo,.service-card),main :is(.entity-photo-tile,.entity-service-photo,.service-card) img{transition:none!important;transform:none!important}}
+
 </style>

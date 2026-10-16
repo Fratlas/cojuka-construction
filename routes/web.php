@@ -6,6 +6,7 @@ use App\Http\Controllers\GroupAdminController;
 use App\Http\Controllers\GroupLoginController;
 use App\Http\Controllers\GroupSuiteController;
 use App\Http\Controllers\GroupUsersController;
+use App\Http\Controllers\GroupDepartmentController;
 use App\Http\Controllers\GroupImportController;
 Route::view('/', 'welcome')->name('home');
 Route::view('/groupe', 'group')->name('group');
@@ -23,6 +24,8 @@ Route::get('/compte-en-attente', [GroupLoginController::class, 'pending'])->midd
 Route::post('/deconnexion', [GroupLoginController::class, 'logout'])->middleware('auth')->name('logout');
 Route::middleware(['auth', 'group.admin'])->prefix('gestion')->name('gestion.')->group(function () {
  Route::get('/', [GroupAdminController::class, 'dashboard'])->name('group.dashboard');
+ Route::get('/departements', [GroupDepartmentController::class, 'index'])->middleware('can:manage-users')->name('departments.index');
+ Route::patch('/departements/{department}', [GroupDepartmentController::class, 'update'])->middleware('can:manage-users')->name('departments.update');
  Route::get('/utilisateurs', [GroupUsersController::class, 'index'])->middleware('can:manage-users')->name('users.index');
  Route::patch('/utilisateurs/{user}', [GroupUsersController::class, 'update'])->middleware('can:manage-users')->name('users.update');
  Route::get('/import/{module}/modele', [GroupImportController::class, 'template'])->middleware('group.module')->name('import.template');

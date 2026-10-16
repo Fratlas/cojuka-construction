@@ -4,7 +4,7 @@
 <meta name="description" content="{{ $topic['description'] }}">
 <style>
 .cojuka-topic-hero{min-height:66vh;display:flex;align-items:end;padding:clamp(110px,13vw,185px) 0 85px;color:#fff;background-size:cover;background-position:center;position:relative;isolation:isolate}
-.cojuka-topic-hero:before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(93,14,39,.91),rgba(107,28,53,.58) 58%,rgba(97,22,49,.12));z-index:-1}
+.cojuka-topic-hero:before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(14,24,33,.78),rgba(21,33,44,.36) 58%,rgba(24,32,41,.07));z-index:-1}
 .cojuka-topic-hero h1{font-size:clamp(2.9rem,7vw,6.8rem);font-weight:850;letter-spacing:-.06em;line-height:1.03;max-width:930px}
 .cojuka-topic-hero p{max-width:720px;color:#fff;font-size:clamp(1.05rem,2vw,1.4rem)}
 .cojuka-topic-card{border:1px solid #e9e1e5;border-radius:24px;padding:clamp(24px,3vw,40px);height:100%;background:#fff;transition:transform .4s,box-shadow .4s}

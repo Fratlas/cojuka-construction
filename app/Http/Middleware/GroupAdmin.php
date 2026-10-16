@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 class GroupAdmin {
  public function handle(Request $request, Closure $next):Response {
   if (!$request->user()) return redirect()->guest(route('login'));
-  if (!$request->user()->is_group_admin) {
+  if (!\App\Support\GroupAccess::any($request->user())) {
    if ($request->isMethod('GET') || $request->isMethod('HEAD')) {
     return redirect()->route('account.pending')->with('status','Votre compte doit être autorisé avant l’accès à la gestion.');
    }

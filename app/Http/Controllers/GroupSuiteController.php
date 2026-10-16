@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\GroupEntity;
+use App\Support\GroupAccess;
 use App\Models\GroupSuiteRecord;
 use App\Models\GroupSuiteAudit;
 use Illuminate\Http\Request;
@@ -25,22 +26,26 @@ class GroupSuiteController {
   $config=$this->config($module);
   if (!Schema::hasTable('group_suite_records') || !Schema::hasTable('group_suite_audit')) return view('gestion.suite-unavailable',['module'=>$module,'config'=>$config]);
   $query=GroupSuiteRecord::with('entity')->where('module',$module);
+  $allowed=GroupAccess::entities($request->user());if($allowed!==null)$query->whereIn('group_entity_id',$allowed);
   if($request->filled('entity')){$request->validate(['entity'=>'integer|exists:group_entities,id']);$query->where('group_entity_id',$request->query('entity'));}
   if($request->filled('q')){$request->validate(['q'=>'string|max:100']);$q=$request->query('q');$query->where(fn($builder)=>$builder->where('title','like','%'.$q.'%')->orWhere('reference','like','%'.$q.'%'));}
   if($request->filled('status')){$request->validate(['status'=>Rule::in(array_keys(self::STATUSES))]);$query->where('status',$request->query('status'));}
   $totals=(clone $query)->selectRaw('currency, COUNT(*) AS total, SUM(amount) AS amount_total')->groupBy('currency')->get();
-  return view('gestion.suite-index',['module'=>$module,'config'=>$config,'rows'=>$query->latest()->paginate(15)->withQueryString(),'entities'=>GroupEntity::orderBy('name')->get(),'totals'=>$totals]);
+  return view('gestion.suite-index',['module'=>$module,'config'=>$config,'rows'=>$query->latest()->paginate(15)->withQueryString(),'entities'=>GroupEntity::when($allowed!==null,fn($q)=>$q->whereIn('id',$allowed))->orderBy('name')->get(),'totals'=>$totals]);
  }
- public function history(string $module){
+ public function history(Request $request,string $module){
   $config=$this->config($module);
   if(!Schema::hasTable('group_suite_audit'))return view('gestion.suite-unavailable',['module'=>$module,'config'=>$config]);
-  $events=GroupSuiteAudit::where('module',$module)->orderByDesc('id')->paginate(30);
+  $events=GroupSuiteAudit::where('module',$module);
+  $allowed=GroupAccess::entities($request->user());if($allowed!==null)$events->whereIn('record_id',GroupSuiteRecord::where('module',$module)->whereIn('group_entity_id',$allowed)->select('id'));
+  $events=$events->orderByDesc('id')->paginate(30);
   return view('gestion.suite-history',compact('module','config','events'));
  }
  public function export(Request $request,string $module){
   $this->config($module);
   abort_unless(Schema::hasTable('group_suite_records'),503,'Module non installé : exécutez les migrations.');
-  $records=GroupSuiteRecord::with('entity')->where('module',$module)->orderBy('id')->cursor();
+  $allowed=GroupAccess::entities($request->user());
+  $records=GroupSuiteRecord::with('entity')->where('module',$module)->when($allowed!==null,fn($q)=>$q->whereIn('group_entity_id',$allowed))->orderBy('id')->cursor();
   return response()->streamDownload(function()use($records){
    $out=fopen('php://output','w');fwrite($out,"\xEF\xBB\xBF");
    fputcsv($out,['ID','Société','Titre','Référence','Statut','Date','Montant','Devise','Localisation','Description'],';');
@@ -52,7 +57,7 @@ class GroupSuiteController {
   },'cojuka-'.$module.'-'.now()->format('Ymd').'.csv',['Content-Type'=>'text/csv; charset=UTF-8']);
  }
  public function store(Request $request,string $module){
-  $config=$this->config($module);$this->ensureReady();$data=$this->validateData($request,$config);
+  $config=$this->config($module);$this->ensureReady();$data=$this->validateData($request,$config);GroupAccess::requireEntity($request->user(),(int)$data['group_entity_id']);
   DB::transaction(function()use($data,$module,$request){
    $item=GroupSuiteRecord::create($data+['module'=>$module,'created_by'=>$request->user()->id,'updated_by'=>$request->user()->id]);
    $this->audit($request,'create',$item,null);
@@ -62,7 +67,7 @@ class GroupSuiteController {
  public function update(Request $request,string $module,int $id){
   $config=$this->config($module);$this->ensureReady();$data=$this->validateData($request,$config);
   DB::transaction(function()use($data,$module,$id,$request){
-   $item=GroupSuiteRecord::where('module',$module)->findOrFail($id);$before=$item->toArray();
+   $item=GroupSuiteRecord::where('module',$module)->findOrFail($id);GroupAccess::requireEntity($request->user(),$item->group_entity_id);$before=$item->toArray();
    $item->update($data+['updated_by'=>$request->user()->id]);$this->audit($request,'update',$item,$before);
   });
   return back()->with('status','Enregistrement mis à jour.');
@@ -70,7 +75,7 @@ class GroupSuiteController {
  public function destroy(Request $request,string $module,int $id){
   $this->config($module);$this->ensureReady();
   DB::transaction(function()use($module,$id,$request){
-   $item=GroupSuiteRecord::where('module',$module)->findOrFail($id);$this->audit($request,'delete',$item,$item->toArray());$item->delete();
+   $item=GroupSuiteRecord::where('module',$module)->findOrFail($id);GroupAccess::requireEntity($request->user(),$item->group_entity_id);$this->audit($request,'delete',$item,$item->toArray());$item->delete();
   });
   return back()->with('status','Enregistrement supprimé.');
  }

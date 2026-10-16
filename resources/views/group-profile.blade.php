@@ -79,6 +79,41 @@ $cojukaPhotos = [
   ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab','Organisation et développement stratégique'],
  ],
 ];
+ $cojukaPhotos['genie.mp4'] = [
+  ['https://images.unsplash.com/photo-1504307651254-35680f356dfd','Illustration du secteur genie — visuel 1'],
+  ['https://images.unsplash.com/photo-1487958449943-2429e8be8625','Illustration du secteur genie — visuel 2'],
+  ['https://images.unsplash.com/photo-1581092160562-40aa08e78837','Illustration du secteur genie — visuel 3'],
+ ];
+ $cojukaPhotos['energie.mp4'] = [
+  ['https://images.unsplash.com/photo-1473341304170-971dccb5ac1e','Illustration du secteur energie — visuel 1'],
+  ['https://images.unsplash.com/photo-1509391366360-2e959784a276','Illustration du secteur energie — visuel 2'],
+  ['https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9','Illustration du secteur energie — visuel 3'],
+ ];
+ $cojukaPhotos['materiel.mp4'] = [
+  ['https://images.unsplash.com/photo-1581092160607-ee22621dd758','Illustration du secteur materiel — visuel 1'],
+  ['https://images.unsplash.com/photo-1504307651254-35680f356dfd','Illustration du secteur materiel — visuel 2'],
+  ['https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc','Illustration du secteur materiel — visuel 3'],
+ ];
+ $cojukaPhotos['education.mp4'] = [
+  ['https://images.unsplash.com/photo-1503676260728-1c00da094a0b','Illustration du secteur education — visuel 1'],
+  ['https://images.unsplash.com/photo-1497633762265-9d179a990aa6','Illustration du secteur education — visuel 2'],
+  ['https://images.unsplash.com/photo-1427504494785-3a9ca7044f45','Illustration du secteur education — visuel 3'],
+ ];
+ $cojukaPhotos['cargo.mp4'] = [
+  ['https://images.unsplash.com/photo-1494412519320-aa613dfb7738','Illustration du secteur cargo — visuel 1'],
+  ['https://images.unsplash.com/photo-1578575437130-527eed3abbec','Illustration du secteur cargo — visuel 2'],
+  ['https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d','Illustration du secteur cargo — visuel 3'],
+ ];
+ $cojukaPhotos['sante.mp4'] = [
+  ['https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d','Illustration du secteur sante — visuel 1'],
+  ['https://images.unsplash.com/photo-1538108149393-fbbd81895907','Illustration du secteur sante — visuel 2'],
+  ['https://images.unsplash.com/photo-1551076805-e1869033e561','Illustration du secteur sante — visuel 3'],
+ ];
+ $cojukaPhotos['public.mp4'] = [
+  ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab','Illustration du secteur public — visuel 1'],
+  ['https://images.unsplash.com/photo-1529107386315-e1a2ed48a620','Illustration du secteur public — visuel 2'],
+  ['https://images.unsplash.com/photo-1497366811353-6870744d04b2','Illustration du secteur public — visuel 3'],
+ ];
 $entityPhotos = $cojukaPhotos[$profile['video'] ?? ''] ?? (isset($profile['photo']) ? [[$profile['photo'], $profile['category']], ['https://images.unsplash.com/photo-1487958449943-2429e8be8625', 'Perspectives et infrastructures'], ['https://images.unsplash.com/photo-1497366811353-6870744d04b2', 'Coordination des projets']] : $cojukaPhotos['construction.mp4']);
 
 $entityHighlights = [

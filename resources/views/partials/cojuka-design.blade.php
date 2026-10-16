@@ -78,4 +78,12 @@ body .section-kicker{font-size:.85rem}
 body .eyebrow{font-size:.8rem}
 body .info-card .index{font-weight:400!important}
 body :is(.cma-kicker,.ci-caption){font-weight:400!important}
+
+/* Harmonisation : tous les micro-titres bordeaux des sections en graisse light. */
+body :is(.history-label,.history-kicker,.cojuka-entities-kicker,.cojuka-entity-label,.cojuka-entity-slide .tag,.section-kicker,.eyebrow,.service-index,.service-card .service-index,.photo-showcase-tag,.cma-kicker,.tag,.info-card .index,.feature-label,.section-label,.mini-label,.overline,.small-title){
+ font-weight:300!important;
+ font-synthesis:weight;
+ letter-spacing:.065em;
+}
+body :is(.history-label,.history-kicker,.cojuka-entities-kicker,.cojuka-entity-label,.section-kicker,.eyebrow,.service-index,.photo-showcase-tag,.cma-kicker,.tag,.feature-label,.section-label,.mini-label,.overline,.small-title){text-transform:uppercase}
 </style>

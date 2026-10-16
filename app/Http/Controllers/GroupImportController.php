@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\GroupEntity;
+use App\Support\GroupAccess;
 use App\Models\GroupProject;
 use App\Models\GroupAsset;
 use App\Models\GroupSuiteRecord;
@@ -64,6 +65,8 @@ class GroupImportController
             }
             if($errors)return back()->withErrors(['file'=>implode(' | ',array_slice($errors,0,8))]);
             if(!$items)return back()->withErrors(['file'=>'Aucune ligne valide à importer.']);
+            if($module==='entites')abort_unless($request->user()->is_group_admin,403);
+            foreach($items as $row){if($module!=='entites')GroupAccess::requireEntity($request->user(),(int)($row['group_entity_id']??0));}
             DB::transaction(function()use($items,$module,$request){
                 foreach($items as $row){
                     if(isset(self::CORE[$module])){

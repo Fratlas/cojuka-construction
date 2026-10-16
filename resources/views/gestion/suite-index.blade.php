@@ -23,10 +23,12 @@
 <div class="alert alert-light border mb-4">Gestion du personnel : matricules, affectations, contrats, congés, évaluations et formations. Les statistiques respectent les filiales autorisées. Évitez de saisir des informations médicales sensibles dans les observations.</div>
 @endif
 <div class="row g-3 mb-4">
-    @if($module!=='rh')<div class="col-md-4"><div class="card border-0 shadow-sm p-3 h-100"><div class="small text-secondary">Enregistrements filtrés</div><div class="h3 mb-0">{{ $totals->sum('total') }}</div></div></div>
+    @if($module!=='rh')
+    <div class="col-md-4"><div class="card border-0 shadow-sm p-3 h-100"><div class="small text-secondary">Enregistrements filtrés</div><div class="h3 mb-0">{{ $totals->sum('total') }}</div></div></div>
     @foreach($module==='rh' ? [] : $totals as $total)
         <div class="col-md-4"><div class="card border-0 shadow-sm p-3 h-100"><div class="small text-secondary">Total {{ $total->currency }} (données filtrées)</div><div class="h3 mb-0">{{ number_format((float) $total->amount_total, 2, ',', ' ') }} {{ $total->currency }}</div></div></div>
     @endforeach
+    @endif
 </div>
 <form method="get" class="row g-2 mb-4">
     <div class="col-md-4"><input class="form-control" name="q" maxlength="100" value="{{ request('q') }}" placeholder="Titre ou référence"></div>

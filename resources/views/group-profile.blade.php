@@ -8,7 +8,7 @@
 <style>
 body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#151923}a{text-decoration:none}
 .entity-hero{min-height:76vh;display:flex;align-items:center;position:relative;overflow:hidden;color:#fff;background:radial-gradient(circle at 85% 40%,#78283e 0%,#20253b 42%,#090f1d 90%);padding:100px 0;background:#101923 url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=74&fm=webp') center/cover no-repeat}
-.entity-hero .entity-background-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0;transition:opacity .65s ease}.entity-hero .entity-background-video.is-playing{opacity:.7}.entity-hero .entity-video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(6,12,24,.88),rgba(6,12,24,.42))}
+.entity-hero .entity-background-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0;transition:opacity .65s ease}.entity-hero .entity-background-video.is-playing{opacity:.82}.entity-hero .entity-video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(6,12,24,.62),rgba(6,12,24,.20))}
 .entity-hero .container{position:relative;z-index:2}
 .eyebrow{font-size:.8rem;font-weight:750;letter-spacing:.17em;text-transform:uppercase;color:#fff}
 .entity-hero h1{font-size:clamp(3.3rem,7vw,7.5rem);line-height:1.02;letter-spacing:-.07em;font-weight:850;overflow-wrap:anywhere}
@@ -35,6 +35,9 @@ footer{background:#111724;color:#fff;padding:32px 0}
 .entity-photo-tile figcaption{padding:18px 20px;color:#3b4755;font-weight:650;line-height:1.5}
 .entity-photo-tile:hover{transform:translateY(-7px);box-shadow:0 24px 50px rgba(13,25,39,.15)}
 .entity-photo-tile:hover img{transform:scale(1.045)}
+.entity-photo-tile img{background:#dfe5ec}
+.entity-hero .lead{text-shadow:0 2px 16px rgba(0,0,0,.4)}
+.entity-photo-tile:focus-within{outline:2px solid #a22a40;outline-offset:3px}
 .entity-service-photo{overflow:hidden}
 .entity-service-photo>img{display:block;width:calc(100% + 60px);max-width:none;height:200px;object-fit:cover;margin:-30px -30px 24px;border-radius:20px 20px 0 0}
 @media(max-width:767px){.entity-service-photo>img{width:calc(100% + 48px);margin:-24px -24px 22px}}
@@ -80,7 +83,7 @@ $entityPhotos = $cojukaPhotos[$profile['video'] ?? ''] ?? $cojukaPhotos['constru
 @endphp
 
 <main>
-<header class="entity-hero" style="background-image:linear-gradient(90deg,rgba(7,13,24,.76),rgba(7,13,24,.30)),url('{{ $entityPhotos[0][0] }}?auto=format&fit=crop&w=1600&q=75&fm=webp')">
+<header class="entity-hero" style="background-image:linear-gradient(90deg,rgba(7,13,24,.58),rgba(7,13,24,.12)),url('{{ $entityPhotos[0][0] }}?auto=format&fit=crop&w=1600&q=75&fm=webp')">
 <div class="entity-video-loader" aria-live="polite"><img src="{{ asset('images/cojuka-logo.svg') }}" alt="COJUKA Consulting Group" width="190" height="60"><span class="spinner" aria-hidden="true"></span><span class="label">Chargement de la vidéo…</span></div>
 <video class="entity-background-video" muted loop playsinline preload="none" aria-hidden="true" data-local="{{ asset('videos/entities/'.$profile['video']) }}" data-remote="{{ $profile['video_url'] ?? '' }}" poster="{{ $entityPhotos[0][0] }}?auto=format&fit=crop&w=1200&q=74&fm=webp"></video>
 <div class="entity-video-overlay" aria-hidden="true"></div>

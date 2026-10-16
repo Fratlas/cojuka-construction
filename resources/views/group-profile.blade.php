@@ -29,13 +29,24 @@ footer{background:#111724;color:#fff;padding:32px 0}
 .entity-video-loader.is-hidden{opacity:0;visibility:hidden}
 @keyframes entityLogoSpin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.entity-video-loader .spinner{animation:none}}
+
+.entity-photo-tile{margin:0;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 15px 40px rgba(13,25,39,.08);transition:transform .4s ease,box-shadow .4s ease}
+.entity-photo-tile img{width:100%;aspect-ratio:4/3;height:auto;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.22,1,.36,1)}
+.entity-photo-tile figcaption{padding:18px 20px;color:#3b4755;font-weight:650;line-height:1.5}
+.entity-photo-tile:hover{transform:translateY(-7px);box-shadow:0 24px 50px rgba(13,25,39,.15)}
+.entity-photo-tile:hover img{transform:scale(1.045)}
+.entity-service-photo{overflow:hidden}
+.entity-service-photo>img{display:block;width:calc(100% + 60px);max-width:none;height:200px;object-fit:cover;margin:-30px -30px 24px;border-radius:20px 20px 0 0}
+@media(max-width:767px){.entity-service-photo>img{width:calc(100% + 48px);margin:-24px -24px 22px}}
+@media(prefers-reduced-motion:reduce){.entity-photo-tile,.entity-photo-tile img{transition:none!important;transform:none!important}}
 </style>
 @endsection
 @section('content')
+@include('partials.cojuka-entity-photos')
 <main>
-<header class="entity-hero">
+<header class="entity-hero" style="background-image:linear-gradient(90deg,rgba(7,13,24,.76),rgba(7,13,24,.30)),url('{{ $entityPhotos[0][0] }}?auto=format&fit=crop&w=1600&q=75&fm=webp')">
 <div class="entity-video-loader" aria-live="polite"><img src="{{ asset('images/cojuka-logo.svg') }}" alt="COJUKA Consulting Group" width="190" height="60"><span class="spinner" aria-hidden="true"></span><span class="label">Chargement de la vidéo…</span></div>
-<video class="entity-background-video" muted loop playsinline preload="none" aria-hidden="true" data-local="{{ asset('videos/entities/'.$profile['video']) }}" data-remote="{{ $profile['video_url'] ?? '' }}" poster="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=74&fm=webp"></video>
+<video class="entity-background-video" muted loop playsinline preload="none" aria-hidden="true" data-local="{{ asset('videos/entities/'.$profile['video']) }}" data-remote="{{ $profile['video_url'] ?? '' }}" poster="{{ $entityPhotos[0][0] }}?auto=format&fit=crop&w=1200&q=74&fm=webp"></video>
 <div class="entity-video-overlay" aria-hidden="true"></div>
 <div class="container">
 <p class="eyebrow mb-3">COJUKA CONSULTING GROUP</p><p class="text-white-50 mb-4">Entité / {{ $profile['category'] }}</p>
@@ -47,11 +58,12 @@ footer{background:#111724;color:#fff;padding:32px 0}
 <div class="col-lg-8"><p class="eyebrow">Présentation institutionnelle</p><h2 class="display-title mb-4">{{ $profile['headline'] }}</h2><p class="lead text-secondary" style="line-height:1.9">{{ $profile['description'] }}</p></div>
 <div class="col-lg-4"><div class="info-card"><h3 class="h5 fw-bold mb-4">Informations</h3><p><strong>Secteur :</strong> {{ $profile['category'] }}</p><p><strong>Implantation :</strong> {{ $profile['location'] }}</p><p class="text-secondary small mb-0">Les coordonnées, documents et informations complémentaires seront ajoutés après validation par l'administration.</p></div></div>
 </div></div></section>
+<section class="section-pad entity-photo-section" aria-label="Découvrir les activités en images"><div class="container"><div class="row align-items-end g-4 mb-4"><div class="col-lg-8"><p class="eyebrow">Notre univers en images</p><h2 class="display-title mb-0">Des perspectives concrètes pour {{ $profile['name'] }}.</h2></div><div class="col-lg-4"><p class="text-secondary mb-0">Photographies d'illustration des secteurs d'activité. Ces images ne constituent pas un reportage sur les sites ou réalisations du groupe.</p></div></div><div class="row g-4">@foreach($entityPhotos as $photo)<div class="col-md-4"><figure class="entity-photo-tile h-100"><img src="{{ $photo[0] }}?auto=format&fit=crop&w=900&q=75&fm=webp" alt="{{ $photo[1] }}" loading="lazy" decoding="async" width="900" height="650"><figcaption>{{ $photo[1] }}</figcaption></figure></div>@endforeach</div></div></section>
 <section class="section-pad soft" id="mission-vision"><div class="container"><div class="row g-4"><div class="col-lg-6"><article class="info-card"><div class="index mb-3">NOTRE MISSION</div><h2 class="h2 fw-bold mb-3">Une action orientée vers les projets.</h2><p class="lead text-secondary mb-0">{{ $profile['mission'] }}</p></article></div><div class="col-lg-6"><article class="info-card"><div class="index mb-3">NOTRE VISION</div><h2 class="h2 fw-bold mb-3">Construire dans la durée.</h2><p class="lead text-secondary mb-0">{{ $profile['vision'] }}</p></article></div></div></div></section>
 <section class="section-pad soft"><div class="container"><p class="eyebrow mb-3">Notre positionnement</p><div class="row g-5 align-items-start"><div class="col-lg-5"><h2 class="display-title">{{ $profile['intro'] }}</h2></div><div class="col-lg-7"><p class="lead text-secondary" style="line-height:1.85">{{ $profile['details'] }}</p><div class="d-flex flex-wrap gap-2 mt-4"><span class="badge rounded-pill text-bg-light border px-3 py-2">{{ $profile['category'] }}</span><span class="badge rounded-pill text-bg-light border px-3 py-2">{{ $profile['location'] }}</span></div></div></div></div></section>
 <section class="section-pad"><div class="container"><p class="eyebrow mb-3">Domaines d'intervention</p><h2 class="display-title mb-5">Nos activités et expertises</h2><div class="row g-4">
 @foreach($profile['services'] as $index => $service)
-<div class="col-md-6"><article class="info-card"><div class="index mb-3">{{ str_pad($index+1,2,'0',STR_PAD_LEFT) }} / EXPERTISE</div><h3 class="h4 fw-bold mb-3">{{ $service[0] }}</h3><p class="text-secondary mb-0">{{ $service[1] }}</p></article></div>
+<div class="col-md-6"><article class="info-card entity-service-photo"><img src="{{ $entityPhotos[$index % count($entityPhotos)][0] }}?auto=format&fit=crop&w=850&q=72&fm=webp" alt="{{ $entityPhotos[$index % count($entityPhotos)][1] }}" loading="lazy" decoding="async" width="850" height="470"><div class="index mb-3">EXPERTISE</div><h3 class="h4 fw-bold mb-3">{{ $service[0] }}</h3><p class="text-secondary mb-0">{{ $service[1] }}</p></article></div>
 @endforeach
 </div></div></section>
 <section class="section-pad soft" id="publics"><div class="container"><p class="eyebrow mb-3">À qui nous nous adressons</p><h2 class="display-title mb-5">Des interlocuteurs, des besoins spécifiques.</h2><div class="row g-4">@foreach($profile['audiences'] as $index => $audience)<div class="col-md-4"><article class="info-card"><div class="index mb-3">0{{ $index+1 }} / PARTENAIRES</div><h3 class="h4 fw-bold mb-3">{{ $audience[0] }}</h3><p class="text-secondary mb-0">{{ $audience[1] }}</p></article></div>@endforeach</div></div></section>

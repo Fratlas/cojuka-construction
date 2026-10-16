@@ -39,7 +39,17 @@ class GroupSuiteController {
   if($request->filled('q')){$request->validate(['q'=>'string|max:100']);$q=$request->query('q');$query->where(fn($builder)=>$builder->where('title','like','%'.$q.'%')->orWhere('reference','like','%'.$q.'%'));}
   if($request->filled('status')){$request->validate(['status'=>Rule::in(array_keys(self::STATUSES))]);$query->where('status',$request->query('status'));}
   $totals=(clone $query)->selectRaw('currency, COUNT(*) AS total, SUM(amount) AS amount_total')->groupBy('currency')->get();
-  return view('gestion.suite-index',['module'=>$module,'config'=>$config,'rows'=>$query->latest()->paginate(15)->withQueryString(),'entities'=>GroupEntity::when($allowed!==null,fn($q)=>$q->whereIn('id',$allowed))->orderBy('name')->get(),'totals'=>$totals]);
+  $hrStats=null;
+  if($module==='rh'){
+   $hrQuery=clone $query;
+   $hrStats=[
+    'total'=>(clone $hrQuery)->count(),
+    'active'=>(clone $hrQuery)->where('details->statut_employe','actif')->count(),
+    'leave'=>(clone $hrQuery)->where('details->statut_employe','en_conge')->count(),
+    'contract_ends_soon'=>(clone $hrQuery)->whereNotNull('details->date_fin_contrat')->whereBetween('details->date_fin_contrat',[now()->toDateString(),now()->addDays(30)->toDateString()])->count(),
+   ];
+  }
+  return view('gestion.suite-index',['module'=>$module,'config'=>$config,'rows'=>$query->latest()->paginate(15)->withQueryString(),'entities'=>GroupEntity::when($allowed!==null,fn($q)=>$q->whereIn('id',$allowed))->orderBy('name')->get(),'totals'=>$totals,'hrStats'=>$hrStats]);
  }
  public function history(Request $request,string $module){
   $config=$this->config($module);

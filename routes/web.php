@@ -36,6 +36,7 @@ Route::middleware(['auth', 'group.admin'])->prefix('gestion')->name('gestion.')-
  Route::post('/modules/{module}', [GroupSuiteController::class, 'store'])->middleware('group.module')->name('suite.store');
  Route::put('/modules/{module}/{id}', [GroupSuiteController::class, 'update'])->middleware('group.module')->name('suite.update');
  Route::delete('/modules/{module}/{id}', [GroupSuiteController::class, 'destroy'])->middleware('group.module')->name('suite.destroy');
+ Route::post('/entites/synchroniser-domaines', [GroupAdminController::class, 'syncSectors'])->middleware(['throttle:3,1'])->name('group.entities.sync');
  Route::get('/{module}', [GroupAdminController::class, 'listing'])->where('module','entites|projets|actifs')->middleware('group.module')->name('group.list');
  Route::post('/{module}', [GroupAdminController::class, 'save'])->where('module','entites|projets|actifs')->middleware('group.module')->name('group.save');
  Route::put('/{module}/{id}', [GroupAdminController::class, 'edit'])->where('module','entites|projets|actifs')->middleware('group.module')->name('group.edit');

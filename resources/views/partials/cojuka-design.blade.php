@@ -86,4 +86,14 @@ body :is(.history-label,.history-kicker,.cojuka-entities-kicker,.cojuka-entity-l
  letter-spacing:.065em;
 }
 body :is(.history-label,.history-kicker,.cojuka-entities-kicker,.cojuka-entity-label,.section-kicker,.eyebrow,.service-index,.photo-showcase-tag,.cma-kicker,.tag,.feature-label,.section-label,.mini-label,.overline,.small-title){text-transform:uppercase}
+
+/* Public UI polish: smoother navigation, clearer image presentation, stronger keyboard focus. */
+main img[loading="lazy"]{background-color:#e9edf2}
+main :is(.service-card,.info-card,.entity-photo-tile){will-change:auto}
+main :is(.service-card,.info-card,.entity-photo-tile):focus-within{outline:2px solid #a22a40;outline-offset:3px}
+.cojuka-global-nav .dropdown-menu{border-radius:16px!important;padding:10px!important;box-shadow:0 18px 46px rgba(19,27,41,.14)!important}
+.cojuka-global-nav .dropdown-item{border-radius:9px;transition:background .18s ease,color .18s ease}
+.cojuka-global-nav .dropdown-item:focus-visible{outline:2px solid #a22a40;outline-offset:2px}
+@media(hover:hover){.cojuka-global-nav .dropdown-item:hover{background:rgba(134,33,46,.075)}}
+@media(prefers-reduced-motion:reduce){.cojuka-global-nav .dropdown-item{transition:none!important}}
 </style>

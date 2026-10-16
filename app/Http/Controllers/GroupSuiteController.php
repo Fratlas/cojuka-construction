@@ -11,7 +11,15 @@ use Illuminate\Support\Facades\Schema;
 
 class GroupSuiteController {
  public const MODULES=[
-  'rh'=>['label'=>'Ressources humaines','fields'=>['matricule'=>'Matricule','poste'=>'Poste','departement'=>'Département','telephone'=>'Téléphone','date_embauche'=>'Date embauche (AAAA-MM-JJ)','type_contrat'=>'Type de contrat','responsable'=>'Responsable']],
+  'rh'=>['label'=>'Ressources humaines','fields'=>[
+   'matricule'=>'Matricule','nom'=>'Nom','prenom'=>'Prénom','poste'=>'Poste / fonction','departement'=>'Département / service',
+   'telephone'=>'Téléphone professionnel','email'=>'E-mail professionnel','date_embauche'=>'Date d’embauche',
+   'type_contrat'=>'Type de contrat','date_fin_contrat'=>'Fin du contrat','responsable'=>'Responsable hiérarchique',
+   'site_affectation'=>'Site d’affectation','statut_employe'=>'Situation du personnel',
+   'date_naissance'=>'Date de naissance','contact_urgence'=>'Contact d’urgence',
+   'conges_annuels'=>'Jours de congé annuels','conges_pris'=>'Jours de congé pris',
+   'prochaine_evaluation'=>'Prochaine évaluation','formation'=>'Formation / habilitation',
+  ]],
   'finances'=>['label'=>'Finances et dépenses','fields'=>['beneficiaire'=>'Bénéficiaire','categorie'=>'Catégorie','mode_paiement'=>'Mode de paiement','compte'=>'Compte / caisse','numero_piece'=>'Numéro de pièce','centre_cout'=>'Centre de coût']],
   'contrats'=>['label'=>'Contrats','fields'=>['partenaire'=>'Partenaire','date_signature'=>'Date signature (AAAA-MM-JJ)','date_echeance'=>'Échéance (AAAA-MM-JJ)','type_contrat'=>'Type de contrat','responsable'=>'Responsable','conditions'=>'Conditions essentielles']],
   'achats'=>['label'=>'Achats et fournisseurs','fields'=>['fournisseur'=>'Fournisseur','quantite'=>'Quantité','produit'=>'Produit / service','prix_unitaire'=>'Prix unitaire','numero_commande'=>'Numéro commande','livraison'=>'Livraison prévue']],
@@ -83,6 +91,19 @@ class GroupSuiteController {
  private function validateData(Request $request,array $config):array {
   $rules=['group_entity_id'=>'required|integer|exists:group_entities,id','title'=>'required|string|max:255','reference'=>'nullable|string|max:255','status'=>['required',Rule::in(array_keys(self::STATUSES))],'record_date'=>'nullable|date','amount'=>'nullable|numeric|min:0','currency'=>['required',Rule::in(['USD','CDF','EUR'])],'location'=>'nullable|string|max:255','description'=>'nullable|string|max:5000'];
   foreach($config['fields'] as $field=>$label){$rules['details.'.$field]='nullable|string|max:255';}
+  if(($config['label']??'')==='Ressources humaines'){
+   $rules['details.matricule']='required|string|max:80';
+   $rules['details.nom']='required|string|max:120';
+   $rules['details.prenom']='nullable|string|max:120';
+   $rules['details.email']='nullable|email|max:255';
+   $rules['details.date_embauche']='nullable|date';
+   $rules['details.date_fin_contrat']='nullable|date|after_or_equal:details.date_embauche';
+   $rules['details.date_naissance']='nullable|date|before:today';
+   $rules['details.prochaine_evaluation']='nullable|date';
+   $rules['details.conges_annuels']='nullable|integer|min:0|max:365';
+   $rules['details.conges_pris']='nullable|integer|min:0|max:365';
+   $rules['details.statut_employe']=['nullable',Rule::in(['actif','en_conge','suspendu','sorti'])];
+  }
   $data=$request->validate($rules);$data['details']=$data['details']??[];
   return $data;
  }

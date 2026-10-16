@@ -7,8 +7,8 @@
 
 <style>
 body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#151923}a{text-decoration:none}
-.entity-hero{min-height:76vh;display:flex;align-items:center;position:relative;overflow:hidden;color:#fff;background:radial-gradient(circle at 85% 40%,#78283e 0%,#20253b 42%,#090f1d 90%);padding:100px 0}
-.entity-hero .entity-background-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.7}.entity-hero .entity-video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(6,12,24,.88),rgba(6,12,24,.42))}
+.entity-hero{min-height:76vh;display:flex;align-items:center;position:relative;overflow:hidden;color:#fff;background:radial-gradient(circle at 85% 40%,#78283e 0%,#20253b 42%,#090f1d 90%);padding:100px 0;background:#101923 url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=74&fm=webp') center/cover no-repeat}
+.entity-hero .entity-background-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0;transition:opacity .65s ease}.entity-hero .entity-background-video.is-playing{opacity:.7}.entity-hero .entity-video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(6,12,24,.88),rgba(6,12,24,.42))}
 .entity-hero .container{position:relative;z-index:2}
 .eyebrow{font-size:.8rem;font-weight:750;letter-spacing:.17em;text-transform:uppercase;color:#fff}
 .entity-hero h1{font-size:clamp(3.3rem,7vw,7.5rem);line-height:1.02;letter-spacing:-.07em;font-weight:850;overflow-wrap:anywhere}
@@ -96,12 +96,12 @@ document.addEventListener('DOMContentLoaded',function(){
   function fail(){
    if(finished)return;
    if(source===0&&remote){source=1;start(remote)}
-   else{finished=true;video.pause();video.style.display='none';hide()}
+   else{finished=true;video.pause();video.classList.remove('is-playing');video.style.display='none';hide()}
   }
   video.addEventListener('error',fail);
   video.addEventListener('loadeddata',hide);
-  video.addEventListener('playing',hide);
-  video.addEventListener('waiting',hide);
+  video.addEventListener('playing',function(){video.classList.add('is-playing');hide()});
+  video.addEventListener('waiting',function(){video.classList.remove('is-playing');hide()});
   const begin=()=>start(remote||video.dataset.local);
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches || (navigator.connection&&navigator.connection.saveData)){hide();return}
   if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){observer.disconnect();begin()}},{rootMargin:'150px'});observer.observe(video)}else begin();

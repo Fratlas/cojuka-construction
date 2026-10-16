@@ -27,6 +27,7 @@
 @include('partials.cojuka-header')
 @yield('content')
 @include('partials.cojuka-footer')
+@include('partials.cojuka-back-to-top')
 @include('partials.cojuka-mining-announcement')
 <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>

@@ -9,6 +9,7 @@ use App\Http\Controllers\GroupUsersController;
 use App\Http\Controllers\GroupImportController;
 Route::view('/', 'welcome')->name('home');
 Route::view('/groupe', 'group')->name('group');
+Route::view('/groupe/histoire', 'group-history')->name('group.history');
 Route::get('/groupe/entites', [GroupPublicController::class, 'index'])->name('group.portal');
 Route::get('/groupe/structures/{slug}', [GroupProfileController::class, 'show'])->name('group.profile');
 Route::get('/groupe/entites/{slug}', [GroupPublicController::class, 'entity'])->name('group.entity');

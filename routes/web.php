@@ -12,6 +12,34 @@ Route::view('/', 'welcome')->name('home');
 Route::view('/groupe', 'group')->name('group');
 Route::view('/groupe/histoire', 'group-history')->name('group.history');
 Route::get('/groupe/entites', [GroupPublicController::class, 'index'])->name('group.portal');
+Route::get('/groupe/dossiers/{topic}', function (string $topic) {
+ $u=static fn(string $id):string=>'https://images.unsplash.com/'.$id.'?auto=format&fit=crop&w=1400&q=78';
+ $topics=[
+  'mining-et-carrieres'=>[
+   'title'=>'Mining & carrières','description'=>'Ressources naturelles, carrières et développement des projets miniers : le domaine prioritaire du groupe.',
+   'heading'=>'Comprendre les enjeux des projets miniers.','intro'=>'De la reconnaissance des besoins au cadrage des moyens techniques, un projet minier demande une coordination rigoureuse des parties prenantes, de la logistique et des exigences environnementales et sociales.',
+   'parent'=>'kojuka-mining','parent_label'=>'Mining',
+   'steps'=>[['Études préalables','Identifier le périmètre, les autorisations à vérifier, les besoins techniques et les risques du projet.'],['Carrières et matériaux','Préparer l’évaluation des ressources, des usages envisagés et des besoins en équipements.'],['Logistique minière','Organiser les scénarios d’acheminement, d’approvisionnement et de coordination des intervenants.']],
+   'photos'=>[['https://images.hellogravel.com/variants/guides/37e44abca47c0db2/bingham-canyon-mine-aerial-scaled-content-900w.webp','Mine à ciel ouvert, vue aérienne illustrative'],[$u('photo-1504307651254-35680f356dfd'),'Terrassement et engins de chantier'],[$u('photo-1581092160607-ee22621dd758'),'Équipements industriels']],
+  ],
+  'energie-et-infrastructures'=>[
+   'title'=>'Énergie & infrastructures','description'=>'Préparation des projets d’énergie et d’infrastructures électriques adaptés aux besoins des territoires et des activités.',
+   'heading'=>'Penser l’énergie à l’échelle du projet.','intro'=>'L’évaluation de la demande, les contraintes du site et les conditions de maintenance orientent le choix des solutions. Les projets nécessitent des études et des partenaires techniques qualifiés.',
+   'parent'=>'energie','parent_label'=>'Énergie',
+   'steps'=>[['Besoins énergétiques','Analyser les usages, la puissance et la continuité de service recherchée.'],['Solutions techniques','Examiner les scénarios solaires, hybrides et conventionnels avec les spécialistes.'],['Exploitation','Préparer les exigences de sécurité, d’entretien et de suivi des équipements.']],
+   'photos'=>[[$u('photo-1473341304170-971dccb5ac1e'),'Lignes et réseau électrique'],[$u('photo-1509391366360-2e959784a276'),'Panneaux photovoltaïques'],[$u('photo-1497435334941-8c899ee9e8e9'),'Production d’énergie renouvelable']],
+  ],
+  'cargo-et-fret'=>[
+   'title'=>'Cargo & fret','description'=>'Transport de marchandises, préparation documentaire et coordination des expéditions multimodales.',
+   'heading'=>'Organiser chaque étape de l’acheminement.','intro'=>'La nature de la cargaison, son conditionnement, les documents requis et les délais déterminent les solutions de transport à examiner avec les prestataires habilités.',
+   'parent'=>'cargo','parent_label'=>'Cargo',
+   'steps'=>[['Préparation','Définir poids, volumes, emballages, origines, destinations et délais.'],['Coordination','Comparer les options de transport et préciser les responsabilités des intervenants.'],['Suivi','Documenter les jalons, les formalités à confirmer et la livraison.']],
+   'photos'=>[[$u('photo-1494412519320-aa613dfb7738'),'Transport maritime de conteneurs'],[$u('photo-1578575437130-527eed3abbec'),'Conteneurs de fret'],[$u('photo-1586528116311-ad8dd3c8310d'),'Entreposage et logistique']],
+  ],
+ ];
+ abort_unless(isset($topics[$topic]),404);
+ return view('group-sector-topic',['topic'=>$topics[$topic]]);
+})->name('group.topic');
 Route::get('/groupe/structures/{slug}', [GroupProfileController::class, 'show'])->name('group.profile');
 Route::get('/groupe/entites/{slug}', [GroupPublicController::class, 'entity'])->name('group.entity');
 Route::middleware('guest')->group(function () {

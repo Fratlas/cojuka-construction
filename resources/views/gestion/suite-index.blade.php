@@ -8,10 +8,10 @@
         <p class="text-secondary mt-2 mb-0">Enregistrements, suivi et opérations par filiale.</p>
     </div>
     <div class="d-flex gap-2">
-        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#importModal"><i class="bi bi-cloud-arrow-up me-1"></i>Importer CSV</button>
+        @if(\App\Support\GroupAccess::can(auth()->user(),$module,'create'))<button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#importModal"><i class="bi bi-cloud-arrow-up me-1"></i>Importer CSV</button>@endif
         <a class="btn btn-outline-secondary rounded-pill" href="{{ route('gestion.suite.history', $module) }}">Historique</a>
-        <a class="btn btn-outline-dark rounded-pill" href="{{ route('gestion.suite.export', $module) }}">Exporter CSV</a>
-        <button type="button" class="btn btn-dark rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#newItem">+ Ajouter</button>
+        @if(\App\Support\GroupAccess::can(auth()->user(),$module,'export'))<a class="btn btn-outline-dark rounded-pill" href="{{ route('gestion.suite.export', $module) }}">Exporter CSV</a>@endif
+        @if(\App\Support\GroupAccess::can(auth()->user(),$module,'create'))<button type="button" class="btn btn-dark rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#newItem">+ Ajouter</button>@endif
     </div>
 </div>
 <div class="row g-3 mb-4">
@@ -46,12 +46,12 @@
                         <td><span class="badge bg-secondary">{{ str_replace('_', ' ', $item->status) }}</span></td>
                         <td>{{ $item->record_date?->format('d/m/Y') ?? '—' }}</td>
                         <td class="text-nowrap">
-                            <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#edit{{ $item->id }}">Modifier</button>
-                            <form method="post" class="d-inline" action="{{ route('gestion.suite.destroy', [$module, $item->id]) }}" onsubmit="return confirm('Supprimer cet enregistrement ?')">
+                            @if(\App\Support\GroupAccess::can(auth()->user(),$module,'update'))<button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#edit{{ $item->id }}">Modifier</button>@endif
+                            @if(\App\Support\GroupAccess::can(auth()->user(),$module,'delete'))<form method="post" class="d-inline" action="{{ route('gestion.suite.destroy', [$module, $item->id]) }}" onsubmit="return confirm('Supprimer cet enregistrement ?')">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-sm btn-outline-danger">Supprimer</button>
-                            </form>
+                            </form>@endif
                         </td>
                     </tr>
                 @empty
@@ -62,6 +62,7 @@
     </div>
     {{ $rows->links() }}
 </div>
+@if(\App\Support\GroupAccess::can(auth()->user(),$module,'update'))
 @foreach($rows as $item)
     <div class="modal fade" id="edit{{ $item->id }}" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -78,6 +79,8 @@
         </div>
     </div>
 @endforeach
+@endif
+@if(\App\Support\GroupAccess::can(auth()->user(),$module,'create'))
 <div class="modal fade" id="newItem" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <form method="post" action="{{ route('gestion.suite.store', $module) }}" class="modal-content">
@@ -91,6 +94,8 @@
         </form>
     </div>
 </div>
+@endif
+@if(\App\Support\GroupAccess::can(auth()->user(),$module,'create'))
 <div class="modal fade" id="importModal" tabindex="-1" aria-hidden="true">
  <div class="modal-dialog modal-dialog-centered">
   <form method="post" enctype="multipart/form-data" action="{{ route('gestion.import.store', $module) }}" class="modal-content">
@@ -107,4 +112,5 @@
   </form>
  </div>
 </div>
+@endif
 @endsection

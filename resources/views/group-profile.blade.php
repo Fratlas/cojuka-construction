@@ -79,7 +79,7 @@ $cojukaPhotos = [
   ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab','Organisation et développement stratégique'],
  ],
 ];
-$entityPhotos = $cojukaPhotos[$profile['video'] ?? ''] ?? $cojukaPhotos['construction.mp4'];
+$entityPhotos = $cojukaPhotos[$profile['video'] ?? ''] ?? (isset($profile['photo']) ? [[$profile['photo'], $profile['category']], ['https://images.unsplash.com/photo-1487958449943-2429e8be8625', 'Perspectives et infrastructures'], ['https://images.unsplash.com/photo-1497366811353-6870744d04b2', 'Coordination des projets']] : $cojukaPhotos['construction.mp4']);
 
 $entityHighlights = [
  'kojuka-mining.mp4'=>[
@@ -113,7 +113,7 @@ $entityHighlights = [
   ['Projets internationaux','Cadre de présentation des initiatives après validation.'],
  ],
 ];
-$entityHighlightsCurrent = $entityHighlights[$profile['video'] ?? ''] ?? [];
+$entityHighlightsCurrent = $entityHighlights[$profile['video'] ?? ''] ?? array_map(static fn ($item) => [$item[0], $item[1]], $profile['services'] ?? []);
 
 @endphp
 

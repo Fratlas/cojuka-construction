@@ -35,7 +35,8 @@ document.addEventListener('DOMContentLoaded',function(){
   const dots=Array.from(root.parentElement.querySelectorAll('[data-video-index]'));
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const state=videos.map(v=>({source:v.dataset.remote?1:0,failed:false,loaded:false}));
-  let active=0,request=0,timeout=null;
+  let active=0,request=0,timeout=null,heroReady=false;
+  function announceReady(){if(heroReady)return;heroReady=true;window.dispatchEvent(new Event('cojuka:hero-ready'))}
   function loading(on){if(loader)loader.classList.toggle('is-hidden',!on)}
   function dotsUpdate(){dots.forEach((b,i)=>{b.classList.toggle('is-active',i===active);b.setAttribute('aria-pressed',String(i===active));b.disabled=state[i].failed})}
   function next(){for(let j=1;j<=videos.length;j++){const i=(active+j)%videos.length;if(!state[i].failed){show(i);return}}loading(false)}
@@ -44,7 +45,7 @@ document.addEventListener('DOMContentLoaded',function(){
    if(state[i].failed)return;
    if(state[i].source===0&&videos[i].dataset.remote){state[i].source=1;state[i].loaded=false;videos[i].src=source(i);videos[i].load();if(i===active)play(i);return}
    state[i].failed=true;videos[i].pause();videos[i].classList.remove('is-active','is-playing');
-   if(i===active)next();
+   if(i===active){announceReady();next()}
   }
   function play(i){
    const v=videos[i];
@@ -58,20 +59,20 @@ document.addEventListener('DOMContentLoaded',function(){
    clearTimeout(timeout);loading(false);
    videos.forEach((v,j)=>{v.classList.toggle('is-active',i===j);v.classList.remove('is-playing');if(j!==i)v.pause()});
    dotsUpdate();
-   if(reduced){loading(false);return}
+   if(reduced){loading(false);announceReady();return}
    play(i);
    if(videos[i].readyState>=2)loading(false);
    timeout=setTimeout(()=>{if(token!==request)return;if(videos[i].readyState<2)fail(i);else loading(false)},4500);
   }
   videos.forEach((v,i)=>{
    v.addEventListener('loadeddata',()=>{state[i].loaded=true;if(i===active)loading(false)});
-   v.addEventListener('playing',()=>{if(i===active){v.classList.add('is-playing');loading(false)}});
+   v.addEventListener('playing',()=>{if(i===active){v.classList.add('is-playing');loading(false);announceReady()}});
    v.addEventListener('error',()=>fail(i));
    v.addEventListener('ended',()=>{if(i===active&&!reduced)next()});
    v.addEventListener('waiting',()=>{if(i===active){v.classList.remove('is-playing');loading(false)}});
   });
   dots.forEach((b,i)=>b.addEventListener('click',()=>show(i)));
-  if(reduced || (navigator.connection && navigator.connection.saveData)){loading(false);return}
+  if(reduced || (navigator.connection && navigator.connection.saveData)){loading(false);announceReady();return}
   const begin=()=>show(0);
   if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){observer.disconnect();begin()}},{rootMargin:'150px'});observer.observe(root)}else begin();
  });

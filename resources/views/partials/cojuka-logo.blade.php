@@ -1,6 +1,8 @@
 <style>
 .cojuka-brand-logo{display:inline-block;width:280px;height:76px;object-fit:contain;vertical-align:middle;filter:drop-shadow(0 1px 3px #6d354322)}
-.cojuka-brand-logo--small{width:280px;height:76px}.cojuka-brand-logo--large{width:min(420px,85vw);height:auto;max-height:180px}
+.cojuka-brand-logo--small{width:280px;height:76px}
+html[data-cojuka-theme="dark"] .cojuka-brand-logo{content:url('{{ asset('images/cojuka-logo-dark.svg') }}?v=20261016-white');filter:drop-shadow(0 2px 6px rgba(0,0,0,.15))}
+.cojuka-brand-logo--large{width:min(420px,85vw);height:auto;max-height:180px}
 
 @media(prefers-reduced-motion:reduce){.cojuka-brand-logo{animation:none!important}}
 @media(max-width:991.98px){.cojuka-brand-logo,.cojuka-brand-logo--small{width:205px;height:56px}}

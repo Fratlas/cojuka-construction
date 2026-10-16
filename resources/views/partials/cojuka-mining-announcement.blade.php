@@ -1,7 +1,7 @@
 <style>
 #cojuka-mining-announce{position:fixed;inset:0;z-index:99980;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(4,10,18,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);opacity:0;transition:opacity .55s ease}
 #cojuka-mining-announce.cma-visible{display:flex;opacity:1}
-#cojuka-mining-announce .cma-panel{position:relative;isolation:isolate;width:min(960px,100%);min-height:460px;overflow:hidden;border-radius:26px;background:#101b29 url('https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1300&q=76&fm=webp') center/cover no-repeat;box-shadow:0 40px 110px rgba(0,0,0,.52);transform:translateY(30px) scale(.97);transition:transform .7s cubic-bezier(.18,.8,.18,1)}
+#cojuka-mining-announce .cma-panel{position:relative;isolation:isolate;width:min(960px,100%);min-height:460px;overflow:hidden;border-radius:26px;background:#101b29 url('https://images.hellogravel.com/variants/guides/37e44abca47c0db2/bingham-canyon-mine-aerial-scaled-content-900w.webp') center/cover no-repeat;box-shadow:0 40px 110px rgba(0,0,0,.52);transform:translateY(30px) scale(.97);transition:transform .7s cubic-bezier(.18,.8,.18,1)}
 #cojuka-mining-announce.cma-visible .cma-panel{transform:translateY(0) scale(1)}
 #cojuka-mining-announce .cma-panel:before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(6,13,23,.96) 0%,rgba(6,13,23,.86) 50%,rgba(6,13,23,.35) 100%)}
 #cojuka-mining-announce .cma-content{padding:clamp(30px,6vw,78px);max-width:740px;color:#fff}
@@ -26,28 +26,40 @@
    <p class="cma-copy">Découvrez COJUKA Mining : notre priorité stratégique dans le développement des activités minières, des projets liés aux ressources naturelles et des carrières.</p>
    <div class="cma-actions">
     <a class="cma-primary" href="{{ route('group.profile','kojuka-mining') }}" id="cma-explore">Découvrir COJUKA Mining ↗</a>
-    <button type="button" class="cma-secondary" id="cma-sound" aria-pressed="false">♪ Activer le son</button>
+
    </div>
-   <p class="cma-note">Le son ne se déclenche qu'après votre clic. Vous pouvez fermer cette annonce à tout moment.</p>
+   <p class="cma-note">Vue illustrative d'une mine à ciel ouvert. Vous pouvez fermer cette annonce à tout moment.</p>
   </div>
  </div>
 </div>
 <script>
 (function(){
  var dialog=document.getElementById('cojuka-mining-announce');if(!dialog)return;
- var close=document.getElementById('cma-close'),sound=document.getElementById('cma-sound'),shown=false,previousFocus=null,audioCtx=null,hideTimer=null;
- function open(){if(shown)return;shown=true;clearTimeout(hideTimer);previousFocus=document.activeElement;dialog.style.display='flex';dialog.setAttribute('aria-hidden','false');requestAnimationFrame(function(){dialog.classList.add('cma-visible');close.focus({preventScroll:true});});}
+ var close=document.getElementById('cma-close'),shown=false,previousFocus=null,audioCtx=null,hideTimer=null;
+ function playIntroSound(){
+  try{
+   var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+   audioCtx=audioCtx||new AC();
+   if(audioCtx.state==='suspended')audioCtx.resume().catch(function(){});
+   if(audioCtx.state!=='running')return;
+   var now=audioCtx.currentTime;
+   [392,493.88,587.33,783.99].forEach(function(freq,i){
+    var osc=audioCtx.createOscillator(),gain=audioCtx.createGain(),at=now+i*.14;
+    osc.type='sine';osc.frequency.setValueAtTime(freq,at);
+    gain.gain.setValueAtTime(.0001,at);
+    gain.gain.exponentialRampToValueAtTime(.04,at+.04);
+    gain.gain.exponentialRampToValueAtTime(.0001,at+.42);
+    osc.connect(gain);gain.connect(audioCtx.destination);osc.start(at);osc.stop(at+.43);
+   });
+  }catch(e){}
+ }
+ function open(){if(shown)return;shown=true;clearTimeout(hideTimer);previousFocus=document.activeElement;dialog.style.display='flex';dialog.setAttribute('aria-hidden','false');requestAnimationFrame(function(){dialog.classList.add('cma-visible');close.focus({preventScroll:true});playIntroSound();});}
  function hide(){if(!shown)return;shown=false;dialog.classList.remove('cma-visible');dialog.setAttribute('aria-hidden','true');hideTimer=window.setTimeout(function(){dialog.style.display='none';},window.matchMedia('(prefers-reduced-motion: reduce)').matches?0:560);if(previousFocus&&previousFocus.focus)previousFocus.focus({preventScroll:true});}
  function waitForIntro(){var intro=document.getElementById('cojuka-intro');if(!intro||intro.classList.contains('is-hidden')){window.setTimeout(open,450);return;}var obs=new MutationObserver(function(){if(intro.classList.contains('is-hidden')){obs.disconnect();window.setTimeout(open,450);}});obs.observe(intro,{attributes:true,attributeFilter:['class']});}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',waitForIntro,{once:true});else waitForIntro();
  close.addEventListener('click',hide);dialog.addEventListener('click',function(e){if(e.target===dialog)hide();});
  document.addEventListener('keydown',function(e){if(!dialog.classList.contains('cma-visible'))return;if(e.key==='Escape'){hide();return;}if(e.key==='Tab'){var focusable=Array.from(dialog.querySelectorAll('button,a[href]')).filter(function(el){return !el.disabled});if(!focusable.length)return;var first=focusable[0],last=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
  document.getElementById('cma-explore').addEventListener('click',function(){dialog.setAttribute('aria-hidden','true');});
- sound.addEventListener('click',function(){
-  try{var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;audioCtx=audioCtx||new AC();if(audioCtx.state==='suspended')audioCtx.resume();
-   var now=audioCtx.currentTime;[392,493.88,587.33,783.99].forEach(function(freq,i){var osc=audioCtx.createOscillator(),gain=audioCtx.createGain();osc.type='sine';osc.frequency.setValueAtTime(freq,now+i*.13);gain.gain.setValueAtTime(.0001,now+i*.13);gain.gain.exponentialRampToValueAtTime(.065,now+i*.13+.035);gain.gain.exponentialRampToValueAtTime(.0001,now+i*.13+.45);osc.connect(gain);gain.connect(audioCtx.destination);osc.start(now+i*.13);osc.stop(now+i*.13+.46);});
-   sound.textContent='♪ Son activé';sound.setAttribute('aria-pressed','true');window.setTimeout(function(){sound.textContent='♪ Réécouter le son';sound.setAttribute('aria-pressed','false');},1300);
-  }catch(e){sound.textContent='Son indisponible';}
- });
+
 })();
 </script>

@@ -83,6 +83,7 @@ body{font-size:15px;line-height:1.55}
  @if(auth()->user()?->is_group_admin)
  <a class="side-link {{ request()->is('gestion/utilisateurs*') ? 'active' : '' }}" href="{{ route('gestion.users.index') }}"><i class="bi bi-people"></i> Utilisateurs & accès</a>
  @endif
+ @if(auth()->user()?->is_group_admin)<a class="side-link {{ request()->routeIs('gestion.departments.*') ? 'active' : '' }}" href="{{ route('gestion.departments.index') }}"><i class="bi bi-shield-lock"></i> Permissions départements</a>@endif
  <div class="nav-caption">Départements</div>
  @php
  $moduleIcons=['rh'=>'bi-person-vcard','finances'=>'bi-wallet2','contrats'=>'bi-file-earmark-text','achats'=>'bi-bag-check','logistique'=>'bi-truck','immobilier'=>'bi-houses','mines'=>'bi-gem','consulting'=>'bi-briefcase'];

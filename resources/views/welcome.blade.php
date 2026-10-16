@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f5f5f7">
-<meta name="description" content="COJUKA Consulting Group — Groupe de construction, logistique, consultance étatique et privée, investissements et mines.">
+<meta name="description" content="COJUKA Consulting Group — Mining et projets miniers au cœur de notre stratégie, avec carrières, immobilier, construction et logistique.">
 <title>COJUKA Consulting Group — Accueil</title>
 <link rel="preconnect" href="https://images.unsplash.com">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -106,7 +106,7 @@
 <div class="container hero-content">
 <div class="eyebrow">GROUPE MULTISECTORIEL · RÉPUBLIQUE DÉMOCRATIQUE DU CONGO</div>
 <h1 id="hero-title">COJUKA <span style="color:#fff">Consulting</span><br>Group</h1>
-<p class="hero-sub mb-4">Construction, logistique, consultance étatique et privée, investissements et développement des secteurs stratégiques.</p>
+<p class="hero-sub mb-4">Le Mining est notre priorité : activités minières, carrières et ressources naturelles, soutenues par l'immobilier, la construction et la logistique.</p>
 <div class="d-flex gap-3 flex-wrap"><a href="{{ route('group') }}" class="btn-pill btn-white">Découvrir Consulting Group <span aria-hidden="true">↗</span></a><a href="{{ route('group.portal') }}" class="btn-pill btn-outline-light-custom">Nos entités <span aria-hidden="true">↓</span></a></div>
 </div><div class="scroll-indicator" aria-hidden="true">Défiler <span>↓</span></div>
 </section>
@@ -117,8 +117,8 @@
   <div class="col-lg-4 reveal"><div class="section-kicker mb-4">01 / LE GROUPE</div><p class="muted">Une vision commune, plusieurs entités complémentaires.</p></div>
   <div class="col-lg-8 reveal">
    <h2 class="display-heading mb-4">COJUKA Consulting Group.<br><span class="muted">Un écosystème au service du développement.</span></h2>
-   <p class="intro-copy muted mt-4">COJUKA Consulting Group réunit des directions opérationnelles, des sociétés et des participations dans plusieurs secteurs. Son organisation couvre notamment la construction, la logistique, la consultance étatique et privée, l'investissement immobilier et les activités minières.</p>
-   <p class="intro-copy muted">Le site principal présente le groupe et centralise les informations de ses entités. Chaque structure dispose d'une page dédiée, avec la perspective de développer progressivement sa propre application web.</p>
+   <p class="intro-copy muted mt-4">COJUKA Consulting Group réunit des directions opérationnelles, des sociétés et des participations dans plusieurs secteurs. Son domaine prioritaire est le Mining, à travers les activités minières et les projets liés aux ressources naturelles. Les carrières, l'immobilier, la construction, la logistique et la consultance complètent cette orientation.</p>
+   <p class="intro-copy muted">Le site principal présente le groupe et centralise les informations de ses entités. Chaque structure dispose d'une présentation dédiée à ses activités, ses projets et ses perspectives de développement.</p>
    <div class="d-flex flex-wrap gap-3 mt-4"><a class="btn-pill btn-dark-custom" href="{{ route('group') }}">Présentation complète du groupe ↗</a><a class="btn-pill" style="border:1px solid #d9dce2;color:#151517" href="{{ route('group.portal') }}">Découvrir les entités ↗</a></div>
   </div>
  </div>
@@ -131,12 +131,13 @@
  <p class="muted fs-5 mb-5">Explorez les activités, les domaines d'intervention et les perspectives de développement de chaque structure.</p>
  <div class="row g-4">
  @foreach([
+ ['COJUKA Mining','kojuka-mining','Domaine prioritaire du groupe : activités minières et projets au Haut-Katanga.'],
  ['COJUKA Consulting Group Construction','construction','Construction et développement de projets.'],
  ['COJUKA Consulting Group Logistique','logistique','Coordination des activités de transport et de logistique.'],
  ['COJUKA Consulting Group Consultance','consultance','Consultance étatique et privée, conseil aux organisations.'],
  ['Eden Park Investments','eden-park-investments','Investissements immobiliers et fonciers au Congo et à l’international.'],
  ['Impact Center','impact-center','Société de droit belge, participation majoritaire du groupe.'],
- ['Kojuka Mining','kojuka-mining','Développement des activités minières au Haut-Katanga.']
+ ['COJUKA Mining','kojuka-mining','Domaine prioritaire du groupe : activités minières et projets au Haut-Katanga.']
  ] as $entity)
  <div class="col-md-6 col-xl-4 reveal"><article class="service-card h-100"><div class="service-content"><div class="section-kicker mb-3">COJUKA CONSULTING GROUP</div><h3 class="h4 fw-bold">{{ $entity[0] }}</h3><p class="muted">{{ $entity[2] }}</p><a class="fw-semibold d-inline-block mt-3" href="{{ route('group.profile', $entity[1]) }}">Voir la page de l'entité ↗</a></div></article></div>
  @endforeach

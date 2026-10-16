@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\GroupEntity;
+use App\Support\GroupAccess;
 use App\Models\GroupProject;
 use App\Models\GroupAsset;
 use App\Models\GroupSuiteRecord;
@@ -10,27 +11,32 @@ use Illuminate\Support\Facades\Schema;
 class GroupAdminController {
  public function dashboard(Request $request){
   $request->validate(['entity'=>'nullable|integer|exists:group_entities,id']);
+  $allowed=GroupAccess::entities($request->user());if($request->filled('entity'))GroupAccess::requireEntity($request->user(),(int)$request->query('entity'));
+  $canProjects=GroupAccess::can($request->user(),'projets');$canAssets=GroupAccess::can($request->user(),'actifs');
   $entityId=$request->filled('entity')?(int)$request->query('entity'):null;
   $projectQuery=GroupProject::query();$assetQuery=GroupAsset::query();
+  if($allowed!==null){$projectQuery->whereIn('group_entity_id',$allowed);$assetQuery->whereIn('group_entity_id',$allowed);}
   if($entityId){$projectQuery->where('group_entity_id',$entityId);$assetQuery->where('group_entity_id',$entityId);}
   $ready=Schema::hasTable('group_suite_records') && Schema::hasTable('group_suite_audit');
   $suiteQuery=GroupSuiteRecord::query();
+  if($allowed!==null)$suiteQuery->whereIn('group_entity_id',$allowed);
   if($entityId)$suiteQuery->where('group_entity_id',$entityId);
+  if(!$request->user()->is_group_admin)$suiteQuery->whereIn('module',array_values(array_filter(array_keys(\App\Http\Controllers\GroupSuiteController::MODULES),fn($module)=>GroupAccess::can($request->user(),$module))));
   return view('gestion.group-dashboard',[
-    'entities'=>GroupEntity::count(),'projects'=>(clone $projectQuery)->count(),'assets'=>(clone $assetQuery)->count(),
-    'recent'=>(clone $projectQuery)->with('entity')->latest()->limit(7)->get(),
+    'entities'=>GroupEntity::when($allowed!==null,fn($q)=>$q->whereIn('id',$allowed))->count(),'projects'=>$canProjects?(clone $projectQuery)->count():0,'assets'=>$canAssets?(clone $assetQuery)->count():0,
+    'recent'=>$canProjects?(clone $projectQuery)->with('entity')->latest()->limit(7)->get():collect(),
     'suiteStats'=>$ready?(clone $suiteQuery)->selectRaw('module, count(*) as total')->groupBy('module')->pluck('total','module')->all():[],
-    'suiteReady'=>$ready,'entityOptions'=>GroupEntity::orderBy('name')->get(['id','name']),
+    'suiteReady'=>$ready,'entityOptions'=>GroupEntity::when($allowed!==null,fn($q)=>$q->whereIn('id',$allowed))->orderBy('name')->get(['id','name']),
     'selectedEntity'=>$entityId,
     'recentOperations'=>$ready?(clone $suiteQuery)->with('entity')->latest()->limit(8)->get():collect(),
     'operationCount'=>$ready?(clone $suiteQuery)->count():0,
-    'financeTotals'=>$ready?(clone $suiteQuery)->where('module','finances')->whereIn('status',['valide','termine'])->whereNotNull('amount')->selectRaw('currency, SUM(amount) as total')->groupBy('currency')->pluck('total','currency')->all():[],
+    'financeTotals'=>$ready && GroupAccess::can($request->user(),'finances')?(clone $suiteQuery)->where('module','finances')->whereIn('status',['valide','termine'])->whereNotNull('amount')->selectRaw('currency, SUM(amount) as total')->groupBy('currency')->pluck('total','currency')->all():[],
   ]);
  }
- public function listing(string $module){$model=$this->model($module);return view('gestion.group-list',['module'=>$module,'rows'=>$model::latest()->paginate(15),'entities'=>GroupEntity::orderBy('name')->get()]);}
- public function save(Request $r,string $module){$model=$this->model($module);$data=$this->validated($r,$module);$model::create($data);return back()->with('status','Enregistrement créé.');}
- public function edit(Request $r,string $module,int $id){$model=$this->model($module);$item=$model::findOrFail($id);$item->update($this->validated($r,$module,$id));return back()->with('status','Enregistrement mis à jour.');}
- public function delete(string $module,int $id){$model=$this->model($module);$item=$model::findOrFail($id);if($module==='entites' && (GroupProject::where('group_entity_id',$id)->exists() || GroupAsset::where('group_entity_id',$id)->exists() || (Schema::hasTable('group_suite_records') && GroupSuiteRecord::where('group_entity_id',$id)->exists()))){return back()->withErrors(['entity'=>'Cette entité contient des projets, des actifs ou des opérations. Réaffectez ces données avant de supprimer l’entité.']);}$item->delete();return back()->with('status','Enregistrement supprimé.');}
+ public function listing(Request $request,string $module){$model=$this->model($module);$allowed=GroupAccess::entities($request->user());$query=$model::query();if($allowed!==null){if($module==='entites')$query->whereIn('id',$allowed);else $query->whereIn('group_entity_id',$allowed);}return view('gestion.group-list',['module'=>$module,'rows'=>$query->latest()->paginate(15),'entities'=>GroupEntity::when($allowed!==null,fn($q)=>$q->whereIn('id',$allowed))->orderBy('name')->get()]);}
+ public function save(Request $r,string $module){$model=$this->model($module);$data=$this->validated($r,$module);if($module==='entites')abort_unless($r->user()->is_group_admin,403);else GroupAccess::requireEntity($r->user(),(int)$data['group_entity_id']);$model::create($data);return back()->with('status','Enregistrement créé.');}
+ public function edit(Request $r,string $module,int $id){$model=$this->model($module);$item=$model::findOrFail($id);if($module==='entites')abort_unless($r->user()->is_group_admin,403);else GroupAccess::requireEntity($r->user(),$item->group_entity_id);$data=$this->validated($r,$module,$id);if($module!=='entites')GroupAccess::requireEntity($r->user(),(int)$data['group_entity_id']);$item->update($data);return back()->with('status','Enregistrement mis à jour.');}
+ public function delete(Request $request,string $module,int $id){$model=$this->model($module);$item=$model::findOrFail($id);if($module==='entites')abort_unless($request->user()->is_group_admin,403);else GroupAccess::requireEntity($request->user(),$item->group_entity_id);if($module==='entites' && (GroupProject::where('group_entity_id',$id)->exists() || GroupAsset::where('group_entity_id',$id)->exists() || (Schema::hasTable('group_suite_records') && GroupSuiteRecord::where('group_entity_id',$id)->exists()))){return back()->withErrors(['entity'=>'Cette entité contient des projets, des actifs ou des opérations. Réaffectez ces données avant de supprimer l’entité.']);}$item->delete();return back()->with('status','Enregistrement supprimé.');}
  private function model(string $module):string{return match($module){'entites'=>GroupEntity::class,'projets'=>GroupProject::class,'actifs'=>GroupAsset::class,default=>abort(404)};}
  private function validated(Request $r,string $module,?int $id=null):array {
   if($module==='entites'){$d=$r->validate(['name'=>'required|string|max:200','slug'=>['required','alpha_dash','max:200',Rule::unique('group_entities','slug')->ignore($id)],'type'=>'required|string|max:80','country'=>'nullable|string|max:100','sector'=>'nullable|string|max:120','summary'=>'nullable|string|max:1500','description'=>'nullable|string','website'=>'nullable|url|max:255']);$d['published']=$r->boolean('published');return $d;}

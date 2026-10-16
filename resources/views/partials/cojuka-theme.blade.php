@@ -28,6 +28,29 @@ html[data-cojuka-theme="dark"] .cojuka-theme-toggle{color:#f4f5fa;background:#29
 html[data-cojuka-theme="dark"] .cojuka-theme-toggle .theme-sun{display:block}
 html[data-cojuka-theme="dark"] .cojuka-theme-toggle .theme-moon{display:none}
 @media(max-width:575px){.cojuka-theme-toggle{width:36px;height:36px}}
+
+/* Desktop dark-mode readability: preserve brand identity and contrast in every section. */
+html[data-cojuka-theme="dark"] :is(main,main section,main .container,main .row){color:#f1f3f8}
+html[data-cojuka-theme="dark"] main :is(h1,h2,h3,h4,h5,h6,.display-title,.display-heading,.fw-bold,.fw-semibold){color:#f4f6fa}
+html[data-cojuka-theme="dark"] main :is(p,li,dt,dd,.lead,.text-muted,.text-body-secondary){color:#c9d2e0}
+html[data-cojuka-theme="dark"] main :is(.eyebrow,.section-kicker,.tag,.index){color:#f1a5b2!important}
+html[data-cojuka-theme="dark"] main :is(.info-card,.service-card,.card,.sector,.feature-line,.entity-photo-tile,.contact-card,.stat-card){background-color:#202838!important;color:#eef2f8!important;border-color:#435069!important}
+html[data-cojuka-theme="dark"] main :is(.info-card,.service-card,.card,.sector,.feature-line,.entity-photo-tile,.contact-card,.stat-card) :is(h2,h3,h4,p,span,li){color:inherit}
+html[data-cojuka-theme="dark"] :is(.cojuka-global-nav,.cojuka-global-nav .navbar-collapse){background:#121823!important;color:#f2f4f8!important}
+html[data-cojuka-theme="dark"] .cojuka-global-nav :is(.navbar-brand,.navbar-nav,.nav-link,.dropdown-toggle,.cojuka-language-trigger){color:#f2f4f8!important}
+html[data-cojuka-theme="dark"] .cojuka-global-nav .dropdown-menu{background:#202838!important;border-color:#435069!important}
+html[data-cojuka-theme="dark"] .cojuka-global-nav .dropdown-item{color:#f2f4f8!important}
+html[data-cojuka-theme="dark"] .cojuka-global-nav .navbar-toggler-icon{filter:invert(1)}
+html[data-cojuka-theme="dark"] .cojuka-site-footer :is(h2,h3,h4){color:#fff!important}
+html[data-cojuka-theme="dark"] .cojuka-site-footer :is(a,p,.cojuka-footer-bottom,span){color:#cbd4e1!important}
+html[data-cojuka-theme="dark"] .cojuka-site-footer a:hover{color:#ffacba!important}
+html[data-cojuka-theme="dark"] :is(.modal-content,.modal-header,.modal-body){background-color:#202838;color:#f4f6fa;border-color:#435069}
+html[data-cojuka-theme="dark"] .modal-content :is(h2,h3,p,label,small){color:#e5eaf3}
+html[data-cojuka-theme="dark"] .btn-close{filter:invert(1) grayscale(1)}
+html[data-cojuka-theme="dark"] :is(.form-control,.form-select){background:#151d2a!important;color:#fff!important;border-color:#58657b!important}
+html[data-cojuka-theme="dark"] .form-control::placeholder{color:#aeb8c7}
+html[data-cojuka-theme="dark"] main :is(.entity-hero,.hero,[class*="hero"]){color:#fff}
+html[data-cojuka-theme="dark"] main :is(.entity-hero,.hero,[class*="hero"]) :is(h1,h2,h3,p,.lead){color:#fff}
 </style>
 <script>
 (function(){

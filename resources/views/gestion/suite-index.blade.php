@@ -14,9 +14,17 @@
         @if(\App\Support\GroupAccess::can(auth()->user(),$module,'create'))<button type="button" class="btn btn-dark rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#newItem">+ Ajouter</button>@endif
     </div>
 </div>
+@if($module==='rh')
 <div class="row g-3 mb-4">
-    <div class="col-md-4"><div class="card border-0 shadow-sm p-3 h-100"><div class="small text-secondary">Enregistrements filtrés</div><div class="h3 mb-0">{{ $totals->sum('total') }}</div></div></div>
-    @foreach($totals as $total)
+ @foreach([['Effectif enregistré',$hrStats['total']??0],['Personnel actif',$hrStats['active']??0],['En congé',$hrStats['leave']??0],['Contrats à échéance (30 jours)',$hrStats['contract_ends_soon']??0]] as $metric)
+ <div class="col-6 col-xl-3"><div class="card border-0 shadow-sm p-3 h-100"><span class="small text-secondary">{{ $metric[0] }}</span><div class="h2 fw-bold mt-2 mb-0">{{ $metric[1] }}</div></div></div>
+ @endforeach
+</div>
+<div class="alert alert-light border mb-4">Gestion du personnel : matricules, affectations, contrats, congés, évaluations et formations. Les statistiques respectent les filiales autorisées. Évitez de saisir des informations médicales sensibles dans les observations.</div>
+@endif
+<div class="row g-3 mb-4">
+    @if($module!=='rh')<div class="col-md-4"><div class="card border-0 shadow-sm p-3 h-100"><div class="small text-secondary">Enregistrements filtrés</div><div class="h3 mb-0">{{ $totals->sum('total') }}</div></div></div>
+    @foreach($module==='rh' ? [] : $totals as $total)
         <div class="col-md-4"><div class="card border-0 shadow-sm p-3 h-100"><div class="small text-secondary">Total {{ $total->currency }} (données filtrées)</div><div class="h3 mb-0">{{ number_format((float) $total->amount_total, 2, ',', ' ') }} {{ $total->currency }}</div></div></div>
     @endforeach
 </div>
@@ -36,15 +44,15 @@
 <div class="card border-0 shadow-sm p-3">
     <div class="table-responsive">
         <table class="table table-hover align-middle">
-            <thead><tr><th>Intitulé</th><th>Filiale</th><th>Montant</th><th>Statut</th><th>Date</th><th>Actions</th></tr></thead>
+            <thead><tr><th>{{ $module==='rh' ? 'Collaborateur / Matricule' : 'Intitulé' }}</th><th>Filiale</th><th>{{ $module==='rh' ? 'Poste / Service' : 'Montant' }}</th><th>Statut</th><th>{{ $module==='rh' ? 'Embauche' : 'Date' }}</th><th>Actions</th></tr></thead>
             <tbody>
                 @forelse($rows as $item)
                     <tr>
-                        <td><strong>{{ $item->title }}</strong><div class="small text-secondary">{{ $item->reference }}</div></td>
+                        <td><strong>{{ $item->title }}</strong><div class="small text-secondary">{{ $module==='rh' ? data_get($item->details,'matricule',$item->reference) : $item->reference }}</div></td>
                         <td>{{ $item->entity?->name ?? '—' }}</td>
-                        <td>{{ $item->amount === null ? '—' : number_format((float) $item->amount, 2, ',', ' ').' '.$item->currency }}</td>
-                        <td><span class="badge bg-secondary">{{ str_replace('_', ' ', $item->status) }}</span></td>
-                        <td>{{ $item->record_date?->format('d/m/Y') ?? '—' }}</td>
+                        <td>@if($module==='rh'){{ data_get($item->details,'poste','—') }}<div class="small text-secondary">{{ data_get($item->details,'departement') }}</div>@else{{ $item->amount === null ? '—' : number_format((float) $item->amount, 2, ',', ' ').' '.$item->currency }}@endif</td>
+                        <td><span class="badge bg-secondary">{{ $module==='rh' ? ucfirst(str_replace('_',' ',data_get($item->details,'statut_employe',$item->status))) : str_replace('_', ' ', $item->status) }}</span></td>
+                        <td>{{ $module==='rh' ? (data_get($item->details,'date_embauche') ?: '—') : ($item->record_date?->format('d/m/Y') ?? '—') }}</td>
                         <td class="text-nowrap">
                             @if(\App\Support\GroupAccess::can(auth()->user(),$module,'update'))<button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#edit{{ $item->id }}">Modifier</button>@endif
                             @if(\App\Support\GroupAccess::can(auth()->user(),$module,'delete'))<form method="post" class="d-inline" action="{{ route('gestion.suite.destroy', [$module, $item->id]) }}" onsubmit="return confirm('Supprimer cet enregistrement ?')">

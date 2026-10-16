@@ -28,6 +28,8 @@
 @yield('content')
 @include('partials.cojuka-footer')
 @include('partials.cojuka-mining-announcement')
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
 @include('partials.cojuka-motion')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 @yield('page_scripts')

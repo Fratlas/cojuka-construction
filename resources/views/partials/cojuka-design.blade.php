@@ -67,4 +67,15 @@ main .btn-brand,main .btn-pill,main a.btn{position:relative;transition:transform
 .cojuka-global-nav .navbar-brand img{transition:transform .5s ease}
 .cojuka-global-nav .navbar-brand:hover img{transform:scale(1.035)}
 @media(prefers-reduced-motion:reduce){main .service-card,main article.service,main .service-card img,main .btn-brand,main .btn-pill,main a.btn,.cojuka-global-nav .navbar-brand img{animation:none!important;transition:none!important;transform:none!important}}
+
+/* Typographie des petits libellés : fine, légère et cohérente sur toutes les pages publiques. */
+body :is(.section-kicker,.eyebrow,.tag,.cma-kicker,.ci-caption,.service-index,.photo-showcase-tag,.cojuka-slide-index,.scroll-indicator,.index,.entity-photo-tile figcaption small){
+ font-weight:400!important;
+ letter-spacing:.065em;
+}
+body :is(.section-kicker,.eyebrow,.tag,.cma-kicker,.ci-caption,.service-index,.photo-showcase-tag,.cojuka-slide-index,.scroll-indicator){text-transform:uppercase}
+body .section-kicker{font-size:.85rem}
+body .eyebrow{font-size:.8rem}
+body .info-card .index{font-weight:400!important}
+body :is(.cma-kicker,.ci-caption){font-weight:400!important}
 </style>

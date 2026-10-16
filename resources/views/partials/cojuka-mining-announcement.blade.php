@@ -1,9 +1,9 @@
 <style>
-#cojuka-mining-announce{position:fixed;inset:0;z-index:99980;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(76,12,31,.30);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);opacity:0;transition:opacity .55s ease}
+#cojuka-mining-announce{position:fixed;inset:0;z-index:99980;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(16,22,30,.22);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);opacity:0;transition:opacity .55s ease}
 #cojuka-mining-announce.cma-visible{display:flex;opacity:1}
-#cojuka-mining-announce .cma-panel{position:relative;isolation:isolate;width:min(960px,100%);min-height:460px;overflow:hidden;border-radius:26px;background:#641f35 url('https://images.hellogravel.com/variants/guides/37e44abca47c0db2/bingham-canyon-mine-aerial-scaled-content-900w.webp') center/cover no-repeat;box-shadow:0 40px 110px rgba(0,0,0,.30);transform:translateY(30px) scale(.97);transition:transform .7s cubic-bezier(.18,.8,.18,1)}
+#cojuka-mining-announce .cma-panel{position:relative;isolation:isolate;width:min(960px,100%);min-height:460px;overflow:hidden;border-radius:26px;background:#27313a url('https://images.hellogravel.com/variants/guides/37e44abca47c0db2/bingham-canyon-mine-aerial-scaled-content-900w.webp') center/cover no-repeat;box-shadow:0 40px 110px rgba(0,0,0,.30);transform:translateY(30px) scale(.97);transition:transform .7s cubic-bezier(.18,.8,.18,1)}
 #cojuka-mining-announce.cma-visible .cma-panel{transform:translateY(0) scale(1)}
-#cojuka-mining-announce .cma-panel:before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(89,13,37,.82) 0%,rgba(108,22,49,.60) 48%,rgba(85,17,41,.12) 100%)}
+#cojuka-mining-announce .cma-panel:before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(15,22,29,.74) 0%,rgba(23,30,36,.44) 48%,rgba(20,25,31,.07) 100%)}
 #cojuka-mining-announce .cma-content{padding:clamp(30px,6vw,78px);max-width:680px;color:#fff}
 #cojuka-mining-announce .cma-kicker{color:#f4b89a;font-size:.83rem;letter-spacing:.18em;text-transform:uppercase;font-weight:300;margin:0 0 18px}
 #cojuka-mining-announce h2{font-size:clamp(2.4rem,5vw,5rem);font-weight:850;line-height:1.03;letter-spacing:-.055em;color:#fff;margin:0 0 20px}
@@ -12,7 +12,7 @@
 #cojuka-mining-announce .cma-primary{display:inline-flex;align-items:center;justify-content:center;min-height:49px;padding:12px 22px;background:#9a2033;border-radius:99px;color:#fff!important;font-weight:750;text-decoration:none;box-shadow:0 12px 28px #0004}
 #cojuka-mining-announce .cma-primary:hover{background:#c22f45;transform:translateY(-3px)}
 #cojuka-mining-announce .cma-secondary{background:transparent;border:1px solid #ffffff70;color:#fff;border-radius:99px;padding:12px 20px;font-weight:650;min-height:49px}
-#cojuka-mining-announce .cma-close{position:absolute;top:16px;right:17px;z-index:2;border:1px solid #ffffff77;background:#631b32e8;color:#fff;border-radius:50%;width:42px;height:42px;font-size:26px;line-height:1;cursor:pointer}
+#cojuka-mining-announce .cma-close{position:absolute;top:16px;right:17px;z-index:2;border:1px solid #ffffff77;background:#20252ac9;color:#fff;border-radius:50%;width:42px;height:42px;font-size:26px;line-height:1;cursor:pointer}
 #cojuka-mining-announce .cma-note{font-size:.74rem;color:#c6d0d8;margin-top:24px}
 @media(max-width:575px){#cojuka-mining-announce .cma-panel{min-height:0}#cojuka-mining-announce .cma-content{padding:65px 25px 30px}#cojuka-mining-announce h2{font-size:2.5rem}}
 @media(prefers-reduced-motion:reduce){#cojuka-mining-announce,#cojuka-mining-announce .cma-panel{transition:none!important}}

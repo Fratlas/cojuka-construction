@@ -26,18 +26,21 @@
  <div class="ci-stage">
   <div class="mb-4">@include('partials.cojuka-logo', ['logoClass'=>'cojuka-brand-logo--large'])</div>
   <div class="ci-name">COJUKA</div>
-  <div class="ci-caption">CONSULTING GROUP · CONSTRUCTION</div>
+  <div class="ci-caption">CONSULTING GROUP</div>
   <div class="ci-line"></div>
  </div>
- <button type="button" class="ci-skip" id="cojuka-intro-skip">Passer l'introduction <span aria-hidden="true">→</span></button>
+ <button type="button" class="ci-skip" id="cojuka-intro-skip">Accéder au site <span aria-hidden="true">→</span></button>
 </div>
 <script>
 (function(){
  var el=document.getElementById('cojuka-intro');if(!el)return;
- var key='cojuka-intro-seen-v1',reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- var seen=false;try{seen=sessionStorage.getItem(key)==='1'}catch(e){}
- function finish(){if(!el||el.classList.contains('is-hidden'))return;el.classList.add('is-hidden');try{sessionStorage.setItem(key,'1')}catch(e){}window.setTimeout(function(){if(el&&el.parentNode)el.remove()},700)}
+ var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ var started=Date.now(),ready=false,minimum=5000,maximum=14000,done=false;
+ function finish(){if(done)return;done=true;el.classList.add('is-hidden');window.setTimeout(function(){if(el&&el.parentNode)el.remove()},700)}
+ function attempt(){if(ready&&Date.now()-started>=minimum)finish()}
+ window.addEventListener('cojuka:hero-ready',function(){ready=true;attempt()},{once:true});
  document.getElementById('cojuka-intro-skip').addEventListener('click',finish);
- if(seen||reduced){finish()}else{window.setTimeout(finish,1900)}
+ if(reduced){finish()}else{window.setTimeout(attempt,minimum);window.setTimeout(finish,maximum)}
+
 })();
 </script>

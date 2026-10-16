@@ -13,7 +13,7 @@
 <style>
 .cojuka-video-carousel{position:absolute;inset:0;overflow:hidden;z-index:0}
 .cojuka-video-carousel .cojuka-carousel-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease;pointer-events:none}
-.cojuka-video-carousel .cojuka-carousel-video.is-active{opacity:1}
+.cojuka-video-carousel .cojuka-carousel-video.is-active.is-playing{opacity:1}
 .cojuka-carousel-controls{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:6;display:flex;gap:12px;padding:10px 14px;border-radius:99px;background:rgba(0,0,0,.3)}
 .cojuka-carousel-dot{width:12px;height:12px;padding:0;border:2px solid #fff;border-radius:50%;background:transparent;cursor:pointer}
 .cojuka-carousel-dot.is-active{background:#fff}
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded',function(){
   function fail(i){
    if(state[i].failed)return;
    if(state[i].source===0&&videos[i].dataset.remote){state[i].source=1;state[i].loaded=false;videos[i].src=source(i);videos[i].load();if(i===active)play(i);return}
-   state[i].failed=true;videos[i].pause();videos[i].classList.remove('is-active');
+   state[i].failed=true;videos[i].pause();videos[i].classList.remove('is-active','is-playing');
    if(i===active)next();
   }
   function play(i){
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded',function(){
    if(state[i].failed)return;
    active=i;const token=++request;
    clearTimeout(timeout);loading(false);
-   videos.forEach((v,j)=>{v.classList.toggle('is-active',i===j);if(j!==i)v.pause()});
+   videos.forEach((v,j)=>{v.classList.toggle('is-active',i===j);v.classList.remove('is-playing');if(j!==i)v.pause()});
    dotsUpdate();
    if(reduced){loading(false);return}
    play(i);
@@ -65,10 +65,10 @@ document.addEventListener('DOMContentLoaded',function(){
   }
   videos.forEach((v,i)=>{
    v.addEventListener('loadeddata',()=>{state[i].loaded=true;if(i===active)loading(false)});
-   v.addEventListener('playing',()=>{if(i===active)loading(false)});
+   v.addEventListener('playing',()=>{if(i===active){v.classList.add('is-playing');loading(false)}});
    v.addEventListener('error',()=>fail(i));
    v.addEventListener('ended',()=>{if(i===active&&!reduced)next()});
-   v.addEventListener('waiting',()=>{if(i===active)loading(false)});
+   v.addEventListener('waiting',()=>{if(i===active){v.classList.remove('is-playing');loading(false)}});
   });
   dots.forEach((b,i)=>b.addEventListener('click',()=>show(i)));
   if(reduced || (navigator.connection && navigator.connection.saveData)){loading(false);return}

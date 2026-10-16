@@ -19,6 +19,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'is_group_admin' => 'boolean',
+            'group_department_id' => 'integer',
         ];
     }
 }

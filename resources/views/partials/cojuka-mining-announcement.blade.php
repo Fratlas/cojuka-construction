@@ -35,13 +35,13 @@
 <script>
 (function(){
  var dialog=document.getElementById('cojuka-mining-announce');if(!dialog)return;
- var close=document.getElementById('cma-close'),sound=document.getElementById('cma-sound'),shown=false,previousFocus=null,audioCtx=null;
- function open(){if(shown)return;shown=true;previousFocus=document.activeElement;dialog.style.display='flex';dialog.setAttribute('aria-hidden','false');requestAnimationFrame(function(){dialog.classList.add('cma-visible');close.focus({preventScroll:true});});}
- function hide(){dialog.classList.remove('cma-visible');dialog.setAttribute('aria-hidden','true');window.setTimeout(function(){dialog.style.display='none';},560);if(previousFocus&&previousFocus.focus)previousFocus.focus({preventScroll:true});}
+ var close=document.getElementById('cma-close'),sound=document.getElementById('cma-sound'),shown=false,previousFocus=null,audioCtx=null,hideTimer=null;
+ function open(){if(shown)return;shown=true;clearTimeout(hideTimer);previousFocus=document.activeElement;dialog.style.display='flex';dialog.setAttribute('aria-hidden','false');requestAnimationFrame(function(){dialog.classList.add('cma-visible');close.focus({preventScroll:true});});}
+ function hide(){if(!shown)return;shown=false;dialog.classList.remove('cma-visible');dialog.setAttribute('aria-hidden','true');hideTimer=window.setTimeout(function(){dialog.style.display='none';},window.matchMedia('(prefers-reduced-motion: reduce)').matches?0:560);if(previousFocus&&previousFocus.focus)previousFocus.focus({preventScroll:true});}
  function waitForIntro(){var intro=document.getElementById('cojuka-intro');if(!intro||intro.classList.contains('is-hidden')){window.setTimeout(open,450);return;}var obs=new MutationObserver(function(){if(intro.classList.contains('is-hidden')){obs.disconnect();window.setTimeout(open,450);}});obs.observe(intro,{attributes:true,attributeFilter:['class']});}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',waitForIntro,{once:true});else waitForIntro();
  close.addEventListener('click',hide);dialog.addEventListener('click',function(e){if(e.target===dialog)hide();});
- document.addEventListener('keydown',function(e){if(dialog.classList.contains('cma-visible')&&e.key==='Escape')hide();});
+ document.addEventListener('keydown',function(e){if(!dialog.classList.contains('cma-visible'))return;if(e.key==='Escape'){hide();return;}if(e.key==='Tab'){var focusable=Array.from(dialog.querySelectorAll('button,a[href]')).filter(function(el){return !el.disabled});if(!focusable.length)return;var first=focusable[0],last=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
  document.getElementById('cma-explore').addEventListener('click',function(){dialog.setAttribute('aria-hidden','true');});
  sound.addEventListener('click',function(){
   try{var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;audioCtx=audioCtx||new AC();if(audioCtx.state==='suspended')audioCtx.resume();

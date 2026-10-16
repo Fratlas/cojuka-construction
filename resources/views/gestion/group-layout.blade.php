@@ -71,16 +71,26 @@ body{font-size:15px;line-height:1.55}
  <div class="brand">@include('partials.cojuka-logo', ['logoClass'=>'cojuka-brand-logo--small'])<div><div class="brand-name">COJUKA GROUP</div><div class="brand-caption">EXECUTIVE SUITE</div></div></div>
  <div class="nav-caption">Vue générale</div>
  <a class="side-link {{ request()->routeIs('gestion.group.dashboard') ? 'active' : '' }}" href="{{ route('gestion.group.dashboard') }}"><i class="bi bi-grid-1x2"></i> Tableau de bord</a>
+ @if(\App\Support\GroupAccess::can(auth()->user(),'entites'))
  <a class="side-link {{ request()->is('gestion/entites*') ? 'active' : '' }}" href="{{ route('gestion.group.list', 'entites') }}"><i class="bi bi-buildings"></i> Sociétés & filiales</a>
+ @endif
+ @if(\App\Support\GroupAccess::can(auth()->user(),'projets'))
  <a class="side-link {{ request()->is('gestion/projets*') ? 'active' : '' }}" href="{{ route('gestion.group.list', 'projets') }}"><i class="bi bi-kanban"></i> Projets</a>
+ @endif
+ @if(\App\Support\GroupAccess::can(auth()->user(),'actifs'))
  <a class="side-link {{ request()->is('gestion/actifs*') ? 'active' : '' }}" href="{{ route('gestion.group.list', 'actifs') }}"><i class="bi bi-box-seam"></i> Actifs</a>
+ @endif
+ @if(auth()->user()?->is_group_admin)
  <a class="side-link {{ request()->is('gestion/utilisateurs*') ? 'active' : '' }}" href="{{ route('gestion.users.index') }}"><i class="bi bi-people"></i> Utilisateurs & accès</a>
+ @endif
  <div class="nav-caption">Départements</div>
  @php
  $moduleIcons=['rh'=>'bi-person-vcard','finances'=>'bi-wallet2','contrats'=>'bi-file-earmark-text','achats'=>'bi-bag-check','logistique'=>'bi-truck','immobilier'=>'bi-houses','mines'=>'bi-gem','consulting'=>'bi-briefcase'];
  @endphp
  @foreach(\App\Http\Controllers\GroupSuiteController::MODULES as $slug => $config)
+ @if(\App\Support\GroupAccess::can(auth()->user(),$slug))
  <a class="side-link {{ request()->is('gestion/modules/'.$slug.'*') ? 'active' : '' }}" href="{{ route('gestion.suite.index', $slug) }}"><i class="bi {{ $moduleIcons[$slug] ?? 'bi-circle' }}"></i> {{ $config['label'] }}</a>
+ @endif
  @endforeach
  <div class="side-bottom">
  <a class="side-link" href="{{ route('group.portal') }}" target="_blank" rel="noopener noreferrer"><i class="bi bi-box-arrow-up-right"></i> Portail public</a>
@@ -98,7 +108,7 @@ body{font-size:15px;line-height:1.55}
  </div>
  <div class="top-actions">
   <span class="today-pill"><i class="bi bi-calendar3 me-2"></i>{{ now()->locale('fr')->translatedFormat('d M Y') }}</span>
-  <div class="user-meta text-end"><div class="user-label">{{ auth()->user()?->name ?? 'Administrateur' }}</div><div class="user-role">Administration du groupe</div></div>
+  <div class="user-meta text-end"><div class="user-label">{{ auth()->user()?->name ?? 'Administrateur' }}</div><div class="user-role">{{ auth()->user()?->is_group_admin ? 'Direction générale' : 'Accès départemental' }}</div></div>
   <div class="avatar">{{ strtoupper(mb_substr(auth()->user()?->name ?? 'C', 0, 1)) }}</div>
  </div>
 </header>

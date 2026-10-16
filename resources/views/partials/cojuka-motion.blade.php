@@ -1,8 +1,8 @@
 <style>
 /* COJUKA premium transitions — progressive enhancement, no hidden content without GSAP */
-#cojuka-page-curtain{position:fixed;inset:0;z-index:99990;background:linear-gradient(125deg,#4b0d20 0%,#8e2844 55%,#b14c61 100%);pointer-events:none;transform:translateY(101%);visibility:hidden;will-change:transform}
+#cojuka-page-curtain{position:fixed;inset:0;z-index:99990;background:#e9e9eb;pointer-events:none;transform:translateY(101%);visibility:hidden;will-change:transform}
 #cojuka-page-curtain:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 15%,rgba(255,255,255,.14),transparent 45%)}
-.cojuka-motion-rule{display:block;width:50px;height:2px;background:#aa3951;margin-top:12px;transform-origin:left}
+.cojuka-motion-rule{display:block;width:50px;height:2px;background:#7c818b;margin-top:12px;transform-origin:left}
 @media(prefers-reduced-motion:reduce){#cojuka-page-curtain{display:none!important}html{scroll-behavior:auto!important}}
 </style>
 <div id="cojuka-page-curtain" aria-hidden="true"></div>

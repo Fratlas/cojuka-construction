@@ -1,11 +1,11 @@
 <style>
-#cojuka-mining-announce{position:fixed;inset:0;z-index:99980;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(4,10,18,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);opacity:0;transition:opacity .55s ease}
+#cojuka-mining-announce{position:fixed;inset:0;z-index:99980;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(8,14,24,.42);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);opacity:0;transition:opacity .55s ease}
 #cojuka-mining-announce.cma-visible{display:flex;opacity:1}
-#cojuka-mining-announce .cma-panel{position:relative;isolation:isolate;width:min(960px,100%);min-height:460px;overflow:hidden;border-radius:26px;background:#101b29 url('https://images.hellogravel.com/variants/guides/37e44abca47c0db2/bingham-canyon-mine-aerial-scaled-content-900w.webp') center/cover no-repeat;box-shadow:0 40px 110px rgba(0,0,0,.52);transform:translateY(30px) scale(.97);transition:transform .7s cubic-bezier(.18,.8,.18,1)}
+#cojuka-mining-announce .cma-panel{position:relative;isolation:isolate;width:min(960px,100%);min-height:460px;overflow:hidden;border-radius:26px;background:#293646 url('https://images.hellogravel.com/variants/guides/37e44abca47c0db2/bingham-canyon-mine-aerial-scaled-content-900w.webp') center/cover no-repeat;box-shadow:0 40px 110px rgba(0,0,0,.30);transform:translateY(30px) scale(.97);transition:transform .7s cubic-bezier(.18,.8,.18,1)}
 #cojuka-mining-announce.cma-visible .cma-panel{transform:translateY(0) scale(1)}
-#cojuka-mining-announce .cma-panel:before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(6,13,23,.96) 0%,rgba(6,13,23,.86) 50%,rgba(6,13,23,.35) 100%)}
-#cojuka-mining-announce .cma-content{padding:clamp(30px,6vw,78px);max-width:740px;color:#fff}
-#cojuka-mining-announce .cma-kicker{color:#f4b89a;font-size:.83rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800;margin:0 0 18px}
+#cojuka-mining-announce .cma-panel:before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(6,13,23,.79) 0%,rgba(6,13,23,.53) 50%,rgba(6,13,23,.10) 100%)}
+#cojuka-mining-announce .cma-content{padding:clamp(30px,6vw,78px);max-width:680px;color:#fff}
+#cojuka-mining-announce .cma-kicker{color:#f4b89a;font-size:.83rem;letter-spacing:.18em;text-transform:uppercase;font-weight:300;margin:0 0 18px}
 #cojuka-mining-announce h2{font-size:clamp(2.4rem,5vw,5rem);font-weight:850;line-height:1.03;letter-spacing:-.055em;color:#fff;margin:0 0 20px}
 #cojuka-mining-announce .cma-copy{color:#e1e5ea;font-size:clamp(1rem,1.5vw,1.23rem);line-height:1.65;max-width:580px;margin-bottom:30px}
 #cojuka-mining-announce .cma-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
@@ -28,7 +28,7 @@
     <a class="cma-primary" href="{{ route('group.profile','kojuka-mining') }}" id="cma-explore">Découvrir COJUKA Mining ↗</a>
 
    </div>
-   <p class="cma-note">Vue illustrative d'une mine à ciel ouvert. Vous pouvez fermer cette annonce à tout moment.</p>
+   <p class="cma-note">Photographies d’illustration des activités industrielles et minières.</p>
   </div>
  </div>
 </div>
@@ -36,6 +36,13 @@
 (function(){
  var dialog=document.getElementById('cojuka-mining-announce');if(!dialog)return;
  var close=document.getElementById('cma-close'),shown=false,previousFocus=null,audioCtx=null,hideTimer=null;
+ var panel=dialog.querySelector('.cma-panel'),title=document.getElementById('cma-title'),copy=dialog.querySelector('.cma-copy');
+ var campaigns=[
+  {title:'Le Mining au cœur de notre vision.',copy:'Explorez notre orientation stratégique vers les ressources naturelles, les projets miniers et les carrières.',image:'https://images.hellogravel.com/variants/guides/37e44abca47c0db2/bingham-canyon-mine-aerial-scaled-content-900w.webp'},
+  {title:'Des ressources. De nouvelles perspectives.',copy:'COJUKA place le développement minier au premier plan, avec une vision de long terme et des expertises complémentaires.',image:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=80'},
+  {title:'Mining, carrières et infrastructures.',copy:'Découvrez comment les activités minières s’articulent avec la construction, la logistique et les investissements du groupe.',image:'https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1400&q=80'}
+ ];
+ function setCampaign(){var index=0;try{index=Number(sessionStorage.getItem('cojuka-mining-variant')||0)%campaigns.length;sessionStorage.setItem('cojuka-mining-variant',String(index+1))}catch(e){index=Math.floor(Math.random()*campaigns.length)}var item=campaigns[index];title.textContent=item.title;copy.textContent=item.copy;panel.style.backgroundImage='url("'+item.image+'")';}
  function playIntroSound(){
   try{
    var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
@@ -53,7 +60,7 @@
    });
   }catch(e){}
  }
- function open(){if(shown)return;shown=true;clearTimeout(hideTimer);previousFocus=document.activeElement;dialog.style.display='flex';dialog.setAttribute('aria-hidden','false');requestAnimationFrame(function(){dialog.classList.add('cma-visible');close.focus({preventScroll:true});playIntroSound();});}
+ function open(){if(shown)return;shown=true;setCampaign();clearTimeout(hideTimer);previousFocus=document.activeElement;dialog.style.display='flex';dialog.setAttribute('aria-hidden','false');requestAnimationFrame(function(){dialog.classList.add('cma-visible');close.focus({preventScroll:true});playIntroSound();});}
  function hide(){if(!shown)return;shown=false;dialog.classList.remove('cma-visible');dialog.setAttribute('aria-hidden','true');hideTimer=window.setTimeout(function(){dialog.style.display='none';},window.matchMedia('(prefers-reduced-motion: reduce)').matches?0:560);if(previousFocus&&previousFocus.focus)previousFocus.focus({preventScroll:true});}
  function waitForIntro(){var intro=document.getElementById('cojuka-intro');if(!intro||intro.classList.contains('is-hidden')){window.setTimeout(open,450);return;}var obs=new MutationObserver(function(){if(intro.classList.contains('is-hidden')){obs.disconnect();window.setTimeout(open,450);}});obs.observe(intro,{attributes:true,attributeFilter:['class']});}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',waitForIntro,{once:true});else waitForIntro();

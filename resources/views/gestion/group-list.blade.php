@@ -10,6 +10,14 @@
  <div class="d-flex gap-2 flex-wrap">@if(\App\Support\GroupAccess::can(auth()->user(),$module,'create'))<button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#importModal"><i class="bi bi-cloud-arrow-up me-2"></i>Importer CSV</button>@endif
 @if(\App\Support\GroupAccess::can(auth()->user(),$module,'create'))<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-plus-lg me-2"></i>Ajouter</button>@endif</div>
 </div>
+@if($module==='entites' && auth()->user()?->is_group_admin)
+<div class="card p-3 p-md-4 mb-4">
+ <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+  <div><h2 class="h5 fw-bold mb-1">Compléter les entités et domaines COJUKA</h2><p class="text-secondary mb-0">Ajoute les domaines manquants : Génie, Énergie, Cargo, Matériel, Public, Santé et Éducation, ainsi que les entités historiques absentes. Mining reste prioritaire. Les données existantes ne seront pas modifiées.</p><p class="small text-secondary mt-2 mb-0">Les nouveaux domaines sont enregistrés comme domaines internes non publiés, et non comme sociétés légalement constituées.</p></div>
+  <form method="post" action="{{ route('gestion.group.entities.sync') }}" onsubmit="return confirm('Ajouter uniquement les domaines manquants au référentiel de gestion ?')">@csrf<button class="btn btn-dark text-nowrap" type="submit"><i class="bi bi-building-add me-2"></i>Ajouter les domaines manquants</button></form>
+ </div>
+</div>
+@endif
 <div class="card p-3 p-md-4">
  <div class="d-flex justify-content-between align-items-center mb-3">
   <div class="fw-bold">Liste des {{ $module }}</div>

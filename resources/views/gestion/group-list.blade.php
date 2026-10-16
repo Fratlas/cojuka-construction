@@ -7,7 +7,7 @@
   <h1 class="h2 fw-bold mb-1">{{ ucfirst($module) }}</h1>
   <p class="text-secondary mb-0">Consultez et gérez les enregistrements de votre organisation.</p>
  </div>
- <div class="d-flex gap-2 flex-wrap"><button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#importModal"><i class="bi bi-cloud-arrow-up me-2"></i>Importer CSV</button><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-plus-lg me-2"></i>Ajouter</button></div>
+ <div class="d-flex gap-2 flex-wrap">@if(\App\Support\GroupAccess::can(auth()->user(),$module,'create'))<button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#importModal"><i class="bi bi-cloud-arrow-up me-2"></i>Importer CSV</button>@endif@if(\App\Support\GroupAccess::can(auth()->user(),$module,'create'))<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-plus-lg me-2"></i>Ajouter</button>@endif</div>
 </div>
 <div class="card p-3 p-md-4">
  <div class="d-flex justify-content-between align-items-center mb-3">
@@ -26,12 +26,12 @@
        <span class="badge bg-light text-dark">{{ $row->status ?? ($row->published ? 'Publié' : 'Brouillon') }}</span>
       </td>
       <td class="text-end text-nowrap">
-       <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#edit{{ $row->id }}">Modifier</button>
-       <form method="post" action="{{ route('gestion.group.delete', [$module, $row->id]) }}" class="d-inline" onsubmit="return confirm('Supprimer définitivement cet enregistrement ?')">
+       @if(\App\Support\GroupAccess::can(auth()->user(),$module,'update'))<button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#edit{{ $row->id }}">Modifier</button>@endif
+       @if(\App\Support\GroupAccess::can(auth()->user(),$module,'delete'))<form method="post" action="{{ route('gestion.group.delete', [$module, $row->id]) }}" class="d-inline" onsubmit="return confirm('Supprimer définitivement cet enregistrement ?')">
         @csrf
         @method('DELETE')
         <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
-       </form>
+       </form>@endif
       </td>
      </tr>
     @empty
@@ -42,6 +42,7 @@
  </div>
  <div class="mt-3">{{ $rows->links() }}</div>
 </div>
+@if(\App\Support\GroupAccess::can(auth()->user(),$module,'update'))
 @foreach($rows as $row)
  <div class="modal fade" id="edit{{ $row->id }}" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -55,6 +56,8 @@
   </div>
  </div>
 @endforeach
+@endif
+@if(\App\Support\GroupAccess::can(auth()->user(),$module,'create'))
 <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
  <div class="modal-dialog modal-lg modal-dialog-scrollable">
   <form method="post" action="{{ route('gestion.group.save', $module) }}" class="modal-content">
@@ -65,6 +68,8 @@
   </form>
  </div>
 </div>
+@endif
+@if(\App\Support\GroupAccess::can(auth()->user(),$module,'create'))
 <div class="modal fade" id="importModal" tabindex="-1" aria-hidden="true">
  <div class="modal-dialog modal-dialog-centered">
   <form method="post" enctype="multipart/form-data" action="{{ route('gestion.import.store', $module) }}" class="modal-content">
@@ -81,4 +86,5 @@
   </form>
  </div>
 </div>
+@endif
 @endsection

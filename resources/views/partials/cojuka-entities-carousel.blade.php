@@ -1,11 +1,11 @@
 @php
 $homeEntities = [
- ['Construction','construction','Construction et développement de projets du groupe.','Direction opérationnelle'],
- ['Logistique','logistique','Coordination des opérations de transport et de logistique.','Direction opérationnelle'],
- ['Consultance','consultance','Consultance étatique et privée : conseil aux institutions, entreprises et acteurs privés.','Conseil stratégique'],
- ['Eden Park Investments','eden-park-investments','Investissements fonciers et immobiliers, avec des projets au Congo et à l’étranger.','Investissement immobilier'],
- ['Impact Center','impact-center','Société de droit belge détenue majoritairement par le groupe.','Participation internationale'],
- ['Mining','kojuka-mining','Développement d’activités minières dans la zone 30 du Haut-Katanga.','Secteur minier'],
+ ['Mining','kojuka-mining','Développement des activités minières au Haut-Katanga.','Domaine prioritaire'],
+ ['Construction','construction','Construction et coordination des projets.','Construction'],
+ ['Logistique','logistique','Transport, approvisionnement et coordination des opérations.','Logistique'],
+ ['Eden Park Investments','eden-park-investments','Investissements immobiliers et fonciers.','Investissement immobilier'],
+ ['Consultance','consultance','Conseil aux institutions et aux entreprises.','Conseil stratégique'],
+ ['Impact Center','impact-center','Participation belge et coopération internationale.','Coopération'],
 ];
 $entityPhotos = [
  'construction' => 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=72&fm=webp',
@@ -66,7 +66,7 @@ $entityPhotos = [
 .cojuka-entity-panel p{color:#e2e4ea;font-size:clamp(1rem,1.6vw,1.25rem);max-width:610px;line-height:1.7}
 .cojuka-entity-link{display:inline-flex;margin-top:20px;padding:13px 24px;border-radius:50px;background:#fff;color:#141823;font-weight:750}
 .cojuka-entity-link:hover{background:#f0e6e8;color:#141823}
-.cojuka-entity-photo{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(5,13,24,.94) 0%,rgba(5,13,24,.79) 42%,rgba(5,13,24,.22) 100%),var(--entity-photo);background-position:center;background-size:cover;transform:scale(1.01);transition:transform 7s ease;z-index:0}
+.cojuka-entity-photo{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(5,13,24,.76) 0%,rgba(5,13,24,.55) 42%,rgba(5,13,24,.12) 100%),var(--entity-photo);background-position:center;background-size:cover;transform:scale(1.01);transition:transform 7s ease;z-index:0}
 .carousel-item.active .cojuka-entity-photo{transform:scale(1.065)}
 .cojuka-entity-panel:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(2,9,17,.34),transparent 45%);pointer-events:none;z-index:1}
 .cojuka-entities-footer{position:absolute;z-index:5;right:clamp(14px,3vw,32px);bottom:clamp(14px,3vw,32px);display:flex;align-items:center;gap:12px;pointer-events:none}

@@ -6,6 +6,7 @@
 <div class="d-none d-lg-flex align-items-center me-lg-2"><div class="dropdown cojuka-language-switch"><button class="cojuka-language-trigger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Choisir la langue"><span class="cojuka-current-flag" aria-hidden="true">🇫🇷</span><span class="cojuka-current-code">FR</span></button><ul class="dropdown-menu dropdown-menu-end cojuka-language-menu"><li><button class="dropdown-item" type="button" data-cojuka-lang="fr" aria-pressed="true" lang="fr"><span aria-hidden="true">🇫🇷</span> Français</button></li><li><button class="dropdown-item" type="button" data-cojuka-lang="en" aria-pressed="false" lang="en"><span aria-hidden="true">🇬🇧</span> English</button></li><li><button class="dropdown-item" type="button" data-cojuka-lang="es" aria-pressed="false" lang="es"><span aria-hidden="true">🇪🇸</span> Español</button></li></ul></div></div>
 <a class="nav-link" href="{{ route('home') }}">Accueil</a>
 <a class="nav-link" href="{{ route('group') }}">Le Groupe</a>
+<a class="nav-link" href="{{ route('group.history') }}">Histoire &amp; Belgique</a>
 <div class="nav-item dropdown">
 <a class="nav-link dropdown-toggle" href="#" id="cojukaFilieres" role="button" data-bs-toggle="dropdown" aria-expanded="false">Nos entités</a>
 <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="cojukaFilieres" style="max-height:70vh;overflow-y:auto;min-width:290px">

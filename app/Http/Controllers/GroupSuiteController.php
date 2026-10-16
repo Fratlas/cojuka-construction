@@ -86,7 +86,7 @@ class GroupSuiteController {
   $config=$this->config($module);$this->ensureReady();$data=$this->validateData($request,$config);
   DB::transaction(function()use($data,$module,$id,$request){
    $item=GroupSuiteRecord::where('module',$module)->findOrFail($id);GroupAccess::requireEntity($request->user(),$item->group_entity_id);$before=$item->toArray();
-   $item->update($data+['updated_by'=>$request->user()->id]);$this->audit($request,'update',$item,$before);
+   GroupAccess::requireEntity($request->user(),(int)$data['group_entity_id']);$item->update($data+['updated_by'=>$request->user()->id]);$this->audit($request,'update',$item,$before);
   });
   return back()->with('status','Enregistrement mis à jour.');
  }

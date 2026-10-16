@@ -7,6 +7,26 @@
 <div class="col-md-4"><label class="form-label">Montant</label><input type="number" min="0" step="0.01" name="amount" class="form-control" value="{{ $record?->amount }}"></div>
 <div class="col-md-4"><label class="form-label">Devise</label><select name="currency" class="form-select">@foreach(['USD','CDF','EUR'] as $currency)<option value="{{ $currency }}" @selected(($record?->currency ?? 'USD')===$currency)>{{ $currency }}</option>@endforeach</select></div>
 <div class="col-12"><label class="form-label">Localisation</label><input name="location" class="form-control" value="{{ $record?->location }}"></div>
-@foreach($config['fields'] as $key=>$label)<div class="col-md-6"><label class="form-label">{{ $label }}</label><input name="details[{{ $key }}]" class="form-control" maxlength="255" value="{{ data_get($record?->details,$key) }}"></div>@endforeach
+@if($module==='rh')
+<div class="col-12 mt-4"><h6 class="fw-bold border-bottom pb-2">Dossier du personnel</h6><p class="small text-secondary">Données réservées aux utilisateurs autorisés du module RH.</p></div>
+@endif
+@foreach($config['fields'] as $key=>$label)
+@php
+ $isRh=$module==='rh';
+ $dateFields=['date_embauche','date_fin_contrat','date_naissance','prochaine_evaluation'];
+ $numberFields=['conges_annuels','conges_pris'];
+ $fieldType=$isRh && in_array($key,$dateFields,true)?'date':($isRh && in_array($key,$numberFields,true)?'number':($isRh && $key==='email'?'email':'text'));
+@endphp
+<div class="col-md-6">
+ <label class="form-label">{{ $label }} @if($isRh && in_array($key,['matricule','nom'],true))<span class="text-danger">*</span>@endif</label>
+ @if($isRh && $key==='statut_employe')
+ <select class="form-select" name="details[{{ $key }}]"><option value="">Sélectionner</option>@foreach(['actif'=>'Actif','en_conge'=>'En congé','suspendu'=>'Suspendu','sorti'=>'Sorti'] as $v=>$l)<option value="{{ $v }}" @selected(data_get($record?->details,$key)===$v)>{{ $l }}</option>@endforeach</select>
+ @elseif($isRh && $key==='type_contrat')
+ <select class="form-select" name="details[{{ $key }}]"><option value="">Sélectionner</option>@foreach(['CDI','CDD','Stage','Prestation','Autre'] as $v)<option value="{{ $v }}" @selected(data_get($record?->details,$key)===$v)>{{ $v }}</option>@endforeach</select>
+ @else
+ <input name="details[{{ $key }}]" type="{{ $fieldType }}" class="form-control" @if($fieldType==='number') min="0" max="365" step="1" @else maxlength="255" @endif @if($isRh && in_array($key,['matricule','nom'],true)) required @endif value="{{ data_get($record?->details,$key) }}">
+ @endif
+</div>
+@endforeach
 <div class="col-12"><label class="form-label">Description / observations</label><textarea name="description" class="form-control" rows="4">{{ $record?->description }}</textarea></div>
 </div>

@@ -7,8 +7,8 @@
 
 <style>
 body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#151923}a{text-decoration:none}
-.entity-hero{min-height:76vh;display:flex;align-items:center;position:relative;overflow:hidden;color:#fff;background:radial-gradient(circle at 85% 40%,#78283e 0%,#20253b 42%,#090f1d 90%);padding:100px 0;background:#101923 url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=74&fm=webp') center/cover no-repeat}
-.entity-hero .entity-background-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0;transition:opacity .65s ease}.entity-hero .entity-background-video.is-playing{opacity:.82}.entity-hero .entity-video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(99,16,43,.70),rgba(107,27,54,.15))}
+.entity-hero{min-height:76vh;display:flex;align-items:center;position:relative;overflow:hidden;color:#fff;background:#24313d;padding:100px 0;background:#101923 url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=74&fm=webp') center/cover no-repeat}
+.entity-hero .entity-background-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0;transition:opacity .65s ease}.entity-hero .entity-background-video.is-playing{opacity:.82}.entity-hero .entity-video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(15,23,32,.72),rgba(22,32,43,.13))}
 .entity-hero .container{position:relative;z-index:2}
 .eyebrow{font-size:.8rem;font-weight:750;letter-spacing:.17em;text-transform:uppercase;color:#fff}
 .entity-hero h1{font-size:clamp(3.3rem,7vw,7.5rem);line-height:1.02;letter-spacing:-.07em;font-weight:850;overflow-wrap:anywhere}
@@ -153,7 +153,7 @@ $entityHighlightsCurrent = $entityHighlights[$profile['video'] ?? ''] ?? array_m
 @endphp
 
 <main>
-<header class="entity-hero" style="background-image:linear-gradient(90deg,rgba(99,17,43,.74),rgba(101,24,49,.13)),url('{{ $entityPhotos[0][0] }}{{ str_contains($entityPhotos[0][0], 'unsplash.com') ? '?auto=format&fit=crop&w=1600&q=75&fm=webp' : '' }}')">
+<header class="entity-hero" style="background-image:linear-gradient(90deg,rgba(15,23,32,.70),rgba(20,30,40,.12)),url('{{ $entityPhotos[0][0] }}{{ str_contains($entityPhotos[0][0], 'unsplash.com') ? '?auto=format&fit=crop&w=1600&q=75&fm=webp' : '' }}')">
 <div class="entity-video-loader" aria-live="polite"><img src="{{ asset('images/cojuka-logo.svg') }}" alt="COJUKA Consulting Group" width="190" height="60"><span class="spinner" aria-hidden="true"></span><span class="label">Chargement de la vidéo…</span></div>
 <video class="entity-background-video" muted loop playsinline preload="none" aria-hidden="true" data-local="{{ asset('videos/entities/'.$profile['video']) }}" data-remote="{{ $profile['video_url'] ?? '' }}" poster="{{ $entityPhotos[0][0] }}{{ str_contains($entityPhotos[0][0], 'unsplash.com') ? '?auto=format&fit=crop&w=1200&q=74&fm=webp' : '' }}"></video>
 <div class="entity-video-overlay" aria-hidden="true"></div>
@@ -178,7 +178,7 @@ $topicLinks = [
 $topicLink=$topicLinks[$profile['video'] ?? ''] ?? null;
 @endphp
 @if($topicLink)
-<section class="py-5" style="background:linear-gradient(110deg,#5e152b,#922e47);color:white"><div class="container py-5 d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-4"><div><p class="eyebrow text-white">Dossier approfondi</p><h2 class="display-5 fw-bold">{{ $topicLink[1] }}</h2><p class="mb-0 text-white">{{ $topicLink[2] }}</p></div><a class="btn btn-light rounded-pill px-4" href="{{ route('group.topic',$topicLink[0]) }}">Explorer le dossier ↗</a></div></section>
+<section class="py-5" style="background:#27323b;color:white"><div class="container py-5 d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-4"><div><p class="eyebrow text-white">Dossier approfondi</p><h2 class="display-5 fw-bold">{{ $topicLink[1] }}</h2><p class="mb-0 text-white">{{ $topicLink[2] }}</p></div><a class="btn btn-light rounded-pill px-4" href="{{ route('group.topic',$topicLink[0]) }}">Explorer le dossier ↗</a></div></section>
 @endif
 <section class="section-pad soft" id="mission-vision"><div class="container"><div class="row g-4"><div class="col-lg-6"><article class="info-card"><div class="index mb-3">NOTRE MISSION</div><h2 class="h2 fw-bold mb-3">Une action orientée vers les projets.</h2><p class="lead text-secondary mb-0">{{ $profile['mission'] }}</p></article></div><div class="col-lg-6"><article class="info-card"><div class="index mb-3">NOTRE VISION</div><h2 class="h2 fw-bold mb-3">Construire dans la durée.</h2><p class="lead text-secondary mb-0">{{ $profile['vision'] }}</p></article></div></div></div></section>
 <section class="section-pad soft"><div class="container"><p class="eyebrow mb-3">Notre positionnement</p><div class="row g-5 align-items-start"><div class="col-lg-5"><h2 class="display-title">{{ $profile['intro'] }}</h2></div><div class="col-lg-7"><p class="lead text-secondary" style="line-height:1.85">{{ $profile['details'] }}</p><div class="d-flex flex-wrap gap-2 mt-4"><span class="badge rounded-pill text-bg-light border px-3 py-2">{{ $profile['category'] }}</span><span class="badge rounded-pill text-bg-light border px-3 py-2">{{ $profile['location'] }}</span></div></div></div></div></section>

@@ -7,7 +7,8 @@
   <h1 class="h2 fw-bold mb-1">{{ ucfirst($module) }}</h1>
   <p class="text-secondary mb-0">Consultez et gérez les enregistrements de votre organisation.</p>
  </div>
- <div class="d-flex gap-2 flex-wrap">@if(\App\Support\GroupAccess::can(auth()->user(),$module,'create'))<button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#importModal"><i class="bi bi-cloud-arrow-up me-2"></i>Importer CSV</button>@endif@if(\App\Support\GroupAccess::can(auth()->user(),$module,'create'))<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-plus-lg me-2"></i>Ajouter</button>@endif</div>
+ <div class="d-flex gap-2 flex-wrap">@if(\App\Support\GroupAccess::can(auth()->user(),$module,'create'))<button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#importModal"><i class="bi bi-cloud-arrow-up me-2"></i>Importer CSV</button>@endif
+@if(\App\Support\GroupAccess::can(auth()->user(),$module,'create'))<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-plus-lg me-2"></i>Ajouter</button>@endif</div>
 </div>
 <div class="card p-3 p-md-4">
  <div class="d-flex justify-content-between align-items-center mb-3">

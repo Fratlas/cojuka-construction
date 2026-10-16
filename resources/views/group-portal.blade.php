@@ -8,10 +8,10 @@
 $presentationSlides = [
  ['name'=>'Eden Park Investments','category'=>'Investissement immobilier · SA','description'=>'Investissements fonciers et immobiliers, avec des projets en cours au Congo et à l’étranger.','number'=>'01','slug'=>'eden-park-investments'],
  ['name'=>'Impact Center','category'=>'Participation internationale · Belgique','description'=>'Société de droit belge détenue majoritairement par COJUKA Group.','number'=>'02','slug'=>'impact-center'],
- ['name'=>'COJUKA Mining','category'=>'Mines · SA','description'=>'Environ cinquante carrés miniers dans la zone stratégique 30 du Haut-Katanga, avec des activités en développement.','number'=>'03','slug'=>'kojuka-mining'],
- ['name'=>'COJUKA Consulting Group Construction','category'=>'Direction opérationnelle','description'=>'Construction et développement de projets au sein du groupe.','number'=>'04','slug'=>'construction'],
- ['name'=>'COJUKA Consulting Group Logistique','category'=>'Direction opérationnelle','description'=>'Coordination des opérations de transport et de logistique.','number'=>'05','slug'=>'logistique'],
- ['name'=>'COJUKA Consulting Group Consultance','category'=>'Conseil et développement','description'=>'Accompagnement des acteurs privés, des entreprises et des institutions étatiques.','number'=>'06','slug'=>'consultance'],
+ ['name'=>'Mining','category'=>'Mines · SA','description'=>'Environ cinquante carrés miniers dans la zone stratégique 30 du Haut-Katanga, avec des activités en développement.','number'=>'03','slug'=>'kojuka-mining'],
+ ['name'=>'Construction','category'=>'Direction opérationnelle','description'=>'Construction et développement de projets au sein du groupe.','number'=>'04','slug'=>'construction'],
+ ['name'=>'Logistique','category'=>'Direction opérationnelle','description'=>'Coordination des opérations de transport et de logistique.','number'=>'05','slug'=>'logistique'],
+ ['name'=>'Consultance','category'=>'Conseil et développement','description'=>'Accompagnement des acteurs privés, des entreprises et des institutions étatiques.','number'=>'06','slug'=>'consultance'],
 ];
 @endphp
 <header class="hero cojuka-entities-hero" aria-label="Présentation des entités du groupe">
@@ -50,10 +50,10 @@ $presentationSlides = [
 @foreach([
 ['Eden Park Investments','Investissement immobilier · SA','Actifs fonciers et immobiliers, projets au Congo et à l’étranger.','eden-park-investments'],
 ['Impact Center','Participation · Belgique','Société de droit belge détenue majoritairement par le groupe.','impact-center'],
-['COJUKA Mining','Mines · SA','Environ cinquante carrés miniers dans la zone 30, Haut-Katanga ; activités en développement.','kojuka-mining'],
-['COJUKA Consulting Group Construction','Direction opérationnelle','Construction et développement de projets.','construction'],
-['COJUKA Consulting Group Logistique','Direction opérationnelle','Transport, coordination et logistique.','logistique'],
-['COJUKA Consulting Group Consultance','Direction stratégique','Conseil pour les secteurs privé, entrepreneurial et étatique.','consultance']
+['Mining','Mines · SA','Environ cinquante carrés miniers dans la zone 30, Haut-Katanga ; activités en développement.','kojuka-mining'],
+['Construction','Direction opérationnelle','Construction et développement de projets.','construction'],
+['Logistique','Direction opérationnelle','Transport, coordination et logistique.','logistique'],
+['Consultance','Direction stratégique','Conseil pour les secteurs privé, entrepreneurial et étatique.','consultance']
 ] as $structure)
 <div class="col-md-6 col-lg-4"><article class="card h-100 p-4"><div class="tag mb-3">{{ $structure[1] }}</div><h3 class="h4 fw-bold">{{ $structure[0] }}</h3><p class="text-secondary mb-0">{{ $structure[2] }}</p><a class="fw-semibold text-dark mt-3 d-inline-block" href="{{ route('group.profile', $structure[3]) }}">Découvrir cette entité ↗</a></article></div>
 @endforeach

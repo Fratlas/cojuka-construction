@@ -22,7 +22,7 @@ final class GroupAccess {
  }
  public static function entityAllowed(?User $user,?int $id):bool{
   if($user?->is_group_admin)return true;
-  return $id!==null && in_array($id,self::entities($user)??[],true);
+  return $id!==null && in_array((int)$id,self::entities($user)??[],true);
  }
  public static function requireEntity(?User $user,?int $id):void{abort_unless(self::entityAllowed($user,$id),403,'Accès interdit à cette entité.');}
  public static function any(?User $user):bool{

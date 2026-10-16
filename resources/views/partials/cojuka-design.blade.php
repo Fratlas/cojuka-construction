@@ -54,4 +54,17 @@ p{overflow-wrap:break-word}
 .btn:focus-visible,.form-control:focus-visible,.form-select:focus-visible{outline:3px solid #b88a55;outline-offset:2px}
 .form-control,.form-select{font-size:max(16px,1rem)}
 @media(max-width:575.98px){.container{--bs-gutter-x:1.5rem}.btn{max-width:100%}h1{hyphens:auto}}
+
+/* COJUKA cinematic micro-interactions: restrained, accessible, GPU-friendly */
+@keyframes cojuka-soft-enter{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cojuka-mining-sheen{from{transform:translateX(-140%) rotate(12deg)}to{transform:translateX(270%) rotate(12deg)}}
+@keyframes cojuka-pulse-line{0%,100%{opacity:.35;transform:scaleX(.6)}50%{opacity:1;transform:scaleX(1)}}
+body:not(.cojuka-reduced-motion) main .service-card,body:not(.cojuka-reduced-motion) main article.service{transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s ease,border-color .3s ease}
+@media(hover:hover){main .service-card:hover,main article.service:hover{transform:translateY(-9px);box-shadow:0 22px 50px rgba(14,26,42,.13)}main .service-card:hover img{transform:scale(1.065)}}
+main .service-card img{transition:transform 1s cubic-bezier(.22,1,.36,1)}
+main .btn-brand,main .btn-pill,main a.btn{position:relative;transition:transform .3s ease,box-shadow .3s ease,background .3s ease}
+@media(hover:hover){main .btn-brand:hover,main .btn-pill:hover,main a.btn:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(25,27,38,.15)}}
+.cojuka-global-nav .navbar-brand img{transition:transform .5s ease}
+.cojuka-global-nav .navbar-brand:hover img{transform:scale(1.035)}
+@media(prefers-reduced-motion:reduce){main .service-card,main article.service,main .service-card img,main .btn-brand,main .btn-pill,main a.btn,.cojuka-global-nav .navbar-brand img{animation:none!important;transition:none!important;transform:none!important}}
 </style>

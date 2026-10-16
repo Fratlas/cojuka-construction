@@ -9,7 +9,7 @@
 <a class="nav-link" href="{{ route('group.history') }}">Histoire &amp; Belgique</a>
 <div class="nav-item dropdown">
 <a class="nav-link dropdown-toggle" href="#" id="cojukaFilieres" role="button" data-bs-toggle="dropdown" aria-expanded="false">Nos entités</a>
-<ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="cojukaFilieres" style="max-height:70vh;overflow-y:auto;min-width:290px">
+<ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="cojukaFilieres" style="max-height:65vh;overflow-y:auto;min-width:260px">
 @foreach(\App\Http\Controllers\GroupProfileController::PROFILES as $slug => $entity)
 <li><a class="dropdown-item py-2" href="{{ route('group.profile', $slug) }}">{{ ['kojuka-mining' => 'Mining', 'construction' => 'Construction', 'logistique' => 'Logistique', 'consultance' => 'Consultance'][$slug] ?? $entity['name'] }}</a></li>
 @endforeach

@@ -1,11 +1,11 @@
 @php
 $homeEntities = [
- ['COJUKA Consulting Group Construction','construction','Construction et développement de projets du groupe.','Direction opérationnelle'],
- ['COJUKA Consulting Group Logistique','logistique','Coordination des opérations de transport et de logistique.','Direction opérationnelle'],
- ['COJUKA Consulting Group Consultance','consultance','Consultance étatique et privée : conseil aux institutions, entreprises et acteurs privés.','Conseil stratégique'],
+ ['Construction','construction','Construction et développement de projets du groupe.','Direction opérationnelle'],
+ ['Logistique','logistique','Coordination des opérations de transport et de logistique.','Direction opérationnelle'],
+ ['Consultance','consultance','Consultance étatique et privée : conseil aux institutions, entreprises et acteurs privés.','Conseil stratégique'],
  ['Eden Park Investments','eden-park-investments','Investissements fonciers et immobiliers, avec des projets au Congo et à l’étranger.','Investissement immobilier'],
  ['Impact Center','impact-center','Société de droit belge détenue majoritairement par le groupe.','Participation internationale'],
- ['COJUKA Mining','kojuka-mining','Développement d’activités minières dans la zone 30 du Haut-Katanga.','Secteur minier'],
+ ['Mining','kojuka-mining','Développement d’activités minières dans la zone 30 du Haut-Katanga.','Secteur minier'],
 ];
 $entityPhotos = [
  'construction' => 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=72&fm=webp',

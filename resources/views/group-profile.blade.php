@@ -80,6 +80,41 @@ $cojukaPhotos = [
  ],
 ];
 $entityPhotos = $cojukaPhotos[$profile['video'] ?? ''] ?? $cojukaPhotos['construction.mp4'];
+
+$entityHighlights = [
+ 'kojuka-mining.mp4'=>[
+  ['Ressources naturelles','Présentation des perspectives liées à l’activité minière et aux territoires concernés.'],
+  ['Carrières et matériaux','Étude des besoins et des opportunités autour des carrières et des matériaux.'],
+  ['Synergies opérationnelles','Articulation des projets miniers avec la construction et la logistique.'],
+ ],
+ 'construction.mp4'=>[
+  ['Études préalables','Définition du périmètre technique et des besoins de chaque projet.'],
+  ['Organisation des chantiers','Coordination des intervenants et des étapes de réalisation.'],
+  ['Infrastructures','Approche adaptée aux bâtiments, aux ouvrages et aux aménagements.'],
+ ],
+ 'logistique.mp4'=>[
+  ['Transport et acheminement','Organisation des flux et des moyens nécessaires aux opérations.'],
+  ['Chaîne d’approvisionnement','Identification des contraintes et suivi des besoins logistiques.'],
+  ['Coordination terrain','Lien entre fournisseurs, transporteurs et porteurs de projets.'],
+ ],
+ 'consultance.mp4'=>[
+  ['Conseil stratégique','Clarification des enjeux, des priorités et des objectifs des organisations.'],
+  ['Accompagnement institutionnel','Approche adaptée aux besoins des institutions et des organismes publics.'],
+  ['Conseil aux entreprises','Appui à la structuration et à l’évolution des activités privées.'],
+ ],
+ 'eden-park-investments.mp4'=>[
+  ['Patrimoine immobilier','Présentation des enjeux de suivi et de valorisation des actifs.'],
+  ['Développement foncier','Analyse des opportunités et préparation des projets immobiliers.'],
+  ['Partenariats','Dialogue avec les investisseurs et professionnels concernés.'],
+ ],
+ 'impact-center.mp4'=>[
+  ['Ancrage belge','Mise en valeur de la dimension européenne du groupe.'],
+  ['Réseaux et coopération','Identification de pistes d’échange entre partenaires.'],
+  ['Projets internationaux','Cadre de présentation des initiatives après validation.'],
+ ],
+];
+$entityHighlightsCurrent = $entityHighlights[$profile['video'] ?? ''] ?? [];
+
 @endphp
 
 <main>
@@ -98,6 +133,7 @@ $entityPhotos = $cojukaPhotos[$profile['video'] ?? ''] ?? $cojukaPhotos['constru
 <div class="col-lg-4"><div class="info-card"><h3 class="h5 fw-bold mb-4">Informations</h3><p><strong>Secteur :</strong> {{ $profile['category'] }}</p><p><strong>Implantation :</strong> {{ $profile['location'] }}</p><p class="text-secondary small mb-0">Les coordonnées, documents et informations complémentaires seront ajoutés après validation par l'administration.</p></div></div>
 </div></div></section>
 <section class="section-pad entity-photo-section" aria-label="Découvrir les activités en images"><div class="container"><div class="row align-items-end g-4 mb-4"><div class="col-lg-8"><p class="eyebrow">Notre univers en images</p><h2 class="display-title mb-0">Des perspectives concrètes pour {{ $profile['name'] }}.</h2></div><div class="col-lg-4"><p class="text-secondary mb-0">Photographies d'illustration des secteurs d'activité. Ces images ne constituent pas un reportage sur les sites ou réalisations du groupe.</p></div></div><div class="row g-4">@foreach($entityPhotos as $photo)<div class="col-md-4"><figure class="entity-photo-tile h-100"><img src="{{ $photo[0] }}?auto=format&fit=crop&w=900&q=75&fm=webp" alt="{{ $photo[1] }}" loading="lazy" decoding="async" width="900" height="650"><figcaption>{{ $photo[1] }}</figcaption></figure></div>@endforeach</div></div></section>
+<section class="section-pad entity-highlights" aria-labelledby="entity-highlights-title"><div class="container"><p class="eyebrow mb-3">Les points clés de cette entité</p><h2 id="entity-highlights-title" class="display-title mb-4">Des priorités adaptées à notre domaine.</h2><div class="row g-4">@foreach($entityHighlightsCurrent as $highlight)<div class="col-md-4"><article class="info-card h-100"><div class="index mb-3">DOMAINE</div><h3 class="h4 fw-bold mb-3">{{ $highlight[0] }}</h3><p class="text-secondary mb-0">{{ $highlight[1] }}</p></article></div>@endforeach</div></div></section>
 <section class="section-pad soft" id="mission-vision"><div class="container"><div class="row g-4"><div class="col-lg-6"><article class="info-card"><div class="index mb-3">NOTRE MISSION</div><h2 class="h2 fw-bold mb-3">Une action orientée vers les projets.</h2><p class="lead text-secondary mb-0">{{ $profile['mission'] }}</p></article></div><div class="col-lg-6"><article class="info-card"><div class="index mb-3">NOTRE VISION</div><h2 class="h2 fw-bold mb-3">Construire dans la durée.</h2><p class="lead text-secondary mb-0">{{ $profile['vision'] }}</p></article></div></div></div></section>
 <section class="section-pad soft"><div class="container"><p class="eyebrow mb-3">Notre positionnement</p><div class="row g-5 align-items-start"><div class="col-lg-5"><h2 class="display-title">{{ $profile['intro'] }}</h2></div><div class="col-lg-7"><p class="lead text-secondary" style="line-height:1.85">{{ $profile['details'] }}</p><div class="d-flex flex-wrap gap-2 mt-4"><span class="badge rounded-pill text-bg-light border px-3 py-2">{{ $profile['category'] }}</span><span class="badge rounded-pill text-bg-light border px-3 py-2">{{ $profile['location'] }}</span></div></div></div></div></section>
 <section class="section-pad"><div class="container"><p class="eyebrow mb-3">Domaines d'intervention</p><h2 class="display-title mb-5">Nos activités et expertises</h2><div class="row g-4">

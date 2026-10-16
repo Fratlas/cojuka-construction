@@ -131,13 +131,12 @@
  <p class="muted fs-5 mb-5">Explorez les activités, les domaines d'intervention et les perspectives de développement de chaque structure.</p>
  <div class="row g-4">
  @foreach([
- ['COJUKA Mining','kojuka-mining','Domaine prioritaire du groupe : activités minières et projets au Haut-Katanga.'],
- ['COJUKA Consulting Group Construction','construction','Construction et développement de projets.'],
- ['COJUKA Consulting Group Logistique','logistique','Coordination des activités de transport et de logistique.'],
- ['COJUKA Consulting Group Consultance','consultance','Consultance étatique et privée, conseil aux organisations.'],
+ ['Mining','kojuka-mining','Domaine prioritaire du groupe : activités minières et projets au Haut-Katanga.'],
+ ['Construction','construction','Construction et développement de projets.'],
+ ['Logistique','logistique','Coordination des activités de transport et de logistique.'],
+ ['Consultance','consultance','Consultance étatique et privée, conseil aux organisations.'],
  ['Eden Park Investments','eden-park-investments','Investissements immobiliers et fonciers au Congo et à l’international.'],
  ['Impact Center','impact-center','Société de droit belge, participation majoritaire du groupe.'],
- ['COJUKA Mining','kojuka-mining','Domaine prioritaire du groupe : activités minières et projets au Haut-Katanga.']
  ] as $entity)
  <div class="col-md-6 col-xl-4 reveal"><article class="service-card h-100"><div class="service-content"><div class="section-kicker mb-3">COJUKA CONSULTING GROUP</div><h3 class="h4 fw-bold">{{ $entity[0] }}</h3><p class="muted">{{ $entity[2] }}</p><a class="fw-semibold d-inline-block mt-3" href="{{ route('group.profile', $entity[1]) }}">Voir la page de l'entité ↗</a></div></article></div>
  @endforeach

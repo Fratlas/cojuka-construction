@@ -36,7 +36,7 @@ if($cojukaAssistantAdmin){
 .cai-form{display:flex;gap:7px;padding:12px;border-top:1px solid #e5e8ed;background:#fff}
 .cai-form input{flex:1;min-width:0;border:1px solid #cdd5dd;border-radius:12px;padding:10px;font-size:14px}
 .cai-form button{border:0;background:#1c2937;color:white;border-radius:12px;padding:9px 13px}
-.cai-voice{display:flex;gap:8px;align-items:center;padding:0 12px 10px;background:#fff;flex-wrap:wrap}.cai-voice button{border:1px solid #cdd5dd;background:#f7f9fb;color:#1c2937;border-radius:20px;padding:7px 11px;font-size:12px;font-weight:650}.cai-voice button[aria-pressed="true"]{background:#dceefb;border-color:#4d8dbd}.cai-voice-status{font-size:11px;color:#536576;flex:1;min-width:135px}.cai-note{font-size:11px;color:#667482;padding:0 14px 11px;background:white}
+.cai-permission-help{margin:0 12px 12px;padding:12px 14px;border:1px solid #f0c58b;border-radius:12px;background:#fff9ef;color:#4b3522;font-size:12px}.cai-permission-help[hidden]{display:none!important}.cai-permission-help strong{display:block;font-size:13px;margin-bottom:5px}.cai-permission-help ol{padding-left:20px;margin:8px 0}.cai-permission-help li{margin:5px 0}.cai-permission-help button{border:1px solid #b88950;border-radius:8px;background:white;padding:5px 10px;color:#4b3522}.cai-voice{display:flex;gap:8px;align-items:center;padding:0 12px 10px;background:#fff;flex-wrap:wrap}.cai-voice button{border:1px solid #cdd5dd;background:#f7f9fb;color:#1c2937;border-radius:20px;padding:7px 11px;font-size:12px;font-weight:650}.cai-voice button[aria-pressed="true"]{background:#dceefb;border-color:#4d8dbd}.cai-voice-status{font-size:11px;color:#536576;flex:1;min-width:135px}.cai-note{font-size:11px;color:#667482;padding:0 14px 11px;background:white}
 @media(max-width:600px){#cojuka-ai-launch{bottom:77px;right:13px}#cojuka-ai-panel{bottom:137px;max-height:calc(100dvh - 154px)}}
 @media(prefers-reduced-motion:reduce){#cojuka-ai-launch,#cojuka-ai-panel{animation:none!important;transition:none!important}}
 .cai-suggest{position:fixed;right:clamp(15px,2.5vw,32px);bottom:154px;z-index:1069;display:flex;align-items:center;gap:8px;max-width:min(310px,calc(100vw - 30px));background:white;color:#1c2937;border:1px solid #dce4ed;border-radius:16px;padding:11px 13px;box-shadow:0 12px 35px #15233430;font:600 13px/1.4 system-ui,sans-serif}
@@ -62,9 +62,24 @@ if($cojukaAssistantAdmin){
  </div>
  <form class="cai-form" id="cojuka-ai-form"><input id="cojuka-ai-input" maxlength="1500" required placeholder="Posez votre question…" aria-label="Votre question"><button id="cojuka-ai-send" type="submit">Envoyer</button></form>
  <div class="cai-voice"><button type="button" id="cai-call" aria-pressed="false">📞 Appel vocal direct</button><button type="button" id="cai-mic" aria-pressed="false">🎙️ Parler</button><button type="button" id="cai-speak" aria-pressed="false">🔊 Réponses vocales : non</button><button type="button" id="cai-stop-voice">■ Arrêter</button><span class="cai-voice-status" id="cai-voice-status" role="status">Voix facultative · français</span></div>
+ <div id="cai-permission-help" class="cai-permission-help" role="alert" hidden>
+  <strong>🎙️ Microphone bloqué : comment autoriser l’accès ?</strong>
+  <p>Le navigateur a refusé l’accès au microphone. Suivez ces étapes :</p>
+  <ol>
+   <li>Ouvrez <strong>https://cojuka.com</strong> directement dans Chrome ou Edge (évitez le navigateur intégré à WhatsApp ou Facebook).</li>
+   <li>Appuyez sur l’icône à gauche de l’adresse, puis sur <strong>Autorisations / Paramètres du site</strong>.</li>
+   <li>Choisissez <strong>Microphone → Autoriser</strong>.</li>
+   <li>Sur Android, vérifiez aussi <strong>Paramètres → Applications → Chrome (ou Edge) → Autorisations → Microphone → Autoriser</strong>.</li>
+   <li>Rechargez la page et réessayez <strong>Appel vocal direct</strong>.</li>
+  </ol>
+  <p>Sur ordinateur : cliquez sur l’icône à gauche de l’adresse, autorisez le microphone et rechargez. Si le refus persiste, vérifiez les permissions du navigateur dans les paramètres du système.</p>
+  <button type="button" id="cai-permission-close">Fermer ce guide</button>
+ </div>
  <div class="cai-note">Guide informatif : aucune modification des données. Ne communiquez pas de mots de passe ni d’informations confidentielles.</div>
 </section>
 <script>
+window.cojukaMicrophoneHelp=function(){var help=document.getElementById('cai-permission-help');if(help){help.hidden=false;help.scrollIntoView({block:'nearest',behavior:'smooth'})}};
+document.getElementById('cai-permission-close')?.addEventListener('click',function(){document.getElementById('cai-permission-help').hidden=true});
 (function(){
  var launch=document.getElementById('cojuka-ai-launch'),panel=document.getElementById('cojuka-ai-panel'),close=document.getElementById('cojuka-ai-close'),form=document.getElementById('cojuka-ai-form'),input=document.getElementById('cojuka-ai-input'),body=document.getElementById('cojuka-ai-body'),send=document.getElementById('cojuka-ai-send');
  if(!launch||!panel)return;
@@ -88,7 +103,7 @@ if($cojukaAssistantAdmin){
   stopSpeaking();recognition=new Recognition();recognition.lang='fr-FR';recognition.interimResults=false;recognition.maxAlternatives=1;
   recognition.onstart=function(){listening=true;mic.setAttribute('aria-pressed','true');mic.textContent='● Écoute…';statusVoice('Parlez maintenant')};
   recognition.onresult=function(e){var transcript=e.results[0][0].transcript.trim();input.value=transcript;voiceQuestion=true;statusVoice('Question reconnue : '+transcript.slice(0,80))};
-  recognition.onerror=function(e){voiceQuestion=false;var denied=e.error==='not-allowed'||e.error==='service-not-allowed';statusVoice(denied?'Microphone refusé : autorisez-le dans les paramètres du site et du navigateur.':'Reconnaissance vocale : '+e.error)};
+  recognition.onerror=function(e){voiceQuestion=false;var denied=e.error==='not-allowed'||e.error==='service-not-allowed';statusVoice(denied?'Microphone refusé : consultez le guide affiché.':'Reconnaissance vocale : '+e.error);if(denied)window.cojukaMicrophoneHelp()};
   recognition.onend=function(){listening=false;mic.setAttribute('aria-pressed','false');mic.textContent='🎙️ Parler';if(voiceQuestion){voiceQuestion=false;voiceEnabled=true;speakButton.setAttribute('aria-pressed','true');speakButton.textContent='🔊 Réponses vocales : oui';ask(input.value.trim())}};
   try{recognition.start()}catch(e){statusVoice('Impossible de démarrer le microphone')}
  });
@@ -141,7 +156,7 @@ if($cojukaAssistantAdmin){
    if(!res.ok){var detail=await res.json().catch(function(){return {}});throw new Error(detail.error||'Service vocal indisponible')}
    await pc.setRemoteDescription({type:'answer',sdp:await res.text()});
    starting=false;button.textContent='🔴 Raccrocher';button.setAttribute('aria-pressed','true');say('Appel connecté · parlez naturellement');
-  }catch(e){cleanup();say(explainError(e))}
+  }catch(e){var denied=e&&(e.name==='NotAllowedError'||e.name==='PermissionDeniedError'||/permission denied|not.allowed|permission dismissed/i.test(e.message||''));cleanup();say(explainError(e));if(denied)window.cojukaMicrophoneHelp()}
  }
  button.addEventListener('click',call);
  document.addEventListener('visibilitychange',function(){if(document.hidden&&pc){cleanup();say('Appel terminé : onglet inactif')}});

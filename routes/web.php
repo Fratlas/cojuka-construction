@@ -8,6 +8,7 @@ use App\Http\Controllers\GroupSuiteController;
 use App\Http\Controllers\GroupUsersController;
 use App\Http\Controllers\GroupDepartmentController;
 use App\Http\Controllers\GroupImportController;
+Route::post('/assistant/reponse', [App\Http\Controllers\CojukaAssistantController::class, 'reply'])->middleware('throttle:12,1')->name('cojuka.assistant.reply');
 Route::view('/', 'welcome')->name('home');
 Route::view('/groupe', 'group')->name('group');
 Route::view('/groupe/histoire', 'group-history')->name('group.history');

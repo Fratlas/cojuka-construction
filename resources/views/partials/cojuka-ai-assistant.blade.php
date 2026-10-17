@@ -61,7 +61,7 @@ if($cojukaAssistantAdmin){
   @endforeach
  </div>
  <form class="cai-form" id="cojuka-ai-form"><input id="cojuka-ai-input" maxlength="1500" required placeholder="Posez votre question…" aria-label="Votre question"><button id="cojuka-ai-send" type="submit">Envoyer</button></form>
- <div class="cai-voice"><button type="button" id="cai-mic" aria-pressed="false">🎙️ Parler</button><button type="button" id="cai-speak" aria-pressed="false">🔊 Réponses vocales : non</button><button type="button" id="cai-stop-voice">■ Arrêter</button><span class="cai-voice-status" id="cai-voice-status" role="status">Voix facultative · français</span></div>
+ <div class="cai-voice"><button type="button" id="cai-call" aria-pressed="false">📞 Appel vocal direct</button><button type="button" id="cai-mic" aria-pressed="false">🎙️ Parler</button><button type="button" id="cai-speak" aria-pressed="false">🔊 Réponses vocales : non</button><button type="button" id="cai-stop-voice">■ Arrêter</button><span class="cai-voice-status" id="cai-voice-status" role="status">Voix facultative · français</span></div>
  <div class="cai-note">Guide informatif : aucune modification des données. Ne communiquez pas de mots de passe ni d’informations confidentielles.</div>
 </section>
 <script>
@@ -112,5 +112,36 @@ if($cojukaAssistantAdmin){
  }
  form.addEventListener('submit',function(e){e.preventDefault();ask(input.value.trim())});
  panel.querySelectorAll('[data-cai-question]').forEach(function(button){button.addEventListener('click',function(){ask(button.dataset.caiQuestion)})});
+})();
+</script>
+<script>
+(function(){
+ var button=document.getElementById('cai-call'),status=document.getElementById('cai-voice-status'),panel=document.getElementById('cojuka-ai-panel');
+ if(!button)return;
+ var pc=null,stream=null,audio=null,channel=null,starting=false;
+ function say(t){if(status)status.textContent=t}
+ function cleanup(){if(channel){channel.close();channel=null}if(pc){pc.close();pc=null}if(stream){stream.getTracks().forEach(function(t){t.stop()});stream=null}if(audio){audio.pause();audio.srcObject=null;audio.remove();audio=null}button.textContent='📞 Appel vocal direct';button.setAttribute('aria-pressed','false');starting=false}
+ async function call(){
+  if(pc||starting){cleanup();say('Appel terminé');return}
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!window.RTCPeerConnection){say('Appel vocal non pris en charge par ce navigateur');return}
+  starting=true;button.textContent='Connexion…';say('Autorisez le microphone pour commencer l’appel');
+  try{
+   stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true},video:false});
+   pc=new RTCPeerConnection();stream.getTracks().forEach(function(t){pc.addTrack(t,stream)});
+   audio=document.createElement('audio');audio.autoplay=true;audio.setAttribute('playsinline','');audio.style.display='none';panel.appendChild(audio);
+   pc.ontrack=function(e){audio.srcObject=e.streams[0];audio.play().catch(function(){say('Cliquez pour autoriser la lecture audio')})};
+   pc.onconnectionstatechange=function(){if(!pc)return;if(pc.connectionState==='failed'||pc.connectionState==='closed'){cleanup();say('Connexion terminée')}};
+   channel=pc.createDataChannel('oai-events');
+   channel.onmessage=function(e){try{var msg=JSON.parse(e.data);if(msg.type==='error')say('Erreur audio : '+(msg.error?.message||'réessayez'));if(msg.type==='input_audio_buffer.speech_started')say('Je vous écoute…');if(msg.type==='response.created')say('L’assistant répond…');if(msg.type==='response.done')say('À vous de parler')}catch(_){}};
+   var offer=await pc.createOffer();await pc.setLocalDescription(offer);
+   var res=await fetch('{{ route('cojuka.assistant.realtime') }}',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/sdp, application/json','X-CSRF-TOKEN':document.querySelector('meta[name="csrf-token"]')?.content||'{{ csrf_token() }}'},credentials:'same-origin',body:JSON.stringify({sdp:offer.sdp})});
+   if(!res.ok){var detail=await res.json().catch(function(){return {}});throw new Error(detail.error||'Service vocal indisponible')}
+   await pc.setRemoteDescription({type:'answer',sdp:await res.text()});
+   starting=false;button.textContent='🔴 Raccrocher';button.setAttribute('aria-pressed','true');say('Appel connecté · parlez naturellement');
+  }catch(e){cleanup();say(e.message||'Impossible de démarrer l’appel')}
+ }
+ button.addEventListener('click',call);
+ document.addEventListener('visibilitychange',function(){if(document.hidden&&pc){cleanup();say('Appel terminé : onglet inactif')}});
+ window.addEventListener('pagehide',cleanup);
 })();
 </script>

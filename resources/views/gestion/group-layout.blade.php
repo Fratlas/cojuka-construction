@@ -93,7 +93,7 @@ body{font-size:15px;line-height:1.55}
  <a class="side-link {{ request()->is('gestion/modules/'.$slug.'*') ? 'active' : '' }}" href="{{ route('gestion.suite.index', $slug) }}"><i class="bi {{ $moduleIcons[$slug] ?? 'bi-circle' }}"></i> {{ $config['label'] }}</a>
  @endif
  @endforeach
- <a class="side-link {{ request()->routeIs('gestion.guide') ? 'active' : '' }}" href="{{ route('gestion.guide') }}"><i class="bi bi-journal-richtext"></i> Guide interne pas à pas</a>
+
  <div class="side-bottom">
  <a class="side-link" href="{{ route('group.portal') }}" target="_blank" rel="noopener noreferrer"><i class="bi bi-box-arrow-up-right"></i> Portail public</a>
  <form method="post" action="{{ route('logout') }}">

@@ -61,7 +61,7 @@ if($cojukaAssistantAdmin){
   @endforeach
  </div>
  <form class="cai-form" id="cojuka-ai-form"><input id="cojuka-ai-input" maxlength="1500" required placeholder="Posez votre question…" aria-label="Votre question"><button id="cojuka-ai-send" type="submit">Envoyer</button></form>
- <div class="cai-voice"><button type="button" id="cai-request-mic">🎤 Activer mon microphone</button><button type="button" id="cai-call" aria-pressed="false">📞 Appel vocal direct</button><button type="button" id="cai-mic" aria-pressed="false">🎙️ Parler</button><button type="button" id="cai-speak" aria-pressed="false">🔊 Réponses vocales : non</button><button type="button" id="cai-stop-voice">■ Arrêter</button><span class="cai-voice-status" id="cai-voice-status" role="status">Voix facultative · français</span></div>
+ <div class="cai-voice"><button type="button" id="cai-permission-test">🔐 Autoriser le microphone</button><button type="button" id="cai-request-mic">🎤 Activer mon microphone</button><button type="button" id="cai-call" aria-pressed="false">📞 Appel vocal direct</button><button type="button" id="cai-mic" aria-pressed="false">🎙️ Parler</button><button type="button" id="cai-speak" aria-pressed="false">🔊 Réponses vocales : non</button><button type="button" id="cai-stop-voice">■ Arrêter</button><span class="cai-voice-status" id="cai-voice-status" role="status">Voix facultative · français</span></div>
  <div id="cai-permission-help" class="cai-permission-help" role="alert" hidden>
   <strong>🎙️ Microphone bloqué : comment autoriser l’accès ?</strong>
   <p>Le navigateur a refusé l’accès au microphone. Suivez ces étapes :</p>
@@ -80,6 +80,24 @@ if($cojukaAssistantAdmin){
 <script>
 window.cojukaMicrophoneHelp=function(){var help=document.getElementById('cai-permission-help');if(help){help.hidden=false;help.scrollIntoView({block:'nearest',behavior:'smooth'})}};
 document.getElementById('cai-permission-close')?.addEventListener('click',function(){document.getElementById('cai-permission-help').hidden=true});
+window.cojukaRequestMic=async function(){
+ var status=document.getElementById('cai-voice-status'),button=document.getElementById('cai-permission-test');
+ if(!window.isSecureContext){status.textContent='HTTPS obligatoire : ouvrez https://cojuka.com';window.cojukaMicrophoneHelp();return false}
+ if(!navigator.mediaDevices?.getUserMedia){status.textContent='Ce navigateur ne permet pas de demander le microphone.';window.cojukaMicrophoneHelp();return false}
+ button.disabled=true;status.textContent='Demande d’autorisation du microphone…';
+ try{
+  var stream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
+  stream.getTracks().forEach(function(track){track.stop()});
+  status.textContent='Microphone autorisé ! Vous pouvez lancer l’appel vocal.';
+  document.getElementById('cai-permission-help').hidden=true;
+  return true;
+ }catch(e){
+  var name=e?.name||'';
+  status.textContent=name==='NotAllowedError'||name==='PermissionDeniedError'?'Microphone bloqué par le navigateur ou Android. Consultez le guide ci-dessous.':name==='NotFoundError'?'Aucun microphone détecté.':'Erreur microphone : '+name;
+  window.cojukaMicrophoneHelp();return false;
+ }finally{button.disabled=false}
+};
+document.getElementById('cai-permission-test')?.addEventListener('click',function(){window.cojukaRequestMic()});
 document.getElementById('cai-request-mic')?.addEventListener('click',async function(){
  var status=document.getElementById('cai-voice-status'),button=this;
  if(!window.isSecureContext){status.textContent='Microphone : utilisez https://cojuka.com dans Chrome.';window.cojukaMicrophoneHelp();return}
@@ -113,8 +131,9 @@ document.getElementById('cai-request-mic')?.addEventListener('click',async funct
  if(!('speechSynthesis' in window)){speakButton.disabled=true;speakButton.title='Synthèse vocale indisponible'}
  speakButton.addEventListener('click',function(){voiceEnabled=!voiceEnabled;speakButton.setAttribute('aria-pressed',String(voiceEnabled));speakButton.textContent=voiceEnabled?'🔊 Réponses vocales : oui':'🔊 Réponses vocales : non';if(!voiceEnabled)stopSpeaking()});
  stopVoice.addEventListener('click',function(){voiceQuestion=false;if(recognition&&listening)recognition.stop();stopSpeaking();statusVoice('Voix arrêtée')});
- mic.addEventListener('click',function(){
+ mic.addEventListener('click',async function(){
   if(!Recognition)return;
+  if(!(await window.cojukaRequestMic()))return;
   if(listening){recognition.stop();return}
   stopSpeaking();recognition=new Recognition();recognition.lang='fr-FR';recognition.interimResults=false;recognition.maxAlternatives=1;
   recognition.onstart=function(){listening=true;mic.setAttribute('aria-pressed','true');mic.textContent='● Écoute…';statusVoice('Parlez maintenant')};

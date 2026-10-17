@@ -88,7 +88,7 @@ if($cojukaAssistantAdmin){
   stopSpeaking();recognition=new Recognition();recognition.lang='fr-FR';recognition.interimResults=false;recognition.maxAlternatives=1;
   recognition.onstart=function(){listening=true;mic.setAttribute('aria-pressed','true');mic.textContent='● Écoute…';statusVoice('Parlez maintenant')};
   recognition.onresult=function(e){var transcript=e.results[0][0].transcript.trim();input.value=transcript;voiceQuestion=true;statusVoice('Question reconnue : '+transcript.slice(0,80))};
-  recognition.onerror=function(e){voiceQuestion=false;statusVoice('Microphone : '+(e.error==='not-allowed'?'autorisation refusée':e.error))};
+  recognition.onerror=function(e){voiceQuestion=false;var denied=e.error==='not-allowed'||e.error==='service-not-allowed';statusVoice(denied?'Microphone refusé : autorisez-le dans les paramètres du site et du navigateur.':'Reconnaissance vocale : '+e.error)};
   recognition.onend=function(){listening=false;mic.setAttribute('aria-pressed','false');mic.textContent='🎙️ Parler';if(voiceQuestion){voiceQuestion=false;voiceEnabled=true;speakButton.setAttribute('aria-pressed','true');speakButton.textContent='🔊 Réponses vocales : oui';ask(input.value.trim())}};
   try{recognition.start()}catch(e){statusVoice('Impossible de démarrer le microphone')}
  });
@@ -120,9 +120,12 @@ if($cojukaAssistantAdmin){
  if(!button)return;
  var pc=null,stream=null,audio=null,channel=null,starting=false;
  function say(t){if(status)status.textContent=t}
+ function explainError(e){var n=e&&e.name||'',m=e&&e.message||'';if(n==='NotAllowedError'||n==='PermissionDeniedError'||/permission denied|not.allowed|permission dismissed/i.test(m))return 'Accès micro refusé : autorisez le microphone pour cojuka.com dans Chrome et Android, puis rechargez la page.';if(n==='NotFoundError')return 'Aucun microphone détecté sur cet appareil.';if(n==='NotReadableError')return 'Microphone occupé par une autre application. Fermez les autres appels.';if(n==='SecurityError'||!window.isSecureContext)return 'Microphone indisponible : ouvrez directement https://cojuka.com dans Chrome.';return m||'Impossible de démarrer l’appel'}
  function cleanup(){if(channel){channel.close();channel=null}if(pc){pc.close();pc=null}if(stream){stream.getTracks().forEach(function(t){t.stop()});stream=null}if(audio){audio.pause();audio.srcObject=null;audio.remove();audio=null}button.textContent='📞 Appel vocal direct';button.setAttribute('aria-pressed','false');starting=false}
  async function call(){
   if(pc||starting){cleanup();say('Appel terminé');return}
+  if(!window.isSecureContext){say('Microphone : ouvrez le site en HTTPS dans Chrome.');return}
+  if(window.self!==window.top){say('Ouvrez cojuka.com directement dans Chrome pour autoriser le microphone.');return}
   if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!window.RTCPeerConnection){say('Appel vocal non pris en charge par ce navigateur');return}
   starting=true;button.textContent='Connexion…';say('Autorisez le microphone pour commencer l’appel');
   try{
@@ -138,7 +141,7 @@ if($cojukaAssistantAdmin){
    if(!res.ok){var detail=await res.json().catch(function(){return {}});throw new Error(detail.error||'Service vocal indisponible')}
    await pc.setRemoteDescription({type:'answer',sdp:await res.text()});
    starting=false;button.textContent='🔴 Raccrocher';button.setAttribute('aria-pressed','true');say('Appel connecté · parlez naturellement');
-  }catch(e){cleanup();say(e.message||'Impossible de démarrer l’appel')}
+  }catch(e){cleanup();say(explainError(e))}
  }
  button.addEventListener('click',call);
  document.addEventListener('visibilitychange',function(){if(document.hidden&&pc){cleanup();say('Appel terminé : onglet inactif')}});

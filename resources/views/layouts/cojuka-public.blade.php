@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#ffffff">
-<link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+<link rel="shortcut icon" href="{{ asset('favicon.svg') }}?v=3" type="image/svg+xml">
+<link rel="icon" type="image/svg+xml" sizes="any" href="{{ asset('favicon.svg') }}?v=3">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 @yield('page_head')
 @include('partials.cojuka-design')

@@ -39,7 +39,16 @@ if($cojukaAssistantAdmin){
 .cai-note{font-size:11px;color:#667482;padding:0 14px 11px;background:white}
 @media(max-width:600px){#cojuka-ai-launch{bottom:77px;right:13px}#cojuka-ai-panel{bottom:137px;max-height:calc(100dvh - 154px)}}
 @media(prefers-reduced-motion:reduce){#cojuka-ai-launch,#cojuka-ai-panel{animation:none!important;transition:none!important}}
+.cai-suggest{position:fixed;right:clamp(15px,2.5vw,32px);bottom:154px;z-index:1069;display:flex;align-items:center;gap:8px;max-width:min(310px,calc(100vw - 30px));background:white;color:#1c2937;border:1px solid #dce4ed;border-radius:16px;padding:11px 13px;box-shadow:0 12px 35px #15233430;font:600 13px/1.4 system-ui,sans-serif}
+.cai-suggest:after{content:"";position:absolute;bottom:-7px;right:28px;width:13px;height:13px;background:#fff;transform:rotate(45deg);border-right:1px solid #dce4ed;border-bottom:1px solid #dce4ed}
+.cai-suggest button{background:transparent;border:0;color:#233c56;font:inherit;text-align:left;padding:0;cursor:pointer}
+.cai-suggest .cai-dismiss{font-size:19px;color:#6c7887;line-height:1;padding-left:5px}
+.cai-suggest[hidden]{display:none!important}
+@media(max-width:600px){.cai-suggest{right:13px;bottom:136px}}
 </style>
+@if($cojukaAssistantAdmin)
+<div class="cai-suggest" id="cojuka-guide-suggestion" role="status"><button type="button" id="cojuka-guide-open">Besoin d’aide ? Découvrez le guide de gestion pas à pas ✨</button><button type="button" class="cai-dismiss" id="cojuka-guide-dismiss" aria-label="Masquer la suggestion">×</button></div>
+@endif
 <button id="cojuka-ai-launch" type="button" aria-controls="cojuka-ai-panel" aria-expanded="false" aria-label="Ouvrir le guide IA COJUKA">✦ <span>Assistant IA</span></button>
 <section id="cojuka-ai-panel" role="dialog" aria-label="Assistant et tutoriels COJUKA" aria-modal="false">
  <div class="cai-head"><div><strong>✦ Assistant COJUKA</strong><small>Questions sur le site · Tutoriels pas à pas</small></div><button type="button" class="cai-close" id="cojuka-ai-close" aria-label="Fermer">×</button></div>
@@ -58,6 +67,10 @@ if($cojukaAssistantAdmin){
 (function(){
  var launch=document.getElementById('cojuka-ai-launch'),panel=document.getElementById('cojuka-ai-panel'),close=document.getElementById('cojuka-ai-close'),form=document.getElementById('cojuka-ai-form'),input=document.getElementById('cojuka-ai-input'),body=document.getElementById('cojuka-ai-body'),send=document.getElementById('cojuka-ai-send');
  if(!launch||!panel)return;
+ var suggestion=document.getElementById('cojuka-guide-suggestion'),openGuide=document.getElementById('cojuka-guide-open'),dismiss=document.getElementById('cojuka-guide-dismiss');
+ if(suggestion){try{if(sessionStorage.getItem('cojuka-guide-tip-dismissed')==='1')suggestion.hidden=true}catch(e){}}
+ if(openGuide)openGuide.addEventListener('click',function(){toggle(true);if(suggestion)suggestion.hidden=true;var guide=Array.from(panel.querySelectorAll('.cai-guide')).find(function(item){return item.textContent.includes('Guide interne complet')});if(guide){guide.open=true;guide.scrollIntoView({block:'nearest',behavior:'smooth'})}});
+ if(dismiss)dismiss.addEventListener('click',function(){suggestion.hidden=true;try{sessionStorage.setItem('cojuka-guide-tip-dismissed','1')}catch(e){}});
  var history=[];
  function toggle(open){panel.classList.toggle('is-open',open);launch.setAttribute('aria-expanded',open?'true':'false');if(open)input.focus();else launch.focus()}
  launch.addEventListener('click',function(){toggle(!panel.classList.contains('is-open'))});

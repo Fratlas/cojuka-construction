@@ -36,7 +36,7 @@ if($cojukaAssistantAdmin){
 .cai-form{display:flex;gap:7px;padding:12px;border-top:1px solid #e5e8ed;background:#fff}
 .cai-form input{flex:1;min-width:0;border:1px solid #cdd5dd;border-radius:12px;padding:10px;font-size:14px}
 .cai-form button{border:0;background:#1c2937;color:white;border-radius:12px;padding:9px 13px}
-.cai-note{font-size:11px;color:#667482;padding:0 14px 11px;background:white}
+.cai-voice{display:flex;gap:8px;align-items:center;padding:0 12px 10px;background:#fff;flex-wrap:wrap}.cai-voice button{border:1px solid #cdd5dd;background:#f7f9fb;color:#1c2937;border-radius:20px;padding:7px 11px;font-size:12px;font-weight:650}.cai-voice button[aria-pressed="true"]{background:#dceefb;border-color:#4d8dbd}.cai-voice-status{font-size:11px;color:#536576;flex:1;min-width:135px}.cai-note{font-size:11px;color:#667482;padding:0 14px 11px;background:white}
 @media(max-width:600px){#cojuka-ai-launch{bottom:77px;right:13px}#cojuka-ai-panel{bottom:137px;max-height:calc(100dvh - 154px)}}
 @media(prefers-reduced-motion:reduce){#cojuka-ai-launch,#cojuka-ai-panel{animation:none!important;transition:none!important}}
 .cai-suggest{position:fixed;right:clamp(15px,2.5vw,32px);bottom:154px;z-index:1069;display:flex;align-items:center;gap:8px;max-width:min(310px,calc(100vw - 30px));background:white;color:#1c2937;border:1px solid #dce4ed;border-radius:16px;padding:11px 13px;box-shadow:0 12px 35px #15233430;font:600 13px/1.4 system-ui,sans-serif}
@@ -61,6 +61,7 @@ if($cojukaAssistantAdmin){
   @endforeach
  </div>
  <form class="cai-form" id="cojuka-ai-form"><input id="cojuka-ai-input" maxlength="1500" required placeholder="Posez votre question…" aria-label="Votre question"><button id="cojuka-ai-send" type="submit">Envoyer</button></form>
+ <div class="cai-voice"><button type="button" id="cai-mic" aria-pressed="false">🎙️ Parler</button><button type="button" id="cai-speak" aria-pressed="false">🔊 Réponses vocales : non</button><button type="button" id="cai-stop-voice">■ Arrêter</button><span class="cai-voice-status" id="cai-voice-status" role="status">Voix facultative · français</span></div>
  <div class="cai-note">Guide informatif : aucune modification des données. Ne communiquez pas de mots de passe ni d’informations confidentielles.</div>
 </section>
 <script>
@@ -72,7 +73,27 @@ if($cojukaAssistantAdmin){
  if(openGuide)openGuide.addEventListener('click',function(){toggle(true);if(suggestion)suggestion.hidden=true;var guide=Array.from(panel.querySelectorAll('.cai-guide')).find(function(item){return item.textContent.includes('Guide interne complet')});if(guide){guide.open=true;guide.scrollIntoView({block:'nearest',behavior:'smooth'})}});
  if(dismiss)dismiss.addEventListener('click',function(){suggestion.hidden=true;try{sessionStorage.setItem('cojuka-guide-tip-dismissed','1')}catch(e){}});
  var history=[];
- function toggle(open){panel.classList.toggle('is-open',open);launch.setAttribute('aria-expanded',open?'true':'false');if(open)input.focus();else launch.focus()}
+ var mic=document.getElementById('cai-mic'),speakButton=document.getElementById('cai-speak'),stopVoice=document.getElementById('cai-stop-voice'),voiceStatus=document.getElementById('cai-voice-status');
+ var Recognition=window.SpeechRecognition||window.webkitSpeechRecognition,recognition=null,listening=false,voiceEnabled=false,voiceQuestion=false;
+ function statusVoice(t){voiceStatus.textContent=t}
+ function stopSpeaking(){if('speechSynthesis' in window)window.speechSynthesis.cancel()}
+ function readReply(t){if(!voiceEnabled||!('speechSynthesis' in window)||!t)return;stopSpeaking();var utterance=new SpeechSynthesisUtterance(t.slice(0,3000));utterance.lang='fr-FR';utterance.rate=.97;utterance.onstart=function(){statusVoice('L’assistant parle…')};utterance.onend=function(){statusVoice('Prêt à écouter')};utterance.onerror=function(){statusVoice('Lecture vocale indisponible')};window.speechSynthesis.speak(utterance)}
+ if(!Recognition){mic.disabled=true;mic.title='Reconnaissance vocale non disponible';statusVoice('Microphone non pris en charge par ce navigateur')}
+ if(!('speechSynthesis' in window)){speakButton.disabled=true;speakButton.title='Synthèse vocale indisponible'}
+ speakButton.addEventListener('click',function(){voiceEnabled=!voiceEnabled;speakButton.setAttribute('aria-pressed',String(voiceEnabled));speakButton.textContent=voiceEnabled?'🔊 Réponses vocales : oui':'🔊 Réponses vocales : non';if(!voiceEnabled)stopSpeaking()});
+ stopVoice.addEventListener('click',function(){voiceQuestion=false;if(recognition&&listening)recognition.stop();stopSpeaking();statusVoice('Voix arrêtée')});
+ mic.addEventListener('click',function(){
+  if(!Recognition)return;
+  if(listening){recognition.stop();return}
+  stopSpeaking();recognition=new Recognition();recognition.lang='fr-FR';recognition.interimResults=false;recognition.maxAlternatives=1;
+  recognition.onstart=function(){listening=true;mic.setAttribute('aria-pressed','true');mic.textContent='● Écoute…';statusVoice('Parlez maintenant')};
+  recognition.onresult=function(e){var transcript=e.results[0][0].transcript.trim();input.value=transcript;voiceQuestion=true;statusVoice('Question reconnue : '+transcript.slice(0,80))};
+  recognition.onerror=function(e){voiceQuestion=false;statusVoice('Microphone : '+(e.error==='not-allowed'?'autorisation refusée':e.error))};
+  recognition.onend=function(){listening=false;mic.setAttribute('aria-pressed','false');mic.textContent='🎙️ Parler';if(voiceQuestion){voiceQuestion=false;voiceEnabled=true;speakButton.setAttribute('aria-pressed','true');speakButton.textContent='🔊 Réponses vocales : oui';ask(input.value.trim())}};
+  try{recognition.start()}catch(e){statusVoice('Impossible de démarrer le microphone')}
+ });
+
+ function toggle(open){panel.classList.toggle('is-open',open);launch.setAttribute('aria-expanded',open?'true':'false');if(open)input.focus();else {stopSpeaking();if(recognition&&listening)recognition.stop();launch.focus()}}
  launch.addEventListener('click',function(){toggle(!panel.classList.contains('is-open'))});
  close.addEventListener('click',function(){toggle(false)});
  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&panel.classList.contains('is-open'))toggle(false)});
@@ -85,7 +106,7 @@ if($cojukaAssistantAdmin){
    var response=await fetch('{{ route('cojuka.assistant.reply') }}',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json','X-CSRF-TOKEN':document.querySelector('meta[name="csrf-token"]')?.content||'{{ csrf_token() }}'},credentials:'same-origin',body:JSON.stringify({message:message,history:history.slice(-8)})});
    if(!response.ok)throw new Error('Service indisponible');
    var data=await response.json();waiting.textContent=data.reply||'Consultez les tutoriels.';
-   history.push({role:'user',content:message},{role:'assistant',content:waiting.textContent});history=history.slice(-8);
+   readReply(waiting.textContent);history.push({role:'user',content:message},{role:'assistant',content:waiting.textContent});history=history.slice(-8);
   }catch(e){waiting.textContent='Le service de réponse est indisponible. Les tutoriels ci-dessus restent accessibles.'}
   send.disabled=false;body.scrollTop=body.scrollHeight;
  }

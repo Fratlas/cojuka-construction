@@ -6,6 +6,7 @@ $cojukaAssistantGuides=[
  ['mining','Explorer Mining',['Ouvrir le portail des entités.','Choisir Mining, secteur prioritaire.','Consulter les images, les domaines d’intervention et les informations disponibles.','Ouvrir le dossier Mining & carrières pour les explications techniques.'],route('group.topic','mining-et-carrieres')],
 ];
 if($cojukaAssistantAdmin){
+ $cojukaAssistantGuides[]=['gestion','Guide interne complet',['Ouvrir le guide interne depuis le menu de gestion.','Choisir le module souhaité ou utiliser la recherche.','Suivre les étapes puis ouvrir le module.','Vérifier le résultat après enregistrement.'],route('gestion.guide')];
  foreach($cojukaAssistantModules as $slug=>$label){
   if(!\App\Support\GroupAccess::can(auth()->user(),$slug))continue;
   $link=in_array($slug,['entites','projets','actifs'],true)?route('gestion.group.list',$slug):route('gestion.suite.index',$slug);

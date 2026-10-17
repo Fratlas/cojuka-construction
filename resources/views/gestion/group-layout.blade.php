@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="fr">
-<head><link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}?v=2">
+<head><link rel="icon" type="image/svg+xml" sizes="any" href="{{ asset('favicon.svg') }}?v=3">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="csrf-token" content="{{ csrf_token() }}">

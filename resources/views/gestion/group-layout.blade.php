@@ -125,6 +125,7 @@ body{font-size:15px;line-height:1.55}
 </main>
 </div>
 </div>
+@include('partials.cojuka-ai-assistant')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 (function(){

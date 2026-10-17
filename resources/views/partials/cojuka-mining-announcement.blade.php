@@ -14,6 +14,7 @@
 #cojuka-mining-announce .cma-secondary{background:transparent;border:1px solid #ffffff70;color:#fff;border-radius:99px;padding:12px 20px;font-weight:650;min-height:49px}
 #cojuka-mining-announce .cma-close{position:absolute;top:16px;right:17px;z-index:2;border:1px solid #ffffff77;background:#20252ac9;color:#fff;border-radius:50%;width:42px;height:42px;font-size:26px;line-height:1;cursor:pointer}
 #cojuka-mining-announce .cma-note{font-size:.74rem;color:#c6d0d8;margin-top:24px}
+ .cma-navigation{display:flex;align-items:center;gap:12px;margin-top:26px;flex-wrap:wrap}.cma-arrow{width:40px;height:40px;border:1px solid #ffffffa0;background:#15202a8a;color:#fff;border-radius:50%;font-size:28px;line-height:1;cursor:pointer}.cma-arrow:hover,.cma-arrow:focus-visible{background:#fff;color:#1c2833}.cma-dots{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.cma-dot{height:9px;width:9px;border:0;border-radius:99px;background:#ffffff70;cursor:pointer;padding:0;transition:width .25s,background .25s}.cma-dot[aria-current="true"]{background:#fff;width:25px}.cma-count{font-size:12px;color:#f4f5f7;letter-spacing:.08em}.cma-panel{touch-action:pan-y}
 @media(max-width:575px){#cojuka-mining-announce .cma-panel{min-height:0}#cojuka-mining-announce .cma-content{padding:65px 25px 30px}#cojuka-mining-announce h2{font-size:2.5rem}}
 @media(prefers-reduced-motion:reduce){#cojuka-mining-announce,#cojuka-mining-announce .cma-panel{transition:none!important}}
 </style>
@@ -28,6 +29,7 @@
     <a class="cma-primary" href="{{ route('group.profile','kojuka-mining') }}" id="cma-explore">Découvrir COJUKA Mining ↗</a>
 
    </div>
+   <div class="cma-navigation" aria-label="Parcourir les entités"><button type="button" id="cma-prev" class="cma-arrow" aria-label="Entité précédente">‹</button><div id="cma-dots" class="cma-dots" aria-label="Choisir une entité"></div><button type="button" id="cma-next" class="cma-arrow" aria-label="Entité suivante">›</button><span id="cma-count" class="cma-count"></span></div>
    <p class="cma-note">Photographies d’illustration des activités industrielles et minières.</p>
   </div>
  </div>
@@ -42,11 +44,30 @@
 
  var panel=dialog.querySelector('.cma-panel'),title=document.getElementById('cma-title'),copy=dialog.querySelector('.cma-copy');
  var campaigns=[
-  {title:'Le Mining au cœur de notre vision.',copy:'Explorez notre orientation stratégique vers les ressources naturelles, les projets miniers et les carrières.',image:'https://images.hellogravel.com/variants/guides/37e44abca47c0db2/bingham-canyon-mine-aerial-scaled-content-900w.webp'},
-  {title:'Des ressources. De nouvelles perspectives.',copy:'COJUKA place le développement minier au premier plan, avec une vision de long terme et des expertises complémentaires.',image:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=80'},
-  {title:'Mining, carrières et infrastructures.',copy:'Découvrez comment les activités minières s’articulent avec la construction, la logistique et les investissements du groupe.',image:'https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1400&q=80'}
+  {title:'Le Mining au cœur de notre vision.',copy:'Découvrez notre orientation stratégique vers les ressources naturelles, les projets miniers et les carrières.',image:'https://images.hellogravel.com/variants/guides/37e44abca47c0db2/bingham-canyon-mine-aerial-scaled-content-900w.webp',slug:'kojuka-mining',label:'Mining'},
+  {title:'Construction & infrastructures.',copy:'Découvrez le domaine Construction : bâtiments, chantiers et projets d’infrastructures.',image:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=80',slug:'construction',label:'Construction'},
+  {title:'Logistique & transport.',copy:'Explorez les activités de transport, de fret et d’organisation logistique.',image:'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1400&q=80',slug:'logistique',label:'Logistique'},
+  {title:'Eden Park Investments.',copy:'Découvrez l’immobilier et les perspectives d’investissement du groupe.',image:'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=80',slug:'eden-park-investments',label:'Eden Park Investments'},
+  {title:'Consultance & stratégie.',copy:'Découvrez le domaine du conseil et de l’accompagnement des projets.',image:'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80',slug:'consultance',label:'Consultance'},
+  {title:'Impact Center.',copy:'Un domaine tourné vers les initiatives, les compétences et la collaboration.',image:'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1400&q=80',slug:'impact-center',label:'Impact Center'},
+  {title:'Génie & savoir-faire technique.',copy:'Explorez le domaine du génie et des solutions techniques.',image:'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1400&q=80',slug:'genie',label:'Génie'},
+  {title:'Énergie & infrastructures.',copy:'Découvrez les perspectives liées à l’énergie et aux équipements.',image:'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1400&q=80',slug:'energie',label:'Énergie'},
+  {title:'Cargo & fret.',copy:'Transport de marchandises et solutions de fret.',image:'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1400&q=80',slug:'cargo',label:'Cargo'},
+  {title:'Matériel & équipements.',copy:'Découvrez le domaine du matériel et des équipements industriels.',image:'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1400&q=80',slug:'materiel',label:'Matériel'},
+  {title:'Services au secteur public.',copy:'Découvrez les domaines d’intervention liés aux besoins institutionnels.',image:'https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1400&q=80',slug:'public',label:'Public'},
+  {title:'Santé & services.',copy:'Découvrez le domaine de la santé et des services associés.',image:'https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=1400&q=80',slug:'sante',label:'Santé'},
+  {title:'Éducation & compétences.',copy:'Découvrez le domaine de l’éducation et de la transmission des compétences.',image:'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1400&q=80',slug:'education',label:'Éducation'}
  ];
- function setCampaign(){var index=0;try{index=Number(sessionStorage.getItem('cojuka-mining-variant')||0)%campaigns.length;sessionStorage.setItem('cojuka-mining-variant',String(index+1))}catch(e){index=Math.floor(Math.random()*campaigns.length)}var item=campaigns[index];title.textContent=item.title;copy.textContent=item.copy;panel.style.backgroundImage='url("'+item.image+'")';}
+ var current=0,explore=document.getElementById('cma-explore'),dots=document.getElementById('cma-dots'),count=document.getElementById('cma-count'),autoTimer=null;
+ campaigns.forEach(function(item,i){var dot=document.createElement('button');dot.type='button';dot.className='cma-dot';dot.setAttribute('aria-label','Voir '+item.label);dot.addEventListener('click',function(){showCampaign(i,true)});dots.appendChild(dot)});
+ function showCampaign(i,manual){current=(i+campaigns.length)%campaigns.length;var item=campaigns[current];title.textContent=item.title;copy.textContent=item.copy;panel.style.backgroundImage='url("'+item.image+'")';explore.textContent='Découvrir '+item.label+' ↗';explore.href='{{ url('/groupe/structures') }}/'+encodeURIComponent(item.slug);count.textContent=(current+1)+' / '+campaigns.length;Array.from(dots.children).forEach(function(dot,j){dot.setAttribute('aria-current',j===current?'true':'false')});if(manual)restartAuto()}
+ function stopAuto(){if(autoTimer){clearInterval(autoTimer);autoTimer=null}}
+ function startAuto(){stopAuto();if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)autoTimer=setInterval(function(){showCampaign(current+1,false)},6500)}
+ function restartAuto(){if(shown)startAuto()}
+ document.getElementById('cma-prev').addEventListener('click',function(){showCampaign(current-1,true)});
+ document.getElementById('cma-next').addEventListener('click',function(){showCampaign(current+1,true)});
+ var touchX=null;panel.addEventListener('touchstart',function(e){if(e.touches.length===1)touchX=e.touches[0].clientX},{passive:true});panel.addEventListener('touchend',function(e){if(touchX===null)return;var delta=e.changedTouches[0].clientX-touchX;touchX=null;if(Math.abs(delta)>55)showCampaign(current+(delta<0?1:-1),true)},{passive:true});
+ panel.addEventListener('mouseenter',stopAuto);panel.addEventListener('mouseleave',function(){if(shown)startAuto()});
  function playIntroSound(){
   try{
    var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
@@ -64,8 +85,8 @@
    });
   }catch(e){}
  }
- function open(){if(shown||alreadySeen())return;shown=true;markSeen();setCampaign();clearTimeout(hideTimer);previousFocus=document.activeElement;dialog.style.display='flex';dialog.setAttribute('aria-hidden','false');requestAnimationFrame(function(){dialog.classList.add('cma-visible');close.focus({preventScroll:true});playIntroSound();});}
- function hide(){if(!shown)return;shown=false;dialog.classList.remove('cma-visible');dialog.setAttribute('aria-hidden','true');hideTimer=window.setTimeout(function(){dialog.style.display='none';},window.matchMedia('(prefers-reduced-motion: reduce)').matches?0:560);if(previousFocus&&previousFocus.focus)previousFocus.focus({preventScroll:true});}
+ function open(){if(shown||alreadySeen())return;shown=true;markSeen();showCampaign(0,false);startAuto();clearTimeout(hideTimer);previousFocus=document.activeElement;dialog.style.display='flex';dialog.setAttribute('aria-hidden','false');requestAnimationFrame(function(){dialog.classList.add('cma-visible');close.focus({preventScroll:true});playIntroSound();});}
+ function hide(){if(!shown)return;stopAuto();shown=false;dialog.classList.remove('cma-visible');dialog.setAttribute('aria-hidden','true');hideTimer=window.setTimeout(function(){dialog.style.display='none';},window.matchMedia('(prefers-reduced-motion: reduce)').matches?0:560);if(previousFocus&&previousFocus.focus)previousFocus.focus({preventScroll:true});}
  function waitForIntro(){if(alreadySeen())return;var intro=document.getElementById('cojuka-intro');if(!intro||intro.classList.contains('is-hidden')){window.setTimeout(open,450);return;}var obs=new MutationObserver(function(){if(intro.classList.contains('is-hidden')){obs.disconnect();window.setTimeout(open,450);}});obs.observe(intro,{attributes:true,attributeFilter:['class']});}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',waitForIntro,{once:true});else waitForIntro();
  close.addEventListener('click',hide);dialog.addEventListener('click',function(e){if(e.target===dialog)hide();});

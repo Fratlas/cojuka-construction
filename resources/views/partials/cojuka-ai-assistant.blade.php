@@ -61,7 +61,7 @@ if($cojukaAssistantAdmin){
   @endforeach
  </div>
  <form class="cai-form" id="cojuka-ai-form"><input id="cojuka-ai-input" maxlength="1500" required placeholder="Posez votre question…" aria-label="Votre question"><button id="cojuka-ai-send" type="submit">Envoyer</button></form>
- <div class="cai-voice"><button type="button" id="cai-call" aria-pressed="false">📞 Appel vocal direct</button><button type="button" id="cai-mic" aria-pressed="false">🎙️ Parler</button><button type="button" id="cai-speak" aria-pressed="false">🔊 Réponses vocales : non</button><button type="button" id="cai-stop-voice">■ Arrêter</button><span class="cai-voice-status" id="cai-voice-status" role="status">Voix facultative · français</span></div>
+ <div class="cai-voice"><button type="button" id="cai-request-mic">🎤 Activer mon microphone</button><button type="button" id="cai-call" aria-pressed="false">📞 Appel vocal direct</button><button type="button" id="cai-mic" aria-pressed="false">🎙️ Parler</button><button type="button" id="cai-speak" aria-pressed="false">🔊 Réponses vocales : non</button><button type="button" id="cai-stop-voice">■ Arrêter</button><span class="cai-voice-status" id="cai-voice-status" role="status">Voix facultative · français</span></div>
  <div id="cai-permission-help" class="cai-permission-help" role="alert" hidden>
   <strong>🎙️ Microphone bloqué : comment autoriser l’accès ?</strong>
   <p>Le navigateur a refusé l’accès au microphone. Suivez ces étapes :</p>
@@ -80,6 +80,22 @@ if($cojukaAssistantAdmin){
 <script>
 window.cojukaMicrophoneHelp=function(){var help=document.getElementById('cai-permission-help');if(help){help.hidden=false;help.scrollIntoView({block:'nearest',behavior:'smooth'})}};
 document.getElementById('cai-permission-close')?.addEventListener('click',function(){document.getElementById('cai-permission-help').hidden=true});
+document.getElementById('cai-request-mic')?.addEventListener('click',async function(){
+ var status=document.getElementById('cai-voice-status'),button=this;
+ if(!window.isSecureContext){status.textContent='Microphone : utilisez https://cojuka.com dans Chrome.';window.cojukaMicrophoneHelp();return}
+ if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){status.textContent='Microphone non disponible dans ce navigateur. Ouvrez le site directement dans Chrome ou Edge.';window.cojukaMicrophoneHelp();return}
+ button.disabled=true;status.textContent='Demande d’autorisation du microphone…';
+ try{
+  var stream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
+  stream.getTracks().forEach(function(track){track.stop()});
+  status.textContent='Microphone autorisé ! Vous pouvez démarrer un appel vocal.';
+  document.getElementById('cai-permission-help').hidden=true;
+ }catch(e){
+  var denied=e.name==='NotAllowedError'||e.name==='PermissionDeniedError';
+  status.textContent=denied?'Microphone bloqué dans le navigateur ou Android. Suivez le guide ci-dessous.':'Microphone indisponible : '+(e.name||'erreur inconnue');
+  window.cojukaMicrophoneHelp();
+ }finally{button.disabled=false}
+});
 (function(){
  var launch=document.getElementById('cojuka-ai-launch'),panel=document.getElementById('cojuka-ai-panel'),close=document.getElementById('cojuka-ai-close'),form=document.getElementById('cojuka-ai-form'),input=document.getElementById('cojuka-ai-input'),body=document.getElementById('cojuka-ai-body'),send=document.getElementById('cojuka-ai-send');
  if(!launch||!panel)return;

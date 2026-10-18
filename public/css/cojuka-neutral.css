@@ -1,0 +1,178 @@
+/*
+ * COJUKA — French graphite visual direction.
+ * Neutralize wine/pink GRADIENT BACKGROUNDS and red TEXT in light theme.
+ * Important: the original logo asset is never filtered, desaturated or edited.
+ * White remains #FFFFFF. Photo/video overlays remain dark for readability.
+ */
+body.cojuka-glass-public{
+  --cojuka-neutral-ink:#414851;
+  --cojuka-neutral-accent:#626B75;
+  --cojuka-neutral-soft:#838B95;
+  --cojuka-neutral-hairline:#DCE0E5;
+  --cojuka-neutral-smoke:rgba(108,118,130,.12);
+  --cojuka-neutral-halo:rgba(142,150,160,.19);
+}
+/* Grey ambient lighting instead of burgundy/pink in non-photographic sections.
+   Preserve the previous pure white on white zones. */
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public{
+  --cg-wine:#626B75;
+  --cg-bordeaux:#626B75;
+  --cc-burgundy:#606975;
+  --ct-accent:#606975;
+  --cg-prism:linear-gradient(145deg,rgba(255,255,255,.72),rgba(232,235,239,.38),rgba(205,212,221,.20));
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main
+ :is(.soft-section,.soft,.cojuka-photo-atlas,.cojuka-home-entities,.cg-photo-marquee),
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public .cojuka-site-footer{
+  background:#FFFFFF!important;
+  background-image:none!important;
+}
+/* Light sections that intentionally have an ambient wash use SILVER instead of rose. */
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main
+ :is(.cg-strategy,.cojuka-profile-main .entity-highlights){
+  background:radial-gradient(ellipse at 86% 12%,rgba(130,137,149,.12),transparent 47%),#FFFFFF!important;
+}
+/* Grey-on-white typographic hierarchy; no red headings, labels or links. */
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ :is(.cg-kicker,.cg-section-title em,.cg-inline-link,.cg-strategy-link,
+ .cg-process-card-top span,.cg-process-card-top i,
+ .cojuka-entities-kicker,.cojuka-entities-heading .accent,.cojuka-all-entities,
+ .cojuka-atlas-eyebrow,.cojuka-atlas-heading a,.section-kicker,
+ .service-index,.index,.sector span,.service .number,.service .number,
+ .feature-line .feature-number){
+  color:var(--cojuka-neutral-accent)!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main
+ :is(.section-pad,.soft-section,.soft,.cg-photo-marquee,.cojuka-photo-atlas,.cojuka-home-entities,.entity-highlights)
+ :is(.eyebrow,.tag,.service-index,.service .number,.index,.section-kicker,.cg-kicker){
+  color:var(--cojuka-neutral-accent)!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main
+ :is(.section-pad,.soft-section,.soft,.entity-highlights)
+ :is(.accent,.sector span){
+  color:#5D6570!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main
+ :is(.service-card,.info-card,.history-card,.model-card,.service)
+ :is(.index,.tag,.eyebrow,.service-index,.number){
+  color:var(--cojuka-neutral-accent)!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main
+ :is(.service-card,.info-card,.history-card,.model-card,.service)
+ a:not(.btn){
+  color:#515B66!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .cg-kicker-line{background:#929BA5!important}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .cg-method-rule{background:linear-gradient(90deg,rgba(98,107,118,.40),transparent)!important}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .cg-marquee-caption small{color:#ECEFF4!important}
+/* Navbar: secondary wordmark and hover typography use graphite, not wine.
+   This never changes the pixels inside the original official emblem. */
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .cojuka-global-nav :is(.cojuka-brand-wordmark,.cojuka-brand-primary,.cojuka-brand-secondary){
+  color:#59616C!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .cojuka-global-nav .navbar-nav :is(.nav-link:not(.nav-contact),.dropdown-item):hover,
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .cojuka-global-nav .dropdown-item:focus{
+  color:#434B56!important;
+  background:rgba(105,115,127,.09)!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .cojuka-global-nav .nav-contact{
+  color:#FFFFFF!important;
+  background:#535D69!important;
+  border-color:#535D69!important;
+  box-shadow:0 6px 18px rgba(44,54,66,.16)!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .cojuka-global-nav .nav-contact:hover{background:#3E4854!important}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .cojuka-global-nav .navbar-brand:hover{filter:drop-shadow(0 0 10px rgba(112,123,135,.17))!important}
+/* Footer social links & CTAs: cool-grey, not hot-red. */
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .cojuka-site-footer :is(.cojuka-footer-links a:hover,.cg-footer-social h3){
+  color:#56606C!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .cojuka-site-footer .cg-social-links a{color:#545F6C!important}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .cojuka-site-footer .cg-social-links a:hover{
+  background:#535D69!important;color:#FFFFFF!important;
+  box-shadow:0 10px 26px rgba(64,73,86,.2)!important;
+}
+body.cojuka-glass-public .cg-newsletter-panel{
+  background:radial-gradient(ellipse at 110% -10%,rgba(187,194,205,.19),transparent 48%),
+             radial-gradient(ellipse at 0% 110%,rgba(116,127,143,.21),transparent 58%),
+             linear-gradient(127deg,#27313E,#111A27)!important;
+}
+body.cojuka-glass-public .cg-newsletter-panel:before{
+  background:radial-gradient(circle,rgba(202,210,219,.15),transparent 72%)!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .cg-newsletter-overline{color:#D4DAE3!important}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .cg-newsletter-copy h2 em{color:#E5E9F0!important}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .cg-newsletter-input-row button{background:#535D69!important;color:#fff!important}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .cg-newsletter-input-row button:hover{background:#3D4753!important}
+/* Soft SILVER light follows the cursor over glass, replacing pink auroras. */
+body.cojuka-glass-public [data-cg-glow="ready"]>.cg-glow-overlay{
+ background:
+  radial-gradient(ellipse 210px 165px at var(--cg-pointer-x) var(--cg-pointer-y),
+    rgba(255,255,255,.44),rgba(214,221,230,.24) 30%,
+    rgba(166,176,189,.12) 53%,transparent 79%),
+  radial-gradient(ellipse 300px 240px at var(--cg-pointer-x) var(--cg-pointer-y),
+    rgba(184,196,212,.12),transparent 76%)!important;
+}
+@media(hover:hover) and (pointer:fine){
+ html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+  main :is(.service-card,.info-card,.model-card,.history-card,.cojuka-atlas-photo):hover{
+   box-shadow:0 0 0 1px rgba(177,187,200,.56),
+     0 0 30px -8px rgba(125,135,147,.21),
+     0 24px 64px -24px rgba(52,62,78,.17),
+     inset 0 1px 0 rgba(255,255,255,.96)!important;
+ }
+}
+/* Always keep cinematic hero, photo panels & CTA copy bright on dark media. */
+body.cojuka-glass-public main
+ :is(.hero,.consulting-video-hero,.entity-hero,.statement,.contact-section,.cx-page,.cojuka-entity-panel)
+ :is(h1,h2,h3,.eyebrow,.lead,.cojuka-entity-label,.cojuka-entity-count){
+ color:#FFFFFF!important;
+}
+body.cojuka-glass-public main
+ :is(.hero,.consulting-video-hero,.entity-hero,.statement,.contact-section,.cx-page,.cojuka-entity-panel)
+ :is(p,.hero-sub,.text-secondary){
+ color:#E3E8F0!important;
+}
+/* Removed rosy video/image fallbacks — graphite atmosphere. */
+body.cojuka-glass-public main .motion-stage{
+ background:radial-gradient(ellipse at 75% 42%,#3E4753 0%,#202B3A 46%,#0B101A 100%)!important;
+}
+body.cojuka-glass-public main .motion-fallback{
+ background:radial-gradient(ellipse at 72% 42%,#424B59 0%,#263445 42%,#0B1420 78%)!important;
+}
+body.cojuka-glass-public main .motion-fallback .orb{
+ background:radial-gradient(circle at 25% 20%,#DFE3E9,#808994 55%,#2B3340)!important;
+ box-shadow:0 0 75px rgba(130,142,157,.24)!important;
+}
+body.cojuka-glass-public main .motion-fallback .ring{
+ border-color:rgba(208,217,230,.48)!important;
+ box-shadow:0 0 38px rgba(127,139,153,.2)!important;
+}
+/* Dark mode: replace red atmospheric glows with cool charcoal/silver;
+   retain its existing readable light text and distinctive dark surfaces. */
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ main :is(.soft-section,.soft,.cojuka-photo-atlas,.cg-photo-marquee,.cg-strategy){
+ background:radial-gradient(ellipse at 12% 17%,rgba(145,155,170,.11),transparent 52%),
+  radial-gradient(ellipse at 88% 76%,rgba(100,117,140,.12),transparent 54%),
+  #141C29!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cx-page{
+ background:radial-gradient(ellipse at 6% 8%,rgba(122,137,154,.15),transparent 52%),
+ radial-gradient(ellipse at 94% 93%,rgba(63,88,115,.17),transparent 58%),#0B1019!important;
+}

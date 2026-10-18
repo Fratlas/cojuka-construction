@@ -19,18 +19,18 @@ class GroupUsersController {
  }
  public function update(Request $request,User $user){
   abort_unless($request->user()?->is_group_admin,403);
-  abort_unless(GroupAccess::ready(),503,'Installez d’abord les tables de contrôle des accès.');
+  abort_unless(GroupAccess::ready() && \Illuminate\Support\Facades\Schema::hasColumn('users','group_role'),503,'Exécutez les migrations des rôles et départements.');
   $data=$request->validate([
-   'is_group_admin'=>'required|boolean',
+   'group_role'=>['required',Rule::in(array_keys(GroupAccess::ROLES))],
    'group_department_id'=>['nullable','integer',Rule::exists('group_departments','id')->where('active',1)],
    'entities'=>'sometimes|array',
    'entities.*'=>'integer|distinct|exists:group_entities,id',
   ]);
-  $grant=(bool)$data['is_group_admin'];
+  $grant=$data['group_role']==='administrateur';
   if($request->user()->is($user) && !$grant) return back()->withErrors(['admin'=>'Vous ne pouvez pas retirer vos propres droits administrateur.']);
   if(!$grant && $user->is_group_admin && User::where('is_group_admin',true)->count()<=1)return back()->withErrors(['admin'=>'Le dernier administrateur ne peut pas être désactivé.']);
   DB::transaction(function()use($user,$grant,$data){
-   $user->forceFill(['is_group_admin'=>$grant,'group_department_id'=>$grant?null:($data['group_department_id']??null)])->save();
+   $user->forceFill(['is_group_admin'=>$grant,'group_role'=>$data['group_role'],'group_department_id'=>$grant?null:($data['group_department_id']??null)])->save();
    DB::table('group_user_entity_access')->where('user_id',$user->id)->delete();
    foreach($grant?[]:($data['entities']??[]) as $entityId){
     DB::table('group_user_entity_access')->insert(['user_id'=>$user->id,'group_entity_id'=>$entityId,'created_at'=>now(),'updated_at'=>now()]);

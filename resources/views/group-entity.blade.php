@@ -1,6 +1,6 @@
 @extends('layouts.cojuka-public')
 @section('page_head')
-<link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}?v=2"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{ $entity->name }} — COJUKA Group</title><style>body{font-family:system-ui}.hero{background:radial-gradient(circle at 75% 20%,#78313f,#121722 65%);color:white;padding:145px 0 120px}h1{font-size:clamp(3.2rem,7vw,6rem);font-weight:800;letter-spacing:-.065em}.tag{color:#ffffff;text-transform:uppercase;letter-spacing:.2em;font-weight:700;font-size:.8rem}</style>
+<link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}?v=2"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{ $entity->name }} — COJUKA Group</title><style>body{font-family:system-ui}.hero{background:radial-gradient(circle at 75% 20%,#4D5664,#182230 65%);color:white;padding:145px 0 120px}h1{font-size:clamp(3.2rem,7vw,6rem);font-weight:800;letter-spacing:-.065em}.tag{color:#ffffff;text-transform:uppercase;letter-spacing:.2em;font-weight:700;font-size:.8rem}</style>
 
 @endsection
 @section('content')

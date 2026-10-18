@@ -61,6 +61,12 @@ body{font-size:15px;line-height:1.55}
 .page-content .text-primary{color:#86212e!important}
 @media(max-width:900px){.topbar{height:68px}.page-content{padding:24px 18px 50px}}
 @media(max-width:575px){.page-content{padding:18px 14px 45px}.page-content h1,.page-content .h2{font-size:1.65rem}.topbar{padding:0 14px}.page-content .card.p-3,.page-content .card.p-4{padding:17px!important}.modal-header,.modal-body,.modal-footer{padding:18px}}
+
+/* Back-office only: white COJUKA mark, readable without clipping on navy sidebar. */
+.sidebar .brand{justify-content:center;padding:22px 18px;min-height:112px;overflow:hidden}
+.sidebar .brand .cojuka-brand-logo{display:block;width:100%!important;max-width:224px;height:72px!important;max-height:72px;object-fit:contain;object-position:center;filter:brightness(0) invert(1)!important;flex-shrink:1}
+.sidebar .brand .brand-name,.sidebar .brand .brand-caption{display:none}
+@media(max-width:1100px){.sidebar .brand .cojuka-brand-logo{max-width:205px}}
 </style>
 @include('partials.cojuka-design')
 </head>

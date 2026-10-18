@@ -69,7 +69,7 @@ body{font-size:15px;line-height:1.55}
 @media(max-width:1100px){.sidebar .brand .cojuka-brand-logo{width:72px!important;max-width:72px;height:72px!important;max-height:72px}.sidebar .brand .brand-name{font-size:11px}}
 </style>
 @include('partials.cojuka-design')
-<link rel="stylesheet" href="{{ asset('css/cojuka-glass.css') }}?v=20261018-aurora-05">
+<link rel="stylesheet" href="{{ asset('css/cojuka-glass.css') }}?v=20261018-admin-crystal-06">
 </head>
 <body class="cojuka-glass cojuka-glass-admin">
 <div id="mobileOverlay" class="mobile-overlay"></div>

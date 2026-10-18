@@ -23,7 +23,7 @@ final class GroupAccess {
   // Role is a ceiling; department permissions and entity scopes still apply.
   $role=self::role($user);
   if($role==='lecteur' && $action!=='view')return false;
-  if($role==='collaborateur' && $action==='delete')return false;
+  if($role==='collaborateur' && in_array($action,['delete','export'],true))return false;
   if(!self::ready() || !$user->group_department_id)return false;
   return DB::table('group_departments as d')->join('group_department_permissions as p','p.department_id','=','d.id')
    ->where('d.id',$user->group_department_id)->where('d.active',1)->where('p.module',$module)

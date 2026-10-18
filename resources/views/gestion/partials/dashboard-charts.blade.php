@@ -1,5 +1,6 @@
 {{-- Server-rendered, accessible charts. No fake numbers, third-party scripts or exposed raw records. --}}
 @php
+ $cgCanSuite=collect(array_keys(\App\Http\Controllers\GroupSuiteController::MODULES))->contains(fn($module)=>\App\Support\GroupAccess::can(auth()->user(),$module));
  $cgPalette=['#26364B','#56697F','#8394A8','#AEBCCB','#D1D9E2','#6C8197','#94A3B6'];
  $cgProjectCounts=collect($projectStatuses)->map(fn($value)=>(int)$value)->filter(fn($value)=>$value>0)->sortDesc();
  $cgProjectTotal=$cgProjectCounts->sum();
@@ -24,6 +25,7 @@
  }
  $cgHasOperations=array_sum($cgTimelineValues)>0;
 @endphp
+@if($canProjects || $canAssets || ($suiteReady && $cgCanSuite))
 <section class="cg-analytics" id="gestion-graphiques" aria-labelledby="cg-analytics-heading">
  <div class="cg-analytics-head">
   <div>
@@ -57,7 +59,7 @@
    <div class="cg-chart-note">Statuts réels des projets, sans estimation.</div>
   </article>
   @endif
-  @if($suiteReady)
+  @if($suiteReady && $cgCanSuite)
   <article class="cg-chart-panel" aria-labelledby="cg-module-heading">
    <div class="cg-chart-panel-head">
     <div><h3 class="cg-chart-title" id="cg-module-heading">Répartition par département</h3><p class="cg-chart-caption">Enregistrements par module autorisé</p></div>
@@ -126,3 +128,4 @@
   @endif
  </div>
 </section>
+@endif

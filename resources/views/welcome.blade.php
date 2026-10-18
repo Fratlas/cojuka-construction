@@ -125,7 +125,7 @@
 @include('partials.cojuka-intro')
 <div class="progress-line" id="readingProgress" aria-hidden="true"></div>
 
-<main>
+<main class="cojuka-home-main">
 <section id="accueil" class="hero" aria-labelledby="hero-title">
 @include('partials.cojuka-hero-carousel')
 <div class="container hero-content cojuka-hero-copy" data-cojuka-hero-copy>

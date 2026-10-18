@@ -75,6 +75,46 @@
 @media(prefers-reduced-motion:reduce){
  .cx-stage video,.cx-poster,.cx-stage-info,.cx-card,.cx-card img{transition:none!important;animation:none!important;transform:none!important}
 }
+/* Immersion dégagée : aucun cache, aucun panneau vitré sur la vidéo.
+   Les textes descriptifs sont placés HORS du visuel. */
+.cx-page{--cx-gold:#e0e6ed;--cx-red:#dce4ee;background:#111822!important}
+.cx-page .cx-stage{background:#111822!important;box-shadow:none!important;
+ border:1px solid #394454!important;border-radius:16px!important}
+.cx-page .cx-stage:after{display:none!important;background:none!important}
+.cx-page .cx-stage-info{position:static!important;max-width:1100px!important;
+ display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 22px;align-items:center;
+ margin:23px 0 25px;padding:0!important;transform:none!important;
+ transition:opacity .6s ease!important;background:none!important;
+ box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.cx-page .cx-stage-info .cx-eyebrow{grid-column:1/-1;color:#d8e1ea!important}
+.cx-page .cx-stage-info h2{grid-column:1;margin:0!important;color:#fff!important;
+ font-size:clamp(29px,3.6vw,50px)!important}
+.cx-page .cx-stage-info p{grid-column:1;margin:0!important;max-width:830px!important;
+ color:#d5dee9!important;text-shadow:none!important}
+.cx-page .cx-stage-info a{grid-column:2;grid-row:2/4;
+ align-self:center;justify-self:end;border:1px solid #778494!important;
+ background:#263140!important;color:#FFFFFF!important;
+ border-radius:12px!important;padding:14px 20px!important;
+ -webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.cx-page .cx-stage-info a:hover{background:#394658!important}
+.cx-page .cx-stage.cx-switching .cx-stage-info{opacity:1!important;transform:none!important}
+.cx-page .cx-stage-side button{background:#263241!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.cx-page .cx-stage-side button:hover{background:#465468!important}
+.cx-page .cx-mode{background:transparent!important;border-color:#526174!important;border-radius:12px!important;
+ -webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.cx-page .cx-controls button{background:#222d3c!important;border-color:#526071!important;border-radius:12px!important;
+ -webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.cx-page .cx-controls button[aria-pressed="true"],.cx-page .cx-controls button:hover{background:#465368!important;border-color:#8390a0!important}
+.cx-page .cx-card{background:#1a2635!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.cx-page .cx-card[aria-current="true"]{border-color:#e8edf3!important;box-shadow:inset 0 0 0 1px #e8edf3!important}
+.cx-page .cx-stage-top{pointer-events:none}
+.cx-page .cx-stage-top span{background:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+@media(max-width:750px){
+ .cx-page .cx-stage{height:55svh;min-height:310px;border-radius:10px!important}
+ .cx-page .cx-stage-info{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin:18px 0 24px}
+ .cx-page .cx-stage-info h2{font-size:clamp(27px,8vw,43px)!important}
+ .cx-page .cx-stage-info a{align-self:flex-start;margin-top:10px}
+}
 </style>
 @endsection
 @section('content')
@@ -100,8 +140,8 @@ foreach($exploreScenes as $i=>$scene){
   <video id="cx-video-a" playsinline webkit-playsinline preload="metadata" muted aria-hidden="true"></video><video id="cx-video-b" playsinline webkit-playsinline preload="metadata" muted aria-hidden="true"></video>
   <div class="cx-stage-top"><span class="cx-stage-label">Un voyage au cœur de nos secteurs</span><span class="cx-stage-count" id="cx-counter">01 / 05</span></div>
   <div class="cx-stage-side"><button id="cx-prev" type="button" aria-label="Scène précédente" title="Précédent">‹</button><button id="cx-next" type="button" aria-label="Scène suivante" title="Suivant">›</button></div>
-  <div class="cx-stage-info"><span class="cx-eyebrow">COJUKA CONSULTING GROUP</span><h2 id="cx-title">Mining</h2><p id="cx-description"></p><a id="cx-link" href="{{ route('group.profile','kojuka-mining') }}" style="color:#fff;font-weight:700">Découvrir cette activité ↗</a></div>
  </div>
+ <div class="cx-stage-info"><span class="cx-eyebrow">COJUKA CONSULTING GROUP</span><h2 id="cx-title">Mining</h2><p id="cx-description"></p><a id="cx-link" href="{{ route('group.profile','kojuka-mining') }}" style="font-weight:700">Découvrir cette activité ↗</a></div>
  <div class="cx-controls" role="group" aria-label="Commandes de la visite"><button id="cx-play" type="button" aria-pressed="true">Ⅱ Pause automatique</button><button id="cx-mute" type="button" aria-pressed="false">🔇 Activer le son</button><button id="cx-fullscreen" type="button" aria-label="Afficher l'expérience en plein écran">⛶ Plein écran</button><div class="cx-progress-wrap"><label for="cx-progress" class="visually-hidden">Progression de la scène</label><input id="cx-progress" class="cx-progress" type="range" min="0" max="100" value="0" aria-label="Progression de la scène"><span id="cx-time" class="cx-time">00:00</span></div></div>
  <div class="cx-grid" id="cx-grid">
  @foreach($exploreScenes as $i=>$scene)

@@ -43,6 +43,7 @@
     <div class="col-md-3"><select class="form-select" name="status"><option value="">Tous les statuts</option>@foreach(\App\Http\Controllers\GroupSuiteController::STATUSES as $key=>$label)<option value="{{ $key }}" @selected(request('status')===$key)>{{ $label }}</option>@endforeach</select></div>
     <div class="col-md-2"><button class="btn btn-outline-dark w-100">Filtrer</button></div>
 </form>
+@include('gestion.partials.suite-status-chart')
 <div class="card border-0 shadow-sm p-3">
     <div class="table-responsive">
         <table class="table table-hover align-middle">

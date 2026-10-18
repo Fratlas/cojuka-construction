@@ -176,3 +176,41 @@ html[data-cojuka-theme="dark"] body.cojuka-glass-public .cx-page{
  background:radial-gradient(ellipse at 6% 8%,rgba(122,137,154,.15),transparent 52%),
  radial-gradient(ellipse at 94% 93%,rgba(63,88,115,.17),transparent 58%),#0B1019!important;
 }
+
+/* Secondary corporate pages and dialog labels in light mode. */
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main
+ :is(.history-section:not(.history-belgium),.cojuka-profile-main,.cg-privacy-page)
+ :is(.history-label,.history-kicker,.tag,.eyebrow,.info-card .index){
+ color:#626B75!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .modal-content .eyebrow,
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .modal-content [style*="color:#86212e"]{
+ color:#626B75!important;
+}
+/* Preserve legible text on dark photo or history sections. */
+body.cojuka-glass-public main :is(.history-belgium,.history-hero,.cojuka-entities-hero)
+ :is(.eyebrow,.history-kicker,.history-label,.tag){
+ color:#E9EEF4!important;
+}
+body.cojuka-glass-public .cojuka-entities-hero{
+ background:radial-gradient(circle at 85% 24%,#485462,#202C3B 52%,#0B111B)!important;
+}
+/* Tiny utility labels inside loading panels no longer use vivid red. */
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ :is(.entity-video-loader .label,.cojuka-video-loader-label){color:#646D77!important}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ :is(.entity-video-loader .spinner,.cojuka-video-loader-ring){
+ border-top-color:#69737F!important;
+}
+/* Grey gradient, not red, on navigation CTA in both themes. */
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-global-nav .nav-contact{
+ background:linear-gradient(135deg,#657180,#414C59)!important;
+ border-color:rgba(255,255,255,.16)!important;
+ color:#FFFFFF!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-global-nav .nav-contact:hover{
+ background:linear-gradient(135deg,#737F8D,#4B5664)!important;
+ color:#FFFFFF!important;
+}

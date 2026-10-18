@@ -66,20 +66,20 @@
   min-width:0;
 }
 .cojuka-global-nav .navbar-brand .cojuka-brand-logo{
-  width:58px!important;
-  height:58px!important;
-  min-width:58px!important;
-  max-height:58px!important;
+  width:52px!important;
+  height:52px!important;
+  min-width:52px!important;
+  max-height:52px!important;
   object-fit:contain!important;
   transform:none!important;
   filter:none!important;
 }
 .cojuka-global-nav .cojuka-brand-wordmark{
   display:block!important;
-  margin:0 0 0 -6px!important;
+  margin:0 0 0 5px!important;
   padding:0!important;
   color:#83263b!important;
-  font:750 11.5px/1.16 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;
+  font:750 12px/1.18 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;
   letter-spacing:.016em!important;
   white-space:nowrap;
   text-align:left;
@@ -198,7 +198,7 @@
 @media(max-width:480px){
   .cojuka-global-nav>.container-fluid{padding-inline:10px!important;gap:5px}
   .cojuka-global-nav .navbar-brand .cojuka-brand-logo{width:48px!important;height:48px!important;min-width:48px!important;max-height:48px!important}
-  .cojuka-global-nav .cojuka-brand-wordmark{font-size:9.3px!important;margin-left:-5px!important;letter-spacing:0!important}
+  .cojuka-global-nav .cojuka-brand-wordmark{font-size:9.3px!important;margin-left:3px!important;letter-spacing:0!important}
   .cojuka-global-nav .cojuka-mobile-nav-actions{gap:2px}
   .cojuka-global-nav .cojuka-language-trigger{padding:5px 2px!important}
 }

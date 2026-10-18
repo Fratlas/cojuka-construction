@@ -74,7 +74,7 @@ body{background:#19222c}
 .auth-feature{background:rgba(8,16,26,.68);border:1px solid #ffffff3b;box-shadow:0 14px 32px #0002;border-radius:16px;padding:17px 13px}
 .auth-feature-icon{background:#681624;border-color:#f5b9c3}
 .auth-note{font-size:.78rem}
-.auth-workspace{position:relative;z-index:2;flex:0 0 min(44%,650px);width:min(44%,650px);min-height:calc(100svh - 50px);border-radius:24px;padding:clamp(34px,3.75vw,68px) clamp(24px,3.225vw,56px);background:rgba(255,255,255,.985);box-shadow:0 28px 80px #0004;align-self:center}
+.auth-workspace{position:relative;z-index:2;flex:0 0 min(44%,650px);width:min(44%,650px);min-height:0;height:auto;border-radius:24px;padding:clamp(27px,3vw,44px) clamp(24px,3.225vw,56px);background:rgba(255,255,255,.985);box-shadow:0 28px 80px #0004;align-self:center}
 .auth-panel{max-width:500px}
 .auth-panel h1{font-size:clamp(2.8rem,3.7vw,4rem);letter-spacing:-.07em;margin:16px 0}
 .auth-panel .eyebrow{letter-spacing:.22em}
@@ -102,6 +102,21 @@ body{background:#19222c}
 .auth-brand img{width:clamp(75px,9vw,105px);height:105px;max-height:105px;flex:none}
 .auth-wordmark{font:800 clamp(13px,1.6vw,19px)/1.32 Arial,sans-serif;letter-spacing:.04em;color:#fff;text-align:left;white-space:nowrap}
 @media(max-width:480px){.auth-brand{gap:8px}.auth-brand img{width:74px;height:74px}.auth-wordmark{font-size:13px}}
+
+/* Connexion : a floating glass card, never a full-height panel on desktop.
+   Keep natural document scrolling if the form is taller than a short viewport. */
+@media(min-width:851px){
+ .auth-shell{overflow:visible}
+ .auth-workspace{
+  min-height:0;
+  height:auto;
+  align-self:center;
+  margin-block:clamp(22px,4vh,58px);
+  padding-block:clamp(26px,3.2vw,44px);
+ }
+ .auth-panel .description{margin-bottom:clamp(19px,2.2vh,29px)}
+ .auth-back{margin-top:22px}
+}
 </style>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
 <link rel="preload" as="image" href="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=78&fm=webp" fetchpriority="high">

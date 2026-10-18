@@ -30,6 +30,7 @@
     @endif
     @endforeach
 </div>
+@include('gestion.partials.dashboard-charts')
 <h2 class="h4 fw-bold mb-3">Directions et opérations</h2>
 <div class="row g-3 mb-5">
     @foreach(\App\Http\Controllers\GroupSuiteController::MODULES as $slug => $config)

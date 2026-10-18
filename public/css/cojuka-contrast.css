@@ -151,7 +151,7 @@ body.cojuka-glass-public main.cojuka-profile-main section[style*="background:#27
 body.cojuka-glass-public main.cojuka-profile-main section[style*="background:#111724"] .btn-light{
  color:#172135!important;background:#f5f7fb!important;
 }
-body.cojuka-glass-public main.cojuka-home-main .photo-showcase-tag{
+body.cojuka-glass-public main.cojuka-home-main .showcase-3d .photo-showcase-tag{
  color:#18263c!important;background:rgba(250,247,236,.95)!important;
 }
 /* Information and illustrations under the glass remain legible. */
@@ -267,9 +267,10 @@ html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public .cojuka-global-nav
  }
  body.cojuka-glass-public main.cojuka-profile-main .display-title{font-size:clamp(2rem,7vw,3rem);line-height:1.12}
  body.cojuka-glass-public main.cojuka-profile-main .info-card{padding:clamp(18px,5vw,26px)!important}
+ body.cojuka-glass-public main.cojuka-profile-main .info-card{--profile-card-pad:clamp(18px,5vw,26px);padding:var(--profile-card-pad)!important}
  body.cojuka-glass-public main.cojuka-profile-main .entity-service-photo>img{
-  width:calc(100% + 2*clamp(18px,5vw,26px));
-  margin:calc(-1 * clamp(18px,5vw,26px)) calc(-1 * clamp(18px,5vw,26px)) 20px;
+  width:calc(100% + var(--profile-card-pad) + var(--profile-card-pad));
+  margin:calc(0px - var(--profile-card-pad)) calc(0px - var(--profile-card-pad)) 20px;
  }
 }
 /* Motion and transparency preferences: text remains readable without optical effects. */

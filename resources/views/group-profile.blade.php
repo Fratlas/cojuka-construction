@@ -153,7 +153,7 @@ $entityHighlightsCurrent = $entityHighlights[$profile['video'] ?? ''] ?? array_m
 @endphp
 
 <main class="cojuka-profile-main">
-<header class="entity-hero" style="background-image:linear-gradient(90deg,rgba(15,23,32,.70),rgba(20,30,40,.12)),url('{{ $entityPhotos[0][0] }}{{ str_contains($entityPhotos[0][0], 'unsplash.com') ? '?auto=format&fit=crop&w=1600&q=75&fm=webp' : '' }}')">
+<header class="entity-hero" style="background-image:linear-gradient(90deg,rgba(15,23,32,.43),rgba(20,30,40,.045)),url('{{ $entityPhotos[0][0] }}{{ str_contains($entityPhotos[0][0], 'unsplash.com') ? '?auto=format&fit=crop&w=1600&q=75&fm=webp' : '' }}')">
 <div class="entity-video-loader" aria-live="polite"><img src="{{ asset('images/cojuka-logo.svg') }}" alt="COJUKA Consulting Group" width="190" height="60"><span class="spinner" aria-hidden="true"></span><span class="label">Chargement de la vidéo…</span></div>
 <video class="entity-background-video" muted loop playsinline preload="none" aria-hidden="true" data-local="{{ asset('videos/entities/'.$profile['video']) }}" data-remote="{{ $profile['video_url'] ?? '' }}" poster="{{ $entityPhotos[0][0] }}{{ str_contains($entityPhotos[0][0], 'unsplash.com') ? '?auto=format&fit=crop&w=1200&q=74&fm=webp' : '' }}"></video>
 <div class="entity-video-overlay" aria-hidden="true"></div>

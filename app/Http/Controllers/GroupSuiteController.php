@@ -60,19 +60,28 @@ class GroupSuiteController {
   return view('gestion.suite-history',compact('module','config','events'));
  }
  public function export(Request $request,string $module){
-  $this->config($module);
+  $config=$this->config($module);
   abort_unless(Schema::hasTable('group_suite_records'),503,'Module non installé : exécutez les migrations.');
   $allowed=GroupAccess::entities($request->user());
-  $records=GroupSuiteRecord::with('entity')->where('module',$module)->when($allowed!==null,fn($q)=>$q->whereIn('group_entity_id',$allowed))->orderBy('id')->cursor();
-  return response()->streamDownload(function()use($records){
-   $out=fopen('php://output','w');fwrite($out,"\xEF\xBB\xBF");
-   fputcsv($out,['ID','Société','Titre','Référence','Statut','Date','Montant','Devise','Localisation','Description'],';');
+  $columns=array_merge(['group_entity_id','title','reference','status','record_date','amount','currency','location','description'],array_keys($config['fields']));
+  $records=GroupSuiteRecord::where('module',$module)->when($allowed!==null,fn($q)=>$q->whereIn('group_entity_id',$allowed))->orderBy('id')->cursor();
+  return response()->streamDownload(function()use($records,$columns,$config){
+   $out=fopen('php://output','wb');fwrite($out,"\xEF\xBB\xBF");fputcsv($out,$columns,';');
+   $clean=static function($value){
+    if($value instanceof \DateTimeInterface)$value=$value->format('Y-m-d');
+    $value=(string)($value??'');
+    return preg_match('/^[\x00-\x20]*[=+@\-]/u',$value)?"'".$value:$value;
+   };
    foreach($records as $item){
-    $clean=fn($value)=>preg_replace('/^[\x00-\x20]*([=+@\-])/u',"'$1",(string)($value??''));
-    fputcsv($out,[$item->id,$clean($item->entity?->name),$clean($item->title),$clean($item->reference),$item->status,$item->record_date?->format('Y-m-d'),$item->amount,$item->currency,$clean($item->location),$clean($item->description)],';');
+    $row=[];$details=(array)($item->details??[]);
+    foreach($columns as $column){
+     $value=array_key_exists($column,$config['fields'])?($details[$column]??null):$item->getAttribute($column);
+     $row[]=$clean($value);
+    }
+    fputcsv($out,$row,';');
    }
    fclose($out);
-  },'cojuka-'.$module.'-'.now()->format('Ymd').'.csv',['Content-Type'=>'text/csv; charset=UTF-8']);
+  },'cojuka-'.$module.'-'.now()->format('Ymd').'.csv',['Content-Type'=>'text/csv; charset=UTF-8','Cache-Control'=>'private, no-store']);
  }
  public function store(Request $request,string $module){
   $config=$this->config($module);$this->ensureReady();$data=$this->validateData($request,$config);GroupAccess::requireEntity($request->user(),(int)$data['group_entity_id']);

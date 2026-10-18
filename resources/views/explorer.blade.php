@@ -15,9 +15,10 @@ $exploreScenes=[
  ['Eden Park Investments','Découvrez les perspectives immobilières et d’investissement.','eden-park-investments','photo-1600596542815-ffad4c1539a9'],
  ['Consultance & Impact Center','Entrez dans l’univers du conseil, des partenariats et de l’impact.','consultance','photo-1497366754035-f200968a6e72'],
 ];
+$exploreVideoUrls=['https://d8j0ntlcm91z4.cloudfront.net/user_35sq0uUmKRerZDm8Ty4efx2WQSL/hf_20261018_055303_e5327436-5542-4802-b1a7-fcae58f0bb0d.mp4','https://d8j0ntlcm91z4.cloudfront.net/user_35sq0uUmKRerZDm8Ty4efx2WQSL/hf_20261018_055303_34a4da7d-b175-49de-86ac-1e635e123f02.mp4','https://d8j0ntlcm91z4.cloudfront.net/user_35sq0uUmKRerZDm8Ty4efx2WQSL/hf_20261018_055303_7e41daae-8e36-4770-9109-e5b61a934518.mp4','https://d8j0ntlcm91z4.cloudfront.net/user_35sq0uUmKRerZDm8Ty4efx2WQSL/hf_20261018_055303_58a64106-b04d-44dc-93ec-465dc705393d.mp4','https://d8j0ntlcm91z4.cloudfront.net/user_35sq0uUmKRerZDm8Ty4efx2WQSL/hf_20261018_055303_5c86fd41-237a-4d66-b40f-86ca5661c1b7.mp4'];
 $exploreSceneData=[];
 foreach($exploreScenes as $i=>$scene){
- $exploreSceneData[]=['title'=>$scene[0],'description'=>$scene[1],'slug'=>$scene[2],'poster'=>'https://images.unsplash.com/'.$scene[3].'?auto=format&fit=crop&w=1800&q=82','video'=>asset('videos/explorer/scene-'.($i+1).'.mp4')];
+ $exploreSceneData[]=['title'=>$scene[0],'description'=>$scene[1],'slug'=>$scene[2],'poster'=>'https://images.unsplash.com/'.$scene[3].'?auto=format&fit=crop&w=1800&q=82','video'=>($exploreVideoUrls[$i] ?? asset('videos/explorer/scene-'.($i+1).'.mp4'))];
 }
 @endphp
 <main class="cx-page"><div class="cx-wrap">
@@ -33,7 +34,7 @@ foreach($exploreScenes as $i=>$scene){
  <button type="button" class="cx-card" data-cx-index="{{ $i }}" aria-current="{{ $i===0?'true':'false' }}"><img loading="lazy" src="https://images.unsplash.com/{{ $scene[3] }}?auto=format&fit=crop&w=450&q=72" alt=""><span>{{ str_pad($i+1,2,'0',STR_PAD_LEFT) }} · {{ $scene[0] }}</span></button>
  @endforeach
  </div>
- <p class="cx-note" id="cx-note">Aperçu illustré : les séquences vidéo 3D seront activées après leur génération et leur ajout dans le dossier public/videos/explorer du site.</p>
+ <p class="cx-note" id="cx-note">Les cinq vidéos 3D sont prêtes. Choisissez un secteur puis lancez la lecture.</p>
 </div></main>
 @endsection
 @section('page_scripts')

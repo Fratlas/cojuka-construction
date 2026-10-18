@@ -115,6 +115,44 @@
  .cx-page .cx-stage-info h2{font-size:clamp(27px,8vw,43px)!important}
  .cx-page .cx-stage-info a{align-self:flex-start;margin-top:10px}
 }
+/* Anti-legacy-glass override: previously global selectors carried stronger specificity. */
+body.cojuka-glass-public .cx-page .cx-stage{
+ box-shadow:none!important;
+ border-color:#394454!important;
+ backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+}
+body.cojuka-glass-public .cx-page .cx-stage:after{
+ content:none!important;display:none!important;background:none!important;
+}
+body.cojuka-glass-public .cx-page .cx-stage-info{
+ position:static!important;
+ padding:0!important;margin:23px 0 25px!important;
+ background:transparent!important;background-image:none!important;
+ border:0!important;border-radius:0!important;
+ box-shadow:none!important;
+ backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+}
+body.cojuka-glass-public .cx-page
+ :is(.cx-mode,.cx-card,.cx-controls button,.cx-stage-side button){
+ background:#1D2938!important;background-image:none!important;
+ box-shadow:none!important;backdrop-filter:none!important;
+ -webkit-backdrop-filter:none!important;
+ border-color:#526174!important;
+}
+body.cojuka-glass-public .cx-page .cx-controls button:hover,
+body.cojuka-glass-public .cx-page .cx-controls button[aria-pressed="true"],
+body.cojuka-glass-public .cx-page .cx-stage-side button:hover{
+ background:#465568!important;background-image:none!important;
+}
+body.cojuka-glass-public .cx-page .cx-stage-info a{
+ background:#273548!important;box-shadow:none!important;
+ -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+}
+@media(max-width:767px){
+ body.cojuka-glass-public .cx-page .cx-stage-info{
+  padding:0!important;margin:20px 0 25px!important;
+ }
+}
 </style>
 @endsection
 @section('content')

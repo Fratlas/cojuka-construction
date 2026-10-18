@@ -7,8 +7,8 @@
   <h1 class="h2 fw-bold mb-1">{{ ucfirst($module) }}</h1>
   <p class="text-secondary mb-0">Consultez et gérez les enregistrements de votre organisation.</p>
  </div>
- <div class="d-flex gap-2 flex-wrap">@if(\App\Support\GroupAccess::can(auth()->user(),$module,'export'))<a class="btn btn-outline-secondary" href="{{ route('gestion.group.export',$module) }}"><i class="bi bi-download me-1"></i>Exporter CSV</a>@endif @if(\App\Support\GroupAccess::can(auth()->user(),$module,'create'))<button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#importModal"><i class="bi bi-cloud-arrow-up me-2"></i>Importer CSV</button>@endif
-@if(\App\Support\GroupAccess::can(auth()->user(),$module,'create'))<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-plus-lg me-2"></i>Ajouter</button>@endif</div>
+ <div class="d-flex gap-2 flex-wrap">@if(\App\Support\GroupAccess::can(auth()->user(),$module,'export'))<a class="btn btn-outline-secondary" href="{{ route('gestion.group.export',$module) }}"><i class="bi bi-download me-1"></i>Exporter CSV</a>@endif @if(\App\Support\GroupAccess::can(auth()->user(),$module,'create') && ($module!=='entites' || auth()->user()?->is_group_admin))<button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#importModal"><i class="bi bi-cloud-arrow-up me-2"></i>Importer CSV</button>@endif
+@if(\App\Support\GroupAccess::can(auth()->user(),$module,'create') && ($module!=='entites' || auth()->user()?->is_group_admin))<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addModal"><i class="bi bi-plus-lg me-2"></i>Ajouter</button>@endif</div>
 </div>
 @if($module==='entites' && auth()->user()?->is_group_admin)
 <div class="card p-3 p-md-4 mb-4">
@@ -36,8 +36,8 @@
       </td>
       <td class="text-end text-nowrap">
        @if($module==='entites' && \App\Support\GroupAccess::can(auth()->user(),'entites','view'))<a class="btn btn-sm btn-outline-secondary" href="{{ route('gestion.documents.index',['entites',$row->id]) }}"><i class="bi bi-paperclip me-1"></i>Documents</a>@endif
-       @if(\App\Support\GroupAccess::can(auth()->user(),$module,'update'))<button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#edit{{ $row->id }}">Modifier</button>@endif
-       @if(\App\Support\GroupAccess::can(auth()->user(),$module,'delete'))<form method="post" action="{{ route('gestion.group.delete', [$module, $row->id]) }}" class="d-inline" onsubmit="return confirm('Supprimer définitivement cet enregistrement ?')">
+       @if(\App\Support\GroupAccess::can(auth()->user(),$module,'update') && ($module!=='entites' || auth()->user()?->is_group_admin))<button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#edit{{ $row->id }}">Modifier</button>@endif
+       @if(\App\Support\GroupAccess::can(auth()->user(),$module,'delete') && ($module!=='entites' || auth()->user()?->is_group_admin))<form method="post" action="{{ route('gestion.group.delete', [$module, $row->id]) }}" class="d-inline" onsubmit="return confirm('Supprimer définitivement cet enregistrement ?')">
         @csrf
         @method('DELETE')
         <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
@@ -52,7 +52,7 @@
  </div>
  <div class="mt-3">{{ $rows->links() }}</div>
 </div>
-@if(\App\Support\GroupAccess::can(auth()->user(),$module,'update'))
+@if(\App\Support\GroupAccess::can(auth()->user(),$module,'update') && ($module!=='entites' || auth()->user()?->is_group_admin))
 @foreach($rows as $row)
  <div class="modal fade" id="edit{{ $row->id }}" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -67,7 +67,7 @@
  </div>
 @endforeach
 @endif
-@if(\App\Support\GroupAccess::can(auth()->user(),$module,'create'))
+@if(\App\Support\GroupAccess::can(auth()->user(),$module,'create') && ($module!=='entites' || auth()->user()?->is_group_admin))
 <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
  <div class="modal-dialog modal-lg modal-dialog-scrollable">
   <form method="post" action="{{ route('gestion.group.save', $module) }}" class="modal-content">
@@ -79,7 +79,7 @@
  </div>
 </div>
 @endif
-@if(\App\Support\GroupAccess::can(auth()->user(),$module,'create'))
+@if(\App\Support\GroupAccess::can(auth()->user(),$module,'create') && ($module!=='entites' || auth()->user()?->is_group_admin))
 <div class="modal fade" id="importModal" tabindex="-1" aria-hidden="true">
  <div class="modal-dialog modal-dialog-centered">
   <form method="post" enctype="multipart/form-data" action="{{ route('gestion.import.store', $module) }}" class="modal-content">

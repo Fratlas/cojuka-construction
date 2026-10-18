@@ -60,6 +60,20 @@ $entityPhotos = [
 .cojuka-all-entities{font-weight:700;color:#862738}
 .cojuka-entity-panel{min-height:clamp(420px,44vw,530px);background:#111b27;border-radius:24px;display:flex;align-items:center;position:relative;overflow:hidden;padding:clamp(30px,5vw,76px);color:white}
 .cojuka-entity-content{position:relative;z-index:2;max-width:760px}
+/* Let the photo crossfade first, then softly reveal its caption and action. */
+.cojuka-home-entities .carousel-item .cojuka-entity-content{
+ opacity:0;transform:translate3d(0,14px,0);
+ transition:opacity .80s cubic-bezier(.22,1,.36,1),transform .90s cubic-bezier(.22,1,.36,1);
+}
+.cojuka-home-entities .carousel-item.active .cojuka-entity-content{
+ opacity:1;transform:translate3d(0,0,0);
+ transition-delay:.10s;
+}
+@media(prefers-reduced-motion:reduce){
+ .cojuka-home-entities .carousel-item .cojuka-entity-content{
+  opacity:1;transform:none;transition:none!important;
+ }
+}
 .cojuka-entity-label{font-size:.76rem;letter-spacing:.13em;font-weight:800;color:#ffffff;margin-bottom:28px}
 .cojuka-entity-count{margin-left:20px;color:#fff9}
 .cojuka-entity-panel h3{font-size:clamp(2.25rem,4.3vw,4.75rem);font-weight:850;line-height:1.1;letter-spacing:-.06em;margin-bottom:22px;overflow-wrap:anywhere}

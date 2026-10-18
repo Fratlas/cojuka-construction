@@ -282,7 +282,7 @@ html[data-cojuka-theme="dark"] body.cojuka-glass-public main
  .cojuka-entities-kicker,.cojuka-entities-heading .accent,
  .cojuka-all-entities,.cojuka-atlas-eyebrow,.cojuka-atlas-heading a,
  .service .number,.feature-line .feature-number,
- .cg-infographic-legend span,.cg-wheel-center strong){
+ .cg-infographic-legend span){
  color:#FFFFFF!important;
 }
 html[data-cojuka-theme="dark"] body.cojuka-glass-public main
@@ -297,7 +297,7 @@ html[data-cojuka-theme="dark"] body.cojuka-glass-public main
 }
 html[data-cojuka-theme="dark"] body.cojuka-glass-public
  :is(.cg-kicker,.cg-newsletter-overline,.cg-newsletter-copy h2 em,
-     .cg-newsletter-privacy a,.cg-marquee-caption small,.cg-gallery-eyebrow){
+     .cg-newsletter-privacy a,.cg-marquee-caption small){
  color:#FFFFFF!important;
 }
 html[data-cojuka-theme="dark"] body.cojuka-glass-public
@@ -412,3 +412,10 @@ html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-global-nav .nav-
  box-shadow:0 0 20px rgba(182,198,216,.20),0 10px 28px rgba(7,12,21,.25)!important;
  }
 }
+
+/* The photographic pop-up and infographic center are LIGHT panels by design:
+   retain dark lettering rather than white on white when the site is dark. */
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ .cg-gallery-modal .cg-gallery-eyebrow{color:#546376!important}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ .cg-wheel-center strong{color:#273548!important}

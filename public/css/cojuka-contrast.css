@@ -281,3 +281,128 @@ html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public .cojuka-global-nav
 @media(prefers-reduced-motion:reduce){
  body.cojuka-glass-public main:is(.cojuka-home-main,.cojuka-profile-main) :is(.reveal,.service-card,.info-card,.entity-photo-tile){transform:none!important;transition:none!important}
 }
+
+/* Final audit: independent panels, FAQ and mobile controls. */
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main.cojuka-home-main .cojuka-home-entities{
+ background:radial-gradient(ellipse at 12% 12%,rgba(135,51,81,.17),transparent 51%),#172234!important;
+ color:#edf3fb!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main.cojuka-home-main .cojuka-home-entities
+ :is(.cojuka-entities-heading,.cojuka-entity-panel h3){
+ color:#f4f7fc!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main.cojuka-home-main .cojuka-home-entities
+ :is(.cojuka-entities-kicker,.cojuka-all-entities){
+ color:#ffc0cf!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main.cojuka-home-main .cojuka-home-entities
+ :is(.cojuka-entities-heading,.cojuka-all-entities){
+ color:#252f41!important;
+}
+body.cojuka-glass-public main.cojuka-home-main .cojuka-entity-panel .cojuka-entity-content{
+ background:linear-gradient(115deg,rgba(11,22,38,.82),rgba(12,26,43,.44))!important;
+ color:#fff!important;
+}
+body.cojuka-glass-public main.cojuka-home-main .cojuka-entity-panel .cojuka-entity-content
+ :is(h3,p,.cojuka-entity-label,.cojuka-entity-count){
+ color:#fff!important;
+}
+body.cojuka-glass-public main.cojuka-home-main .cojuka-entity-panel .cojuka-entity-link,
+body.cojuka-glass-public main.cojuka-home-main .cojuka-entity-panel .cojuka-entity-link:hover{
+ color:#1a2638!important;
+}
+body.cojuka-glass-public main.cojuka-profile-main #cojukaEntityFaq .accordion-button{
+ font-size:clamp(1rem,1.1vw,1.14rem);
+ line-height:1.5;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main.cojuka-profile-main #cojukaEntityFaq
+ :is(.accordion-item,.accordion-button){
+ background:rgba(249,250,253,.90)!important;
+ color:#1d2a3d!important;
+ border-color:rgba(105,121,147,.24)!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main.cojuka-profile-main #cojukaEntityFaq .accordion-body{
+ color:#47576b!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main.cojuka-profile-main #cojukaEntityFaq
+ :is(.accordion-item,.accordion-button){
+ background:rgba(30,42,62,.94)!important;
+ color:#f0f4fa!important;
+ border-color:rgba(255,255,255,.18)!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main.cojuka-profile-main #cojukaEntityFaq .accordion-body{
+ color:#cad4e4!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main.cojuka-profile-main #cojukaEntityFaq .accordion-button::after{
+ filter:brightness(0) invert(1)!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main.cojuka-profile-main a.info-card.text-dark{
+ color:#f0f5fb!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main.cojuka-profile-main a.info-card.text-dark :is(h3,.h5){
+ color:#f4f7fc!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main.cojuka-profile-main a.info-card.text-dark .text-secondary{
+ color:#c2d0e2!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main.cojuka-profile-main a.info-card.text-dark{
+ color:#202d40!important;
+}
+body.cojuka-glass-public main.cojuka-profile-main .info-card .index{
+ color:var(--ct-accent)!important;
+}
+body.cojuka-glass-public main.cojuka-profile-main :is(.entity-hero,.section-pad) .btn-light{
+ color:#172235!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-global-nav .navbar-collapse{
+ background:rgba(20,29,43,.96)!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-global-nav .cojuka-brand-primary,
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-global-nav .cojuka-brand-secondary{
+ color:#f3f0f3!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public .cojuka-global-nav .cojuka-brand-primary{
+ color:#84263c!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public .cojuka-global-nav .cojuka-brand-secondary{
+ color:#4d586a!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-site-footer{
+ background:linear-gradient(132deg,#141e2d,#233044)!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-site-footer :is(h2,h3,h4){
+ color:#f6f8fc!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-site-footer :is(a,p,span,.cojuka-footer-bottom){
+ color:#d1dce9!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public .cojuka-site-footer :is(a,p,span,.cojuka-footer-bottom){
+ color:#445368!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main.cojuka-profile-main .badge.text-bg-light{
+ color:#f3f6fb!important;background:#29374c!important;border-color:#596b87!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main.cojuka-profile-main .badge.text-bg-light{
+ color:#202b3e!important;background:#edf1f6!important;border-color:#c5cdd9!important;
+}
+body.cojuka-glass-public main.cojuka-home-main .hero .hero-content>.eyebrow,
+body.cojuka-glass-public main.cojuka-profile-main .entity-hero .eyebrow{
+ color:#fff!important;
+ text-shadow:0 2px 11px rgba(0,0,0,.75);
+}
+body.cojuka-glass-public main.cojuka-home-main .hero .hero-sub{
+ color:#f3f6fb!important;
+ background:linear-gradient(115deg,rgba(11,21,36,.70),rgba(16,28,44,.48))!important;
+ border-color:rgba(255,255,255,.28)!important;
+}
+@media(max-width:767.98px){
+ body.cojuka-glass-public main.cojuka-home-main .hero .hero-content{
+  padding-inline:clamp(14px,4vw,23px);
+ }
+ body.cojuka-glass-public main.cojuka-home-main .hero .hero-content>.eyebrow{
+  text-shadow:0 2px 11px rgba(0,0,0,.77);
+ }
+ body.cojuka-glass-public main.cojuka-profile-main .entity-hero .container{
+  padding-inline:18px;
+ }
+}

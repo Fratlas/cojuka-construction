@@ -189,6 +189,8 @@ foreach($exploreScenes as $i=>$scene){
  }
  function showPhoto(index,token,reason){
    if(token!==state.token)return;
+   // Invalidate slow media promises so they cannot replace a successful image fallback.
+   state.token++;
    clearTimeout(state.timeout);state.timeout=null;
    const old=players[state.active];
    players.forEach(v=>{v.pause();v.classList.remove('cx-active');v.style.zIndex='1'});

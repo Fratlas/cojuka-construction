@@ -128,10 +128,17 @@
 <main class="cojuka-home-main">
 <section id="accueil" class="hero" aria-labelledby="hero-title">
 @include('partials.cojuka-hero-carousel')
-<div class="container hero-content cojuka-hero-copy" data-cojuka-hero-copy>
-<div class="eyebrow" data-cojuka-hero-eyebrow>COJUKA CONSULTING GROUP · RDC</div>
-<h1 id="hero-title" data-cojuka-hero-title>COJUKA Consulting Group</h1>
-<div class="d-flex gap-3 flex-wrap"><a href="{{ route('group') }}" class="btn-pill btn-white" data-cojuka-hero-cta>Découvrir le groupe <span aria-hidden="true">↗</span></a><a href="{{ route('group.portal') }}" class="btn-pill btn-outline-light-custom">Nos entités <span aria-hidden="true">↓</span></a></div>
+<div class="container cojuka-hero-layout">
+ <div class="row align-items-center g-5">
+  <div class="col-lg-9 reveal cojuka-hero-copy" data-cojuka-hero-copy data-cojuka-hero-context="home">
+   <div class="eyebrow mb-4" data-cojuka-hero-eyebrow>COJUKA CONSULTING GROUP · RDC</div>
+   <h1 id="hero-title" data-cojuka-hero-title>COJUKA Consulting Group</h1>
+   <div class="d-flex flex-wrap gap-3">
+    <a href="{{ route('group') }}#expertises" class="btn-pill btn-white" data-cojuka-hero-cta>Découvrir nos expertises <span aria-hidden="true">↗</span></a>
+    <a href="{{ route('group.portal') }}" class="btn-pill btn-outline-light-custom">Nos entités <span aria-hidden="true">↓</span></a>
+   </div>
+  </div>
+ </div>
 </div><div class="scroll-indicator" aria-hidden="true">Défiler <span>↓</span></div>
 </section>
 @include('partials.cojuka-entities-carousel')

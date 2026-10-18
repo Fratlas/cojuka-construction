@@ -343,3 +343,342 @@ html[data-cojuka-theme="dark"] .cojuka-glass-public .cojuka-site-footer :is(.coj
 html[data-cojuka-theme="dark"] .cojuka-glass-public .cojuka-site-footer .cojuka-footer-bottom{
   border-top-color:rgba(255,255,255,.19);
 }
+
+
+/* ========================================================================
+   COJUKA / SIGNATURE GLASS 2.0
+   A richer, architectural glass aesthetic: light, thickness and depth.
+   Decorative layers never obscure navigation, content, or original artwork.
+   ======================================================================== */
+.cojuka-glass{
+  --cg-ivory:#f7f7fa;
+  --cg-bordeaux:#86212e;
+  --cg-highlight:rgba(255,255,255,.94);
+  --cg-reflection:linear-gradient(128deg,rgba(255,255,255,.90) 0%,rgba(255,255,255,.52) 26%,rgba(255,255,255,.17) 59%,rgba(255,255,255,.60) 100%);
+  --cg-prism:linear-gradient(135deg,rgba(255,255,255,.85),rgba(253,245,249,.51) 42%,rgba(225,235,249,.44) 100%);
+  --cg-edge:rgba(255,255,255,.86);
+  --cg-lift:0 20px 60px -24px rgba(39,42,78,.28),0 8px 24px -14px rgba(99,54,76,.14),inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(255,255,255,.22);
+  --cg-motion:cubic-bezier(.22,1,.36,1);
+}
+body.cojuka-glass-public{
+  background:#f1f3f8;
+}
+/* Ambient lighting: localized under surfaces, not a translucent page-wide filter. */
+.cojuka-glass-public main :is(.section-pad,.cojuka-photo-atlas,.history-section,.entity-photo-section,.soft-section,.soft){
+  background-image:
+    radial-gradient(ellipse 50% 65% at 4% 12%,rgba(169,72,107,.09),transparent 78%),
+    radial-gradient(ellipse 47% 58% at 97% 84%,rgba(93,132,209,.105),transparent 76%);
+}
+.cojuka-glass-public main :is(.soft-section,.soft,.cojuka-photo-atlas){
+  background:
+    radial-gradient(ellipse at 8% 18%,rgba(190,82,116,.15),transparent 48%),
+    radial-gradient(ellipse at 86% 70%,rgba(100,148,218,.16),transparent 48%),
+    linear-gradient(140deg,#f6f7fb,#e9edf5 52%,#f8f8fa)!important;
+}
+/* Marble-like vitrified cards: translucent core, bevel and soft colored shadow. */
+.cojuka-glass-public main :is(
+ .service-card,.info-card,.history-card,.service,.model-card,
+ .cojuka-atlas-photo,.entity-photo-tile
+){
+  background:var(--cg-prism)!important;
+  border:1px solid var(--cg-edge)!important;
+  border-radius:24px!important;
+  box-shadow:var(--cg-lift)!important;
+  -webkit-backdrop-filter:blur(22px) saturate(165%);
+  backdrop-filter:blur(22px) saturate(165%);
+  transition:transform .55s var(--cg-motion),box-shadow .55s var(--cg-motion),border-color .3s ease;
+}
+@media(hover:hover) and (pointer:fine){
+ .cojuka-glass-public main :is(.service-card,.info-card,.history-card,.service,.model-card,.cojuka-atlas-photo):hover{
+   box-shadow:0 30px 75px -22px rgba(47,48,88,.3),0 8px 35px -12px rgba(145,56,92,.19),inset 0 1px rgba(255,255,255,.98)!important;
+   border-color:#fff!important;
+ }
+}
+.cojuka-glass-public main :is(.service-card,.info-card,.history-card,.service,.model-card) :is(h2,h3,h4,.service-title){color:#20283a}
+.cojuka-glass-public main :is(.service-card,.info-card,.history-card,.service,.model-card) :is(p,.muted,.service-description){color:#485366}
+.cojuka-glass-public main .service-card .service-content{
+  background:linear-gradient(155deg,rgba(255,255,255,.42),rgba(255,255,255,.17));
+  border-top:1px solid rgba(255,255,255,.72);
+}
+.cojuka-glass-public main .cojuka-atlas-photo figcaption{
+  background:rgba(255,255,255,.65)!important;
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+}
+.cojuka-glass-public main .history-belgium .history-card{
+  background:linear-gradient(145deg,rgba(44,56,77,.86),rgba(20,28,45,.93))!important;
+  border-color:rgba(255,255,255,.28)!important;
+}
+.cojuka-glass-public main .history-belgium .history-card :is(h2,h3,h4,p){color:#f5f7fa}
+/* The front page remains cinematic: frosted text panel, not a video-wide blur. */
+.cojuka-glass-public main .hero-content>.eyebrow,
+.cojuka-glass-public main .consulting-video-hero .eyebrow{
+  display:table;
+  width:max-content;
+  max-width:100%;
+  padding:10px 17px!important;
+  border:1px solid rgba(255,255,255,.31);
+  border-radius:999px;
+  color:#fff!important;
+  background:linear-gradient(120deg,rgba(255,255,255,.18),rgba(255,255,255,.055));
+  -webkit-backdrop-filter:blur(15px);
+  backdrop-filter:blur(15px);
+  box-shadow:inset 0 1px rgba(255,255,255,.25),0 9px 30px rgba(0,0,0,.13);
+  text-shadow:0 1px 5px rgba(0,0,0,.25);
+}
+.cojuka-glass-public main .hero-content>.hero-sub,
+.cojuka-glass-public main .consulting-video-hero .lead{
+  width:fit-content;
+  padding:clamp(14px,2vw,24px) clamp(17px,2.4vw,30px);
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:18px;
+  background:linear-gradient(110deg,rgba(13,24,39,.52),rgba(18,31,48,.24));
+  -webkit-backdrop-filter:blur(13px);
+  backdrop-filter:blur(13px);
+  box-shadow:inset 0 1px rgba(255,255,255,.18),0 16px 48px -20px rgba(0,0,0,.55);
+  color:#f5f7fb!important;
+}
+.cojuka-glass-public main .hero-content .btn-outline-light-custom,
+.cojuka-glass-public main .consulting-video-hero .btn-outline-light{
+  background:linear-gradient(145deg,rgba(255,255,255,.19),rgba(255,255,255,.055))!important;
+  border:1px solid rgba(255,255,255,.55)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.28),0 10px 34px rgba(0,0,0,.18);
+  -webkit-backdrop-filter:blur(15px);
+  backdrop-filter:blur(15px);
+  color:#fff!important;
+}
+.cojuka-glass-public main .hero-content .btn-white,
+.cojuka-glass-public main .consulting-video-hero .btn-brand{
+  background:rgba(255,255,255,.94)!important;
+  border:1px solid white;
+  box-shadow:inset 0 1px #fff,0 13px 35px rgba(0,0,0,.19);
+}
+/* Institutional slides: frosted information capsule laid over untouched photos. */
+.cojuka-glass-public .cojuka-entity-panel{
+  border:1px solid rgba(255,255,255,.32);
+  box-shadow:0 28px 85px rgba(16,27,45,.26);
+}
+.cojuka-glass-public .cojuka-entity-panel .cojuka-entity-content{
+  max-width:min(760px,100%);
+  padding:clamp(20px,3vw,40px);
+  background:linear-gradient(115deg,rgba(19,31,47,.72),rgba(19,30,48,.31));
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:25px;
+  box-shadow:inset 0 1px rgba(255,255,255,.15),0 25px 80px -40px rgba(0,0,0,.7);
+  -webkit-backdrop-filter:blur(17px);
+  backdrop-filter:blur(17px);
+}
+.cojuka-glass-public .cojuka-entity-panel .cojuka-entity-link{
+  background:rgba(255,255,255,.93);
+  border:1px solid rgba(255,255,255,.8);
+  box-shadow:0 12px 30px rgba(0,0,0,.20);
+}
+.cojuka-glass-public .cojuka-entity-arrow{
+  background:rgba(246,248,252,.80)!important;
+  border-color:rgba(255,255,255,.9)!important;
+  box-shadow:0 8px 25px rgba(0,0,0,.22),inset 0 1px white;
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+}
+/* Floating navigation: rich transparency, restrained border and specular highlight. */
+body.cojuka-glass-public .cojuka-global-nav.site-nav{
+  background:rgba(249,250,253,.71)!important;
+  border-bottom:1px solid rgba(255,255,255,.84)!important;
+  box-shadow:0 10px 44px -20px rgba(23,36,65,.27),inset 0 1px rgba(255,255,255,.75)!important;
+  -webkit-backdrop-filter:blur(26px) saturate(175%);
+  backdrop-filter:blur(26px) saturate(175%);
+}
+body.cojuka-glass-public .cojuka-global-nav .dropdown-menu{
+  background:rgba(249,250,254,.89)!important;
+  box-shadow:0 22px 70px rgba(22,27,52,.16),inset 0 1px white!important;
+  border:1px solid rgba(255,255,255,.95)!important;
+  -webkit-backdrop-filter:blur(28px);
+  backdrop-filter:blur(28px);
+}
+@media(max-width:1399.98px){
+ body.cojuka-glass-public .cojuka-global-nav .navbar-collapse{
+  background:rgba(250,251,254,.94)!important;
+  -webkit-backdrop-filter:blur(24px);
+  backdrop-filter:blur(24px);
+ }
+}
+.cojuka-glass-public .cojuka-site-footer{
+  background:radial-gradient(ellipse at 0% 0%,rgba(175,100,131,.13),transparent 55%),
+    linear-gradient(145deg,rgba(245,247,253,.96),rgba(229,234,245,.94))!important;
+  border-top:1px solid rgba(255,255,255,.95)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.9);
+}
+/* Forms use a frosted shell but high-opacity fields to protect readability. */
+.cojuka-glass-public main :is(form:not(.navbar-nav form),.contact-form){
+  border-radius:22px;
+}
+.cojuka-glass-public main :is(input.form-control,select.form-select,textarea.form-control){
+  background:rgba(255,255,255,.94)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.92);
+  border:1px solid rgba(143,160,184,.37)!important;
+}
+/* Explorer: immersive dashboard floating over clear moving media. */
+.cojuka-glass-public .cx-page{
+  background:
+    radial-gradient(ellipse at 5% 4%,rgba(111,40,65,.22),transparent 50%),
+    radial-gradient(ellipse at 95% 96%,rgba(55,96,157,.2),transparent 55%),#080e19;
+}
+.cojuka-glass-public .cx-page .cx-stage{
+  border:1px solid rgba(255,255,255,.23);
+  box-shadow:0 40px 115px rgba(0,0,0,.45),inset 0 1px rgba(255,255,255,.12);
+}
+.cojuka-glass-public .cx-page .cx-stage-info{
+  padding:clamp(18px,2.2vw,32px);
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:24px;
+  background:linear-gradient(125deg,rgba(15,27,43,.65),rgba(16,29,47,.27));
+  -webkit-backdrop-filter:blur(15px) saturate(135%);
+  backdrop-filter:blur(15px) saturate(135%);
+  box-shadow:inset 0 1px rgba(255,255,255,.18),0 25px 65px -30px rgba(0,0,0,.68);
+}
+.cojuka-glass-public .cx-page :is(.cx-mode,.cx-card,.cx-controls button,.cx-stage-side button){
+  background:linear-gradient(145deg,rgba(50,65,90,.72),rgba(21,35,52,.55))!important;
+  border:1px solid rgba(255,255,255,.29)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.17),0 15px 44px rgba(1,7,15,.31)!important;
+  -webkit-backdrop-filter:blur(17px);
+  backdrop-filter:blur(17px);
+}
+/* Suite management: pale multicolour glass surfaces with dimensional depth. */
+.cojuka-glass-admin .workspace{
+ background:
+  radial-gradient(ellipse 58% 50% at 5% 4%,rgba(160,54,90,.15),transparent 76%),
+  radial-gradient(ellipse 48% 52% at 96% 38%,rgba(96,144,215,.20),transparent 76%),
+  radial-gradient(ellipse 48% 47% at 37% 94%,rgba(211,185,164,.17),transparent 78%),
+  #edf1f7!important;
+}
+.cojuka-glass-admin .page-content .card{
+ background:linear-gradient(145deg,rgba(255,255,255,.83),rgba(248,249,254,.63))!important;
+ border:1px solid rgba(255,255,255,.96)!important;
+ box-shadow:var(--cg-lift)!important;
+ border-radius:24px!important;
+ -webkit-backdrop-filter:blur(23px) saturate(158%);
+ backdrop-filter:blur(23px) saturate(158%);
+}
+.cojuka-glass-admin .page-content .card:hover{
+ box-shadow:0 30px 75px -28px rgba(32,43,79,.25),inset 0 1px rgba(255,255,255,.97)!important;
+}
+.cojuka-glass-admin .topbar{
+ background:rgba(255,255,255,.70)!important;
+ border-bottom:1px solid rgba(255,255,255,.93)!important;
+ box-shadow:0 11px 36px -24px rgba(27,45,73,.32),inset 0 1px rgba(255,255,255,.94)!important;
+ -webkit-backdrop-filter:blur(25px) saturate(170%);
+ backdrop-filter:blur(25px) saturate(170%);
+}
+.cojuka-glass-admin .sidebar{
+ background:linear-gradient(160deg,rgba(28,42,65,.97),rgba(9,19,35,.99))!important;
+ box-shadow:inset -1px 0 rgba(255,255,255,.12),12px 0 42px rgba(18,26,46,.12);
+}
+.cojuka-glass-admin .sidebar .brand{
+ background:linear-gradient(120deg,rgba(255,255,255,.12),rgba(255,255,255,.02));
+ border-bottom:1px solid rgba(255,255,255,.13);
+}
+.cojuka-glass-admin .sidebar .side-link.active{
+ background:linear-gradient(115deg,rgba(255,255,255,.19),rgba(255,255,255,.055))!important;
+ box-shadow:inset 3px 0 #d8ac8a,0 8px 20px rgba(0,0,0,.09)!important;
+}
+.cojuka-glass-admin .page-content .modal-content,
+.cojuka-glass-admin .modal-content{
+ background:linear-gradient(140deg,rgba(255,255,255,.98),rgba(245,248,253,.96))!important;
+ border:1px solid rgba(255,255,255,.98)!important;
+ box-shadow:0 30px 110px rgba(17,26,42,.30),inset 0 1px white!important;
+ border-radius:24px!important;
+ -webkit-backdrop-filter:blur(24px);
+ backdrop-filter:blur(24px);
+}
+.cojuka-glass-admin .page-content :is(.form-control,.form-select),
+.cojuka-glass-admin .modal-content :is(.form-control,.form-select){
+ background:rgba(255,255,255,.97)!important;
+ border:1px solid rgba(145,162,184,.42)!important;
+ box-shadow:inset 0 1px rgba(255,255,255,.98);
+}
+.cojuka-glass-admin .page-content .table-responsive{
+ border:1px solid rgba(225,231,243,.68);
+ border-radius:15px;
+ background:rgba(255,255,255,.4);
+}
+.cojuka-glass-admin .page-content .card .badge{
+ box-shadow:inset 0 1px rgba(255,255,255,.25);
+}
+/* Photo sign-in uses a thicker, luminous frosted sheet. */
+.cojuka-glass-auth .auth-workspace{
+ background:linear-gradient(145deg,rgba(255,255,255,.91),rgba(244,247,252,.80))!important;
+ border:1px solid rgba(255,255,255,.95)!important;
+ border-radius:28px!important;
+ box-shadow:0 35px 100px rgba(3,12,28,.34),inset 0 1px white,inset 1px 0 rgba(255,255,255,.68)!important;
+ -webkit-backdrop-filter:blur(30px) saturate(155%);
+ backdrop-filter:blur(30px) saturate(155%);
+}
+.cojuka-glass-auth .auth-feature{
+ background:linear-gradient(120deg,rgba(29,43,62,.65),rgba(26,37,58,.34))!important;
+ border-color:rgba(255,255,255,.34)!important;
+ -webkit-backdrop-filter:blur(15px);
+ backdrop-filter:blur(15px);
+}
+.cojuka-glass-auth .auth-panel :is(.form-control,.form-select){
+ background:rgba(255,255,255,.94)!important;
+}
+/* Assistant: polished glass shell, legible message canvas. */
+.cojuka-glass #cojuka-ai-panel{
+ background:rgba(250,251,254,.92)!important;
+ border:1px solid rgba(255,255,255,.92)!important;
+ box-shadow:0 30px 90px rgba(11,22,38,.24),inset 0 1px white!important;
+ -webkit-backdrop-filter:blur(23px);
+ backdrop-filter:blur(23px);
+}
+.cojuka-glass .cai-head{
+ background:linear-gradient(130deg,rgba(32,47,68,.93),rgba(24,34,55,.88))!important;
+ border-bottom:1px solid rgba(255,255,255,.13);
+}
+.cojuka-glass .cai-body{background:rgba(248,249,253,.80)!important}
+.cojuka-glass :is(.cai-bubble,.cai-guide,.cai-topic){
+ background:rgba(255,255,255,.93)!important;
+ border-color:rgba(217,224,235,.85)!important;
+ box-shadow:inset 0 1px rgba(255,255,255,.94);
+}
+.cojuka-glass-legacy :is(.panel,.stat,.card){
+ background:linear-gradient(130deg,rgba(255,255,255,.87),rgba(243,246,253,.65))!important;
+ border:1px solid #fff!important;
+ box-shadow:var(--cg-lift)!important;
+ border-radius:20px;
+}
+/* Dark mode: wine-toned reflections on charcoal glass with readable labels. */
+html[data-cojuka-theme="dark"] .cojuka-glass-public main :is(.service-card,.info-card,.history-card,.service,.model-card,.cojuka-atlas-photo){
+ background:linear-gradient(145deg,rgba(44,52,69,.90),rgba(24,31,45,.85))!important;
+ border-color:rgba(255,255,255,.22)!important;
+ box-shadow:0 22px 60px rgba(0,0,0,.20),inset 0 1px rgba(255,255,255,.14)!important;
+ color:#f3f6fc;
+}
+html[data-cojuka-theme="dark"] .cojuka-glass-public main :is(.service-card,.info-card,.history-card,.service,.model-card) :is(h2,h3,h4,p,.muted,.service-title,.service-description){color:#e8ecf5!important}
+html[data-cojuka-theme="dark"] .cojuka-glass-public main .service-card .service-content{background:rgba(19,27,43,.58);border-top-color:rgba(255,255,255,.14)}
+html[data-cojuka-theme="dark"] .cojuka-glass-public main :is(.soft-section,.soft,.cojuka-photo-atlas){
+ background:radial-gradient(ellipse at 8% 16%,rgba(136,46,73,.28),transparent 52%),
+            radial-gradient(ellipse at 89% 70%,rgba(75,100,159,.22),transparent 50%),#141b29!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-global-nav.site-nav{background:rgba(20,24,34,.79)!important;border-bottom-color:rgba(255,255,255,.17)!important}
+html[data-cojuka-theme="dark"] .cojuka-glass-public .cojuka-entity-content{background:linear-gradient(110deg,rgba(10,19,30,.77),rgba(12,21,34,.42))}
+@media(max-width:767px){
+ .cojuka-glass-public main :is(.service-card,.info-card,.history-card,.service,.cojuka-atlas-photo),
+ .cojuka-glass-admin .page-content .card{-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+ .cojuka-glass-public .cojuka-entity-panel .cojuka-entity-content{padding:19px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+ .cojuka-glass-public .cx-page .cx-stage-info{padding:17px;backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
+ .cojuka-glass-auth .auth-workspace{-webkit-backdrop-filter:blur(13px);backdrop-filter:blur(13px)}
+ .cojuka-glass-public main .hero-content>.hero-sub{padding:14px 17px;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+}
+@media(prefers-reduced-transparency:reduce){
+ .cojuka-glass-public main .hero-content>.hero-sub{background:rgba(12,22,36,.96)!important}
+ .cojuka-glass-public .cojuka-entity-panel .cojuka-entity-content{background:#192337!important}
+ .cojuka-glass-public .cx-page .cx-stage-info{background:#192336!important}
+ .cojuka-glass-auth .auth-workspace{background:#fff!important}
+ .cojuka-glass-public .cojuka-global-nav.site-nav{background:#f9fafc!important}
+ .cojuka-glass-admin .page-content .card{background:#fff!important}
+ .cojuka-glass-public main :is(.service-card,.info-card,.history-card,.service,.model-card,.cojuka-atlas-photo){background:#fff!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .cojuka-glass-public main :is(.service-card,.info-card,.history-card,.service,.model-card,.cojuka-atlas-photo){transition:none!important}
+ .cojuka-glass-public .cojuka-entity-panel .cojuka-entity-content{transition:none!important}
+}

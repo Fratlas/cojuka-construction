@@ -214,3 +214,201 @@ html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-global-nav .nav-
  background:linear-gradient(135deg,#737F8D,#4B5664)!important;
  color:#FFFFFF!important;
 }
+
+
+/* =====================================================================
+   COJUKA DARK / PURE WHITE ACCENTS — graphite instead of red gradients.
+   Applies ONLY when the public dark-mode toggle is active. Never recolor
+   the official COJUKA logo/wordmark image or editorial photographs.
+   ===================================================================== */
+html[data-cojuka-theme="dark"] body.cojuka-glass-public{
+ --cojuka-wine:#FFFFFF;
+ --cg-wine:#FFFFFF;
+ --cg-bordeaux:#FFFFFF;
+ --cc-burgundy:#FFFFFF;
+ --ct-accent:#FFFFFF;
+ --wine:#FFFFFF;
+ --cojuka-neutral-accent:#FFFFFF;
+ --cg-prism:linear-gradient(145deg,rgba(67,77,91,.83),rgba(32,41,55,.83))!important;
+ background:#111822!important;
+ background-color:#111822!important;
+ color:#F4F6FA!important;
+}
+/* Carbon-grey, completely red-free atmospheric glows on public surfaces. */
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main
+ :is(.soft-section,.soft,.cojuka-photo-atlas,.cojuka-home-entities,.cg-photo-marquee,
+     .cg-strategy,.entity-highlights,.entity-photo-section,.history-section:not(.history-belgium)){
+ background:radial-gradient(ellipse at 12% 15%,rgba(165,175,189,.115),transparent 48%),
+  radial-gradient(ellipse at 91% 78%,rgba(104,116,132,.14),transparent 53%),
+  #171F2B!important;
+ background-color:#171F2B!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main.cojuka-home-main
+ .cojuka-home-entities{
+ background:radial-gradient(ellipse at 14% 13%,rgba(158,166,179,.16),transparent 49%),
+  radial-gradient(ellipse at 89% 82%,rgba(99,115,134,.15),transparent 52%),
+  #17212D!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ :is(.cojuka-entities-hero,.cx-page){
+ background:radial-gradient(ellipse at 82% 19%,#414B59,#26303E 46%,#101822 100%)!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-site-footer{
+ background:linear-gradient(145deg,#18212D,#242F3D)!important;
+ background-color:#18212D!important;
+ border-top:1px solid rgba(205,217,234,.18)!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cg-newsletter-panel{
+ background:radial-gradient(ellipse at 110% -8%,rgba(195,202,212,.16),transparent 47%),
+  radial-gradient(ellipse at -5% 110%,rgba(120,134,154,.19),transparent 58%),
+  linear-gradient(130deg,#263242,#111A27)!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cg-newsletter-panel:before,
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cg-charter:before{
+ background:radial-gradient(circle,rgba(198,210,225,.13),transparent 70%)!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-entity-orb{
+ background:radial-gradient(circle at 28% 25%,#7A8798 0%,#455264 48%,#151F2D 80%)!important;
+ border-color:rgba(236,241,248,.32)!important;
+ box-shadow:0 0 0 44px rgba(189,200,218,.05),0 0 0 94px rgba(189,200,218,.04)!important;
+}
+/* White, never pink or burgundy, for thematic headings, highlighted words,
+   small index numbers, category labels, links and icon accents. */
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main
+ :is(.accent,.eyebrow,.tag,.index,.section-kicker,.service-index,.sector span,
+ .history-label,.history-kicker,.history-source:not(.text-secondary),
+ .cg-kicker,.cg-section-title em,.cg-inline-link,.cg-strategy-link,
+ .cg-process-card-top span,.cg-process-card-top i,
+ .cojuka-entities-kicker,.cojuka-entities-heading .accent,
+ .cojuka-all-entities,.cojuka-atlas-eyebrow,.cojuka-atlas-heading a,
+ .service .number,.feature-line .feature-number,
+ .cg-infographic-legend span,.cg-wheel-center strong){
+ color:#FFFFFF!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main
+ :is(.service-card,.info-card,.history-card,.model-card,.service,.entity-photo-tile,.cg-process-card)
+ :is(.index,.tag,.eyebrow,.service-index,.number,.service .number){
+ color:#FFFFFF!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main
+ :is(.service-card,.info-card,.history-card,.model-card,.service,.entity-photo-tile)
+ a:not(.btn):not(.btn-pill){
+ color:#FFFFFF!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ :is(.cg-kicker,.cg-newsletter-overline,.cg-newsletter-copy h2 em,
+     .cg-newsletter-privacy a,.cg-marquee-caption small,.cg-gallery-eyebrow){
+ color:#FFFFFF!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ .cojuka-site-footer .cg-newsletter-panel
+ :is(.cg-newsletter-overline,.cg-newsletter-copy h2 em,.cg-newsletter-privacy a){
+ color:#FFFFFF!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ :is(.cojuka-brand-wordmark,.cojuka-brand-primary,.cojuka-brand-secondary){
+ color:#FFFFFF!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ .cojuka-global-nav :is(.navbar-nav .nav-link,.dropdown-item,.navbar-nav form .btn):hover{
+ color:#FFFFFF!important;
+ background:rgba(255,255,255,.12)!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ .cojuka-site-footer :is(.cojuka-footer-links a:hover,.cg-social-links a,
+ .cg-footer-social h3,.cojuka-footer-bottom a:hover,.cg-cookie-footer-link:hover){
+ color:#FFFFFF!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ .cojuka-site-footer .cg-social-links a:hover{
+ background:#485563!important;color:#FFFFFF!important;
+ box-shadow:0 12px 30px rgba(0,0,0,.18)!important;
+}
+/* White markers and cool silver lines, no pink hover halo. */
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ :is(.cg-kicker-line,.cg-method-rule){
+ background:linear-gradient(90deg,rgba(255,255,255,.85),rgba(205,214,228,.25))!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ .cojuka-entity-dots button{
+ background:#BBC5D1!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ .cojuka-entity-dots button.is-active{
+ background:#FFFFFF!important;opacity:1!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ :is(.cojuka-entity-arrow,.cojuka-entity-dots button):focus-visible{
+ outline:3px solid #E9EFF7!important;outline-offset:3px;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ .cojuka-entity-arrow:hover{background:#3B4859!important;color:#FFFFFF!important}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ main :is(.service-card,.info-card,.history-card,.model-card):focus-within{
+ outline:2px solid #FFFFFF!important;outline-offset:3px;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main .history-timeline,
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main .history-quote{
+ border-left-color:rgba(230,237,247,.83)!important;
+}
+/* White text over muted graphite buttons; preserve DARK ink for WHITE buttons. */
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ main :is(.btn-brand,.btn-dark,.btn-dark-custom),
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ .cg-newsletter-input-row button{
+ background:linear-gradient(135deg,#566475,#374455)!important;
+ border-color:#657385!important;
+ color:#FFFFFF!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ main :is(.btn-brand,.btn-dark,.btn-dark-custom):hover,
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ .cg-newsletter-input-row button:hover{
+ background:linear-gradient(135deg,#647286,#414E60)!important;
+ color:#FFFFFF!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ main :is(.btn-light,.btn-white,.cojuka-entity-link){
+ background:#F7F9FC!important;color:#172333!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ main :is(.btn-light,.btn-white,.cojuka-entity-link):hover{
+ background:#FFFFFF!important;color:#172333!important;
+}
+/* Dark-specific video loaders, navigation and subtle ambient hover lights. */
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ :is(.entity-video-loader .label,.cojuka-video-loader-label){
+ color:#FFFFFF!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ :is(.entity-video-loader .spinner,.cojuka-video-loader-ring){
+ border-top-color:#FFFFFF!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-global-nav .nav-contact,
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-global-nav .nav-contact:hover{
+ color:#FFFFFF!important;
+}
+@media(hover:hover) and (pointer:fine){
+ html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ main :is(.service-card,.info-card,.history-card,.model-card,.cojuka-atlas-photo):hover{
+ box-shadow:0 0 0 1px rgba(213,224,239,.42),
+  0 0 30px -8px rgba(151,167,187,.18),
+  0 22px 65px -23px rgba(0,0,0,.36),
+  inset 0 1px rgba(255,255,255,.14)!important;
+ }
+ html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ .cojuka-global-nav .navbar-brand:hover{
+ filter:drop-shadow(0 0 12px rgba(194,205,221,.22))!important;
+ }
+ html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ .cojuka-global-nav .navbar-nav>.nav-link:hover,
+ html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ .cojuka-global-nav .nav-item>.nav-link:hover{
+ box-shadow:inset 0 0 0 1px rgba(216,226,239,.16),
+  0 0 18px rgba(172,188,210,.15)!important;
+ }
+ html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ main :is(.btn-pill,.btn-outline-light-custom):hover{
+ box-shadow:0 0 20px rgba(182,198,216,.20),0 10px 28px rgba(7,12,21,.25)!important;
+ }
+}

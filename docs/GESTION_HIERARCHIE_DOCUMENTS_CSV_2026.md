@@ -31,7 +31,7 @@ Dans **Gestion → Sociétés & filiales → Ajouter / Modifier** les éléments
 Dans **Sociétés & filiales → Documents** : RCCM, ID.NAT, NIF, statuts, agrément, CNSS, licences et autres.
 Dans **RH → Documents** (sur la ligne du collaborateur) : contrat, pièce d'identité, diplôme, attestation et habilitations.
 
-Formats : PDF, JPG/JPEG, PNG, WebP ; maximum 10 Mo / fichier. Le formulaire fonctionne avec un document déjà numérisé ou une photo prise avec le téléphone. Ce module n'effectue **pas** de reconnaissance OCR ni de scan multipage intégré.
+Formats : PDF, JPG/JPEG, PNG, WebP ; maximum 10 Mo / fichier. Sur l'hébergement, vérifier les paramètres PHP `upload_max_filesize >= 10M` et `post_max_size >= 12M` ainsi que l'espace disque disponible. Le formulaire fonctionne avec un document déjà numérisé ou une photo prise avec le téléphone. Ce module n'effectue **pas** de reconnaissance OCR ni de scan multipage intégré.
 
 Les fichiers sont stockés sur le disque Laravel `local` (privé) sous `cojuka-private/`, **jamais** sur le disque public. Leur téléchargement nécessite une connexion et les permissions de module et de filiale. Ne créez pas de lien symbolique public vers ce dossier. Éviter le stockage de données médicales ou inutiles. Pour un usage RH en production, définir la politique d'accès, la durée de conservation, les sauvegardes chiffrées et, si nécessaire, un contrôle antivirus côté serveur.
 

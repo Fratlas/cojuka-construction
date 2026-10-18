@@ -10,6 +10,7 @@ use App\Http\Controllers\GroupDepartmentController;
 use App\Http\Controllers\GroupImportController;
 use App\Http\Controllers\GroupDocumentController;
 use App\Http\Controllers\CojukaNewsletterController;
+use App\Http\Controllers\GroupNewsletterController;
 Route::post('/assistant/appel-vocal', [App\Http\Controllers\CojukaRealtimeController::class, 'connect'])->middleware('throttle:5,1')->name('cojuka.assistant.realtime');
 Route::post('/assistant/reponse', [App\Http\Controllers\CojukaAssistantController::class, 'reply'])->middleware('throttle:12,1')->name('cojuka.assistant.reply');
 Route::view('/', 'welcome')->name('home');
@@ -61,6 +62,8 @@ Route::post('/deconnexion', [GroupLoginController::class, 'logout'])->middleware
 Route::middleware(['auth', 'group.admin'])->prefix('gestion')->name('gestion.')->group(function () {
  Route::get('/', [GroupAdminController::class, 'dashboard'])->name('group.dashboard');
  Route::view('/guide', 'gestion.guide')->name('guide');
+ Route::get('/newsletter', [GroupNewsletterController::class, 'index'])->middleware('can:manage-users')->name('newsletter.index');
+ Route::get('/newsletter/export-csv', [GroupNewsletterController::class, 'export'])->middleware('can:manage-users')->name('newsletter.export');
  Route::get('/departements', [GroupDepartmentController::class, 'index'])->middleware('can:manage-users')->name('departments.index');
  Route::get('/departements/export-csv', [GroupDepartmentController::class, 'exportCsv'])->middleware('can:manage-users')->name('departments.export');
  Route::post('/departements/import-csv', [GroupDepartmentController::class, 'importCsv'])->middleware(['can:manage-users','throttle:3,1'])->name('departments.import');

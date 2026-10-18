@@ -122,7 +122,9 @@ document.addEventListener('DOMContentLoaded',function(){
    if(copyIndex===i)return;
    copyIndex=i;
    window.clearTimeout(copyTimer);
-   const message=messages[i];
+   const message=copy.dataset.cojukaHeroContext==='group'&&i===0
+    ?{...messages[0],cta:'Découvrir nos expertises',href:'#expertises'}
+    :messages[i];
    const apply=()=>{
     targets.eyebrow.textContent=message.eyebrow;
     targets.title.textContent=message.title;

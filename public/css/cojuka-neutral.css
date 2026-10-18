@@ -444,3 +444,74 @@ html[data-cojuka-theme="dark"] body.cojuka-glass-public
  .cojuka-carousel-arrow:focus-visible{
  outline:3px solid #FFFFFF!important;outline-offset:3px;
 }
+
+/* ==================================================================
+   COJUKA HERO / LIGHTER PHOTOGRAPHY
+   Let real photos and videos breathe: substantially reduce only the
+   dark veil layered OVER media. Do not dim or blur the source photos.
+   Text stays white with a restrained shadow for contrast.
+   ================================================================== */
+body.cojuka-glass-public .hero:before{
+ background:linear-gradient(90deg,
+  rgba(8,15,26,.53) 0%,
+  rgba(8,15,26,.25) 66%,
+  rgba(8,15,26,.09) 100%)!important;
+}
+body.cojuka-glass-public .consulting-video-hero:before{
+ background:linear-gradient(90deg,
+  rgba(8,15,26,.55) 0%,
+  rgba(8,15,26,.26) 65%,
+  rgba(8,15,26,.10) 100%)!important;
+}
+body.cojuka-glass-public .hero .motion-stage:after{
+ background:linear-gradient(90deg,
+   rgba(8,14,26,.56) 0%,
+   rgba(8,14,26,.28) 47%,
+   rgba(8,14,26,.08) 100%),
+  linear-gradient(0deg,rgba(8,14,26,.21),transparent 65%)!important;
+}
+body.cojuka-glass-public .cojuka-entities-hero:before{
+ background:linear-gradient(90deg,
+   rgba(7,12,23,.57) 0%,
+   rgba(7,12,23,.29) 55%,
+   rgba(7,12,23,.10) 100%)!important;
+}
+body.cojuka-glass-public .entity-hero .entity-video-overlay{
+ background:linear-gradient(90deg,rgba(15,23,32,.45),rgba(22,32,43,.06))!important;
+}
+body.cojuka-glass-public .cojuka-home-entities .cojuka-entity-photo{
+ background-image:linear-gradient(90deg,
+   rgba(14,23,32,.48) 0%,
+   rgba(18,30,41,.20) 45%,
+   rgba(20,29,37,.02) 100%),
+   var(--entity-photo)!important;
+}
+body.cojuka-glass-public .cojuka-home-entities .cojuka-entity-panel:after{
+ background:linear-gradient(0deg,rgba(13,22,31,.16),transparent 45%)!important;
+}
+/* Lightened gradient works in both site themes. Shadow maintains legibility
+   where an editorial title happens to overlap a bright image. */
+body.cojuka-glass-public
+ :is(.hero,.consulting-video-hero,.entity-hero,.history-hero,.cojuka-entities-hero)
+ :is(h1,h2,.display-heading,.display-title){
+ text-shadow:0 2px 14px rgba(8,13,22,.34);
+}
+@media(max-width:767px){
+ body.cojuka-glass-public .hero:before{
+  background:linear-gradient(90deg,
+   rgba(8,15,26,.58) 0%,
+   rgba(8,15,26,.31) 63%,
+   rgba(8,15,26,.13) 100%)!important;
+ }
+ body.cojuka-glass-public .consulting-video-hero:before{
+  background:linear-gradient(90deg,rgba(8,15,26,.59),rgba(8,15,26,.23))!important;
+ }
+ body.cojuka-glass-public .hero .motion-stage:after{
+  background:linear-gradient(90deg,rgba(8,14,26,.59),rgba(8,14,26,.23)),
+   linear-gradient(0deg,rgba(8,14,26,.22),transparent 66%)!important;
+ }
+ body.cojuka-glass-public .cojuka-home-entities .cojuka-entity-photo{
+  background-image:linear-gradient(90deg,rgba(13,23,33,.53),rgba(22,30,39,.20)),
+   var(--entity-photo)!important;
+ }
+}

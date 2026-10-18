@@ -324,3 +324,22 @@ html[data-cojuka-theme="dark"] .cojuka-glass-public .cojuka-site-footer{
  color:#f5f7f9!important;
 }
 html[data-cojuka-theme="dark"] .cojuka-glass-public .cojuka-footer-brand .cojuka-brand-wordmark{color:#fff!important}
+
+/* Keep the night palette fully legible on public sections and in the footer. */
+html[data-cojuka-theme="dark"] .cojuka-glass-public main :is(.soft-section,.soft,.cojuka-photo-atlas){
+  background:radial-gradient(ellipse at 10% 20%,rgba(140,45,68,.17),transparent 50%),#151d2b!important;
+  color:#f1f3f7;
+}
+html[data-cojuka-theme="dark"] .cojuka-glass-public .cojuka-atlas-photo figcaption{
+  background:rgba(35,43,58,.94)!important;
+  color:#f3f4f8;
+}
+html[data-cojuka-theme="dark"] .cojuka-glass-public .cojuka-site-footer :is(.cojuka-footer-links h2,.cojuka-footer-brand p){
+  color:#f0f1f4!important;
+}
+html[data-cojuka-theme="dark"] .cojuka-glass-public .cojuka-site-footer :is(.cojuka-footer-links a,.cojuka-footer-links p,.cojuka-footer-bottom){
+  color:#c7cfdd!important;
+}
+html[data-cojuka-theme="dark"] .cojuka-glass-public .cojuka-site-footer .cojuka-footer-bottom{
+  border-top-color:rgba(255,255,255,.19);
+}

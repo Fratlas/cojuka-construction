@@ -107,3 +107,49 @@ html[data-cojuka-theme="dark"] .cojuka-global-nav .navbar-nav>.nav-link,html[dat
 html[data-cojuka-theme="dark"] .cojuka-global-nav .navbar-collapse{background:#1b1c21!important;border-color:#ffffff1c!important}
 @media(prefers-reduced-motion:reduce){.cojuka-global-nav *{transition:none!important}}
 </style>
+<style>
+/* COJUKA · navigation Apple-inspired: restrained, thin, evenly spaced. */
+.cojuka-global-nav.site-nav{
+ min-height:56px!important;background:rgba(250,250,252,.94)!important;
+ border-bottom:1px solid rgba(0,0,0,.07)!important;
+ box-shadow:none!important;backdrop-filter:saturate(180%) blur(20px);
+ -webkit-backdrop-filter:saturate(180%) blur(20px)
+}
+.cojuka-global-nav .container-fluid{max-width:1540px;margin:auto;padding-left:clamp(14px,3vw,42px)!important;padding-right:clamp(14px,3vw,42px)!important;gap:8px}
+.cojuka-global-nav .navbar-brand{min-width:0!important;margin-right:22px!important;padding:0!important}
+.cojuka-global-nav .cojuka-brand-lockup{gap:7px}
+.cojuka-global-nav .cojuka-brand-logo{width:47px!important;height:47px!important;max-height:47px!important}
+.cojuka-global-nav .cojuka-brand-wordmark{font-size:10px!important;line-height:1.17!important;font-weight:760;letter-spacing:.015em!important;color:#782336}
+.cojuka-global-nav .navbar-nav{gap:clamp(1px,.5vw,8px);justify-content:space-between;width:100%}
+.cojuka-global-nav .navbar-nav>.nav-link,.cojuka-global-nav .nav-item>.nav-link{
+ padding:9px clamp(5px,.65vw,11px)!important;margin:0!important;
+ font-size:12px!important;font-weight:500!important;letter-spacing:0!important;
+ color:#303034!important;border-radius:6px!important;background:none!important;
+ box-shadow:none!important;border:0!important;white-space:nowrap
+}
+.cojuka-global-nav .nav-link:not(.dropdown-toggle)::after{display:none!important}
+.cojuka-global-nav .navbar-nav>.nav-link:hover,.cojuka-global-nav .nav-item>.nav-link:hover{color:#8b2438!important;background:#00000008!important;transform:none!important}
+.cojuka-global-nav .navbar-nav>.nav-link.nav-contact{background:none!important;color:#303034!important;box-shadow:none!important;border:0!important;padding:9px clamp(5px,.65vw,11px)!important}
+.cojuka-global-nav .dropdown-menu{border-radius:0 0 16px 16px!important;border:1px solid #e8e8eb!important;padding:14px!important;box-shadow:0 20px 36px #11111113!important;min-width:240px}
+.cojuka-global-nav .dropdown-item{padding:10px 12px!important;font-size:13px!important}
+.cojuka-global-nav .navbar-nav form .btn{font-size:12px!important;padding:7px 11px!important;border:0!important;background:transparent!important;color:#303034!important}
+.cojuka-global-nav .navbar-nav form .btn:hover{color:#8b2438!important;background:#00000008!important}
+.cojuka-global-nav .cojuka-theme-toggle{width:32px!important;height:32px!important;min-width:32px!important;margin-right:3px!important}
+.cojuka-global-nav .cojuka-language-trigger{font-size:12px!important}
+@media(max-width:1399.98px){
+ .cojuka-global-nav.site-nav{min-height:60px!important}
+ .cojuka-global-nav .navbar-brand{max-width:calc(100% - 150px)!important}
+ .cojuka-global-nav .cojuka-brand-logo{width:50px!important;height:50px!important;max-height:50px!important}
+ .cojuka-global-nav .cojuka-brand-wordmark{font-size:10px!important}
+ .cojuka-global-nav .navbar-collapse{margin-top:0!important;border:0!important;border-top:1px solid #e9e9ed!important;box-shadow:0 18px 30px #0000000d!important;border-radius:0 0 16px 16px!important;background:rgba(250,250,252,.99)!important}
+ .cojuka-global-nav .navbar-nav{gap:0!important}
+ .cojuka-global-nav .navbar-nav>.nav-link,.cojuka-global-nav .nav-item>.nav-link{padding:13px 18px!important;font-size:14px!important}
+ .cojuka-global-nav .navbar-nav>.nav-link.nav-contact{padding:13px 18px!important}
+ .cojuka-global-nav .dropdown-menu{box-shadow:none!important;border:0!important;padding:4px 12px!important}
+}
+html[data-cojuka-theme="dark"] .cojuka-global-nav.site-nav{background:rgba(22,22,25,.95)!important;border-color:#ffffff1a!important}
+html[data-cojuka-theme="dark"] .cojuka-global-nav .nav-link,html[data-cojuka-theme="dark"] .cojuka-global-nav .navbar-nav form .btn{color:#f1f1f3!important}
+html[data-cojuka-theme="dark"] .cojuka-global-nav .navbar-nav>.nav-link.nav-contact{color:#f1f1f3!important}
+html[data-cojuka-theme="dark"] .cojuka-global-nav .navbar-collapse{background:#1a1a20!important;border-color:#ffffff1c!important}
+@media(prefers-reduced-motion:reduce){.cojuka-global-nav *{transition:none!important}}
+</style>

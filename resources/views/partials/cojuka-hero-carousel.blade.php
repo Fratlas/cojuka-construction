@@ -12,7 +12,7 @@
 @once
 <style>
 .cojuka-video-carousel{position:absolute;inset:0;overflow:hidden;z-index:0}
-.cojuka-video-carousel .cojuka-carousel-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease;pointer-events:none}
+.cojuka-video-carousel .cojuka-carousel-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .85s ease;pointer-events:none}
 .cojuka-video-carousel .cojuka-carousel-video.is-active.is-playing{opacity:1}
 .cojuka-carousel-controls{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:6;display:flex;gap:12px;padding:10px 14px;border-radius:99px;background:rgba(0,0,0,.3)}
 .cojuka-carousel-dot{width:12px;height:12px;padding:0;border:2px solid #fff;border-radius:50%;background:transparent;cursor:pointer}
@@ -31,50 +31,90 @@
 document.addEventListener('DOMContentLoaded',function(){
  document.querySelectorAll('[data-cojuka-video-carousel]').forEach(function(root){
   const videos=Array.from(root.querySelectorAll('video'));
-  const loader=root.querySelector('.cojuka-video-loader');
   const dots=Array.from(root.parentElement.querySelectorAll('[data-video-index]'));
+  if(!videos.length)return;
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const state=videos.map(v=>({source:v.dataset.remote?1:0,failed:false,loaded:false}));
-  let active=0,request=0,timeout=null,heroReady=false;
-  function announceReady(){if(heroReady)return;heroReady=true;window.dispatchEvent(new Event('cojuka:hero-ready'))}
-  function loading(on){if(loader)loader.classList.toggle('is-hidden',!on)}
-  function dotsUpdate(){dots.forEach((b,i)=>{b.classList.toggle('is-active',i===active);b.setAttribute('aria-pressed',String(i===active));b.disabled=state[i].failed})}
-  function next(){for(let j=1;j<=videos.length;j++){const i=(active+j)%videos.length;if(!state[i].failed){show(i);return}}loading(false)}
-  function source(i){return state[i].source===0?videos[i].dataset.local:videos[i].dataset.remote}
-  function fail(i){
-   if(state[i].failed)return;
-   if(state[i].source===0&&videos[i].dataset.remote){state[i].source=1;state[i].loaded=false;videos[i].src=source(i);videos[i].load();if(i===active)play(i);return}
-   state[i].failed=true;videos[i].pause();videos[i].classList.remove('is-active','is-playing');
-   if(i===active){announceReady();next()}
+  const saveData=!!(navigator.connection&&navigator.connection.saveData);
+  const state=videos.map(v=>({remote:false,failed:false}));
+  let active=0,pending=-1,ready=false,watchdog=null;
+  function announceReady(){if(!ready){ready=true;window.dispatchEvent(new Event('cojuka:hero-ready'))}}
+  function updateDots(){dots.forEach((b,i)=>{b.classList.toggle('is-active',i===active);b.setAttribute('aria-pressed',String(i===active));b.disabled=state[i].failed})}
+  function getSource(i){return state[i].remote?videos[i].dataset.remote:videos[i].dataset.local}
+  function prepare(i){const v=videos[i];if(!v.getAttribute('src')){v.src=getSource(i);v.load()}}
+  function commit(i){
+   if(pending!==i)return;
+   clearTimeout(watchdog);
+   const previous=active;
+   active=i;pending=-1;
+   videos[i].classList.add('is-active','is-playing');
+   if(previous!==i){
+    // Leave the outgoing frame visible until the incoming video has actually started.
+    videos[previous].classList.remove('is-active');
+    window.setTimeout(()=>{if(active!==previous){videos[previous].classList.remove('is-playing');videos[previous].pause()}},850);
+   }
+   updateDots();announceReady();
   }
-  function play(i){
+  function fallback(i){
+   if(state[i].failed)return;
    const v=videos[i];
-   if(!v.src){v.src=source(i);v.load()}
-   const p=v.play();
-   if(p&&p.catch)p.catch(e=>{if(e&&e.name==='NotAllowedError'){loading(false);return}if(v.error)fail(i)});
+   if(!state[i].remote&&v.dataset.remote){
+    state[i].remote=true;v.pause();v.removeAttribute('src');v.load();
+    v.src=getSource(i);v.load();
+    if(pending===i)start(i);
+    return;
+   }
+   state[i].failed=true;
+   if(pending===i){
+    pending=-1;clearTimeout(watchdog);
+    v.classList.remove('is-active','is-playing');
+    const next=videos.findIndex((_,j)=>j!==i&&!state[j].failed);
+    if(next>=0&&next!==active)start(next);else announceReady();
+   }
+   updateDots();
   }
-  function show(i){
-   if(state[i].failed)return;
-   active=i;const token=++request;
-   clearTimeout(timeout);loading(false);
-   videos.forEach((v,j)=>{v.classList.toggle('is-active',i===j);v.classList.remove('is-playing');if(j!==i)v.pause()});
-   dotsUpdate();
-   if(reduced){loading(false);announceReady();return}
-   play(i);
-   if(videos[i].readyState>=2)loading(false);
-   timeout=setTimeout(()=>{if(token!==request)return;if(videos[i].readyState<2)fail(i);else loading(false)},4500);
+  function start(i){
+   if(state[i].failed||reduced||saveData)return;
+   if(pending===i&&watchdog)return;
+   if(pending>=0&&pending!==i){videos[pending].pause();videos[pending].classList.remove('is-active','is-playing')}
+   pending=i;
+   clearTimeout(watchdog);
+   const v=videos[i];
+   prepare(i);
+   const promise=v.play();
+   if(promise&&promise.catch)promise.catch(e=>{
+    if(pending!==i)return;
+    if(e&&e.name==='AbortError')return;
+    if(e&&e.name==='NotAllowedError'){pending=-1;announceReady();return}
+    fallback(i);
+   });
+   watchdog=window.setTimeout(()=>{if(pending===i)fallback(i)},7500);
   }
   videos.forEach((v,i)=>{
-   v.addEventListener('loadeddata',()=>{state[i].loaded=true;if(i===active)loading(false)});
-   v.addEventListener('playing',()=>{if(i===active){v.classList.add('is-playing');loading(false);announceReady()}});
-   v.addEventListener('error',()=>fail(i));
-   v.addEventListener('ended',()=>{if(i===active&&!reduced)next()});
-   v.addEventListener('waiting',()=>{if(i===active){v.classList.remove('is-playing');loading(false)}});
+   v.addEventListener('playing',()=>commit(i));
+   v.addEventListener('error',()=>fallback(i));
+   v.addEventListener('ended',()=>{
+    if(active!==i||pending>=0||reduced)return;
+    for(let step=1;step<=videos.length;step++){
+     const next=(i+step)%videos.length;
+     if(!state[next].failed){start(next);break}
+    }
+   });
+   v.addEventListener('waiting',()=>{if(i===active&&pending<0)announceReady()});
   });
-  dots.forEach((b,i)=>b.addEventListener('click',()=>show(i)));
-  if(reduced || (navigator.connection && navigator.connection.saveData)){loading(false);announceReady();return}
-  const begin=()=>show(0);
-  if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){observer.disconnect();begin()}},{rootMargin:'150px'});observer.observe(root)}else begin();
+  dots.forEach((button,i)=>button.addEventListener('click',()=>{
+   if(i===active||state[i].failed)return;
+   start(i);
+  }));
+  updateDots();
+  if(reduced||saveData){announceReady();return}
+  const begin=()=>start(0);
+  if('IntersectionObserver' in window){
+   const observer=new IntersectionObserver(entries=>{
+    if(entries.some(entry=>entry.isIntersecting)){observer.disconnect();begin()}
+   },{rootMargin:'150px'});
+   observer.observe(root);
+  }else begin();
+  window.addEventListener('pagehide',()=>{clearTimeout(watchdog);videos.forEach(v=>v.pause())},{once:true});
  });
 });
 </script>

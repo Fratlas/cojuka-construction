@@ -75,7 +75,11 @@
   filter:none!important;
 }
 .cojuka-global-nav .cojuka-brand-wordmark{
-  display:block!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  gap:3px!important;
   margin:0 0 0 5px!important;
   padding:0!important;
   color:#83263b!important;

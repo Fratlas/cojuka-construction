@@ -1,119 +1,173 @@
 <div class="cojuka-video-carousel" data-cojuka-video-carousel aria-label="Vidéos de présentation COJUKA" style="background:linear-gradient(90deg,rgba(7,12,23,.5),rgba(7,12,23,.15)),url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1500&q=76&fm=webp') center/cover no-repeat">
- <video class="cojuka-carousel-video is-active" muted playsinline preload="none" autoplay poster="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=74&fm=webp" data-local="{{ asset('videos/cojuka-hero.mp4') }}" data-remote="https://d8j0ntlcm91z4.cloudfront.net/user_35sq0uUmKRerZDm8Ty4efx2WQSL/hf_20261015_161148_e24a7720-8b37-44eb-aa21-d63f68adde8b.mp4" aria-hidden="true"></video>
- <video class="cojuka-carousel-video" muted playsinline preload="none" poster="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=74&fm=webp" data-local="{{ asset('videos/cojuka-hero-2.mp4') }}" data-remote="https://d8j0ntlcm91z4.cloudfront.net/user_35sq0uUmKRerZDm8Ty4efx2WQSL/hf_20261015_161148_798130d0-0d7d-47fa-8c17-b7c076aa9bf3.mp4" aria-hidden="true"></video>
- <video class="cojuka-carousel-video" muted playsinline preload="none" poster="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=74&fm=webp" data-local="{{ asset('videos/cojuka-hero-3.mp4') }}" data-remote="https://d8j0ntlcm91z4.cloudfront.net/user_35sq0uUmKRerZDm8Ty4efx2WQSL/hf_20261015_161147_bbb8b8aa-ee22-4316-b29a-340e357d855c.mp4" aria-hidden="true"></video>
+ <video data-slide class="cojuka-carousel-video is-active" muted playsinline preload="none" autoplay poster="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=74&fm=webp" data-local="{{ asset('videos/cojuka-hero.mp4') }}" data-remote="https://d8j0ntlcm91z4.cloudfront.net/user_35sq0uUmKRerZDm8Ty4efx2WQSL/hf_20261015_161148_e24a7720-8b37-44eb-aa21-d63f68adde8b.mp4" aria-hidden="true"></video>
+ <video data-slide class="cojuka-carousel-video" muted playsinline preload="none" poster="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=74&fm=webp" data-local="{{ asset('videos/cojuka-hero-2.mp4') }}" data-remote="https://d8j0ntlcm91z4.cloudfront.net/user_35sq0uUmKRerZDm8Ty4efx2WQSL/hf_20261015_161148_798130d0-0d7d-47fa-8c17-b7c076aa9bf3.mp4" aria-hidden="true"></video>
+ <video data-slide class="cojuka-carousel-video" muted playsinline preload="none" poster="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=74&fm=webp" data-local="{{ asset('videos/cojuka-hero-3.mp4') }}" data-remote="https://d8j0ntlcm91z4.cloudfront.net/user_35sq0uUmKRerZDm8Ty4efx2WQSL/hf_20261015_161147_bbb8b8aa-ee22-4316-b29a-340e357d855c.mp4" aria-hidden="true"></video>
+
+<div class="cojuka-carousel-photo" data-slide aria-hidden="true"><img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&amp;fit=crop&amp;w=1800&amp;q=80&amp;fm=webp" alt="" loading="lazy" decoding="async"></div>
+<div class="cojuka-carousel-photo" data-slide aria-hidden="true"><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&amp;fit=crop&amp;w=1800&amp;q=80&amp;fm=webp" alt="" loading="lazy" decoding="async"></div>
+<div class="cojuka-carousel-photo" data-slide aria-hidden="true"><img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;w=1800&amp;q=80&amp;fm=webp" alt="" loading="lazy" decoding="async"></div>
 <div class="cojuka-video-loader" aria-live="polite"><img src="{{ asset('images/cojuka-logo.svg') }}" alt="COJUKA Consulting Group" width="180" height="54"><span class="cojuka-video-loader-ring" aria-hidden="true"></span><span class="cojuka-video-loader-label">Chargement de la vidéo…</span></div>
 </div>
-<div class="cojuka-carousel-controls" role="group" aria-label="Choisir la vidéo">
-<button type="button" class="cojuka-carousel-dot is-active" data-video-index="0" aria-label="Vidéo 1" aria-pressed="true"></button>
-<button type="button" class="cojuka-carousel-dot" data-video-index="1" aria-label="Vidéo 2" aria-pressed="false"></button>
-<button type="button" class="cojuka-carousel-dot" data-video-index="2" aria-label="Vidéo 3" aria-pressed="false"></button>
+<div class="cojuka-carousel-controls" role="group" aria-label="Navigation des six slides COJUKA">
+<button type="button" class="cojuka-carousel-arrow" data-carousel-direction="-1" aria-label="Slide précédent">‹</button>
+<div class="cojuka-carousel-dots" role="group" aria-label="Choisir une présentation"><button type="button" class="cojuka-carousel-dot is-active" data-video-index="0" aria-label="Vidéo du groupe 1, slide 1 sur 6" aria-pressed="true"></button>
+<button type="button" class="cojuka-carousel-dot" data-video-index="1" aria-label="Vidéo du groupe 2, slide 2 sur 6" aria-pressed="false"></button>
+<button type="button" class="cojuka-carousel-dot" data-video-index="2" aria-label="Vidéo du groupe 3, slide 3 sur 6" aria-pressed="false"></button>
+<button type="button" class="cojuka-carousel-dot" data-video-index="3" aria-label="Mining, slide 4 sur 6" aria-pressed="false"></button>
+<button type="button" class="cojuka-carousel-dot" data-video-index="4" aria-label="Construction, slide 5 sur 6" aria-pressed="false"></button>
+<button type="button" class="cojuka-carousel-dot" data-video-index="5" aria-label="Logistique, slide 6 sur 6" aria-pressed="false"></button></div>
+<button type="button" class="cojuka-carousel-arrow" data-carousel-direction="1" aria-label="Slide suivant">›</button>
+<span class="cojuka-carousel-count" aria-live="polite"><span data-current-slide>01</span> / 06</span>
 </div>
 @once
 <style>
 .cojuka-video-carousel{position:absolute;inset:0;overflow:hidden;z-index:0}
-.cojuka-video-carousel .cojuka-carousel-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .85s ease;pointer-events:none}
-.cojuka-video-carousel .cojuka-carousel-video.is-active.is-playing{opacity:1}
-.cojuka-carousel-controls{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:6;display:flex;gap:12px;padding:10px 14px;border-radius:99px;background:rgba(0,0,0,.3)}
-.cojuka-carousel-dot{width:12px;height:12px;padding:0;border:2px solid #fff;border-radius:50%;background:transparent;cursor:pointer}
-.cojuka-carousel-dot.is-active{background:#fff}
-.cojuka-carousel-dot:focus-visible{outline:3px solid #e8ba77;outline-offset:4px}
-@media(prefers-reduced-motion:reduce){.cojuka-video-carousel .cojuka-carousel-video{transition:none}}
-.cojuka-video-loader{display:none!important;position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#f8f8f8e8;transition:opacity .5s ease;pointer-events:none}
-.cojuka-video-loader img{width:180px;height:auto;max-height:64px;object-fit:contain}
-.cojuka-video-loader-ring{width:30px;height:30px;border:3px solid #e7d9dd;border-top-color:#86212e;border-radius:50%;animation:cojukaLoaderSpin .85s linear infinite}
-.cojuka-video-loader-label{font-size:.78rem;font-weight:650;letter-spacing:.04em;color:#86212e}
+.cojuka-video-carousel .cojuka-carousel-video,.cojuka-video-carousel .cojuka-carousel-photo{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .85s ease;pointer-events:none}
+.cojuka-video-carousel .cojuka-carousel-video{object-fit:cover}
+.cojuka-video-carousel .cojuka-carousel-photo img{display:block;width:100%;height:100%;object-fit:cover}
+.cojuka-video-carousel .cojuka-carousel-video.is-active.is-playing,.cojuka-video-carousel .cojuka-carousel-video.is-active.is-still,.cojuka-video-carousel .cojuka-carousel-photo.is-active{opacity:1}
+.cojuka-carousel-controls{position:absolute;bottom:max(20px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:6;display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid rgba(255,255,255,.25);border-radius:99px;background:rgba(8,13,23,.58);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);white-space:nowrap}
+.cojuka-carousel-dots{display:flex;gap:9px;align-items:center}
+.cojuka-carousel-dot{flex:none;width:12px;height:12px;padding:0;border:2px solid #fff;border-radius:50%;background:transparent;cursor:pointer;transition:background .2s ease,transform .2s ease}
+.cojuka-carousel-dot.is-active{background:#fff;transform:scale(1.12)}.cojuka-carousel-dot:disabled{opacity:.3;cursor:not-allowed}
+.cojuka-carousel-arrow{flex:none;display:grid;place-items:center;width:34px;height:34px;padding:0;border:1px solid rgba(255,255,255,.32);border-radius:50%;background:rgba(255,255,255,.1);color:#fff;font:300 27px/1 system-ui;cursor:pointer;transition:background .2s ease}
+.cojuka-carousel-arrow:hover{background:rgba(255,255,255,.28)}
+.cojuka-carousel-count{font:600 11px/1.2 system-ui,sans-serif;letter-spacing:.05em;color:#fff;margin-left:2px;font-variant-numeric:tabular-nums}
+.cojuka-carousel-dot:focus-visible,.cojuka-carousel-arrow:focus-visible{outline:3px solid #e8ba77;outline-offset:3px}
+.cojuka-video-loader{display:none!important;position:absolute;inset:0;z-index:2;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#f8f8f8e8;transition:opacity .5s ease;pointer-events:none}
+.cojuka-video-loader img{width:180px;height:auto;max-height:64px;object-fit:contain}.cojuka-video-loader-ring{width:30px;height:30px;border:3px solid #e7d9dd;border-top-color:#86212e;border-radius:50%;animation:cojukaLoaderSpin .85s linear infinite}.cojuka-video-loader-label{font-size:.78rem;font-weight:650;letter-spacing:.04em;color:#86212e}
 .cojuka-video-loader.is-hidden{opacity:0;visibility:hidden}
 @keyframes cojukaLoaderSpin{to{transform:rotate(360deg)}}
-@media(prefers-reduced-motion:reduce){.cojuka-video-loader-ring{animation:none}}
+@media(max-width:575px){.cojuka-carousel-controls{bottom:20px;gap:8px;padding:7px 9px}.cojuka-carousel-dots{gap:8px}.cojuka-carousel-dot{width:11px;height:11px}.cojuka-carousel-arrow{width:32px;height:32px}.cojuka-carousel-count{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.cojuka-video-carousel .cojuka-carousel-video,.cojuka-video-carousel .cojuka-carousel-photo,.cojuka-carousel-dot{transition:none}.cojuka-video-loader-ring{animation:none}}
 </style>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
  document.querySelectorAll('[data-cojuka-video-carousel]').forEach(function(root){
-  const videos=Array.from(root.querySelectorAll('video'));
-  const dots=Array.from(root.parentElement.querySelectorAll('[data-video-index]'));
-  if(!videos.length)return;
+  const slides=Array.from(root.querySelectorAll('[data-slide]'));
+  const host=root.parentElement;
+  const dots=Array.from(host.querySelectorAll('[data-video-index]'));
+  const arrows=Array.from(host.querySelectorAll('[data-carousel-direction]'));
+  const counter=host.querySelector('[data-current-slide]');
+  if(!slides.length)return;
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const saveData=!!(navigator.connection&&navigator.connection.saveData);
-  const state=videos.map(v=>({remote:false,failed:false}));
-  let active=0,pending=-1,ready=false,watchdog=null;
+  const state=slides.map(()=>({remote:false,failed:false}));
+  let active=0,pending=-1,ready=false,watchdog=null,advanceTimer=null;
+  const isVideo=i=>slides[i].tagName==='VIDEO';
   function announceReady(){if(!ready){ready=true;window.dispatchEvent(new Event('cojuka:hero-ready'))}}
-  function updateDots(){dots.forEach((b,i)=>{b.classList.toggle('is-active',i===active);b.setAttribute('aria-pressed',String(i===active));b.disabled=state[i].failed})}
-  function getSource(i){return state[i].remote?videos[i].dataset.remote:videos[i].dataset.local}
-  function prepare(i){const v=videos[i];if(!v.getAttribute('src')){v.src=getSource(i);v.load()}}
-  function commit(i){
-   if(pending!==i)return;
-   clearTimeout(watchdog);
-   const previous=active;
-   active=i;pending=-1;
-   videos[i].classList.add('is-active','is-playing');
-   if(previous!==i){
-    // Leave the outgoing frame visible until the incoming video has actually started.
-    videos[previous].classList.remove('is-active');
-    window.setTimeout(()=>{if(active!==previous){videos[previous].classList.remove('is-playing');videos[previous].pause()}},850);
-   }
-   updateDots();announceReady();
+  function clearTimers(){window.clearTimeout(watchdog);window.clearTimeout(advanceTimer)}
+  function nextAvailable(from,direction){
+   for(let n=1;n<=slides.length;n++){const i=(from+direction*n+slides.length*2)%slides.length;if(!state[i].failed)return i}
+   return from;
   }
-  function fallback(i){
+  function updateControls(){
+   dots.forEach((button,i)=>{button.classList.toggle('is-active',i===active);button.setAttribute('aria-pressed',String(i===active));button.disabled=state[i].failed});
+   if(counter)counter.textContent=String(active+1).padStart(2,'0');
+  }
+  function queueAdvance(){
+   window.clearTimeout(advanceTimer);
+   if(reduced||saveData)return;
+   advanceTimer=window.setTimeout(()=>show(nextAvailable(active,1)),6500);
+  }
+  function commit(i,mode){
+   if(pending>=0&&pending!==i)return;
+   clearTimers();
+   const previous=active;active=i;pending=-1;
+   slides.forEach((slide,j)=>{
+    slide.classList.toggle('is-active',j===i);
+    if(isVideo(j)){
+     if(j===i){slide.classList.toggle('is-playing',mode==='playing');slide.classList.toggle('is-still',mode!=='playing')}
+     else{slide.classList.remove('is-still');if(j!==previous)slide.classList.remove('is-playing')}
+    }
+   });
+   if(previous!==i&&isVideo(previous)){
+    const oldVideo=slides[previous];
+    window.setTimeout(()=>{if(active!==previous){oldVideo.pause();oldVideo.classList.remove('is-playing')}},860);
+   }
+   updateControls();announceReady();
+   if(mode!=='playing')queueAdvance();
+  }
+  function fail(i){
    if(state[i].failed)return;
-   const v=videos[i];
-   if(!state[i].remote&&v.dataset.remote){
-    state[i].remote=true;v.pause();v.removeAttribute('src');v.load();
-    v.src=getSource(i);v.load();
-    if(pending===i)start(i);
+   const video=slides[i];
+   if(isVideo(i)&&!state[i].remote&&video.dataset.remote){
+    state[i].remote=true;video.pause();video.removeAttribute('src');video.load();
+    if(pending===i)playVideo(i);
     return;
    }
    state[i].failed=true;
-   if(pending===i){
-    pending=-1;clearTimeout(watchdog);
-    v.classList.remove('is-active','is-playing');
-    const next=videos.findIndex((_,j)=>j!==i&&!state[j].failed);
-    if(next>=0&&next!==active)start(next);else announceReady();
+   if(pending===i||active===i){
+    pending=-1;clearTimers();
+    const next=nextAvailable(i,1);
+    if(next!==i)show(next);else announceReady();
    }
-   updateDots();
+   updateControls();
   }
-  function start(i){
-   if(state[i].failed||reduced||saveData)return;
-   if(pending>=0&&pending!==i){videos[pending].pause();videos[pending].classList.remove('is-active','is-playing')}
-   pending=i;
-   clearTimeout(watchdog);
-   const v=videos[i];
-   prepare(i);
-   const promise=v.play();
-   if(promise&&promise.catch)promise.catch(e=>{
+  function playVideo(i){
+   if(pending!==i)return;
+   const v=slides[i];
+   if(!v.getAttribute('src')){
+    const url=state[i].remote?v.dataset.remote:v.dataset.local;
+    if(!url){fail(i);return}
+    v.src=url;v.load();
+   }
+   window.clearTimeout(watchdog);
+   const attempt=v.play();
+   if(attempt&&attempt.catch)attempt.catch(e=>{
     if(pending!==i)return;
     if(e&&e.name==='AbortError')return;
-    if(e&&e.name==='NotAllowedError'){pending=-1;announceReady();return}
-    fallback(i);
+    if(e&&e.name==='NotAllowedError'){commit(i,'still');return}
+    fail(i);
    });
-   watchdog=window.setTimeout(()=>{if(pending===i)fallback(i)},7500);
+   watchdog=window.setTimeout(()=>{if(pending===i)fail(i)},7500);
   }
-  videos.forEach((v,i)=>{
-   v.addEventListener('playing',()=>commit(i));
-   v.addEventListener('error',()=>fallback(i));
-   v.addEventListener('ended',()=>{
-    if(active!==i||pending>=0||reduced)return;
-    for(let step=1;step<=videos.length;step++){
-     const next=(i+step)%videos.length;
-     if(!state[next].failed){start(next);break}
-    }
-   });
-   v.addEventListener('waiting',()=>{if(i===active&&pending<0)announceReady()});
+  function show(i){
+   if(!Number.isInteger(i)||i<0||i>=slides.length)return;
+   if(state[i].failed){const next=nextAvailable(i,1);if(next!==i)show(next);return}
+   if(i===active&&pending<0&&slides[i].classList.contains('is-active')&&
+      (!isVideo(i)||slides[i].classList.contains('is-playing')||slides[i].classList.contains('is-still')))return;
+   clearTimers();
+   if(pending>=0&&pending!==i&&isVideo(pending)){slides[pending].pause();slides[pending].classList.remove('is-active','is-playing')}
+   pending=i;
+   if(isVideo(i)){
+    if(reduced||saveData){commit(i,'still');return}
+    playVideo(i);
+   }else{commit(i,'photo')}
+  }
+  slides.forEach((slide,i)=>{
+   if(!isVideo(i))return;
+   slide.addEventListener('playing',()=>{if(pending===i)commit(i,'playing')});
+   slide.addEventListener('error',()=>{if(pending===i||active===i)fail(i)});
+   slide.addEventListener('ended',()=>{if(active===i&&pending<0&&!reduced&&!saveData)show(nextAvailable(i,1))});
   });
-  dots.forEach((button,i)=>button.addEventListener('click',()=>{
-   if(i===active||state[i].failed)return;
-   start(i);
+  dots.forEach((button,i)=>button.addEventListener('click',()=>show(i)));
+  arrows.forEach(button=>button.addEventListener('click',()=>{
+   const dir=Number(button.dataset.carouselDirection);show(nextAvailable(active,dir));
   }));
-  updateDots();
-  if(reduced||saveData){announceReady();return}
-  const begin=()=>start(0);
+  // Support left and right swipes on the entire Hero, without blocking vertical scrolling.
+  let touch=null;
+  host.addEventListener('touchstart',event=>{
+   if(event.touches.length!==1||event.target.closest('a,button,input,textarea,select')){touch=null;return}
+   touch={x:event.touches[0].clientX,y:event.touches[0].clientY};
+  },{passive:true});
+  host.addEventListener('touchend',event=>{
+   if(!touch||!event.changedTouches.length)return;
+   const dx=event.changedTouches[0].clientX-touch.x;
+   const dy=event.changedTouches[0].clientY-touch.y;
+   touch=null;
+   if(Math.abs(dx)>=45&&Math.abs(dx)>Math.abs(dy)*1.3)show(nextAvailable(active,dx<0?1:-1));
+  },{passive:true});
+  host.addEventListener('touchcancel',()=>{touch=null},{passive:true});
+  updateControls();
+  const begin=()=>show(0);
   if('IntersectionObserver' in window){
    const observer=new IntersectionObserver(entries=>{
     if(entries.some(entry=>entry.isIntersecting)){observer.disconnect();begin()}
    },{rootMargin:'150px'});
    observer.observe(root);
   }else begin();
-  window.addEventListener('pagehide',()=>{clearTimeout(watchdog);videos.forEach(v=>v.pause())},{once:true});
+  window.addEventListener('pagehide',()=>{clearTimers();slides.filter(s=>s.tagName==='VIDEO').forEach(v=>v.pause())},{once:true});
  });
 });
 </script>

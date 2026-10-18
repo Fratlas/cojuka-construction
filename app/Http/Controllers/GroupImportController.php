@@ -91,7 +91,7 @@ class GroupImportController
 
     private function columns(string $module):array
     {
-        if($module==='entites')return ['name','slug','type','country','sector','summary','description','website','published'];
+        if($module==='entites')return ['name','slug','type','country','sector','summary','description','website','rccm','id_nat','nif','numero_impot','cnss','adresse_siege','telephone','email_contact','representant_legal','date_immatriculation','published'];
         if($module==='projets')return ['group_entity_id','title','category','location','status','start_date','end_date','budget','currency','description','published'];
         if($module==='actifs')return ['group_entity_id','name','kind','location','reference','status','notes'];
         abort_unless(isset(GroupSuiteController::MODULES[$module]),404);
@@ -100,7 +100,7 @@ class GroupImportController
 
     private function rules(string $module):array
     {
-        if($module==='entites')return ['name'=>'required|string|max:200','slug'=>'required|alpha_dash|max:200|unique:group_entities,slug','type'=>'required|string|max:80','country'=>'nullable|string|max:100','sector'=>'nullable|string|max:120','summary'=>'nullable|string|max:1500','description'=>'nullable|string','website'=>'nullable|url|max:255','published'=>'nullable|boolean'];
+        if($module==='entites')return ['name'=>'required|string|max:200','slug'=>'required|alpha_dash|max:200|unique:group_entities,slug','type'=>'required|string|max:80','country'=>'nullable|string|max:100','sector'=>'nullable|string|max:120','summary'=>'nullable|string|max:1500','description'=>'nullable|string','website'=>'nullable|url|max:255','rccm'=>'nullable|string|max:255','id_nat'=>'nullable|string|max:255','nif'=>'nullable|string|max:255','numero_impot'=>'nullable|string|max:255','cnss'=>'nullable|string|max:255','adresse_siege'=>'nullable|string|max:255','telephone'=>'nullable|string|max:255','email_contact'=>'nullable|email|max:255','representant_legal'=>'nullable|string|max:255','date_immatriculation'=>'nullable|date','published'=>'nullable|boolean'];
         if($module==='projets')return ['group_entity_id'=>'required|integer|exists:group_entities,id','title'=>'required|string|max:200','category'=>'nullable|string|max:120','location'=>'nullable|string|max:200','status'=>['required',Rule::in(['planifie','en_cours','suspendu','termine'])],'start_date'=>'nullable|date','end_date'=>'nullable|date|after_or_equal:start_date','budget'=>'nullable|numeric|min:0','currency'=>'required|string|size:3','description'=>'nullable|string','published'=>'nullable|boolean'];
         if($module==='actifs')return ['group_entity_id'=>'required|integer|exists:group_entities,id','name'=>'required|string|max:200','kind'=>'required|string|max:120','location'=>'nullable|string|max:200','reference'=>'nullable|string|max:200','status'=>'required|string|max:80','notes'=>'nullable|string'];
         $rules=['group_entity_id'=>'required|integer|exists:group_entities,id','title'=>'required|string|max:255','reference'=>'nullable|string|max:255','status'=>['required',Rule::in(array_keys(GroupSuiteController::STATUSES))],'record_date'=>'nullable|date','amount'=>'nullable|numeric|min:0','currency'=>['required',Rule::in(['USD','CDF','EUR'])],'location'=>'nullable|string|max:255','description'=>'nullable|string|max:5000'];

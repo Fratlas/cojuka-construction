@@ -327,11 +327,17 @@ html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
 }
 /* White cards and captions on white areas; retain borders, shadows, hover glow. */
 html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main :is(
- .service-card,.info-card,.model-card,.history-card,.service,
+ .service-card,.info-card,.model-card:not(.photo-showcase),.service,
  .cojuka-atlas-photo,.cg-process-card
 ){
  background:#FFFFFF!important;
  background-image:none!important;
+}
+/* Historic dark callouts are not white cards, and must retain white-on-dark text. */
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main
+ .history-belgium .history-card{
+ background:linear-gradient(145deg,rgba(44,56,77,.94),rgba(20,28,45,.98))!important;
+ color:#FFFFFF!important;
 }
 html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main
  .cojuka-atlas-photo figcaption{

@@ -20,11 +20,12 @@
 @keyframes ci-arrive{from{opacity:0;transform:translateY(24px) scale(.8) rotate(-20deg);filter:blur(9px)}to{opacity:1;transform:none;filter:none}}
 @keyframes ci-fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){#cojuka-intro,#cojuka-intro *{animation:none!important;transition:none!important}}
+#cojuka-intro .ci-heartbeat{position:relative;width:min(520px,86vw);height:clamp(180px,30vw,285px);margin:0 auto 4px;display:grid;place-items:center;isolation:isolate}#cojuka-intro .ci-intro-emblem{position:relative;z-index:2;width:clamp(165px,28vw,275px);height:100%;object-fit:contain;filter:drop-shadow(0 0 20px #f2333855);animation:ci-pulse 1.5s ease-in-out infinite}#cojuka-intro .ci-beat-line{position:absolute;inset:49% 0 auto;height:2px;background:linear-gradient(90deg,transparent,#f8494b 15%,#ffce8a 50%,#f8494b 85%,transparent);box-shadow:0 0 13px #f94845;animation:ci-heartline 1.5s ease-in-out infinite}#cojuka-intro .ci-name{margin-top:0}#cojuka-intro .ci-caption{margin-top:6px}#cojuka-intro .ci-stage{max-width:95vw}@keyframes ci-pulse{0%,100%{transform:scale(1)}12%{transform:scale(1.09)}22%{transform:scale(1.02)}33%{transform:scale(1.065)}47%{transform:scale(1)}}@keyframes ci-heartline{0%,100%{opacity:.4;transform:scaleX(.75)}18%,34%{opacity:1;transform:scaleX(1)}}@media(prefers-reduced-motion:reduce){#cojuka-intro .ci-intro-emblem,#cojuka-intro .ci-beat-line{animation:none!important}}
 </style>
 <div id="cojuka-intro" role="status" aria-label="Bienvenue chez COJUKA" aria-live="off">
  <div class="ci-glow" aria-hidden="true"></div>
  <div class="ci-stage">
-  <div class="mb-4">@include('partials.cojuka-logo', ['logoClass'=>'cojuka-brand-logo--large'])</div>
+  <div class="ci-heartbeat" aria-hidden="true"><span class="ci-beat-line"></span><img class="ci-intro-emblem" src="{{ asset('images/cojuka-intro-africa.svg') }}?v=2" alt=""></div>
   <div class="ci-name">COJUKA</div>
   <div class="ci-caption">CONSULTING GROUP</div>
   <div class="ci-line"></div>

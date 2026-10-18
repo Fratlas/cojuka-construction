@@ -279,3 +279,66 @@ html body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-panel .cg-newsl
 html[data-cojuka-theme="dark"] body.cojuka-glass-public .cg-privacy-page{background:#151e2e!important}
 html[data-cojuka-theme="dark"] body.cojuka-glass-public .cg-privacy-page .card{background:#25334a!important;color:#f3f5fa!important}
 html[data-cojuka-theme="dark"] body.cojuka-glass-public .cg-privacy-page .card :is(h2,p){color:#ebf0f8!important}
+
+
+/* ================================================================
+   COJUKA / TRUE WHITE — #FFFFFF everywhere a light surface belongs
+   Pure white in LIGHT mode only. Image/video, dark glass and night
+   mode are not recolored. No desaturated ivory/pink/grey gradients.
+   ================================================================ */
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public{
+ background:#FFFFFF!important;
+ background-color:#FFFFFF!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main :is(
+ .soft-section,.soft,.cojuka-photo-atlas,.cojuka-home-entities,.cg-photo-marquee
+){
+ background:#FFFFFF!important;
+ background-color:#FFFFFF!important;
+ background-image:none!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main.cojuka-home-main
+ .section-pad:not(.contact-section):not(.showcase-3d){
+ background-color:#FFFFFF!important;
+ background-image:none!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public .cojuka-site-footer{
+ background:#FFFFFF!important;
+ background-image:none!important;
+ border-top:1px solid #e8ebef!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public .cojuka-global-nav.site-nav{
+ background:#FFFFFF!important;
+ background-color:#FFFFFF!important;
+ border-bottom:1px solid #e9ecf1!important;
+}
+/* Submenus remain readable, without cloudy grey overlays. */
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .cojuka-global-nav .dropdown-menu{
+ background:#FFFFFF!important;
+ background-image:none!important;
+}
+@media(max-width:1399.98px){
+ html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public
+ .cojuka-global-nav .navbar-collapse{
+  background:#FFFFFF!important;
+  background-image:none!important;
+ }
+}
+/* White cards and captions on white areas; retain borders, shadows, hover glow. */
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main :is(
+ .service-card,.info-card,.model-card,.history-card,.service,
+ .cojuka-atlas-photo,.cg-process-card
+){
+ background:#FFFFFF!important;
+ background-image:none!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main
+ .cojuka-atlas-photo figcaption{
+ background:#FFFFFF!important;
+ color:#334155!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public .cg-privacy-page{
+ background:#FFFFFF!important;
+}
+/* Dark cinematic blocks keep their intended opacity / media treatment. */

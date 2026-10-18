@@ -14,7 +14,7 @@
 .cojuka-site-footer{background:#f5f5f7!important;color:#17191d!important;padding:70px 0 22px!important;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
 .cojuka-footer-main{display:grid;grid-template-columns:2.2fr repeat(3,1fr);gap:clamp(24px,4vw,65px);padding-bottom:55px}
 .cojuka-footer-brand img{width:220px!important;height:auto!important;max-height:70px}
-.cojuka-footer-brand p{max-width:340px;margin:22px 0 0;color:#686a70;font-size:.95rem;line-height:1.8}
+.cojuka-footer-brand p{max-width:340px;margin:0;color:#686a70;font-size:.95rem;line-height:1.8}
 .cojuka-footer-links{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
 .cojuka-footer-links h2{font-size:.85rem;font-weight:800;color:#17191d;margin:0 0 9px}
 .cojuka-footer-links a,.cojuka-footer-links p{font-size:.89rem;color:#64666b!important;text-decoration:none;margin:0;line-height:1.65}

@@ -7,6 +7,13 @@
 .cojuka-global-nav .cojuka-brand-logo{width:72px;height:72px;max-height:72px}
 @media(max-width:991.98px){.cojuka-global-nav .cojuka-brand-logo{width:54px!important;height:54px!important;max-height:54px!important}}
 @media(max-width:375px){.cojuka-global-nav .cojuka-brand-logo{width:46px!important;height:46px!important}}
+.cojuka-brand-lockup{display:inline-flex;align-items:center;gap:10px;max-width:100%;vertical-align:middle;min-width:0}
+.cojuka-brand-lockup .cojuka-brand-logo{flex:none}
+.cojuka-brand-wordmark{display:block;color:#842739;font:800 clamp(10px,1.05vw,15px)/1.3 Arial,sans-serif;letter-spacing:.035em;text-align:left;white-space:nowrap}
+html[data-cojuka-theme="dark"] .cojuka-brand-wordmark{color:#fff}
+.cojuka-footer-brand .cojuka-brand-wordmark{color:#fff}
+@media(max-width:991.98px){.cojuka-global-nav .cojuka-brand-lockup{gap:5px}.cojuka-global-nav .cojuka-brand-wordmark{font-size:9px;letter-spacing:0}}
+@media(max-width:375px){.cojuka-global-nav .cojuka-brand-wordmark{font-size:8px}}
 </style>
 @php($logoClass = $logoClass ?? '')
-<img class="cojuka-brand-logo {{ $logoClass }}" src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018-final" alt="COJUKA Consulting Group — emblème officiel avec globe rouge et Afrique" decoding="async" width="1254" height="1254">
+<span class="cojuka-brand-lockup"><img class="cojuka-brand-logo {{ $logoClass }}" src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018-final" alt="COJUKA Consulting Group — emblème officiel avec globe rouge et Afrique" decoding="async" width="1254" height="1254"><span class="cojuka-brand-wordmark">COJUKA<br>CONSULTING<br>GROUP</span></span>

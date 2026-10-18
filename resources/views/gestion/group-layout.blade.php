@@ -119,6 +119,7 @@ body{font-size:15px;line-height:1.55}
  <div class="brand"><img class="cojuka-brand-logo cojuka-brand-logo--small" src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018-color-gestion" alt="COJUKA Consulting Group — logo officiel en couleurs" width="1254" height="1254" decoding="async"><div><div class="brand-name">COJUKA<br>CONSULTING<br>GROUP</div><div class="brand-caption">EXECUTIVE SUITE</div></div></div>
  <div class="nav-caption">Vue générale</div>
  <a class="side-link {{ request()->routeIs('gestion.group.dashboard') ? 'active' : '' }}" href="{{ route('gestion.group.dashboard') }}"><i class="bi bi-grid-1x2"></i> Tableau de bord</a>
+ <a class="side-link" href="{{ route('gestion.group.dashboard') }}#gestion-graphiques"><i class="bi bi-bar-chart-line"></i> Analyses &amp; graphiques</a>
  @if(\App\Support\GroupAccess::can(auth()->user(),'entites'))
  <a class="side-link {{ request()->is('gestion/entites*') ? 'active' : '' }}" href="{{ route('gestion.group.list', 'entites') }}"><i class="bi bi-buildings"></i> Sociétés & filiales</a>
  @endif

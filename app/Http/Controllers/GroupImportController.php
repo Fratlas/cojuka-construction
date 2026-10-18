@@ -28,6 +28,39 @@ class GroupImportController
         },'cojuka-modele-'.$module.'.csv',['Content-Type'=>'text/csv; charset=UTF-8']);
     }
 
+    /** Download an import-compatible CSV for each core business module. */
+    public function export(Request $request,string $module)
+    {
+        abort_unless(isset(self::CORE[$module]),404);
+        abort_unless(GroupAccess::can($request->user(),$module,'export'),403);
+        $columns=$this->columns($module);
+        $model=self::CORE[$module];
+        $allowed=GroupAccess::entities($request->user());
+        $records=$model::query()
+            ->when($allowed!==null,function($q)use($module,$allowed){
+                return $q->whereIn($module==='entites'?'id':'group_entity_id',$allowed);
+            })
+            ->orderBy('id')->cursor();
+        return response()->streamDownload(function()use($records,$columns){
+            $out=fopen('php://output','wb');
+            fwrite($out,"\xEF\xBB\xBF");
+            fputcsv($out,$columns,';');
+            $cell=static function($value){
+                if($value instanceof \DateTimeInterface)$value=$value->format('Y-m-d');
+                if(is_bool($value))$value=$value?'1':'0';
+                $value=(string)($value??'');
+                // Prevent spreadsheet formula execution in user-entered values.
+                return preg_match('/^[\x00-\x20]*[=+@\-]/u',$value)?"'".$value:$value;
+            };
+            foreach($records as $record){
+                $row=[];
+                foreach($columns as $column)$row[]=$cell($record->getAttribute($column));
+                fputcsv($out,$row,';');
+            }
+            fclose($out);
+        },'cojuka-'.$module.'-'.now()->format('Ymd').'.csv',['Content-Type'=>'text/csv; charset=UTF-8','Cache-Control'=>'private, no-store']);
+    }
+
     public function import(Request $request,string $module)
     {
         $fields=$this->columns($module);

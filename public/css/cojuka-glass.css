@@ -849,3 +849,105 @@ body.cojuka-glass-public .cojuka-global-nav .dropdown-menu{
 @media(max-width:767px){
   .cojuka-glass .cg-glow-overlay{display:none!important}
 }
+
+
+/* COJUKA Management — crystal-glass executive suite. */
+body.cojuka-glass-admin .workspace{
+ background:radial-gradient(ellipse at 5% 9%,rgba(145,46,87,.14),transparent 45%),radial-gradient(ellipse at 90% 68%,rgba(94,148,213,.16),transparent 49%),#eef1f8!important;
+}
+body.cojuka-glass-admin .sidebar{
+ background:linear-gradient(145deg,rgba(31,43,65,.88),rgba(12,23,41,.94))!important;
+ -webkit-backdrop-filter:blur(12px) saturate(125%);
+ backdrop-filter:blur(12px) saturate(125%);
+ box-shadow:inset -1px 0 rgba(255,255,255,.23),12px 0 32px rgba(16,27,53,.13)!important;
+}
+body.cojuka-glass-admin .sidebar .brand{
+ background:linear-gradient(120deg,rgba(255,255,255,.13),rgba(255,255,255,.02))!important;
+ border-bottom:1px solid rgba(255,255,255,.18)!important;
+}
+body.cojuka-glass-admin .sidebar .side-link{
+ border:1px solid transparent;
+ border-radius:13px;
+}
+body.cojuka-glass-admin .sidebar .side-link:hover,
+body.cojuka-glass-admin .sidebar .side-link.active{
+ background:linear-gradient(120deg,rgba(255,255,255,.18),rgba(255,255,255,.055))!important;
+ border-color:rgba(255,255,255,.22)!important;
+ box-shadow:inset 0 1px rgba(255,255,255,.15),0 8px 24px rgba(2,8,20,.13)!important;
+}
+body.cojuka-glass-admin .topbar{
+ background:rgba(255,255,255,.65)!important;
+ border-bottom:1px solid rgba(255,255,255,.9)!important;
+ -webkit-backdrop-filter:blur(9px) saturate(125%);
+ backdrop-filter:blur(9px) saturate(125%);
+ box-shadow:0 10px 32px rgba(40,57,90,.065),inset 0 1px #fff!important;
+}
+body.cojuka-glass-admin .page-content .card{
+ background:linear-gradient(137deg,rgba(255,255,255,.64),rgba(243,248,255,.39))!important;
+ border:1px solid rgba(255,255,255,.94)!important;
+ border-radius:23px!important;
+ box-shadow:0 17px 50px rgba(34,48,75,.095),inset 0 1px rgba(255,255,255,.94)!important;
+ -webkit-backdrop-filter:blur(7px) saturate(125%);
+ backdrop-filter:blur(7px) saturate(125%);
+}
+body.cojuka-glass-admin .page-content .card-header,
+body.cojuka-glass-admin .page-content .card-footer{
+ background:rgba(255,255,255,.32)!important;
+ border-color:rgba(154,174,200,.24)!important;
+}
+body.cojuka-glass-admin .page-content .table-responsive{
+ background:rgba(255,255,255,.39)!important;
+ border:1px solid rgba(255,255,255,.76);
+ border-radius:16px;
+}
+body.cojuka-glass-admin .page-content .table{
+ --bs-table-bg:transparent;
+ --bs-table-striped-bg:rgba(235,241,249,.33);
+ --bs-table-hover-bg:rgba(150,53,84,.075);
+}
+body.cojuka-glass-admin .page-content .table thead{
+ background:rgba(255,255,255,.42);
+}
+body.cojuka-glass-admin .page-content :is(.form-control,.form-select){
+ background:rgba(255,255,255,.86)!important;
+ border:1px solid rgba(146,166,188,.43)!important;
+ color:#15243a!important;
+ box-shadow:inset 0 1px rgba(255,255,255,.95);
+}
+body.cojuka-glass-admin .page-content :is(.btn-outline-dark,.btn-outline-secondary,.btn-light){
+ background:rgba(255,255,255,.56)!important;
+ border:1px solid rgba(152,166,188,.42)!important;
+ -webkit-backdrop-filter:blur(5px);
+ backdrop-filter:blur(5px);
+}
+body.cojuka-glass-admin .today-pill,body.cojuka-glass-admin .topbar .avatar{
+ background:rgba(255,255,255,.58)!important;
+ border:1px solid rgba(255,255,255,.91)!important;
+ box-shadow:inset 0 1px white,0 6px 18px rgba(22,36,66,.06);
+}
+body.cojuka-glass-admin .modal-content{
+ background:linear-gradient(140deg,rgba(255,255,255,.96),rgba(247,249,253,.91))!important;
+ border:1px solid rgba(255,255,255,.95)!important;
+ border-radius:24px!important;
+ box-shadow:0 29px 80px rgba(16,29,50,.23),inset 0 1px white!important;
+ -webkit-backdrop-filter:blur(10px);
+ backdrop-filter:blur(10px);
+}
+body.cojuka-glass-legacy :is(.panel,.stat,.card){
+ background:linear-gradient(133deg,rgba(255,255,255,.68),rgba(239,245,253,.44))!important;
+ border:1px solid rgba(255,255,255,.91)!important;
+ box-shadow:0 16px 48px rgba(35,48,80,.09),inset 0 1px #fff!important;
+ -webkit-backdrop-filter:blur(7px);
+ backdrop-filter:blur(7px);
+}
+@media(max-width:767px){
+ body.cojuka-glass-admin .page-content .card,body.cojuka-glass-legacy :is(.panel,.stat,.card){
+  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+ }
+}
+@media(prefers-reduced-transparency:reduce){
+ body.cojuka-glass-admin .page-content .card,
+ body.cojuka-glass-admin .topbar,
+ body.cojuka-glass-legacy :is(.panel,.stat,.card){background:#fff!important}
+ body.cojuka-glass-admin .sidebar{background:#172439!important}
+}

@@ -2,6 +2,17 @@
 @section('title', 'Utilisateurs et accès')
 @section('content')
 <div class="mb-4"><p class="text-uppercase text-secondary small fw-bold mb-1">Administration / Sécurité</p><h1 class="h2 fw-bold">Utilisateurs et accès</h1><p class="text-secondary">Affectez chaque collaborateur à son département et aux seules entités qu'il peut gérer. Niveaux : administration générale, responsable, collaborateur, lecture seule. Chaque niveau reste limité aux départements et filiales autorisés. Les nouveaux comptes restent sans accès par défaut.</p></div>
+<div class="card p-3 p-md-4 mb-4">
+ <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+  <div><h2 class="h5 fw-bold mb-1">Import / export CSV des accès</h2>
+   <p class="text-secondary small mb-0">Le CSV permet de mettre à jour uniquement les comptes déjà créés (rôle, département et filiales). Aucun mot de passe n'est exporté ou modifié. Séparateur « ; » et liste des filiales séparées par « | ».</p></div>
+  <a class="btn btn-outline-dark" href="{{ route('gestion.users.export') }}"><i class="bi bi-download me-1"></i>Exporter les accès CSV</a>
+ </div>
+ <form class="row g-2 align-items-end mt-3" method="POST" action="{{ route('gestion.users.import') }}" enctype="multipart/form-data" onsubmit="return confirm('Confirmer la mise à jour des rôles et accès des utilisateurs EXISTANTS ?')">@csrf
+  <div class="col-md-8"><label class="form-label" for="usersCsv">Fichier CSV (max. 200 utilisateurs / 1 Mo)</label><input class="form-control" id="usersCsv" type="file" name="file" accept=".csv,.txt,text/csv" required></div>
+  <div class="col-md-4"><button class="btn btn-dark w-100" type="submit" @disabled(!$accessReady || !\Illuminate\Support\Facades\Schema::hasColumn('users','group_role'))>Importer les accès</button></div>
+ </form>
+</div>
 @if(!$accessReady)
 <div class="alert alert-warning"><strong>Configuration requise :</strong> exécutez le SQL de contrôle d'accès dans la base COJUKA avant de modifier les affectations.</div>
 @endif

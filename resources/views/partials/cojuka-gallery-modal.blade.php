@@ -5,7 +5,11 @@
   <div class="modal-content">
    <button type="button" class="cg-gallery-close" data-bs-dismiss="modal" aria-label="Fermer la photo"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
    <div class="cg-gallery-layout">
-    <div class="cg-gallery-media"><img id="cojukaGalleryImage" src="" alt="" loading="eager" decoding="async"></div>
+    <div class="cg-gallery-media">
+     <button type="button" class="cg-gallery-nav cg-gallery-prev" id="cojukaGalleryPrev" aria-label="Photo précédente"><i class="bi bi-chevron-left" aria-hidden="true"></i></button>
+     <img id="cojukaGalleryImage" src="" alt="" loading="eager" decoding="async">
+     <button type="button" class="cg-gallery-nav cg-gallery-next" id="cojukaGalleryNext" aria-label="Photo suivante"><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+    </div>
     <div class="cg-gallery-details">
      <p class="cg-gallery-eyebrow" id="cojukaGallerySector">COJUKA CONSULTING GROUP</p>
      <h2 id="cojukaGalleryTitle">Découvrir une image</h2>
@@ -13,6 +17,8 @@
      <p id="cojukaGalleryDescription">Découvrez les métiers et domaines d’intervention du groupe.</p>
      <p class="cg-gallery-disclaimer"><i class="bi bi-info-circle" aria-hidden="true"></i> Photographie d’illustration : elle ne représente pas nécessairement une réalisation de COJUKA.</p>
      <a id="cojukaGalleryLink" class="cg-gallery-link" href="#" hidden>Explorer ce secteur <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+     <p class="cg-gallery-count" id="cojukaGalleryCount" aria-live="polite"></p>
+     <div class="cg-gallery-thumbnails" id="cojukaGalleryThumbnails" role="group" aria-label="Photos de la galerie"></div>
     </div>
    </div>
   </div>
@@ -55,6 +61,26 @@ img[data-cg-photo-popup]{outline-offset:-4px}
 @media(prefers-reduced-motion:reduce){
  .cg-gallery-modal .modal-dialog{transition:none!important}
 }
+
+/* Gallery browsing: controls and clickable thumbnails with focus indication. */
+.cg-gallery-media{position:relative}
+.cg-gallery-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;display:grid;place-items:center;
+ width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.65);
+ background:rgba(17,29,46,.65);color:#fff;box-shadow:0 7px 22px rgba(0,0,0,.19);
+ -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.cg-gallery-nav:hover{background:rgba(37,54,72,.95)}
+.cg-gallery-nav:focus-visible,.cg-gallery-thumbnails button:focus-visible{outline:3px solid #7e95b0;outline-offset:3px}
+.cg-gallery-prev{left:12px}.cg-gallery-next{right:12px}
+.cg-gallery-nav[hidden],.cg-gallery-thumbnails[hidden]{display:none!important}
+.cg-gallery-count{font-size:12px;font-weight:750;letter-spacing:.07em;color:#68778b!important;margin:22px 0 12px}
+.cg-gallery-thumbnails{display:flex;gap:8px;overflow-x:auto;max-width:100%;padding:4px 2px 9px;scrollbar-width:thin}
+.cg-gallery-thumbnails button{flex:0 0 72px;overflow:hidden;border-radius:9px;border:2px solid transparent;
+ width:72px;height:56px;padding:0;background:#e0e5ed;cursor:pointer}
+.cg-gallery-thumbnails button[aria-current="true"]{border-color:#596979;box-shadow:0 0 0 2px #c5ced8}
+.cg-gallery-thumbnails img{display:block;width:100%;height:100%;object-fit:cover}
+@media(max-width:767px){.cg-gallery-nav{width:40px;height:40px}.cg-gallery-prev{left:9px}.cg-gallery-next{right:9px}
+ .cg-gallery-thumbnails button{flex-basis:64px;width:64px;height:52px}}
+
 </style>
 <script>
 (function(){
@@ -68,9 +94,26 @@ img[data-cg-photo-popup]{outline-offset:-4px}
   const sector=document.getElementById('cojukaGallerySector');
   const description=document.getElementById('cojukaGalleryDescription');
   const link=document.getElementById('cojukaGalleryLink');
+  const count=document.getElementById('cojukaGalleryCount');
+  const thumbs=document.getElementById('cojukaGalleryThumbnails');
+  const prev=document.getElementById('cojukaGalleryPrev');
+  const next=document.getElementById('cojukaGalleryNext');
   const selector='[data-cg-photo-popup]';
-  function openPhoto(target){
-   const image=target.matches('img')?target:target.querySelector('img');
+  let gallery=[],position=0,lastTrigger=null;
+  function source(trigger){
+   return trigger.matches('img')?trigger:trigger.querySelector('img');
+  }
+  function galleryFor(trigger){
+   const section=trigger.closest(
+    '.cojuka-atlas-grid,.cg-marquee-track,.entity-photo-grid,.entity-gallery,.cojuka-photo-gallery,.cojuka-profile-main'
+   );
+   const collection=section||document;
+   return Array.from(collection.querySelectorAll(selector)).filter(item=>!!source(item));
+  }
+  function display(index,focusThumbnail){
+   if(!gallery.length)return;
+   position=(index+gallery.length)%gallery.length;
+   const target=gallery[position],image=source(target);
    if(!image)return;
    const card=target.closest('.service-card,.photo-showcase,.entity-service-photo,.entity-photo-tile,.cojuka-atlas-photo,.cg-marquee-tile');
    const titleText=target.dataset.photoTitle||
@@ -92,21 +135,68 @@ img[data-cg-photo-popup]{outline-offset:-4px}
    link.hidden=!href;
    if(href)link.href=href;
    else link.removeAttribute('href');
+   prev.hidden=next.hidden=gallery.length<2;
+   count.textContent=gallery.length>1?'Photo '+(position+1)+' sur '+gallery.length:'Photo 1 sur 1';
+   const buttons=thumbs.querySelectorAll('button');
+   buttons.forEach((b,i)=>b.setAttribute('aria-current',i===position?'true':'false'));
+   const selected=buttons[position];
+   selected?.scrollIntoView({behavior:'instant',inline:'nearest',block:'nearest'});
+   if(focusThumbnail)selected?.focus({preventScroll:true});
+  }
+  function show(target){
+   gallery=galleryFor(target);
+   if(!gallery.length)return;
+   position=Math.max(0,gallery.indexOf(target));
+   lastTrigger=target;
+   thumbs.replaceChildren();
+   thumbs.hidden=gallery.length<2;
+   if(gallery.length>1){
+    gallery.forEach((item,i)=>{
+     const image=source(item);
+     const button=document.createElement('button');
+     button.type='button';
+     button.setAttribute('aria-label','Afficher la photo '+(i+1)+' sur '+gallery.length);
+     const thumb=document.createElement('img');
+     thumb.alt='';thumb.loading='lazy';thumb.src=image.currentSrc||image.src;
+     button.append(thumb);
+     button.addEventListener('click',()=>display(i,true));
+     thumbs.append(button);
+    });
+   }
+   display(position,false);
    viewer.show();
   }
+  prev.addEventListener('click',()=>display(position-1,false));
+  next.addEventListener('click',()=>display(position+1,false));
   document.addEventListener('click',function(event){
-   const trigger=event.target.closest(selector);
-   if(!trigger)return;
-   event.preventDefault();
-   openPhoto(trigger);
+   const target=event.target.closest(selector);
+   if(!target||modal.contains(target))return;
+   event.preventDefault();show(target);
   });
   document.addEventListener('keydown',function(event){
-   if((event.key==='Enter'||event.key===' ')&&
-     event.target.matches('img[data-cg-photo-popup]')){
-    event.preventDefault();openPhoto(event.target);
+   if((event.key==='Enter'||event.key===' ')&&event.target.matches('img[data-cg-photo-popup]')){
+    event.preventDefault();show(event.target);return;
    }
+   if(!modal.classList.contains('show')||gallery.length<2)return;
+   if(event.key==='ArrowLeft'){event.preventDefault();display(position-1,false)}
+   if(event.key==='ArrowRight'){event.preventDefault();display(position+1,false)}
   });
-  modal.addEventListener('hidden.bs.modal',function(){picture.removeAttribute('src');});
+  let swipeX=null;
+  const media=modal.querySelector('.cg-gallery-media');
+  media.addEventListener('touchstart',event=>{swipeX=event.touches[0]?.clientX??null},{passive:true});
+  media.addEventListener('touchend',event=>{
+   if(swipeX===null)return;
+   const dx=(event.changedTouches[0]?.clientX??swipeX)-swipeX;
+   if(Math.abs(dx)>55&&gallery.length>1)display(position+(dx<0?1:-1),false);
+   swipeX=null;
+  },{passive:true});
+  media.addEventListener('touchcancel',()=>swipeX=null,{passive:true});
+  modal.addEventListener('hidden.bs.modal',function(){
+   picture.removeAttribute('src');
+   thumbs.replaceChildren();
+   lastTrigger?.focus?.({preventScroll:true});
+   lastTrigger=null;gallery=[];
+  });
  });
 })();
 </script>

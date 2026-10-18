@@ -110,6 +110,7 @@ body{font-size:15px;line-height:1.55}
 </style>
 @include('partials.cojuka-design')
 <link rel="stylesheet" href="{{ asset('css/cojuka-glass.css') }}?v=20261018-admin-crystal-06">
+<link rel="stylesheet" href="{{ asset('css/cojuka-management-charts.css') }}?v=20261018-charts-01">
 </head>
 <body class="cojuka-glass cojuka-glass-admin">
 <div id="mobileOverlay" class="mobile-overlay"></div>

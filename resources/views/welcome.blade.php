@@ -195,7 +195,6 @@
 <div class="feature-line row g-3"><div class="col-2 feature-number">02</div><div class="col-10"><h3 class="feature-title">Concevoir avec précision</h3><p class="feature-description mb-0">Faire dialoguer créativité, faisabilité et cohérence architecturale.</p></div></div>
 <div class="feature-line row g-3"><div class="col-2 feature-number">03</div><div class="col-10"><h3 class="feature-title">Construire pour durer</h3><p class="feature-description mb-0">Privilégier des choix réfléchis et une vision à long terme.</p></div></div>
 </div></div></div></section>
-@include('partials.cojuka-strategy-infographic')
 @include('partials.cojuka-photo-atlas')
 <section id="contact" class="section-pad contact-section"><div class="container reveal"><div class="section-kicker mb-4" style="color:#fff">04 / CONTACT</div><h2>Votre prochain projet<br>commence ici.</h2><p class="muted fs-4 mt-4 mb-5">Parlons de votre vision et donnons-lui forme ensemble.</p><a href="mailto:contact@cojuka.com?subject=Projet%20COJUKA" class="btn-pill btn-white" aria-label="Préparer un courriel de contact (adresse provisoire)">Nous écrire <span aria-hidden="true">↗</span></a><p class="small muted mt-3">Coordonnées officielles à renseigner avant publication.</p></div></section>
 </main>

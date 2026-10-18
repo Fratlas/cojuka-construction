@@ -64,7 +64,7 @@ body{font-size:15px;line-height:1.55}
 
 /* Back-office only: white COJUKA mark, readable without clipping on navy sidebar. */
 .sidebar .brand{justify-content:center;padding:22px 18px;min-height:154px;overflow:hidden}
-.sidebar .brand .cojuka-brand-logo{display:block;width:100%!important;max-width:116px;height:116px!important;max-height:116px;object-fit:contain;object-position:center;filter:none!important;flex-shrink:1}
+.sidebar .brand .cojuka-brand-logo{display:block;width:100%!important;max-width:116px;height:116px!important;max-height:116px;object-fit:contain;object-position:center;filter:none!important;opacity:1!important;mix-blend-mode:normal!important;flex-shrink:1}
 .sidebar .brand .brand-name,.sidebar .brand .brand-caption{display:none}
 @media(max-width:1100px){.sidebar .brand .cojuka-brand-logo{max-width:108px}}
 </style>
@@ -74,7 +74,7 @@ body{font-size:15px;line-height:1.55}
 <div id="mobileOverlay" class="mobile-overlay"></div>
 <div class="app-shell">
 <aside id="sideNav" class="sidebar" aria-label="Navigation de gestion">
- <div class="brand">@include('partials.cojuka-logo', ['logoClass'=>'cojuka-brand-logo--small'])<div><div class="brand-name">COJUKA GROUP</div><div class="brand-caption">EXECUTIVE SUITE</div></div></div>
+ <div class="brand"><img class="cojuka-brand-logo cojuka-brand-logo--small" src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018-color-gestion" alt="COJUKA Consulting Group — logo officiel en couleurs" width="1254" height="1254" decoding="async"><div><div class="brand-name">COJUKA GROUP</div><div class="brand-caption">EXECUTIVE SUITE</div></div></div>
  <div class="nav-caption">Vue générale</div>
  <a class="side-link {{ request()->routeIs('gestion.group.dashboard') ? 'active' : '' }}" href="{{ route('gestion.group.dashboard') }}"><i class="bi bi-grid-1x2"></i> Tableau de bord</a>
  @if(\App\Support\GroupAccess::can(auth()->user(),'entites'))

@@ -7,10 +7,10 @@ $cojukaMarqueePhotos=[
  ['photo-1497436072909-60f362e1d4b1','Territoires et énergie','energie','Énergie'],
  ['photo-1556761175-b413da4baf72','Stratégie et collaboration','consultance','Consultance'],
  ['photo-1451187580459-43490279c0fa','Réseaux et connexions','logistique','Logistique'],
- ['photo-1497366754035-f200968a6e72','Environnement professionnel','impact-center','Coopération'],
+ ['photo-1497366216548-37526070297c','Environnement professionnel','impact-center','Coopération'],
  ['photo-1460925895917-afdab827c52f','Données et stratégie','consultance','Développement'],
- ['photo-1487958449943-2429e8be8625','Architecture contemporaine','genie','Génie civil'],
- ['photo-1497366811353-6870744d04b2','Espaces de travail modernes','eden-park-investments','Investissement']
+ ['photo-1449158743715-0a90ebb6d2d8','Architecture contemporaine','genie','Génie civil'],
+ ['photo-1504384308090-c894fdcc538d','Espaces de travail modernes','eden-park-investments','Investissement']
 ];
 @endphp
 <section class="cg-photo-marquee" aria-labelledby="cg-photo-marquee-title">

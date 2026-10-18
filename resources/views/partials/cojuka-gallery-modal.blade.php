@@ -140,7 +140,7 @@ img[data-cg-photo-popup]{outline-offset:-4px}
    const buttons=thumbs.querySelectorAll('button');
    buttons.forEach((b,i)=>b.setAttribute('aria-current',i===position?'true':'false'));
    const selected=buttons[position];
-   selected?.scrollIntoView({behavior:'instant',inline:'nearest',block:'nearest'});
+   selected?.scrollIntoView({behavior:'auto',inline:'nearest',block:'nearest'});
    if(focusThumbnail)selected?.focus({preventScroll:true});
   }
   function show(target){

@@ -102,7 +102,9 @@ class GroupSuiteController {
  public function destroy(Request $request,string $module,int $id){
   $this->config($module);$this->ensureReady();
   DB::transaction(function()use($module,$id,$request){
-   $item=GroupSuiteRecord::where('module',$module)->findOrFail($id);GroupAccess::requireEntity($request->user(),$item->group_entity_id);$this->audit($request,'delete',$item,$item->toArray());$item->delete();
+   $item=GroupSuiteRecord::where('module',$module)->findOrFail($id);GroupAccess::requireEntity($request->user(),$item->group_entity_id);
+   if($module==='rh' && Schema::hasTable('group_documents'))abort_if(DB::table('group_documents')->where('owner_type','rh')->where('owner_id',$id)->exists(),409,'Supprimez les pièces jointes privées avant de supprimer ce dossier du personnel.');
+   $this->audit($request,'delete',$item,$item->toArray());$item->delete();
   });
   return back()->with('status','Enregistrement supprimé.');
  }

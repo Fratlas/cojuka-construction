@@ -9,7 +9,8 @@ class GroupModuleAccess {
   $module=(string)$request->route('module');
   $name=(string)$request->route()?->getName();
   $action=match(true){
-   str_ends_with($name,'.export'),str_ends_with($name,'.template')=>'export',
+   str_ends_with($name,'.export')=>'export',
+   str_ends_with($name,'.template')=>'create',
    str_ends_with($name,'.store'),str_ends_with($name,'.save'),str_ends_with($name,'.import')=>'create',
    str_ends_with($name,'.update'),str_ends_with($name,'.edit')=>'update',
    str_ends_with($name,'.destroy'),str_ends_with($name,'.delete')=>'delete',

@@ -14,6 +14,15 @@ html[data-cojuka-theme="dark"] .cojuka-brand-wordmark{color:#fff}
 .cojuka-footer-brand .cojuka-brand-wordmark{color:#fff}
 @media(max-width:991.98px){.cojuka-global-nav .cojuka-brand-lockup{gap:5px}.cojuka-global-nav .cojuka-brand-wordmark{font-size:9px;letter-spacing:0}}
 @media(max-width:375px){.cojuka-global-nav .cojuka-brand-wordmark{font-size:8px}}
+/* The approved AVIF already contains its own lettering. Hide only that baked-in
+   lettering in compact lockups, keeping the globe and all four red elements.
+   The full untouched artwork remains visible in the animated welcome screen. */
+.cojuka-brand-logo{
+ -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 72.5%,transparent 72.6%,transparent 83%,#000 83.1%,#000 100%);
+ mask-image:linear-gradient(to bottom,#000 0%,#000 72.5%,transparent 72.6%,transparent 83%,#000 83.1%,#000 100%);
+}
+.cojuka-brand-lockup{gap:7px}
+.cojuka-brand-wordmark{margin-left:0;line-height:1.2;flex:none}
 </style>
 @php($logoClass = $logoClass ?? '')
 <span class="cojuka-brand-lockup"><img class="cojuka-brand-logo {{ $logoClass }}" src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018-final" alt="COJUKA Consulting Group — emblème officiel avec globe rouge et Afrique" decoding="async" width="1254" height="1254"><span class="cojuka-brand-wordmark">COJUKA<br>CONSULTING<br>GROUP</span></span>

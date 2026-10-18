@@ -69,8 +69,9 @@ body{font-size:15px;line-height:1.55}
 @media(max-width:1100px){.sidebar .brand .cojuka-brand-logo{width:72px!important;max-width:72px;height:72px!important;max-height:72px}.sidebar .brand .brand-name{font-size:11px}}
 </style>
 @include('partials.cojuka-design')
+<link rel="stylesheet" href="{{ asset('css/cojuka-glass.css') }}?v=20261018-glass-01">
 </head>
-<body>
+<body class="cojuka-glass cojuka-glass-admin">
 <div id="mobileOverlay" class="mobile-overlay"></div>
 <div class="app-shell">
 <aside id="sideNav" class="sidebar" aria-label="Navigation de gestion">

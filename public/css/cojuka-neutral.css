@@ -419,3 +419,28 @@ html[data-cojuka-theme="dark"] body.cojuka-glass-public
  .cg-gallery-modal .cg-gallery-eyebrow{color:#546376!important}
 html[data-cojuka-theme="dark"] body.cojuka-glass-public
  .cg-wheel-center strong{color:#273548!important}
+
+/* Final interaction audit: no magenta/red glass halos in night mode. */
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ :is(.cx-card,.cx-controls button,.cx-stage-side button):hover{
+ background:linear-gradient(145deg,rgba(72,85,103,.88),rgba(34,45,62,.83))!important;
+ border-color:rgba(233,240,249,.45)!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ :is(.cx-card,.cx-controls button,.cx-stage-side button):focus-visible{
+ outline:3px solid #FFFFFF!important;outline-offset:3px;
+}
+@media(hover:hover) and (pointer:fine){
+ html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ main :is(.cx-card,.cx-controls button,.cx-stage-side button,.cojuka-entity-link,.cojuka-entity-arrow):hover{
+ box-shadow:0 0 0 1px rgba(220,231,245,.46),
+  0 0 23px rgba(175,192,214,.18),
+  0 12px 38px rgba(4,10,22,.29)!important;
+ }
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ .cojuka-carousel-dot:focus-visible,
+html[data-cojuka-theme="dark"] body.cojuka-glass-public
+ .cojuka-carousel-arrow:focus-visible{
+ outline:3px solid #FFFFFF!important;outline-offset:3px;
+}

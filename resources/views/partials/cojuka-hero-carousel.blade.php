@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded',function(){
    cta:copy.querySelector('[data-cojuka-hero-cta]')
   }:null;
   function updateHeroCopy(i,immediate){
-   if(!copy||!targets||Object.values(targets).some(el=>!el)||!messages[i])return;
+   if(!copy||!targets||!targets.eyebrow||!targets.title||!targets.cta||!messages[i])return;
    if(copyIndex===i)return;
    copyIndex=i;
    window.clearTimeout(copyTimer);
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded',function(){
    const apply=()=>{
     targets.eyebrow.textContent=message.eyebrow;
     targets.title.textContent=message.title;
-    targets.description.textContent=message.description;
+    if(targets.description)targets.description.textContent=message.description;
     targets.cta.href=message.href;
     targets.cta.replaceChildren(document.createTextNode(message.cta+' '));
     const arrow=document.createElement('span');

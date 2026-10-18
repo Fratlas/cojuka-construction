@@ -759,3 +759,93 @@ body.cojuka-glass-public .cojuka-global-nav .dropdown-menu{
   backdrop-filter:blur(4px);
  }
 }
+
+
+/* ==========================================================
+   COJUKA / Aurora hover: elegant light reacts to the pointer.
+   A real DOM overlay avoids disturbing existing ::before and
+   ::after indicators, logos, buttons or slide animations.
+   ========================================================== */
+.cojuka-glass [data-cg-glow="ready"]{
+  --cg-pointer-x:50%;
+  --cg-pointer-y:50%;
+  position:relative;
+  isolation:isolate;
+}
+.cojuka-glass [data-cg-glow="ready"]>.cg-glow-overlay{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:2;
+  display:block;
+  border-radius:inherit;
+  background:
+    radial-gradient(ellipse 210px 165px at var(--cg-pointer-x) var(--cg-pointer-y),
+       rgba(255,255,255,.40) 0%,rgba(255,225,236,.27) 23%,
+       rgba(224,173,212,.14) 45%,transparent 79%),
+    radial-gradient(ellipse 300px 240px at var(--cg-pointer-x) var(--cg-pointer-y),
+       rgba(196,212,255,.13),transparent 76%);
+  opacity:0;
+  pointer-events:none!important;
+  user-select:none;
+  transition:opacity .42s cubic-bezier(.2,.7,.2,1);
+}
+@media(hover:hover) and (pointer:fine){
+  .cojuka-glass [data-cg-glow="ready"]:hover>.cg-glow-overlay{
+    opacity:1;
+  }
+  /* External, softly diffused bloom (inner reflection above). */
+  .cojuka-glass-public main :is(.service-card,.info-card,.history-card,.model-card,.cojuka-atlas-photo):hover,
+  .cojuka-glass-admin .page-content .card:hover,
+  .cojuka-glass-legacy :is(.panel,.stat):hover{
+    box-shadow:
+      0 0 0 1px rgba(240,181,207,.55),
+      0 0 28px -8px rgba(192,75,135,.28),
+      0 21px 65px -22px rgba(54,59,107,.25),
+      inset 0 1px 0 rgba(255,255,255,.98)!important;
+  }
+  .cojuka-glass-public main :is(.cx-card,.cx-controls button,.cx-stage-side button,.cojuka-entity-link,.cojuka-entity-arrow):hover,
+  .cojuka-glass-admin .sidebar .side-link:hover{
+    box-shadow:
+      0 0 0 1px rgba(234,178,212,.50),
+      0 0 22px rgba(218,97,149,.24),
+      0 12px 40px rgba(15,23,47,.18)!important;
+  }
+  /* Top navigation gets a restrained halo; never recolor official logo artwork. */
+  .cojuka-glass-public .cojuka-global-nav .navbar-brand:hover{
+    filter:drop-shadow(0 0 12px rgba(174,63,112,.27));
+  }
+  .cojuka-glass-public .cojuka-global-nav .navbar-nav>.nav-link:hover,
+  .cojuka-glass-public .cojuka-global-nav .nav-item>.nav-link:hover{
+    box-shadow:inset 0 0 0 1px rgba(186,91,127,.13),0 0 18px rgba(177,60,104,.15)!important;
+  }
+  .cojuka-glass-public main :is(.btn-pill,.btn-outline-light-custom):hover,
+  .cojuka-glass-admin .page-content .btn:hover,
+  .cojuka-glass-auth .auth-panel .btn:hover{
+    box-shadow:0 0 19px rgba(195,93,132,.25),0 8px 28px rgba(42,30,59,.13)!important;
+  }
+  .cojuka-glass-auth .auth-feature:hover,
+  .cojuka-glass-auth .auth-workspace:hover{
+    box-shadow:0 0 0 1px rgba(255,255,255,.52),0 12px 45px rgba(212,132,174,.20),0 29px 75px rgba(3,12,28,.19)!important;
+  }
+}
+/* Keyboard users receive a stable luminous focus treatment. */
+.cojuka-glass [data-cg-glow="ready"]:focus-visible,
+.cojuka-glass [data-cg-glow="ready"]:focus-within{
+  outline:2px solid rgba(178,78,116,.60);
+  outline-offset:3px;
+}
+.cojuka-glass [data-cg-glow="ready"]:focus-visible>.cg-glow-overlay{
+  opacity:.62;
+}
+@media(prefers-reduced-motion:reduce){
+  .cojuka-glass .cg-glow-overlay{display:none!important;transition:none!important}
+  .cojuka-glass .cojuka-global-nav .navbar-brand{filter:none!important}
+}
+@media(prefers-reduced-transparency:reduce){
+  .cojuka-glass .cg-glow-overlay{opacity:0!important}
+}
+@media(max-width:767px){
+  .cojuka-glass .cg-glow-overlay{display:none!important}
+}

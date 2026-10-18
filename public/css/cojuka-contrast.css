@@ -1,0 +1,282 @@
+/*
+ * COJUKA accessibility & responsive contrast layer — light/dark theme
+ * Scoped to the public site, especially Accueil and /groupe/structures/*.
+ * Loaded after the glass skin to keep text legible without flattening design.
+ */
+
+/* Consistent type and accessible surface tokens in both modes. */
+body.cojuka-glass-public{
+ --ct-ink:#182434;
+ --ct-body:#354355;
+ --ct-muted:#506072;
+ --ct-accent:#84263c;
+ --ct-card:#f8fafd;
+ --ct-rule:rgba(56,69,92,.17);
+ --ct-hero-text:#fff;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public{
+ --ct-ink:#f6f7fa;
+ --ct-body:#e1e8f2;
+ --ct-muted:#b9c8da;
+ --ct-accent:#ffc1cf;
+ --ct-card:#202a3d;
+ --ct-rule:rgba(235,240,255,.17);
+}
+body.cojuka-glass-public main:is(.cojuka-home-main,.cojuka-profile-main){
+ overflow-wrap:break-word;
+}
+body.cojuka-glass-public main:is(.cojuka-home-main,.cojuka-profile-main) :is(.container,.row,[class*="col-"]){min-width:0}
+body.cojuka-glass-public main:is(.cojuka-home-main,.cojuka-profile-main) h1,
+body.cojuka-glass-public main:is(.cojuka-home-main,.cojuka-profile-main) h2,
+body.cojuka-glass-public main:is(.cojuka-home-main,.cojuka-profile-main) h3{
+ overflow-wrap:break-word;
+ text-wrap:pretty;
+}
+body.cojuka-glass-public main:is(.cojuka-home-main,.cojuka-profile-main) :is(.section-kicker,.eyebrow,.index,.tag,.service-index){
+ color:var(--ct-accent);
+}
+body.cojuka-glass-public main:is(.cojuka-home-main,.cojuka-profile-main) :is(.muted,.text-secondary,.service-description,.feature-description,.intro-copy){
+ color:var(--ct-muted)!important;
+}
+/* Light-mode cards: never white lettering on translucent pale glass. */
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main:is(.cojuka-home-main,.cojuka-profile-main)
+ :is(.service-card,.info-card,.model-card,.entity-photo-tile){
+ color:var(--ct-ink)!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main:is(.cojuka-home-main,.cojuka-profile-main)
+ :is(.service-card,.info-card,.model-card,.entity-photo-tile) :is(h2,h3,h4,.service-title){
+ color:var(--ct-ink)!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main:is(.cojuka-home-main,.cojuka-profile-main)
+ :is(.service-card,.info-card,.model-card,.entity-photo-tile) :is(p,.lead,.text-secondary,.muted,.service-description,figcaption){
+ color:var(--ct-body)!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public main.cojuka-profile-main .entity-photo-tile figcaption{
+ background:rgba(246,248,253,.91);
+ color:#263348!important;
+ border-top:1px solid rgba(179,189,208,.35);
+}
+/* Night cards: change both glass surface AND ink — never mix a pale card with light text. */
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main:is(.cojuka-home-main,.cojuka-profile-main)
+ :is(.service-card,.info-card,.model-card,.entity-photo-tile){
+ background:linear-gradient(145deg,rgba(38,49,69,.94),rgba(26,37,55,.93))!important;
+ border-color:rgba(236,243,255,.22)!important;
+ color:var(--ct-ink)!important;
+ box-shadow:0 22px 62px rgba(0,0,0,.23),inset 0 1px rgba(255,255,255,.14)!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main:is(.cojuka-home-main,.cojuka-profile-main)
+ :is(.service-card,.info-card,.model-card,.entity-photo-tile) :is(h2,h3,h4,.service-title){
+ color:var(--ct-ink)!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main:is(.cojuka-home-main,.cojuka-profile-main)
+ :is(.service-card,.info-card,.model-card,.entity-photo-tile) :is(p,.lead,.text-secondary,.muted,.service-description,figcaption){
+ color:var(--ct-body)!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main.cojuka-home-main .service-card .service-content{
+ background:rgba(18,28,43,.38)!important;
+ border-top:1px solid rgba(250,252,255,.14);
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main.cojuka-profile-main .entity-photo-tile figcaption{
+ background:rgba(29,40,59,.97)!important;
+ border-top:1px solid rgba(233,238,250,.16);
+ color:#f0f3f9!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public main.cojuka-profile-main .entity-photo-tile .index{
+ color:#ffcad3!important;
+}
+/* Photo/video hero is *always* a dark cinematic surface: same white type in both modes. */
+body.cojuka-glass-public main.cojuka-home-main .hero,
+body.cojuka-glass-public main.cojuka-profile-main .entity-hero{
+ color:#fff!important;
+ isolation:isolate;
+}
+body.cojuka-glass-public main.cojuka-home-main .hero .hero-content{
+ width:100%;
+ max-width:100%;
+}
+body.cojuka-glass-public main.cojuka-home-main .hero .hero-content :is(h1,[data-cojuka-hero-title]),
+body.cojuka-glass-public main.cojuka-profile-main .entity-hero h1{
+ color:#fff!important;
+ text-shadow:0 3px 22px rgba(0,0,0,.38);
+}
+body.cojuka-glass-public main.cojuka-home-main .hero .hero-content :is(.eyebrow,[data-cojuka-hero-eyebrow]),
+body.cojuka-glass-public main.cojuka-profile-main .entity-hero :is(.eyebrow,.text-white-50){
+ color:#f8fafc!important;
+}
+body.cojuka-glass-public main.cojuka-home-main .hero .hero-content :is(.hero-sub,[data-cojuka-hero-description]),
+body.cojuka-glass-public main.cojuka-profile-main .entity-hero .lead{
+ color:#f6f8fc!important;
+ text-shadow:0 2px 12px rgba(0,0,0,.38);
+}
+body.cojuka-glass-public main.cojuka-profile-main .entity-hero .entity-video-overlay{
+ background:linear-gradient(90deg,rgba(5,11,21,.86) 0%,rgba(9,17,30,.67) 50%,rgba(11,18,29,.39) 100%);
+}
+body.cojuka-glass-public main.cojuka-profile-main .entity-hero .container{
+ padding-top:clamp(12px,3vw,35px);
+ padding-bottom:clamp(12px,3vw,35px);
+}
+body.cojuka-glass-public main.cojuka-profile-main .entity-hero .lead{
+ width:min(720px,100%);
+ line-height:1.72;
+}
+body.cojuka-glass-public main.cojuka-home-main .hero .hero-content .btn-white,
+body.cojuka-glass-public main.cojuka-profile-main .entity-hero .btn-light{
+ color:#1a2433!important;
+ background:rgba(255,255,255,.96)!important;
+ border:1px solid rgba(255,255,255,.9)!important;
+}
+body.cojuka-glass-public main.cojuka-home-main .hero .hero-content .btn-outline-light-custom,
+body.cojuka-glass-public main.cojuka-profile-main .entity-hero .btn-outline-light{
+ color:#fff!important;
+ background:rgba(15,26,43,.46)!important;
+ border:1px solid rgba(255,255,255,.68)!important;
+ text-decoration:none;
+}
+/* All dark-background editorial bands stay light in either theme. */
+body.cojuka-glass-public main.cojuka-home-main :is(.statement,.showcase-3d,.contact-section),
+body.cojuka-glass-public main.cojuka-profile-main section[style*="background:#27323b"],
+body.cojuka-glass-public main.cojuka-profile-main section[style*="background:#111724"]{
+ color:#f4f7fb!important;
+}
+body.cojuka-glass-public main.cojuka-home-main :is(.statement,.showcase-3d,.contact-section) :is(h2,h3,p,.lead,.muted,.photo-showcase-tag),
+body.cojuka-glass-public main.cojuka-profile-main section[style*="background:#27323b"] :is(h2,h3,p,.eyebrow),
+body.cojuka-glass-public main.cojuka-profile-main section[style*="background:#111724"] :is(h2,h3,p,.eyebrow,.lead){
+ color:#f4f7fb!important;
+}
+body.cojuka-glass-public main.cojuka-home-main .photo-showcase .model-label :is(h3,p),
+body.cojuka-glass-public main.cojuka-home-main .photo-showcase-link{
+ color:#f4f7fb!important;
+}
+body.cojuka-glass-public main.cojuka-profile-main section[style*="background:#27323b"] .btn-light,
+body.cojuka-glass-public main.cojuka-profile-main section[style*="background:#111724"] .btn-light{
+ color:#172135!important;background:#f5f7fb!important;
+}
+body.cojuka-glass-public main.cojuka-home-main .photo-showcase-tag{
+ color:#18263c!important;background:rgba(250,247,236,.95)!important;
+}
+/* Information and illustrations under the glass remain legible. */
+body.cojuka-glass-public main.cojuka-profile-main .info-card{
+ line-height:1.65;
+}
+body.cojuka-glass-public main.cojuka-profile-main .entity-service-photo>img{
+ max-width:none;
+}
+body.cojuka-glass-public main.cojuka-profile-main :is(.info-card,.entity-photo-tile) .index{
+ color:var(--ct-accent)!important;
+}
+body.cojuka-glass-public main:is(.cojuka-home-main,.cojuka-profile-main) :is(.btn,.btn-pill,a.btn){
+ text-wrap:pretty;
+}
+/* Shared fixed navigation + footer contrast (the nav is outside <main>). */
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public .cojuka-global-nav :is(.nav-link,.cojuka-language-trigger,.cojuka-current-code){
+ color:#263044!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-global-nav :is(.nav-link,.cojuka-language-trigger,.cojuka-current-code){
+ color:#f2f5fa!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-global-nav .cojuka-language-trigger,
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-global-nav .navbar-toggler{
+ background:rgba(41,50,68,.94)!important;
+ border-color:rgba(255,255,255,.26)!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public .cojuka-global-nav .cojuka-language-trigger{
+ background:rgba(255,255,255,.88)!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-global-nav .dropdown-menu{
+ background:rgba(29,38,54,.98)!important;
+ border:1px solid #4a586c!important;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-global-nav .dropdown-item{color:#ecf1f8!important}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-global-nav .dropdown-item:hover,
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-global-nav .dropdown-item:focus{
+ background:#34445e!important;color:#fff!important;
+}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public .cojuka-global-nav .dropdown-item{color:#273244!important}
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public .cojuka-global-nav .dropdown-item:hover{
+ background:#f4e9ed!important;color:#6f1d30!important;
+}
+/* Keep navbar compact, but don't crop the left-most globe on narrow viewports. */
+@media(max-width:480px){
+ body.cojuka-glass-public .cojuka-global-nav>.container-fluid{padding-left:15px!important;padding-right:11px!important}
+ body.cojuka-glass-public .cojuka-global-nav .navbar-brand{
+  flex:0 1 auto!important;min-width:0;max-width:calc(100% - 162px)!important;
+ }
+ body.cojuka-glass-public .cojuka-global-nav .cojuka-brand-lockup{gap:2px!important}
+ body.cojuka-glass-public .cojuka-global-nav .navbar-brand .cojuka-brand-logo{
+  width:45px!important;min-width:45px!important;height:45px!important;max-height:45px!important;
+ }
+ body.cojuka-glass-public .cojuka-global-nav .cojuka-brand-wordmark{margin-left:0!important;min-width:0!important}
+ body.cojuka-glass-public .cojuka-global-nav .cojuka-brand-primary{font-size:11px!important}
+ body.cojuka-glass-public .cojuka-global-nav .cojuka-brand-secondary{font-size:7px!important;letter-spacing:0!important}
+ body.cojuka-glass-public .cojuka-global-nav .cojuka-mobile-nav-actions{gap:2px;flex-shrink:0}
+ body.cojuka-glass-public .cojuka-global-nav .cojuka-theme-toggle{width:32px!important;min-width:32px!important;height:32px!important}
+ body.cojuka-glass-public .cojuka-global-nav .cojuka-language-trigger{min-width:53px;padding:5px 3px!important}
+ body.cojuka-glass-public .cojuka-global-nav .navbar-toggler{padding:7px!important}
+}
+@media(max-width:359.98px){
+ body.cojuka-glass-public .cojuka-global-nav .cojuka-brand-secondary{font-size:6.1px!important}
+ body.cojuka-glass-public .cojuka-global-nav .cojuka-brand-primary{font-size:10px!important}
+ body.cojuka-glass-public .cojuka-global-nav .cojuka-mobile-nav-actions .cojuka-current-code{display:none}
+}
+/* Mobile text must fit the viewport; navigation controls must not overlay the copy. */
+@media(max-width:767.98px){
+ body.cojuka-glass-public main.cojuka-home-main .hero{min-height:100svh}
+ body.cojuka-glass-public main.cojuka-home-main .hero .hero-content{
+  padding-top:clamp(45px,7vh,85px)!important;
+  padding-bottom:clamp(92px,12vh,136px)!important;
+ }
+ body.cojuka-glass-public main.cojuka-home-main .hero h1{
+  font-size:clamp(2.65rem,10.5vw,4.8rem)!important;
+  line-height:1.07!important;
+  letter-spacing:-.052em!important;
+  overflow-wrap:break-word;
+ }
+ body.cojuka-glass-public main.cojuka-home-main .hero .hero-content>.eyebrow{
+  font-size:clamp(.70rem,2.8vw,.88rem)!important;
+  line-height:1.55!important;
+  letter-spacing:.05em!important;
+  max-width:100%;
+  padding:10px 13px!important;
+  border-radius:18px!important;
+ }
+ body.cojuka-glass-public main.cojuka-home-main .hero .hero-sub{
+  font-size:clamp(.98rem,4vw,1.15rem)!important;
+  line-height:1.65!important;
+  width:100%;
+  max-width:100%;
+ }
+ body.cojuka-glass-public main.cojuka-home-main .hero .hero-content>.d-flex{align-items:flex-start;max-width:100%}
+ body.cojuka-glass-public main.cojuka-home-main .hero .btn-pill{
+  font-size:clamp(.86rem,3.6vw,1rem)!important;
+  max-width:100%;
+  min-height:46px;
+  padding:12px 17px!important;
+ }
+ body.cojuka-glass-public main.cojuka-home-main .scroll-indicator{display:none!important}
+ body.cojuka-glass-public main.cojuka-profile-main .entity-hero{
+  min-height:65svh;
+  padding:72px 0 85px;
+ }
+ body.cojuka-glass-public main.cojuka-profile-main .entity-hero h1{
+  font-size:clamp(2.4rem,10.2vw,4.5rem)!important;
+  line-height:1.06;
+  letter-spacing:-.055em;
+ }
+ body.cojuka-glass-public main.cojuka-profile-main .entity-hero .lead{
+  font-size:1.02rem!important;line-height:1.65!important;
+ }
+ body.cojuka-glass-public main.cojuka-profile-main .display-title{font-size:clamp(2rem,7vw,3rem);line-height:1.12}
+ body.cojuka-glass-public main.cojuka-profile-main .info-card{padding:clamp(18px,5vw,26px)!important}
+ body.cojuka-glass-public main.cojuka-profile-main .entity-service-photo>img{
+  width:calc(100% + 2*clamp(18px,5vw,26px));
+  margin:calc(-1 * clamp(18px,5vw,26px)) calc(-1 * clamp(18px,5vw,26px)) 20px;
+ }
+}
+/* Motion and transparency preferences: text remains readable without optical effects. */
+@media(prefers-reduced-transparency:reduce){
+ body.cojuka-glass-public main.cojuka-home-main .hero .hero-sub{background:#142337!important}
+ body.cojuka-glass-public main.cojuka-profile-main :is(.service-card,.info-card,.entity-photo-tile){backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+}
+@media(prefers-reduced-motion:reduce){
+ body.cojuka-glass-public main:is(.cojuka-home-main,.cojuka-profile-main) :is(.reveal,.service-card,.info-card,.entity-photo-tile){transform:none!important;transition:none!important}
+}

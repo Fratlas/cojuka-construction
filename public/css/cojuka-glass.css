@@ -742,7 +742,9 @@ body.cojuka-glass-public .cojuka-global-nav .dropdown-menu{
  backdrop-filter:blur(6px) saturate(125%);
 }
 .cojuka-glass-auth .auth-workspace{
- background:linear-gradient(145deg,rgba(255,255,255,.77),rgba(244,247,252,.66))!important;
+ /* About 25% less opaque than the previous milky-white fill. */
+ background:linear-gradient(145deg,rgba(255,255,255,.58),rgba(244,247,252,.50))!important;
+ border-color:rgba(255,255,255,.72)!important;
  -webkit-backdrop-filter:blur(7px) saturate(125%);
  backdrop-filter:blur(7px) saturate(125%);
 }

@@ -37,6 +37,31 @@ nav{min-height:64px;box-shadow:0 1px 0 #00000012}
 @media(prefers-reduced-motion:reduce){.hero .reveal{animation:none!important}}
 .hero .motion-stage video{opacity:1;object-fit:cover}.hero .motion-stage:after{background:linear-gradient(90deg,rgba(8,14,26,.9) 0%,rgba(8,14,26,.65) 45%,rgba(8,14,26,.26) 100%),linear-gradient(0deg,rgba(8,14,26,.45),transparent 70%)}.hero .motion-label{display:none}@media(prefers-reduced-motion:reduce){.hero .motion-stage video{display:none}}
 .consulting-video-hero{position:relative;overflow:hidden;min-height:calc(100svh - 76px);background:#0b1220;color:#fff;isolation:isolate}.consulting-video-hero .cojuka-video-carousel{position:absolute;inset:0;z-index:0}.consulting-video-hero:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(7,13,24,.86),rgba(7,13,24,.58) 65%,rgba(7,13,24,.3));pointer-events:none}.consulting-video-hero .container{position:relative;z-index:3}.consulting-video-hero h1{color:white}.consulting-video-hero .accent{color:#fff}.consulting-video-hero .lead{color:#e5e7ed}.consulting-video-hero .cojuka-carousel-controls{z-index:6}.consulting-video-hero .btn-brand{background:#fff;color:#151923}.consulting-video-hero .btn-brand:hover{background:#f1e6e8;color:#151923}@media(max-width:767px){.consulting-video-hero{padding:105px 0 130px}.consulting-video-hero h1{font-size:clamp(3.1rem,11vw,5rem)}}
+
+/* Hero sur l'image, sans cache ni glassmorphisme : libellé uniquement. */
+.hero [data-cojuka-hero-eyebrow],
+.consulting-video-hero [data-cojuka-hero-eyebrow]{
+  display:inline-block!important;
+  width:auto!important;
+  max-width:100%;
+  padding:0!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  background:none!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  outline:0!important;
+  isolation:auto!important;
+}
+.hero [data-cojuka-hero-eyebrow]::before,
+.hero [data-cojuka-hero-eyebrow]::after,
+.consulting-video-hero [data-cojuka-hero-eyebrow]::before,
+.consulting-video-hero [data-cojuka-hero-eyebrow]::after{content:none!important;display:none!important}
 </style>
 @endsection
 @section('content')

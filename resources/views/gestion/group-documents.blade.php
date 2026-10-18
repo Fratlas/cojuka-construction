@@ -17,7 +17,9 @@
  <form method="post" enctype="multipart/form-data" action="{{ route('gestion.documents.store',[$scope,$item->id]) }}" class="row g-3 align-items-end">
   @csrf
   <div class="col-md-4"><label class="form-label" for="doc-category">Type de pièce</label><select class="form-select" name="category" id="doc-category" required>@foreach($categories as $code=>$label)<option value="{{ $code }}">{{ $label }}</option>@endforeach</select></div>
-  <div class="col-md-4"><label class="form-label" for="doc-file">Fichier à joindre</label><input class="form-control" id="doc-file" type="file" name="file" accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp" required></div>
+  <div class="col-md-4"><label class="form-label" for="doc-file">Fichier à joindre</label><input class="form-control" id="doc-file" type="file" name="file" accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp" required>
+   <div class="mt-2"><label class="btn btn-sm btn-outline-secondary" for="doc-camera"><i class="bi bi-camera me-1"></i>Prendre une photo du document</label><input class="visually-hidden" id="doc-camera" type="file" accept="image/*" capture="environment"><span class="small text-secondary ms-2" id="doc-photo-status" aria-live="polite"></span></div>
+  </div>
   <div class="col-md-4"><label class="form-label" for="doc-label">Référence / commentaire</label><input class="form-control" id="doc-label" name="label" maxlength="180" placeholder="Facultatif"></div>
   <div class="col-md-3"><label class="form-label" for="doc-issued">Date de délivrance</label><input class="form-control" id="doc-issued" name="issued_on" type="date"></div>
   <div class="col-md-3"><label class="form-label" for="doc-expires">Date d’expiration</label><input class="form-control" id="doc-expires" name="expires_on" type="date"></div>
@@ -45,3 +47,23 @@
  </table></div>
 </div>
 @endsection
+@section('page_scripts')
+<script>
+(function(){
+ const camera=document.getElementById('doc-camera'),target=document.getElementById('doc-file'),status=document.getElementById('doc-photo-status');
+ if(!camera||!target)return;
+ camera.addEventListener('change',function(){
+  if(!camera.files||!camera.files.length)return;
+  try{
+   const transfer=new DataTransfer();
+   transfer.items.add(camera.files[0]);
+   target.files=transfer.files;
+   if(status)status.textContent='Photo sélectionnée : '+camera.files[0].name;
+  }catch(e){
+   if(status)status.textContent='Sélectionnez la photo dans le champ « Fichier à joindre ».';
+  }
+ });
+})();
+</script>
+@endsection
+

@@ -204,6 +204,8 @@ foreach($exploreScenes as $i=>$scene){
    const previous=state.active,old=players[previous],incoming=players[slot];
    state.active=slot;state.index=index;state.mode='video';state.photoElapsed=0;
    poster(index);information(index);
+   // Prevent two audio tracks playing simultaneously during the picture crossfade.
+   if(old!==incoming)old.muted=true;
    incoming.style.zIndex='2';old.style.zIndex='1';
    incoming.classList.add('cx-active');
    if(old!==incoming)old.classList.remove('cx-active');
@@ -222,7 +224,7 @@ foreach($exploreScenes as $i=>$scene){
    cancelPending();
    const token=state.token;
    state.switching=true;
-   stage.classList.add('cx-switching');
+   // Keep the outgoing scene and its caption fully visible while the next clip buffers.
    if(reduced||saveData||!state.wanted){showPhoto(target,token);return}
    const slot=1-state.active,incoming=players[slot];
    const loadFallback=()=>showPhoto(target,token,'La vidéo est momentanément indisponible : la visite continue avec des images.');
@@ -255,7 +257,10 @@ foreach($exploreScenes as $i=>$scene){
  function setWanted(value){
    state.wanted=value;
    state.lastTick=performance.now();
-   if(!value)pause();
+   if(!value){
+     if(state.switching){cancelPending();showPhoto(state.index,state.token)}
+     pause();
+   }
    if(value&&state.started){
      if(state.mode==='video')resume();
      // Photo mode remains a timed automatic tour, and still works if videos fail.

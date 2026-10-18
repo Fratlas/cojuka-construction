@@ -268,6 +268,7 @@ document.addEventListener('DOMContentLoaded',function(){
     video.removeAttribute('src');
     video.load();
     if(pending===i)playVideo(i);
+    else if(active===i){pending=i;playVideo(i)}
     return;
    }
    state[i].failed=true;
@@ -360,6 +361,15 @@ document.addEventListener('DOMContentLoaded',function(){
    if(Math.abs(dx)>=45&&Math.abs(dx)>Math.abs(dy)*1.3)show(nextAvailable(active,dx<0?1:-1));
   },{passive:true});
   host.addEventListener('touchcancel',()=>{touch=null},{passive:true});
+  document.addEventListener('visibilitychange',()=>{
+   if(document.hidden){window.clearTimeout(advanceTimer);return}
+   if(pending>=0||reduced||saveData)return;
+   warmUpcoming(active);
+   if(isVideo(active)&&slides[active].paused){
+    slides[active].play().catch(()=>show(nextAvailable(active,1)));
+   }
+   queueAdvance(isVideo(active)?'playing':'photo');
+  });
   updateControls();updateHeroCopy(0,true);
   const begin=()=>show(0);
   if('IntersectionObserver' in window){

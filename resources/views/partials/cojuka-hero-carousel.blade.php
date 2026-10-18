@@ -33,6 +33,28 @@
 .cojuka-carousel-arrow{flex:none;display:grid;place-items:center;width:34px;height:34px;padding:0;border:1px solid rgba(255,255,255,.32);border-radius:50%;background:rgba(255,255,255,.1);color:#fff;font:300 27px/1 system-ui;cursor:pointer;transition:background .2s ease}
 .cojuka-carousel-arrow:hover{background:rgba(255,255,255,.28)}
 .cojuka-carousel-count{font:600 11px/1.2 system-ui,sans-serif;letter-spacing:.05em;color:#fff;margin-left:2px;font-variant-numeric:tabular-nums}
+
+/* The editorial message crossfades in sync with the currently visible slide. */
+.cojuka-hero-copy :is(
+ [data-cojuka-hero-eyebrow],
+ [data-cojuka-hero-title],
+ [data-cojuka-hero-description],
+ [data-cojuka-hero-cta]
+){
+ transition:opacity .28s ease,translate .34s cubic-bezier(.22,1,.36,1);
+}
+.cojuka-hero-copy.is-copy-switching :is(
+ [data-cojuka-hero-eyebrow],
+ [data-cojuka-hero-title],
+ [data-cojuka-hero-description],
+ [data-cojuka-hero-cta]
+){opacity:0;translate:0 11px}
+@media(prefers-reduced-motion:reduce){
+ .cojuka-hero-copy :is([data-cojuka-hero-eyebrow],[data-cojuka-hero-title],[data-cojuka-hero-description],[data-cojuka-hero-cta]){
+  transition:none!important;translate:none!important
+ }
+}
+
 .cojuka-carousel-dot:focus-visible,.cojuka-carousel-arrow:focus-visible{outline:3px solid #e8ba77;outline-offset:3px}
 .cojuka-video-loader{display:none!important;position:absolute;inset:0;z-index:2;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#f8f8f8e8;transition:opacity .5s ease;pointer-events:none}
 .cojuka-video-loader img{width:180px;height:auto;max-height:64px;object-fit:contain}.cojuka-video-loader-ring{width:30px;height:30px;border:3px solid #e7d9dd;border-top-color:#86212e;border-radius:50%;animation:cojukaLoaderSpin .85s linear infinite}.cojuka-video-loader-label{font-size:.78rem;font-weight:650;letter-spacing:.04em;color:#86212e}
@@ -49,6 +71,74 @@ document.addEventListener('DOMContentLoaded',function(){
   const dots=Array.from(host.querySelectorAll('[data-video-index]'));
   const arrows=Array.from(host.querySelectorAll('[data-carousel-direction]'));
   const counter=host.querySelector('[data-current-slide]');
+  const copy=host.querySelector('[data-cojuka-hero-copy]');
+  const messages=[
+   {
+    eyebrow:'COJUKA CONSULTING GROUP · RDC',
+    title:'COJUKA Consulting Group',
+    description:"Le Mining est notre priorité : activités minières, carrières et ressources naturelles, soutenues par l’immobilier, la construction et la logistique.",
+    cta:'Découvrir le groupe',href:"{{ route('group') }}"
+   },
+   {
+    eyebrow:'COJUKA CONSULTING GROUP · NOTRE VISION',
+    title:'Une vision. Plusieurs expertises.',
+    description:"COJUKA Consulting Group rassemble des activités complémentaires autour des mines, de la construction, de la logistique, de l’immobilier et de la consultance.",
+    cta:'Notre vision',href:"{{ route('group') }}"
+   },
+   {
+    eyebrow:'COJUKA CONSULTING GROUP · NOS ENTITÉS',
+    title:'Ensemble, développer les opportunités.',
+    description:"Les entités de COJUKA Consulting Group réunissent leurs savoir-faire pour accompagner les projets et investissements dans plusieurs secteurs stratégiques.",
+    cta:'Explorer nos entités',href:"{{ route('group.portal') }}"
+   },
+   {
+    eyebrow:'COJUKA MINING · SECTEUR PRIORITAIRE',
+    title:'Le Mining au cœur de notre ambition.',
+    description:"COJUKA Mining incarne notre priorité : les activités minières, les carrières et le développement de projets liés aux ressources naturelles.",
+    cta:'Découvrir COJUKA Mining',href:"{{ route('group.profile','kojuka-mining') }}"
+   },
+   {
+    eyebrow:'COJUKA CONSULTING GROUP · CONSTRUCTION',
+    title:'Construire pour demain.',
+    description:"À travers ses activités de construction, COJUKA Consulting Group accompagne le développement des infrastructures et des projets immobiliers.",
+    cta:'Découvrir la construction',href:"{{ route('group.profile','construction') }}"
+   },
+   {
+    eyebrow:'COJUKA CONSULTING GROUP · LOGISTIQUE',
+    title:'Relier les projets aux ressources.',
+    description:"Transport, approvisionnement et coordination : la logistique soutient les opérations et les ambitions de COJUKA Consulting Group.",
+    cta:'Découvrir la logistique',href:"{{ route('group.profile','logistique') }}"
+   }
+  ];
+  let copyTimer=null,copyIndex=-1;
+  const targets=copy?{
+   eyebrow:copy.querySelector('[data-cojuka-hero-eyebrow]'),
+   title:copy.querySelector('[data-cojuka-hero-title]'),
+   description:copy.querySelector('[data-cojuka-hero-description]'),
+   cta:copy.querySelector('[data-cojuka-hero-cta]')
+  }:null;
+  function updateHeroCopy(i,immediate){
+   if(!copy||!targets||Object.values(targets).some(el=>!el)||!messages[i])return;
+   if(copyIndex===i)return;
+   copyIndex=i;
+   window.clearTimeout(copyTimer);
+   const message=messages[i];
+   const apply=()=>{
+    targets.eyebrow.textContent=message.eyebrow;
+    targets.title.textContent=message.title;
+    targets.description.textContent=message.description;
+    targets.cta.href=message.href;
+    targets.cta.replaceChildren(document.createTextNode(message.cta+' '));
+    const arrow=document.createElement('span');
+    arrow.setAttribute('aria-hidden','true');
+    arrow.textContent='↗';
+    targets.cta.appendChild(arrow);
+    copy.classList.remove('is-copy-switching');
+   };
+   if(immediate||window.matchMedia('(prefers-reduced-motion: reduce)').matches){apply();return}
+   copy.classList.add('is-copy-switching');
+   copyTimer=window.setTimeout(apply,220);
+  }
   if(!slides.length)return;
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const saveData=!!(navigator.connection&&navigator.connection.saveData);
@@ -85,7 +175,7 @@ document.addEventListener('DOMContentLoaded',function(){
     const oldVideo=slides[previous];
     window.setTimeout(()=>{if(active!==previous){oldVideo.pause();oldVideo.classList.remove('is-playing')}},860);
    }
-   updateControls();announceReady();
+   updateControls();updateHeroCopy(i,false);announceReady();
    if(mode!=='playing')queueAdvance();
   }
   function fail(i){
@@ -159,7 +249,7 @@ document.addEventListener('DOMContentLoaded',function(){
    if(Math.abs(dx)>=45&&Math.abs(dx)>Math.abs(dy)*1.3)show(nextAvailable(active,dx<0?1:-1));
   },{passive:true});
   host.addEventListener('touchcancel',()=>{touch=null},{passive:true});
-  updateControls();
+  updateControls();updateHeroCopy(0,true);
   const begin=()=>show(0);
   if('IntersectionObserver' in window){
    const observer=new IntersectionObserver(entries=>{
@@ -167,7 +257,7 @@ document.addEventListener('DOMContentLoaded',function(){
    },{rootMargin:'150px'});
    observer.observe(root);
   }else begin();
-  window.addEventListener('pagehide',()=>{clearTimers();slides.filter(s=>s.tagName==='VIDEO').forEach(v=>v.pause())},{once:true});
+  window.addEventListener('pagehide',()=>{clearTimers();window.clearTimeout(copyTimer);slides.filter(s=>s.tagName==='VIDEO').forEach(v=>v.pause())},{once:true});
  });
 });
 </script>

@@ -15,6 +15,10 @@ $exploreScenes=[
  ['Eden Park Investments','Découvrez les perspectives immobilières et d’investissement.','eden-park-investments','photo-1600596542815-ffad4c1539a9'],
  ['Consultance & Impact Center','Entrez dans l’univers du conseil, des partenariats et de l’impact.','consultance','photo-1497366754035-f200968a6e72'],
 ];
+$exploreSceneData=[];
+foreach($exploreScenes as $i=>$scene){
+ $exploreSceneData[]=['title'=>$scene[0],'description'=>$scene[1],'slug'=>$scene[2],'poster'=>'https://images.unsplash.com/'.$scene[3].'?auto=format&fit=crop&w=1800&q=82','video'=>asset('videos/explorer/scene-'.($i+1).'.mp4')];
+}
 @endphp
 <main class="cx-page"><div class="cx-wrap">
  <div class="cx-eyebrow">COJUKA · Expérience immersive</div>
@@ -35,10 +39,10 @@ $exploreScenes=[
 @section('page_scripts')
 <script>
 (function(){
- const scenes=@json(array_map(function($s,$i){return ['title'=>$s[0],'description'=>$s[1],'slug'=>$s[2],'poster'=>'https://images.unsplash.com/'.$s[3].'?auto=format&fit=crop&w=1800&q=82','video'=>asset('videos/explorer/scene-'.($i+1).'.mp4')];},$exploreScenes,array_keys($exploreScenes)));
+ const scenes=@json($exploreSceneData);
  const video=document.getElementById('cx-video'),poster=document.getElementById('cx-poster'),play=document.getElementById('cx-play'),progress=document.getElementById('cx-progress'),note=document.getElementById('cx-note');let current=0,available=false;
  const links={mining:'{{ route('group.profile','kojuka-mining') }}',construction:'{{ route('group.profile','construction') }}',logistique:'{{ route('group.profile','logistique') }}','eden-park-investments':'{{ route('group.profile','eden-park-investments') }}',consultance:'{{ route('group.profile','consultance') }}'};
- function load(i){current=(i+scenes.length)%scenes.length;const s=scenes[current];video.pause();video.removeAttribute('src');video.load();video.style.display='none';poster.style.display='block';poster.style.backgroundImage='url("'+s.poster+'")';available=false;progress.value=0;play.textContent='▶ Lecture';document.getElementById('cx-title').textContent=s.title;document.getElementById('cx-description').textContent=s.description;document.getElementById('cx-counter').textContent=String(current+1).padStart(2,'0')+' / '+String(scenes.length).padStart(2,'0');document.getElementById('cx-link').href=links[s.slug]||'{{ route('group.portal') }}';document.querySelectorAll('[data-cx-index]').forEach(b=>b.setAttribute('aria-current',String(Number(b.dataset.cxIndex)===current)));fetch(s.video,{method:'HEAD'}).then(r=>{if(r.ok&&current===i){available=true;video.src=s.video;video.style.display='block';poster.style.display='none';note.textContent='Vidéo immersive disponible : utilisez les commandes pour piloter la scène.'}}).catch(()=>{});note.textContent='Scène illustrée : vidéo 3D en préparation.'}
+ function load(i){current=(i+scenes.length)%scenes.length;const s=scenes[current];video.pause();video.removeAttribute('src');video.load();video.style.display='none';poster.style.display='block';poster.style.backgroundImage='url("'+s.poster+'")';available=false;progress.value=0;play.textContent='▶ Lecture';document.getElementById('cx-title').textContent=s.title;document.getElementById('cx-description').textContent=s.description;document.getElementById('cx-counter').textContent=String(current+1).padStart(2,'0')+' / '+String(scenes.length).padStart(2,'0');document.getElementById('cx-link').href=links[s.slug]||'{{ route('group.portal') }}';document.querySelectorAll('[data-cx-index]').forEach(b=>b.setAttribute('aria-current',String(Number(b.dataset.cxIndex)===current)));fetch(s.video,{method:'HEAD'}).then(r=>{if(r.ok&&scenes[current]===s){available=true;video.src=s.video;video.style.display='block';poster.style.display='none';note.textContent='Vidéo immersive disponible : utilisez les commandes pour piloter la scène.'}}).catch(()=>{});note.textContent='Scène illustrée : vidéo 3D en préparation.'}
  document.querySelectorAll('[data-cx-index]').forEach(b=>b.addEventListener('click',()=>load(Number(b.dataset.cxIndex))));document.getElementById('cx-prev').addEventListener('click',()=>load((current-1+scenes.length)%scenes.length));document.getElementById('cx-next').addEventListener('click',()=>load((current+1)%scenes.length));
  play.addEventListener('click',()=>{if(!available){note.textContent='La vidéo 3D de cette activité n’est pas encore publiée.';return}if(video.paused){video.play().then(()=>play.textContent='Ⅱ Pause').catch(()=>note.textContent='Lecture impossible sur cet appareil.')}else{video.pause();play.textContent='▶ Lecture'}});
  document.getElementById('cx-mute').addEventListener('click',e=>{video.muted=!video.muted;e.currentTarget.textContent=video.muted?'🔇 Son':'🔊 Son'});

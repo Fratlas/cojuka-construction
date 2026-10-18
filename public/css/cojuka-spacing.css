@@ -1,0 +1,152 @@
+/* COJUKA — Unified editorial rhythm
+ * Applies to public pages in both themes. No changes to hero footage,
+ * navigation, sticky UI, privacy modal, gallery viewer or full-height sliders.
+ */
+body.cojuka-glass-public{
+ --cojuka-space-section:clamp(46px,5.5vw,78px);
+ --cojuka-space-section-mobile:clamp(34px,7.3vw,54px);
+ --cojuka-section-divider:rgba(99,113,130,.27);
+ --cojuka-content-width:1120px;
+}
+/* Page layouts differ: the same vertical rhythm should nevertheless apply. */
+body.cojuka-glass-public main > section.section-pad:not(.showcase-3d):not(.contact-section),
+body.cojuka-glass-public main > section.history-section,
+body.cojuka-glass-public main > section.soft:not(.section-pad),
+body.cojuka-glass-public main > section.cg-photo-marquee,
+body.cojuka-glass-public main > section.cojuka-photo-atlas,
+body.cojuka-glass-public main > section.cg-strategy{
+ padding-top:var(--cojuka-space-section)!important;
+ padding-bottom:var(--cojuka-space-section)!important;
+ margin-top:0!important;
+ margin-bottom:0!important;
+}
+/* Group overview uses unclassed sections, with 100px vertical padding before. */
+body.cojuka-glass-public main > section:is(#apropos,#expertises,#ecosysteme,#heritage-belge,#secteurs){
+ padding-top:var(--cojuka-space-section)!important;
+ padding-bottom:var(--cojuka-space-section)!important;
+}
+/* Media showcases may be slightly roomier, but not waste an extra viewport. */
+body.cojuka-glass-public main > section.showcase-3d{
+ padding-top:clamp(56px,6vw,88px)!important;
+ padding-bottom:clamp(56px,6vw,88px)!important;
+}
+body.cojuka-glass-public main > section.contact-section{
+ padding-top:clamp(55px,7vw,92px)!important;
+ padding-bottom:clamp(65px,7.5vw,105px)!important;
+}
+/* Detailed entity pages: this is the gap visible between Positionnement
+ * and Activités / expertises, now 78px maximum rather than 115px each. */
+body.cojuka-glass-public main.cojuka-profile-main > section.section-pad{
+ padding-block:var(--cojuka-space-section)!important;
+}
+body.cojuka-glass-public main.cojuka-profile-main > section.py-5:not(.section-pad){
+ padding-block:clamp(35px,4.6vw,64px)!important;
+}
+body.cojuka-glass-public main.cojuka-profile-main > section.py-5:not(.section-pad) > .container.py-5{
+ padding-block:clamp(8px,1.6vw,18px)!important;
+}
+/* Rich Mining pages: compact transitions across the mineral collection and
+ * moving strip; preserve the photo proportions and the scroll behaviour. */
+body.cojuka-glass-public main.cojuka-profile-main .cg-mine-showcase{
+ padding-top:clamp(48px,5.4vw,76px)!important;
+}
+body.cojuka-glass-public main.cojuka-profile-main .cg-mine-flow-section{
+ margin-top:clamp(38px,4.5vw,62px)!important;
+ padding-block:clamp(40px,5.1vw,72px)!important;
+}
+/* Small, centered 1px dividers between editorial sections. No pseudo-element
+ * is added to hero, photo cards, modal, sliders or video layers. */
+body.cojuka-glass-public main > section:is(
+ .section-pad,.history-section,.cojuka-photo-atlas,.cg-photo-marquee,.cg-strategy
+):not(.showcase-3d):not(.contact-section),
+body.cojuka-glass-public main > section:is(#apropos,#expertises,#ecosysteme,#heritage-belge,#secteurs){
+ position:relative;
+}
+body.cojuka-glass-public main > section:is(
+ .section-pad,.history-section,.cojuka-photo-atlas,.cg-photo-marquee,.cg-strategy
+):not(.showcase-3d):not(.contact-section)::before,
+body.cojuka-glass-public main > section:is(#apropos,#expertises,#ecosysteme,#heritage-belge,#secteurs)::before{
+ content:"";
+ position:absolute;
+ top:0;
+ left:50%;
+ transform:translateX(-50%);
+ width:clamp(85px,11vw,155px);
+ height:1px;
+ background:linear-gradient(90deg,transparent,var(--cojuka-section-divider) 25%,var(--cojuka-section-divider) 75%,transparent);
+ pointer-events:none;
+ z-index:1;
+}
+/* First content after a hero also gets the discreet separator, giving a
+ * clear boundary without a thick full-width bar. */
+body.cojuka-glass-public main .section-pad :is(.display-heading,.display-title),
+body.cojuka-glass-public main .history-section h2{
+ text-wrap:balance;
+}
+body.cojuka-glass-public main :is(.section-pad,.history-section)
+ :is(h2.mb-5,.display-heading.mb-5,.display-title.mb-5){
+ margin-bottom:clamp(22px,2.45vw,32px)!important;
+}
+body.cojuka-glass-public main :is(.section-pad,.history-section)
+ :is(h2.mb-4,.display-heading.mb-4,.display-title.mb-4){
+ margin-bottom:clamp(16px,1.9vw,24px)!important;
+}
+body.cojuka-glass-public main :is(.section-pad,.history-section)
+ :is(.eyebrow.mb-4,.section-kicker.mb-4,.history-label){
+ margin-bottom:clamp(12px,1.45vw,18px)!important;
+}
+body.cojuka-glass-public main :is(.section-pad,.history-section)
+ :is(.eyebrow.mb-3,.section-kicker.mb-3){
+ margin-bottom:10px!important;
+}
+body.cojuka-glass-public main :is(.section-pad,.history-section) .row.g-5{
+ --bs-gutter-y:clamp(1.4rem,2.5vw,2.4rem);
+}
+body.cojuka-glass-public main .section-pad .lead,
+body.cojuka-glass-public main .history-section p{
+ line-height:1.72!important;
+}
+/* Moderate spacing of large grid/photo headings as well. */
+body.cojuka-glass-public main .cg-photo-heading{margin-bottom:clamp(21px,2.6vw,34px)!important}
+body.cojuka-glass-public main .cg-mine-heading{margin-bottom:clamp(24px,3vw,36px)!important}
+body.cojuka-glass-public main .cg-mine-flow-head{margin-bottom:clamp(18px,2.4vw,27px)!important}
+/* Footer transition and newsletter: less empty area without shrinking forms. */
+body.cojuka-glass-public .cojuka-site-footer{
+ padding-top:clamp(42px,5.1vw,70px)!important;
+}
+body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-wrap{
+ margin-bottom:clamp(34px,4.7vw,68px)!important;
+}
+body.cojuka-glass-public .cojuka-site-footer .cojuka-footer-main{
+ padding-bottom:clamp(23px,3.2vw,40px)!important;
+}
+/* Near-white and night mode receive the same geometric separation. */
+html[data-cojuka-theme="dark"] body.cojuka-glass-public{
+ --cojuka-section-divider:rgba(220,229,241,.38);
+}
+@media(max-width:767.98px){
+ body.cojuka-glass-public main > section.section-pad:not(.showcase-3d):not(.contact-section),
+ body.cojuka-glass-public main > section.history-section,
+ body.cojuka-glass-public main > section.soft:not(.section-pad),
+ body.cojuka-glass-public main > section.cg-photo-marquee,
+ body.cojuka-glass-public main > section.cojuka-photo-atlas,
+ body.cojuka-glass-public main > section.cg-strategy,
+ body.cojuka-glass-public main > section:is(#apropos,#expertises,#ecosysteme,#heritage-belge,#secteurs),
+ body.cojuka-glass-public main.cojuka-profile-main > section.section-pad{
+  padding-top:var(--cojuka-space-section-mobile)!important;
+  padding-bottom:var(--cojuka-space-section-mobile)!important;
+ }
+ body.cojuka-glass-public main > section.showcase-3d{
+  padding-block:clamp(40px,7.2vw,58px)!important;
+ }
+ body.cojuka-glass-public main.cojuka-profile-main .cg-mine-flow-section{
+  margin-top:33px!important;
+  padding-block:40px!important;
+ }
+ body.cojuka-glass-public main :is(.section-pad,.history-section) .row.g-5{
+  --bs-gutter-y:1.5rem;
+ }
+ body.cojuka-glass-public main .section-pad :is(h2.mb-5,.display-title.mb-5,.display-heading.mb-5){
+  margin-bottom:20px!important;
+ }
+}

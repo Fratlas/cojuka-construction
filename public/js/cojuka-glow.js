@@ -39,6 +39,10 @@
     function attach(el) {
       if (el.dataset.cgGlow === 'ready') return;
       el.dataset.cgGlow = 'ready';
+      var halo = document.createElement('span');
+      halo.className = 'cg-glow-overlay';
+      halo.setAttribute('aria-hidden', 'true');
+      el.appendChild(halo);
       var raf = 0, x = 50, y = 50;
       el.addEventListener('pointermove', function (event) {
         var rect = el.getBoundingClientRect();

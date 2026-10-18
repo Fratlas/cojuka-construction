@@ -66,7 +66,7 @@ class GroupSuiteController {
   $columns=array_merge(['group_entity_id','title','reference','status','record_date','amount','currency','location','description'],array_keys($config['fields']));
   $records=GroupSuiteRecord::where('module',$module)->when($allowed!==null,fn($q)=>$q->whereIn('group_entity_id',$allowed))->orderBy('id')->cursor();
   return response()->streamDownload(function()use($records,$columns,$config){
-   $out=fopen('php://output','wb');fwrite($out,"\xEF\xBB\xBF");fputcsv($out,$columns,';');
+   $out=fopen('php://output','wb');fwrite($out,"\xEF\xBB\xBF");fputcsv($out,$columns,';','"','');
    $clean=static function($value){
     if($value instanceof \DateTimeInterface)$value=$value->format('Y-m-d');
     $value=(string)($value??'');
@@ -78,7 +78,7 @@ class GroupSuiteController {
      $value=array_key_exists($column,$config['fields'])?($details[$column]??null):$item->getAttribute($column);
      $row[]=$clean($value);
     }
-    fputcsv($out,$row,';');
+    fputcsv($out,$row,';','"','');
    }
    fclose($out);
   },'cojuka-'.$module.'-'.now()->format('Ymd').'.csv',['Content-Type'=>'text/csv; charset=UTF-8','Cache-Control'=>'private, no-store']);

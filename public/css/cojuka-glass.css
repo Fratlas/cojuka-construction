@@ -699,3 +699,63 @@ html[data-cojuka-theme="dark"] .cojuka-glass-public .cojuka-entity-content{backg
  }
  html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-global-nav.site-nav{background:#151e2d!important}
 }
+
+/* COJUKA — clearer glass: lower fog intensity, increased translucency. */
+.cojuka-glass{
+ --cg-blur:blur(9px) saturate(120%);
+ --cg-light:rgba(255,255,255,.55);
+ --cg-prism:linear-gradient(135deg,rgba(255,255,255,.57),rgba(248,248,254,.32) 55%,rgba(230,239,250,.28));
+}
+.cojuka-glass-public main :is(.service-card,.info-card,.history-card,.service,.model-card,.cojuka-atlas-photo,.entity-photo-tile){
+ background:var(--cg-prism)!important;
+ -webkit-backdrop-filter:blur(10px) saturate(125%);
+ backdrop-filter:blur(10px) saturate(125%);
+}
+body.cojuka-glass-public .cojuka-global-nav.site-nav{
+ background:rgba(249,250,253,.58)!important;
+ -webkit-backdrop-filter:blur(11px) saturate(130%);
+ backdrop-filter:blur(11px) saturate(130%);
+}
+body.cojuka-glass-public .cojuka-global-nav .dropdown-menu{
+ background:rgba(249,250,254,.75)!important;
+ -webkit-backdrop-filter:blur(12px);
+ backdrop-filter:blur(12px);
+}
+.cojuka-glass-public .cojuka-entity-panel .cojuka-entity-content,
+.cojuka-glass-public .cx-page .cx-stage-info{
+ -webkit-backdrop-filter:blur(9px) saturate(115%);
+ backdrop-filter:blur(9px) saturate(115%);
+}
+.cojuka-glass-public .cx-page :is(.cx-mode,.cx-card,.cx-controls button,.cx-stage-side button){
+ background:rgba(31,45,65,.42)!important;
+ -webkit-backdrop-filter:blur(8px);
+ backdrop-filter:blur(8px);
+}
+.cojuka-glass-admin .page-content .card{
+ background:linear-gradient(145deg,rgba(255,255,255,.65),rgba(248,249,254,.46))!important;
+ -webkit-backdrop-filter:blur(11px) saturate(125%);
+ backdrop-filter:blur(11px) saturate(125%);
+}
+.cojuka-glass-admin .topbar{
+ background:rgba(255,255,255,.60)!important;
+ -webkit-backdrop-filter:blur(12px) saturate(125%);
+ backdrop-filter:blur(12px) saturate(125%);
+}
+.cojuka-glass-auth .auth-workspace{
+ background:linear-gradient(145deg,rgba(255,255,255,.77),rgba(244,247,252,.66))!important;
+ -webkit-backdrop-filter:blur(14px) saturate(125%);
+ backdrop-filter:blur(14px) saturate(125%);
+}
+.cojuka-glass #cojuka-ai-panel{
+ background:rgba(250,251,254,.83)!important;
+ -webkit-backdrop-filter:blur(12px);
+ backdrop-filter:blur(12px);
+}
+@media(max-width:767px){
+ .cojuka-glass-public main :is(.service-card,.info-card,.history-card,.service,.cojuka-atlas-photo),
+ .cojuka-glass-admin .page-content .card,
+ .cojuka-glass-auth .auth-workspace{
+  -webkit-backdrop-filter:blur(6px);
+  backdrop-filter:blur(6px);
+ }
+}

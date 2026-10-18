@@ -14,7 +14,9 @@ class CojukaNewsletterController
   abort_unless(Schema::hasTable('cojuka_newsletter_subscribers'),503,'Newsletter en préparation.');
  }
  public function subscribe(Request $request){
-  $this->ready();
+  if(!Schema::hasTable('cojuka_newsletter_subscribers')){
+   return back()->with('newsletter_notice','La newsletter sera disponible après la configuration de la base de données.');
+  }
   $data=$request->validate([
    'email'=>'required|email:rfc|max:255',
    'consent'=>'accepted',

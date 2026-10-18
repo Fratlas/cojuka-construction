@@ -4,7 +4,7 @@
 <meta name="description" content="Découvrez le parcours de Jules Kabongo, l'histoire de COJUKA et les liens historiques du groupe avec la Belgique et l'Afrique.">
 <style>
 .history-hero{position:relative;background:#111a26;color:#fff;padding:clamp(110px,12vw,180px) 0 clamp(70px,9vw,130px);overflow:hidden}
-.history-hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#101722ed,#1017229c),url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=75&fm=webp') center/cover}
+.history-hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(16,23,34,.56),rgba(16,23,34,.24)),url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=75&fm=webp') center/cover}
 .history-hero .container{position:relative;z-index:1}
 .history-kicker{font-size:.79rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#fff}
 .history-hero h1{max-width:900px;font-size:clamp(3rem,6.8vw,6.8rem);line-height:1.02;letter-spacing:-.065em;font-weight:800;margin:25px 0}

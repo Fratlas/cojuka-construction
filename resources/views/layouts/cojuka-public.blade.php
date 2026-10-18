@@ -26,7 +26,7 @@
 </style>
 <link rel="stylesheet" href="{{ asset('css/cojuka-glass.css') }}?v=20261018-aurora-05">
 <link rel="stylesheet" href="{{ asset('css/cojuka-contrast.css') }}?v=20261018-contrast-02">
-<link rel="stylesheet" href="{{ asset('css/cojuka-editorial.css') }}?v=20261018-editorial-03">
+<link rel="stylesheet" href="{{ asset('css/cojuka-editorial.css') }}?v=20261018-truewhite-fade-04">
 </head>
 <body class="cojuka-glass cojuka-glass-public">
 @include('partials.cojuka-header')

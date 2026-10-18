@@ -56,7 +56,7 @@
 .cg-photo-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:34px}
 .cg-photo-heading>div{max-width:830px}
 .cg-photo-heading .cg-section-title{margin-bottom:13px}
-.cg-marquee-viewport{overflow-x:auto;overflow-y:hidden;width:100%;scrollbar-width:none;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch;cursor:grab;padding:11px 0 18px;outline-offset:-3px}
+.cg-marquee-viewport{overflow-x:auto;overflow-y:hidden;width:100%;scrollbar-width:none;overflow-anchor:none;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch;cursor:grab;padding:11px 0 18px;outline-offset:-3px}
 .cg-marquee-viewport:active{cursor:grabbing}
 .cg-marquee-viewport::-webkit-scrollbar{display:none}
 .cg-marquee-viewport:focus-visible{outline:3px solid var(--cg-gold)}

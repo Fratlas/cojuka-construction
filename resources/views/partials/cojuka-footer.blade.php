@@ -26,6 +26,6 @@
    <div class="cojuka-footer-links"><h2>Le groupe</h2><a href="{{ route('group.profile','construction') }}">Construction</a><a href="{{ route('group.profile','logistique') }}">Logistique</a><a href="{{ route('group.profile','consultance') }}">Consultance</a><a href="{{ route('group.profile','kojuka-mining') }}">COJUKA Mining</a></div>
    <div class="cojuka-footer-links"><h2>Contact</h2><p>République démocratique du Congo</p><a href="{{ route('home') }}#contact">Nous contacter ↗</a></div>
   </div>
-  <div class="cojuka-footer-bottom"><span>© {{ date('Y') }} COJUKA Consulting Group. Tous droits réservés.</span><span>Groupe multisectoriel · RDC</span></div>
+  <div class="cojuka-footer-bottom"><span>© {{ date('Y') }} COJUKA Consulting Group. Tous droits réservés.</span><span class="d-flex align-items-center flex-wrap gap-3"><a href="{{ route('cojuka.privacy') }}">Politique de confidentialité</a><button type="button" class="cg-cookie-footer-link" data-cojuka-open-cookies>Gérer les cookies</button><span>Groupe multisectoriel · RDC</span></span></div>
  </div>
 </footer>

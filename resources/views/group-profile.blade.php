@@ -172,6 +172,11 @@ $entityHighlightsCurrent = $entityHighlights[$profile['video'] ?? ''] ?? array_m
  data-photo-sector="{{ $profile['name'] }}"
  data-photo-description="Une illustration de {{ $photo[1] }} dans l’univers {{ $profile['name'] }}. Le visuel présente un domaine d’activité et ne constitue pas une référence de réalisation du groupe."
  src="{{ $photo[0] }}{{ str_contains($photo[0], 'unsplash.com') ? '?auto=format&fit=crop&w=900&q=75&fm=webp' : '' }}" alt="{{ $photo[1] }}" loading="lazy" decoding="async" width="900" height="650"><figcaption>{{ $photo[1] }}</figcaption></figure></div>@endforeach</div></div></section>
+{{-- Extensive mineral specimen gallery exclusive to COJUKA Mining.
+     Does not alter construction, logistics or the other group structures. --}}
+@if(($profile['video'] ?? '') === 'kojuka-mining.mp4')
+ @include('partials.cojuka-mining-showcase')
+@endif
 <section class="section-pad entity-highlights" aria-labelledby="entity-highlights-title"><div class="container"><p class="eyebrow mb-3">Les points clés de cette entité</p><h2 id="entity-highlights-title" class="display-title mb-4">Des priorités adaptées à notre domaine.</h2><div class="row g-4">@foreach($entityHighlightsCurrent as $highlight)<div class="col-md-4"><article class="info-card h-100"><div class="index mb-3">DOMAINE</div><h3 class="h4 fw-bold mb-3">{{ $highlight[0] }}</h3><p class="text-secondary mb-0">{{ $highlight[1] }}</p></article></div>@endforeach</div></div></section>
 @php
 $topicLinks = [

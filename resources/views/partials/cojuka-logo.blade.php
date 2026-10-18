@@ -23,6 +23,14 @@ html[data-cojuka-theme="dark"] .cojuka-brand-wordmark{color:#fff}
 }
 .cojuka-brand-lockup{gap:7px}
 .cojuka-brand-wordmark{margin-left:0;line-height:1.2;flex:none}
+
+/* A balanced two-line wordmark, so the group name never collides with the globe. */
+.cojuka-brand-wordmark{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:3px!important;text-align:left;white-space:nowrap}
+.cojuka-brand-primary{display:block;color:#842739;font:800 15px/1.05 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;letter-spacing:.005em}
+.cojuka-brand-secondary{display:block;color:#555866;font:700 8.5px/1.1 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;letter-spacing:.12em}
+html[data-cojuka-theme="dark"] .cojuka-brand-primary,
+html[data-cojuka-theme="dark"] .cojuka-brand-secondary{color:#f4f1f3}
+@media(max-width:480px){.cojuka-brand-primary{font-size:12px}.cojuka-brand-secondary{font-size:7.8px;letter-spacing:.08em}}
 </style>
 @php($logoClass = $logoClass ?? '')
-<span class="cojuka-brand-lockup"><img class="cojuka-brand-logo {{ $logoClass }}" src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018-final" alt="COJUKA Consulting Group — emblème officiel avec globe rouge et Afrique" decoding="async" width="1254" height="1254"><span class="cojuka-brand-wordmark">COJUKA<br>CONSULTING<br>GROUP</span></span>
+<span class="cojuka-brand-lockup"><img class="cojuka-brand-logo {{ $logoClass }}" src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018-final" alt="COJUKA Consulting Group — emblème officiel avec globe rouge et Afrique" decoding="async" width="1254" height="1254"><span class="cojuka-brand-wordmark"><span class="cojuka-brand-primary">COJUKA</span><span class="cojuka-brand-secondary">CONSULTING GROUP</span></span></span>

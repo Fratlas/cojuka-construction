@@ -153,3 +153,10 @@ html[data-cojuka-theme="dark"] .cojuka-global-nav .navbar-nav>.nav-link.nav-cont
 html[data-cojuka-theme="dark"] .cojuka-global-nav .navbar-collapse{background:#1a1a20!important;border-color:#ffffff1c!important}
 @media(prefers-reduced-motion:reduce){.cojuka-global-nav *{transition:none!important}}
 </style>
+
+<style>
+/* Align the wordmark tightly with the official COJUKA emblem. */
+.cojuka-global-nav .cojuka-brand-lockup{gap:0!important}
+.cojuka-global-nav .cojuka-brand-wordmark{margin-left:-3px!important}
+@media(max-width:480px){.cojuka-global-nav .cojuka-brand-lockup{gap:0!important}.cojuka-global-nav .cojuka-brand-wordmark{margin-left:-2px!important}}
+</style>

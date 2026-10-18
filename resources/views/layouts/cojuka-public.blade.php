@@ -23,8 +23,9 @@
 @media(max-width:991.98px){.cojuka-footer-main{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:575.98px){.cojuka-site-footer{padding-top:48px!important}.cojuka-footer-main{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 18px;padding-bottom:36px}.cojuka-footer-brand{grid-column:1/-1}.cojuka-footer-bottom{flex-direction:column}}
 </style>
+<link rel="stylesheet" href="{{ asset('css/cojuka-glass.css') }}?v=20261018-glass-01">
 </head>
-<body>
+<body class="cojuka-glass cojuka-glass-public">
 @include('partials.cojuka-header')
 @yield('content')
 @include('partials.cojuka-footer')

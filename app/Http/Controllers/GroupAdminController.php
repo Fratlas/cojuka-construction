@@ -22,12 +22,28 @@ class GroupAdminController {
   if($allowed!==null)$suiteQuery->whereIn('group_entity_id',$allowed);
   if($entityId)$suiteQuery->where('group_entity_id',$entityId);
   if(!$request->user()->is_group_admin)$suiteQuery->whereIn('module',array_values(array_filter(array_keys(\App\Http\Controllers\GroupSuiteController::MODULES),fn($module)=>GroupAccess::can($request->user(),$module))));
+  // Grouped indicators inherit exactly the same permissions and entity scope as the
+  // existing KPI cards. No unrestricted raw records or personal HR data reach the view.
+  $projectStatuses=$canProjects?(clone $projectQuery)->selectRaw('status, COUNT(*) as total')->groupBy('status')->pluck('total','status')->all():[];
+  $assetKinds=$canAssets?(clone $assetQuery)->selectRaw('kind, COUNT(*) as total')->groupBy('kind')->orderByDesc('total')->limit(6)->pluck('total','kind')->all():[];
+  $moduleCounts=$ready?(clone $suiteQuery)->selectRaw('module, COUNT(*) as total')->groupBy('module')->pluck('total','module')->all():[];
+  $operationTimeline=[];
+  for($i=5;$i>=0;$i--){
+   $start=now()->startOfMonth()->subMonths($i);
+   $end=$start->copy()->addMonth();
+   $operationTimeline[]=[
+    'label'=>$start->locale('fr')->translatedFormat('M y'),
+    'value'=>$ready?(clone $suiteQuery)->where('created_at','>=',$start)->where('created_at','<',$end)->count():0,
+   ];
+  }
   return view('gestion.group-dashboard',[
     'entities'=>GroupEntity::when($allowed!==null,fn($q)=>$q->whereIn('id',$allowed))->count(),'projects'=>$canProjects?(clone $projectQuery)->count():0,'assets'=>$canAssets?(clone $assetQuery)->count():0,
     'recent'=>$canProjects?(clone $projectQuery)->with('entity')->latest()->limit(7)->get():collect(),
     'suiteStats'=>$ready?(clone $suiteQuery)->selectRaw('module, count(*) as total')->groupBy('module')->pluck('total','module')->all():[],
     'suiteReady'=>$ready,'entityOptions'=>GroupEntity::when($allowed!==null,fn($q)=>$q->whereIn('id',$allowed))->orderBy('name')->get(['id','name']),
     'selectedEntity'=>$entityId,
+    'projectStatuses'=>$projectStatuses,'assetKinds'=>$assetKinds,'moduleCounts'=>$moduleCounts,
+    'operationTimeline'=>$operationTimeline,'canProjects'=>$canProjects,'canAssets'=>$canAssets,
     'recentOperations'=>$ready?(clone $suiteQuery)->with('entity')->latest()->limit(8)->get():collect(),
     'operationCount'=>$ready?(clone $suiteQuery)->count():0,
     'financeTotals'=>$ready && GroupAccess::can($request->user(),'finances')?(clone $suiteQuery)->where('module','finances')->whereIn('status',['valide','termine'])->whereNotNull('amount')->selectRaw('currency, SUM(amount) as total')->groupBy('currency')->pluck('total','currency')->all():[],

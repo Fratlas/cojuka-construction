@@ -105,7 +105,7 @@ body{background:#19222c}
 <body>
 <div class="auth-shell">
 <aside class="auth-intro" aria-label="Présentation de l'espace de gestion COJUKA">
-<a class="auth-brand" href="{{ route('home') }}" aria-label="Retour à COJUKA Consulting Group"><img src="{{ asset('images/cojuka-logo.svg') }}?v=20261015-red" alt="COJUKA Consulting Group"></a>
+<a class="auth-brand" href="{{ route('home') }}" aria-label="Retour à COJUKA Consulting Group"><img src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018-final" alt="COJUKA Consulting Group"></a>
 <div class="auth-message">
 <span class="auth-rule"></span>
 <div class="eyebrow">Espace de gestion</div>

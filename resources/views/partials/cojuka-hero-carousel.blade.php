@@ -140,8 +140,9 @@ document.addEventListener('DOMContentLoaded',function(){
    if(copyIndex===i)return;
    copyIndex=i;
    window.clearTimeout(copyTimer);
-   const message=copy.dataset.cojukaHeroContext==='group'&&i===0
-    ?{...messages[0],cta:'Découvrir nos expertises',href:'#expertises'}
+   const context=copy.dataset.cojukaHeroContext;
+   const message=(context==='group'||context==='home')&&i===0
+    ?{...messages[0],cta:'Découvrir nos expertises',href:context==='group'?'#expertises':"{{ route('group') }}#expertises"}
     :messages[i];
    const apply=()=>{
     targets.eyebrow.textContent=message.eyebrow;

@@ -33,6 +33,7 @@
 @include('partials.cojuka-header')
 @yield('content')
 @include('partials.cojuka-footer')
+@include('partials.cojuka-gallery-modal')
 @include('partials.cojuka-back-to-top')
 @include('partials.cojuka-ai-assistant')
 @include('partials.cojuka-mining-announcement')

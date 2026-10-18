@@ -98,6 +98,10 @@ body{background:#19222c}
 .auth-message p{max-width:54ch}
 @media(min-width:851px) and (max-height:760px){.auth-workspace{padding-top:38px;padding-bottom:38px}.auth-intro h2{font-size:clamp(2.7rem,4.4vw,4.7rem)}.auth-features{margin-top:18px}.auth-panel .description{margin-bottom:24px}}
 @media(max-width:480px){.auth-panel .form-control{font-size:16px}.auth-panel h1{font-size:clamp(2.25rem,10vw,2.8rem)}}
+.auth-brand{display:inline-flex;align-items:center;gap:12px;max-width:100%}
+.auth-brand img{width:clamp(75px,9vw,105px);height:105px;max-height:105px;flex:none}
+.auth-wordmark{font:800 clamp(13px,1.6vw,19px)/1.32 Arial,sans-serif;letter-spacing:.04em;color:#fff;text-align:left;white-space:nowrap}
+@media(max-width:480px){.auth-brand{gap:8px}.auth-brand img{width:74px;height:74px}.auth-wordmark{font-size:13px}}
 </style>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
 <link rel="preload" as="image" href="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=78&fm=webp" fetchpriority="high">
@@ -105,7 +109,7 @@ body{background:#19222c}
 <body>
 <div class="auth-shell">
 <aside class="auth-intro" aria-label="Présentation de l'espace de gestion COJUKA">
-<a class="auth-brand" href="{{ route('home') }}" aria-label="Retour à COJUKA Consulting Group"><img src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018-final" alt="COJUKA Consulting Group"></a>
+<a class="auth-brand" href="{{ route('home') }}" aria-label="Retour à COJUKA Consulting Group"><img src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018-final" alt="Emblème COJUKA Consulting Group"><span class="auth-wordmark">COJUKA<br>CONSULTING<br>GROUP</span></a>
 <div class="auth-message">
 <span class="auth-rule"></span>
 <div class="eyebrow">Espace de gestion</div>

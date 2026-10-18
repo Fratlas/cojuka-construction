@@ -58,6 +58,8 @@ Route::middleware(['auth', 'group.admin'])->prefix('gestion')->name('gestion.')-
  Route::get('/', [GroupAdminController::class, 'dashboard'])->name('group.dashboard');
  Route::view('/guide', 'gestion.guide')->name('guide');
  Route::get('/departements', [GroupDepartmentController::class, 'index'])->middleware('can:manage-users')->name('departments.index');
+ Route::get('/departements/export-csv', [GroupDepartmentController::class, 'exportCsv'])->middleware('can:manage-users')->name('departments.export');
+ Route::post('/departements/import-csv', [GroupDepartmentController::class, 'importCsv'])->middleware(['can:manage-users','throttle:3,1'])->name('departments.import');
  Route::patch('/departements/{department}', [GroupDepartmentController::class, 'update'])->middleware('can:manage-users')->name('departments.update');
  Route::get('/utilisateurs', [GroupUsersController::class, 'index'])->middleware('can:manage-users')->name('users.index');
  Route::get('/utilisateurs/export-csv', [GroupUsersController::class, 'exportCsv'])->middleware('can:manage-users')->name('users.export');

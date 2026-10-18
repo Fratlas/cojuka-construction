@@ -270,3 +270,12 @@ html body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-panel .cg-newsl
 html body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-panel .cg-newsletter-message{color:#1b344d!important}
 html body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-panel .cg-newsletter-message,
 html body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-panel .cg-newsletter-message span{color:#1b344d!important}
+
+html body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-panel .cg-newsletter-privacy a{color:#ffe0bc!important;text-decoration:underline!important;text-underline-offset:3px}
+html body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-panel .cg-newsletter-privacy a:hover{color:#fff!important}
+.cojuka-glass-public .cg-privacy-page .card{color:#26354b;background:rgba(255,255,255,.95)!important}
+.cojuka-glass-public .cg-privacy-page .card h2{color:#1d2a40;font-weight:850}
+.cojuka-glass-public .cg-privacy-page .card p{color:#3e4e65;line-height:1.75}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cg-privacy-page{background:#151e2e!important}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cg-privacy-page .card{background:#25334a!important;color:#f3f5fa!important}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cg-privacy-page .card :is(h2,p){color:#ebf0f8!important}

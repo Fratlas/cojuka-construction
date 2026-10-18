@@ -33,7 +33,7 @@ class GroupDepartmentController {
  public function exportCsv(Request $request){
   abort_unless($request->user()?->is_group_admin,403);
   abort_unless(GroupAccess::ready(),503);
-  $departments=DB::table('group_departments')->orderBy('code')->get();
+  $departments=DB::table('group_departments')->where('active',1)->orderBy('code')->get();
   $permissions=DB::table('group_department_permissions')->get()->keyBy(fn($row)=>$row->department_id.':'.$row->module);
   return response()->streamDownload(function()use($departments,$permissions){
    $out=fopen('php://output','wb');fwrite($out,"\xEF\xBB\xBF");

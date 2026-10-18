@@ -6,10 +6,24 @@ use Illuminate\Support\Facades\Schema;
 final class GroupAccess {
  public const MODULES=['entites','projets','actifs','rh','finances','contrats','achats','logistique','immobilier','mines','consulting'];
  public const ACTIONS=['view','create','update','delete','export'];
+ public const ROLES=[
+  'administrateur'=>'Administration générale',
+  'responsable'=>'Responsable de département',
+  'collaborateur'=>'Collaborateur',
+  'lecteur'=>'Lecture seule'
+ ];
+ public static function role(?User $user):string{
+  if($user?->is_group_admin)return 'administrateur';
+  return in_array($user?->group_role,array_keys(self::ROLES),true)?$user->group_role:'responsable';
+ }
  public static function ready():bool{return Schema::hasTable('group_departments') && Schema::hasTable('group_department_permissions') && Schema::hasTable('group_user_entity_access') && Schema::hasColumn('users','group_department_id');}
  public static function can(?User $user,string $module,string $action='view'):bool{
   if(!$user || !in_array($module,self::MODULES,true) || !in_array($action,self::ACTIONS,true))return false;
   if($user->is_group_admin)return true;
+  // Role is a ceiling; department permissions and entity scopes still apply.
+  $role=self::role($user);
+  if($role==='lecteur' && $action!=='view')return false;
+  if($role==='collaborateur' && $action==='delete')return false;
   if(!self::ready() || !$user->group_department_id)return false;
   return DB::table('group_departments as d')->join('group_department_permissions as p','p.department_id','=','d.id')
    ->where('d.id',$user->group_department_id)->where('d.active',1)->where('p.module',$module)

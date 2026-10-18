@@ -23,7 +23,7 @@
 @media(max-width:991.98px){.cojuka-footer-main{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:575.98px){.cojuka-site-footer{padding-top:48px!important}.cojuka-footer-main{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 18px;padding-bottom:36px}.cojuka-footer-brand{grid-column:1/-1}.cojuka-footer-bottom{flex-direction:column}}
 </style>
-<link rel="stylesheet" href="{{ asset('css/cojuka-glass.css') }}?v=20261018-glass-light-04">
+<link rel="stylesheet" href="{{ asset('css/cojuka-glass.css') }}?v=20261018-aurora-05">
 </head>
 <body class="cojuka-glass cojuka-glass-public">
 @include('partials.cojuka-header')
@@ -37,5 +37,6 @@
 @include('partials.cojuka-motion')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 @yield('page_scripts')
+<script defer src="{{ asset('js/cojuka-glow.js') }}?v=20261018-aurora-01"></script>
 </body>
 </html>

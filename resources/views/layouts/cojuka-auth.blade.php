@@ -105,8 +105,9 @@ body{background:#19222c}
 </style>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
 <link rel="preload" as="image" href="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=78&fm=webp" fetchpriority="high">
+<link rel="stylesheet" href="{{ asset('css/cojuka-glass.css') }}?v=20261018-glass-01">
 </head>
-<body>
+<body class="cojuka-glass cojuka-glass-auth">
 <div class="auth-shell">
 <aside class="auth-intro" aria-label="Présentation de l'espace de gestion COJUKA">
 <a class="auth-brand" href="{{ route('home') }}" aria-label="Retour à COJUKA Consulting Group"><img src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018-final" alt="Emblème COJUKA Consulting Group"><span class="auth-wordmark">COJUKA<br>CONSULTING<br>GROUP</span></a>

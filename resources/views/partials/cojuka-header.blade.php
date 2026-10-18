@@ -68,3 +68,42 @@ html[data-cojuka-theme="dark"] .cojuka-global-nav .cojuka-brand-wordmark{color:#
 html[data-cojuka-theme="dark"] .cojuka-global-nav .navbar-collapse{background:#151e2b;border-color:#ffffff24}
 @media(prefers-reduced-motion:reduce){.cojuka-global-nav *{transition:none!important}}
 </style>
+
+<style>
+/* Apple-inspired COJUKA global navigation: compact, restrained, readable. */
+.cojuka-global-nav.site-nav{min-height:58px!important;background:rgba(250,250,252,.90)!important;backdrop-filter:saturate(180%) blur(22px);-webkit-backdrop-filter:saturate(180%) blur(22px);border-bottom:1px solid #0000000a!important;box-shadow:none!important}
+.cojuka-global-nav>.container-fluid{max-width:1520px;margin:auto;padding-left:clamp(15px,2.3vw,32px)!important;padding-right:clamp(15px,2.3vw,32px)!important;gap:14px}
+.cojuka-global-nav .navbar-brand{min-width:205px!important;max-width:none!important;margin-right:16px!important;flex:0 0 auto}
+.cojuka-global-nav .cojuka-brand-lockup{gap:9px}
+.cojuka-global-nav .cojuka-brand-logo{width:48px!important;height:48px!important;max-height:48px!important}
+.cojuka-global-nav .cojuka-brand-wordmark{color:#812236!important;font-size:10px!important;line-height:1.16;font-weight:800;letter-spacing:.035em}
+.cojuka-global-nav .navbar-nav{width:100%;display:flex;align-items:center;justify-content:space-between;gap:2px}
+.cojuka-global-nav .navbar-nav>.nav-link,.cojuka-global-nav .nav-item>.nav-link{font-size:12px!important;font-weight:500!important;line-height:1.25!important;color:#33343a!important;background:transparent!important;border:0!important;border-radius:7px!important;box-shadow:none!important;padding:9px 8px!important;white-space:nowrap;transition:color .2s ease,background .2s ease!important}
+.cojuka-global-nav .navbar-nav>.nav-link:hover,.cojuka-global-nav .nav-item>.nav-link:hover{color:#8d2134!important;background:#00000008!important;transform:none!important}
+.cojuka-global-nav .navbar-nav>.nav-contact{color:#8b2335!important;font-weight:650!important;background:transparent!important}
+.cojuka-global-nav .navbar-nav>.nav-contact:hover{color:#651728!important}
+.cojuka-global-nav .navbar-nav form .btn{background:transparent;border:0!important;color:#52545b;padding:9px 7px;font-size:12px;box-shadow:none}
+.cojuka-global-nav .navbar-nav form .btn:hover{background:#00000008;color:#17191d}
+.cojuka-global-nav .cojuka-theme-toggle{width:32px;height:32px;min-width:32px;border-radius:50%}
+.cojuka-global-nav .cojuka-language-trigger{font-size:11px;padding:7px 5px}
+.cojuka-global-nav .dropdown-menu{border-radius:14px!important;border:1px solid #e8e8eb!important;box-shadow:0 16px 40px #00000018!important;padding:8px!important}
+.cojuka-global-nav .dropdown-item{font-size:12px!important;padding:10px 12px}
+.cojuka-global-nav .navbar-nav>.nav-link:not(.nav-contact):after{display:none!important}
+@media(min-width:1400px){.cojuka-global-nav .navbar-collapse{flex:1;min-width:0}.cojuka-global-nav .navbar-nav{flex-wrap:nowrap}}
+@media(max-width:1399.98px){
+ .cojuka-global-nav.site-nav{min-height:62px!important}
+ .cojuka-global-nav .navbar-brand{min-width:0!important;max-width:calc(100% - 150px)!important}
+ .cojuka-global-nav .cojuka-brand-logo{width:49px!important;height:49px!important;max-height:49px!important}
+ .cojuka-global-nav .navbar-collapse{margin-top:0!important;padding:12px!important;border-radius:0 0 16px 16px!important;border:1px solid #e8e8eb!important;border-top:0!important;background:rgba(250,250,252,.99)!important;box-shadow:0 16px 30px #00000010!important;max-height:calc(100svh - 72px);overflow-y:auto}
+ .cojuka-global-nav .navbar-nav{align-items:stretch;gap:2px}
+ .cojuka-global-nav .navbar-nav>.nav-link,.cojuka-global-nav .nav-item>.nav-link{font-size:14px!important;padding:13px 15px!important}
+ .cojuka-global-nav .navbar-nav form{padding:6px 8px}
+ .cojuka-global-nav .dropdown-menu{border:0!important;box-shadow:none!important}
+}
+@media(max-width:480px){.cojuka-global-nav .cojuka-brand-logo{width:45px!important;height:45px!important}.cojuka-global-nav .cojuka-brand-wordmark{font-size:9px!important}}
+html[data-cojuka-theme="dark"] .cojuka-global-nav.site-nav{background:rgba(24,25,28,.94)!important;border-bottom-color:#ffffff1a!important}
+html[data-cojuka-theme="dark"] .cojuka-global-nav .cojuka-brand-wordmark{color:#f1e7e6!important}
+html[data-cojuka-theme="dark"] .cojuka-global-nav .navbar-nav>.nav-link,html[data-cojuka-theme="dark"] .cojuka-global-nav .nav-item>.nav-link{color:#eee!important}
+html[data-cojuka-theme="dark"] .cojuka-global-nav .navbar-collapse{background:#1b1c21!important;border-color:#ffffff1c!important}
+@media(prefers-reduced-motion:reduce){.cojuka-global-nav *{transition:none!important}}
+</style>

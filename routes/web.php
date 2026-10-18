@@ -60,6 +60,8 @@ Route::middleware(['auth', 'group.admin'])->prefix('gestion')->name('gestion.')-
  Route::get('/departements', [GroupDepartmentController::class, 'index'])->middleware('can:manage-users')->name('departments.index');
  Route::patch('/departements/{department}', [GroupDepartmentController::class, 'update'])->middleware('can:manage-users')->name('departments.update');
  Route::get('/utilisateurs', [GroupUsersController::class, 'index'])->middleware('can:manage-users')->name('users.index');
+ Route::get('/utilisateurs/export-csv', [GroupUsersController::class, 'exportCsv'])->middleware('can:manage-users')->name('users.export');
+ Route::post('/utilisateurs/import-csv', [GroupUsersController::class, 'importCsv'])->middleware(['can:manage-users','throttle:3,1'])->name('users.import');
  Route::patch('/utilisateurs/{user}', [GroupUsersController::class, 'update'])->middleware('can:manage-users')->name('users.update');
  Route::get('/import/{module}/modele', [GroupImportController::class, 'template'])->middleware('group.module')->name('import.template');
  Route::get('/referentiel/{module}/export', [GroupImportController::class, 'export'])->where('module','entites|projets|actifs')->middleware('group.module')->name('group.export');

@@ -7,6 +7,7 @@
 <link rel="shortcut icon" href="{{ asset('favicon.svg') }}?v=3" type="image/svg+xml">
 <link rel="icon" type="image/svg+xml" sizes="any" href="{{ asset('favicon.svg') }}?v=3">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 @yield('page_head')
 @include('partials.cojuka-design')
 @include('partials.cojuka-theme')
@@ -25,6 +26,7 @@
 </style>
 <link rel="stylesheet" href="{{ asset('css/cojuka-glass.css') }}?v=20261018-aurora-05">
 <link rel="stylesheet" href="{{ asset('css/cojuka-contrast.css') }}?v=20261018-contrast-02">
+<link rel="stylesheet" href="{{ asset('css/cojuka-editorial.css') }}?v=20261018-editorial-01">
 </head>
 <body class="cojuka-glass cojuka-glass-public">
 @include('partials.cojuka-header')

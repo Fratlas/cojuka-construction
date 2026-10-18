@@ -25,17 +25,18 @@
 /* Artwork faithful to the approved COJUKA globe image; only the wordmark's tint changes. */
 /* Final approved artwork: render the high-fidelity original image unchanged.
    A separate, tightly clipped copy recolors only the existing wordmark in warm gold. */
-#cojuka-intro .ci-final-art .ci-final-wordmark{
+#cojuka-intro .ci-final-art::after{
+ content:"";position:absolute;inset:0;pointer-events:none;
+ background:url("{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018-final") center/contain no-repeat;
  clip-path:inset(74% 0 18.5% 0);
  filter:brightness(0) saturate(100%) invert(88%) sepia(21%) saturate(653%) hue-rotate(349deg) brightness(108%) contrast(95%);
- pointer-events:none;
 }
 
-#cojuka-intro .ci-final-art{display:none;position:relative;width:min(690px,90vw,68svh);aspect-ratio:1;margin:0 auto;animation:ci-pulse 1.65s ease-in-out infinite;transform-origin:center}
+#cojuka-intro .ci-final-art{display:block;position:relative;width:min(440px,73vw,57svh);aspect-ratio:1;margin:0 auto;animation:ci-pulse 1.65s ease-in-out infinite;transform-origin:center}
 #cojuka-intro .ci-final-art img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain}
-#cojuka-intro.ci-image-loaded .ci-final-art{display:block}
-#cojuka-intro.ci-image-loaded .ci-old-art{display:none}
-@media(max-height:540px){#cojuka-intro .ci-final-art{width:min(460px,82vw,60svh)}}
+/* The official artwork is the sole intro logo; no fallback logo swap. */
+@media(max-width:767px){#cojuka-intro .ci-final-art{width:min(360px,66vw,58svh)}}
+@media(max-height:540px){#cojuka-intro .ci-final-art{width:min(300px,55vw,56svh)}}
 @media(prefers-reduced-motion:reduce){#cojuka-intro .ci-final-art{animation:none!important}}
 </style>
 <div id="cojuka-intro" role="status" aria-label="Bienvenue chez COJUKA" aria-live="off">
@@ -43,13 +44,6 @@
  <div class="ci-stage">
   <div class="ci-final-art" aria-label="COJUKA CONSULTING GROUP">
    <img id="ci-official-image" src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018-final" alt="COJUKA CONSULTING GROUP — globe rouge et Afrique" width="1254" height="1254" decoding="async" fetchpriority="high">
-   <img class="ci-final-wordmark" src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018-final" alt="" aria-hidden="true" width="1254" height="1254" decoding="async">
-  </div>
-  <div class="ci-old-art">
-   <div class="ci-heartbeat" aria-hidden="true"><span class="ci-beat-line"></span><img class="ci-intro-emblem" src="{{ asset('images/cojuka-intro-africa.svg') }}?v=2" alt=""></div>
-   <div class="ci-name">COJUKA</div>
-   <div class="ci-caption">CONSULTING GROUP</div>
-   <div class="ci-line"></div>
   </div>
  </div>
  <button type="button" class="ci-skip" id="cojuka-intro-skip">Accéder au site <span aria-hidden="true">→</span></button>
@@ -57,12 +51,6 @@
 <script>
 (function(){
  var el=document.getElementById('cojuka-intro');if(!el)return;
- var official=document.getElementById('ci-official-image');
- if(official){
-  var showOfficial=function(){if(official.naturalWidth>0)el.classList.add('ci-image-loaded')};
-  official.addEventListener('load',showOfficial,{once:true});
-  if(official.complete)showOfficial();
- }
  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  var started=Date.now(),ready=false,minimum=5000,maximum=14000,done=false;
  function finish(){if(done)return;done=true;el.classList.add('is-hidden');window.setTimeout(function(){if(el&&el.parentNode)el.remove()},700)}

@@ -114,52 +114,224 @@ foreach($exploreScenes as $i=>$scene){
 @section('page_scripts')
 <script>
 (function(){
+ 'use strict';
  const scenes=@json($exploreSceneData);
- const stage=document.getElementById('cx-stage'),poster=document.getElementById('cx-poster'),players=[document.getElementById('cx-video-a'),document.getElementById('cx-video-b')],play=document.getElementById('cx-play'),progress=document.getElementById('cx-progress'),note=document.getElementById('cx-note');
+ const byId=id=>document.getElementById(id);
+ const stage=byId('cx-stage'),posters=[byId('cx-poster-a'),byId('cx-poster-b')],players=[byId('cx-video-a'),byId('cx-video-b')];
+ const playButton=byId('cx-play'),muteButton=byId('cx-mute'),fullButton=byId('cx-fullscreen'),progress=byId('cx-progress'),timer=byId('cx-time'),note=byId('cx-note'),mode=byId('cx-mode');
+ if(!stage||!scenes.length||players.some(v=>!v))return;
  const links={mining:'{{ route('group.profile','kojuka-mining') }}',construction:'{{ route('group.profile','construction') }}',logistique:'{{ route('group.profile','logistique') }}','eden-park-investments':'{{ route('group.profile','eden-park-investments') }}',consultance:'{{ route('group.profile','consultance') }}'};
  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- let current=0,active=0,serial=0,playing=false,sound=false,transitioning=false;
- const format=n=>String(Math.floor(n/60)).padStart(2,'0')+':'+String(Math.floor(n%60)).padStart(2,'0');
- function syncButtons(){play.textContent=playing?'Ⅱ Pause':'▶ Lecture';document.getElementById('cx-mute').textContent=sound?'🔊 Son':'🔇 Son'}
- function updateInfo(){const s=scenes[current];document.getElementById('cx-title').textContent=s.title;document.getElementById('cx-description').textContent=s.description;document.getElementById('cx-counter').textContent=String(current+1).padStart(2,'0')+' / '+String(scenes.length).padStart(2,'0');document.getElementById('cx-link').href=links[s.slug]||'{{ route('group.portal') }}';document.querySelectorAll('[data-cx-index]').forEach(b=>b.setAttribute('aria-current',String(Number(b.dataset.cxIndex)===current)))}
- function prepare(v,index){if(v.dataset.scene!==String(index)){v.pause();v.src=scenes[index].video;v.dataset.scene=String(index);v.load()}v.muted=!sound;v.volume=1}
- function preloadNext(){const v=players[1-active];if(transitioning)return;prepare(v,(current+1)%scenes.length)}
- function switchScene(index,autoplay=true){
-  const target=(index+scenes.length)%scenes.length;
-  if(target===current&&playing)return;
-  const token=++serial,old=players[active],nextIndex=1-active,next=players[nextIndex];
-  transitioning=true;current=target;stage.classList.add('cx-switching');
-  prepare(next,current);next.currentTime=0;next.muted=!sound;
-  const reveal=()=>{
-   if(token!==serial)return;
-   updateInfo();poster.style.backgroundImage='url("'+scenes[current].poster+'")';
-   const show=()=>{
-    if(token!==serial)return;
-    next.classList.add('cx-active');old.classList.remove('cx-active');stage.classList.add('cx-live');
-    active=nextIndex;playing=autoplay;syncButtons();
-    window.setTimeout(()=>{if(token!==serial)return;old.pause();old.classList.remove('cx-active');stage.classList.remove('cx-switching');transitioning=false;preloadNext()},reduced?0:1500);
-   };
-   if(autoplay){next.play().then(show).catch(()=>{playing=false;syncButtons();show();playing=false;syncButtons();note.textContent='Appuyez sur Lecture pour activer la vidéo.'})}
-   else{next.pause();show()}
-   note.textContent='Exploration immersive · passage fluide entre les univers';
-  };
-  if(next.readyState>=2){reveal();return}
-  let done=false;
-  const ready=()=>{if(done)return;done=true;next.removeEventListener('loadeddata',ready);next.removeEventListener('error',failed);reveal()};
-  const failed=()=>{if(done)return;done=true;next.removeEventListener('loadeddata',ready);next.removeEventListener('error',failed);if(token===serial){transitioning=false;stage.classList.remove('cx-switching');note.textContent='Chargement vidéo indisponible. Réessayez.'}};
-  next.addEventListener('loadeddata',ready);next.addEventListener('error',failed);
+ const saveData=!!(navigator.connection&&navigator.connection.saveData);
+ const photoDuration=9500;
+ const state={index:0,active:1,poster:0,mode:'photo',wanted:!reduced&&!saveData,sound:false,started:false,inView:false,switching:false,token:0,photoElapsed:0,lastTick:performance.now(),timeout:null,cleanup:null};
+ const cards=Array.from(document.querySelectorAll('[data-cx-index]'));
+ function format(seconds){const n=Math.max(0,Math.floor(Number(seconds)||0));return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
+ function allowed(){return state.wanted&&state.inView&&!document.hidden}
+ function notice(message){note.textContent=message}
+ function sync(){
+   playButton.textContent=state.wanted?'Ⅱ Mettre en pause':'▶ Reprendre la visite';
+   playButton.setAttribute('aria-pressed',String(state.wanted));
+   muteButton.textContent=state.sound?'🔊 Couper le son':'🔇 Activer le son';
+   muteButton.setAttribute('aria-pressed',String(state.sound));
+   mode.dataset.paused=String(!state.wanted);
+   byId('cx-mode-text').textContent=!state.wanted?'Visite en pause':state.mode==='video'?'Visite automatique':'Visite illustrée automatique';
  }
- function start(){prepare(players[0],0);poster.style.backgroundImage='url("'+scenes[0].poster+'")';updateInfo();players[0].play().then(()=>{players[0].classList.add('cx-active');stage.classList.add('cx-live');playing=true;syncButtons();preloadNext()}).catch(()=>{playing=false;syncButtons();note.textContent='Appuyez sur Lecture pour démarrer l’expérience.'})}
- document.querySelectorAll('[data-cx-index]').forEach(b=>b.addEventListener('click',()=>switchScene(Number(b.dataset.cxIndex))));
- document.getElementById('cx-prev').addEventListener('click',()=>switchScene(current-1));
- document.getElementById('cx-next').addEventListener('click',()=>switchScene(current+1));
- play.addEventListener('click',()=>{const v=players[active];if(playing){v.pause();playing=false;syncButtons()}else{v.play().then(()=>{playing=true;syncButtons()}).catch(()=>{note.textContent='Lecture bloquée : réessayez.'})}});
- document.getElementById('cx-mute').addEventListener('click',()=>{sound=!sound;players.forEach((v,i)=>v.muted=!sound||i!==active);syncButtons()});
- players.forEach(v=>{v.addEventListener('timeupdate',()=>{if(v!==players[active]||transitioning||!v.duration)return;progress.value=100*v.currentTime/v.duration;document.getElementById('cx-time').textContent=format(v.currentTime);if(playing&&v.duration-v.currentTime<1.45&&v.duration>2){switchScene(current+1)}});v.addEventListener('ended',()=>{if(v===players[active]&&!transitioning)switchScene(current+1)})});
- progress.addEventListener('input',()=>{const v=players[active];if(v.duration)v.currentTime=v.duration*progress.value/100});
- document.addEventListener('keydown',e=>{if(e.target.matches('input,textarea,button'))return;if(e.key==='ArrowRight')switchScene(current+1);if(e.key==='ArrowLeft')switchScene(current-1)});
- document.addEventListener('visibilitychange',()=>{if(document.hidden){players.forEach(v=>v.pause());playing=false;syncButtons()}});
- start();
+ function information(index){
+   const scene=scenes[index];
+   byId('cx-title').textContent=scene.title;
+   byId('cx-description').textContent=scene.description;
+   byId('cx-counter').textContent=String(index+1).padStart(2,'0')+' / '+String(scenes.length).padStart(2,'0');
+   byId('cx-link').href=links[scene.slug]||'{{ route('group.portal') }}';
+   cards.forEach(card=>card.setAttribute('aria-current',String(Number(card.dataset.cxIndex)===index)));
+ }
+ function poster(index){
+   const incoming=1-state.poster;
+   posters[incoming].style.backgroundImage='url("'+scenes[index].poster+'")';
+   posters[incoming].classList.add('is-visible');
+   posters[state.poster].classList.remove('is-visible');
+   state.poster=incoming;
+ }
+ function seekInfo(){
+   if(state.mode==='video'){
+     const v=players[state.active],duration=v.duration;
+     if(Number.isFinite(duration)&&duration>0){
+       progress.value=String(Math.min(100,100*v.currentTime/duration));
+       timer.textContent=format(v.currentTime)+' / '+format(duration);
+     }
+   }else{
+     progress.value=String(Math.min(100,state.photoElapsed/photoDuration*100));
+     timer.textContent=format(state.photoElapsed/1000)+' / '+format(photoDuration/1000);
+   }
+ }
+ function prepare(player,index){
+   if(player.dataset.scene===String(index)&&player.getAttribute('src'))return;
+   player.pause();
+   player.removeAttribute('src');
+   player.dataset.scene=String(index);
+   player.preload='auto';
+   player.src=scenes[index].video;
+   player.load();
+ }
+ function cancelPending(){
+   clearTimeout(state.timeout);
+   clearTimeout(state.cleanup);
+   state.timeout=null;state.cleanup=null;
+   state.token++;
+   state.switching=false;
+   stage.classList.remove('cx-switching');
+ }
+ function finishTransition(){
+   state.switching=false;
+   stage.classList.remove('cx-switching');
+   sync();
+   seekInfo();
+ }
+ function showPhoto(index,token,reason){
+   if(token!==state.token)return;
+   clearTimeout(state.timeout);state.timeout=null;
+   const old=players[state.active];
+   players.forEach(v=>{v.pause();v.classList.remove('cx-active');v.style.zIndex='1'});
+   old.pause();
+   state.index=index;state.mode='photo';state.photoElapsed=0;
+   poster(index);information(index);finishTransition();
+   if(reason)notice(reason);
+   else notice(reduced?'Mode sans animation : utilisez les flèches pour découvrir les univers.':saveData?'Mode économie de données : visite illustrée.':'Découverte automatique des secteurs · illustrations non contractuelles.');
+ }
+ function showVideo(index,slot,token){
+   if(token!==state.token)return;
+   clearTimeout(state.timeout);state.timeout=null;
+   const previous=state.active,old=players[previous],incoming=players[slot];
+   state.active=slot;state.index=index;state.mode='video';state.photoElapsed=0;
+   poster(index);information(index);
+   incoming.style.zIndex='2';old.style.zIndex='1';
+   incoming.classList.add('cx-active');
+   if(old!==incoming)old.classList.remove('cx-active');
+   state.cleanup=window.setTimeout(()=>{
+     if(state.active!==previous){old.pause();old.style.zIndex='1'}
+     // Prepare the next video only after the outgoing fade finishes.
+     if(token===state.token){const standby=players[1-state.active];prepare(standby,(state.index+1)%scenes.length)}
+   },1300);
+   finishTransition();
+   notice('Lecture automatique · transitions douces entre les univers. Les vidéos sont des illustrations.');
+   if(!allowed())incoming.pause();
+ }
+ function change(index){
+   if(!state.started)return;
+   const target=(index+scenes.length)%scenes.length;
+   cancelPending();
+   const token=state.token;
+   state.switching=true;
+   stage.classList.add('cx-switching');
+   if(reduced||saveData||!state.wanted){showPhoto(target,token);return}
+   const slot=1-state.active,incoming=players[slot];
+   const loadFallback=()=>showPhoto(target,token,'La vidéo est momentanément indisponible : la visite continue avec des images.');
+   state.timeout=window.setTimeout(loadFallback,6500);
+   try{
+     prepare(incoming,target);
+     incoming.muted=!state.sound;
+     incoming.volume=1;
+     const started=incoming.play();
+     if(started&&typeof started.then==='function'){
+       started.then(()=>showVideo(target,slot,token)).catch(error=>{
+         if(token!==state.token)return;
+         if(error&&error.name==='AbortError')return;
+         loadFallback();
+       });
+     }else{
+       incoming.addEventListener('playing',()=>showVideo(target,slot,token),{once:true});
+     }
+   }catch(error){loadFallback()}
+ }
+ function resume(){
+   if(!allowed()||state.switching)return;
+   if(state.mode==='video'){
+     players[state.active].muted=!state.sound;
+     const p=players[state.active].play();
+     if(p&&p.catch)p.catch(()=>{const token=state.token;showPhoto(state.index,token,'Lecture vidéo indisponible : le parcours continue avec les images.')});
+   }
+ }
+ function pause(){players.forEach(v=>v.pause())}
+ function setWanted(value){
+   state.wanted=value;
+   state.lastTick=performance.now();
+   if(!value)pause();
+   if(value&&state.started){
+     if(state.mode==='video')resume();
+     // Photo mode remains a timed automatic tour, and still works if videos fail.
+   }
+   sync();
+ }
+ // Clock handles both real video playback and timed poster fallback.
+ window.setInterval(()=>{
+   const now=performance.now(),elapsed=Math.max(0,Math.min(500,now-state.lastTick));
+   state.lastTick=now;
+   if(!state.started||state.switching||!allowed())return;
+   if(state.mode==='photo'){
+     state.photoElapsed+=elapsed;
+     seekInfo();
+     if(state.photoElapsed>=photoDuration)change(state.index+1);
+   }else{
+     const v=players[state.active],d=v.duration;
+     seekInfo();
+     if(Number.isFinite(d)&&d>2&&v.currentTime>=d-1.15)change(state.index+1);
+   }
+ },220);
+ posters[0].style.backgroundImage='url("'+scenes[0].poster+'")';
+ information(0);sync();seekInfo();
+ cards.forEach(card=>card.addEventListener('click',()=>change(Number(card.dataset.cxIndex))));
+ byId('cx-prev').addEventListener('click',()=>change(state.index-1));
+ byId('cx-next').addEventListener('click',()=>change(state.index+1));
+ playButton.addEventListener('click',()=>{
+   if(!state.started){state.started=true;state.inView=true;setWanted(true);change(state.index);return}
+   setWanted(!state.wanted);
+ });
+ muteButton.addEventListener('click',()=>{
+   state.sound=!state.sound;
+   players.forEach((v,i)=>{v.muted=!state.sound||i!==state.active});
+   sync();
+ });
+ fullButton.addEventListener('click',()=>{
+   if(document.fullscreenElement){document.exitFullscreen().catch(()=>{});return}
+   if(!stage.requestFullscreen){notice('Le plein écran n’est pas disponible sur ce navigateur.');return}
+   stage.requestFullscreen().catch(()=>notice('Le navigateur n’a pas autorisé le plein écran.'));
+ });
+ document.addEventListener('fullscreenchange',()=>{fullButton.textContent=document.fullscreenElement?'⤢ Quitter le plein écran':'⛶ Plein écran'});
+ progress.addEventListener('input',()=>{
+   if(state.switching)return;
+   const v=players[state.active];
+   if(state.mode==='video'&&Number.isFinite(v.duration)&&v.duration>0)v.currentTime=v.duration*Number(progress.value)/100;
+   else state.photoElapsed=photoDuration*Number(progress.value)/100;
+   seekInfo();
+ });
+ players.forEach((v,i)=>{
+   v.addEventListener('ended',()=>{if(i===state.active&&state.mode==='video'&&!state.switching&&allowed())change(state.index+1)});
+   v.addEventListener('error',()=>{
+     if(i===state.active&&state.mode==='video')showPhoto(state.index,state.token,'La vidéo est indisponible : la visite continue en images.');
+   });
+ });
+ document.addEventListener('keydown',event=>{
+   const target=event.target;
+   if(event.altKey||event.metaKey||event.ctrlKey||target.closest('input,textarea,select,button,[contenteditable="true"]')||!state.inView)return;
+   if(event.key==='ArrowRight'){event.preventDefault();change(state.index+1)}
+   if(event.key==='ArrowLeft'){event.preventDefault();change(state.index-1)}
+ });
+ document.addEventListener('visibilitychange',()=>{state.lastTick=performance.now();if(document.hidden)pause();else resume()});
+ window.addEventListener('pagehide',()=>{cancelPending();pause()},{once:true});
+ function observe(entry){
+   state.inView=entry.isIntersecting;
+   state.lastTick=performance.now();
+   if(!state.started&&state.inView){
+     state.started=true;
+     if(state.wanted)change(0);
+     else{information(0);sync()}
+   }else if(!state.inView)pause();
+   else resume();
+ }
+ if('IntersectionObserver' in window){
+   const observer=new IntersectionObserver(entries=>entries.forEach(observe),{threshold:.12});
+   observer.observe(stage);
+ }else observe({isIntersecting:true});
 })();
 </script>
 @endsection

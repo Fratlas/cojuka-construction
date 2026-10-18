@@ -88,18 +88,25 @@
    if(element.tagName==='IFRAME'&&url&&!element.src)element.src=url;
    if(element.tagName==='SCRIPT'&&element.type==='text/plain'&&!element.dataset.cookieLoaded){
     const script=document.createElement('script');
-    script.src=url||'';script.async=true;
-    if(!url)script.textContent=element.textContent;
+    if(url)script.src=url;
+    else script.textContent=element.textContent;
+    script.async=true;
     element.dataset.cookieLoaded='true';element.after(script);
    }
   });
  }
  function save(choice){
+  const previous=current;
   current={v:1,analytics:!!choice.analytics,marketing:!!choice.marketing};
   write(current);
   activateOptional(current);
   banner.hidden=true;
   window.dispatchEvent(new CustomEvent('cojuka:cookies-updated',{detail:current}));
+  // When an optional category is revoked, refresh to unload any optional
+  // scripts already inserted during the previous consent choice.
+  if(previous&&((previous.analytics&&!current.analytics)||(previous.marketing&&!current.marketing))){
+   window.location.reload();
+  }
  }
  function open(){
   current=read();

@@ -24,7 +24,7 @@
  }
  $cgHasOperations=array_sum($cgTimelineValues)>0;
 @endphp
-<section class="cg-analytics" aria-labelledby="cg-analytics-heading">
+<section class="cg-analytics" id="gestion-graphiques" aria-labelledby="cg-analytics-heading">
  <div class="cg-analytics-head">
   <div>
    <p class="cg-analytics-overline">Analyse et pilotage</p>

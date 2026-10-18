@@ -67,6 +67,46 @@ body{font-size:15px;line-height:1.55}
 .sidebar .brand .cojuka-brand-logo{display:block;width:84px!important;max-width:84px;height:84px!important;max-height:84px;object-fit:contain;object-position:center;filter:none!important;opacity:1!important;mix-blend-mode:normal!important;flex-shrink:1}
 .sidebar .brand>div{min-width:0;flex:1}.sidebar .brand .brand-name{display:block;font:800 12px/1.45 Manrope,Arial,sans-serif;letter-spacing:.035em;color:#fff;overflow-wrap:normal}.sidebar .brand .brand-caption{display:none}
 @media(max-width:1100px){.sidebar .brand .cojuka-brand-logo{width:72px!important;max-width:72px;height:72px!important;max-height:72px}.sidebar .brand .brand-name{font-size:11px}}
+
+/* COJUKA / Compact workspace rhythm — consistent with the public site.
+   Changes only top-level page blocks; forms, tables and modal spacing remain usable. */
+.page-content{
+ padding-bottom:clamp(28px,3.2vw,47px)!important;
+}
+.page-content > :is(.d-flex,.row,div):has(h1).mb-4{
+ border-bottom:1px solid #dbe2e9;
+ padding-bottom:clamp(12px,1.5vw,19px);
+ margin-bottom:clamp(15px,1.8vw,24px)!important;
+}
+.page-content > :is(.card,.row,.alert,.table-responsive).mb-4{
+ margin-bottom:clamp(14px,1.7vw,21px)!important;
+}
+.page-content > :is(.card,.row,.alert,.table-responsive).mb-5{
+ margin-bottom:clamp(20px,2.3vw,30px)!important;
+}
+.page-content > .row.g-5{--bs-gutter-y:1.75rem}
+.page-content > h2:not(:first-child)::before,
+.page-content > h3:not(:first-child)::before{
+ content:"";
+ display:block;
+ width:clamp(75px,9vw,118px);
+ height:1px;
+ margin:clamp(20px,2.5vw,32px) 0 13px;
+ background:linear-gradient(90deg,#9eabb9,rgba(158,171,185,0));
+}
+.page-content > footer.mt-5{
+ margin-top:clamp(25px,3vw,39px)!important;
+ padding-top:clamp(14px,1.6vw,20px)!important;
+}
+@media(max-width:767.98px){
+ .page-content > :is(.d-flex,.row,div):has(h1).mb-4{
+  padding-bottom:11px;
+  margin-bottom:16px!important;
+ }
+ .page-content > :is(.card,.row,.alert,.table-responsive).mb-5{margin-bottom:23px!important}
+ .page-content > .row.g-5{--bs-gutter-y:1.3rem}
+}
+
 </style>
 @include('partials.cojuka-design')
 <link rel="stylesheet" href="{{ asset('css/cojuka-glass.css') }}?v=20261018-admin-crystal-06">

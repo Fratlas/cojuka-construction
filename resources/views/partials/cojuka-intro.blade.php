@@ -23,6 +23,14 @@
 #cojuka-intro .ci-heartbeat{position:relative;width:min(520px,86vw);height:clamp(180px,30vw,285px);margin:0 auto 4px;display:grid;place-items:center;isolation:isolate}#cojuka-intro .ci-intro-emblem{position:relative;z-index:2;width:clamp(165px,28vw,275px);height:100%;object-fit:contain;filter:drop-shadow(0 0 20px #f2333855);animation:ci-pulse 1.5s ease-in-out infinite}#cojuka-intro .ci-beat-line{position:absolute;inset:49% 0 auto;height:2px;background:linear-gradient(90deg,transparent,#f8494b 15%,#ffce8a 50%,#f8494b 85%,transparent);box-shadow:0 0 13px #f94845;animation:ci-heartline 1.5s ease-in-out infinite}#cojuka-intro .ci-name{margin-top:0}#cojuka-intro .ci-caption{margin-top:6px}#cojuka-intro .ci-stage{max-width:95vw}@keyframes ci-pulse{0%,100%{transform:scale(1)}12%{transform:scale(1.09)}22%{transform:scale(1.02)}33%{transform:scale(1.065)}47%{transform:scale(1)}}@keyframes ci-heartline{0%,100%{opacity:.4;transform:scaleX(.75)}18%,34%{opacity:1;transform:scaleX(1)}}@media(prefers-reduced-motion:reduce){#cojuka-intro .ci-intro-emblem,#cojuka-intro .ci-beat-line{animation:none!important}}
 
 /* Artwork faithful to the approved COJUKA globe image; only the wordmark's tint changes. */
+/* Final approved artwork: render the high-fidelity original image unchanged.
+   A separate, tightly clipped copy recolors only the existing wordmark in warm gold. */
+#cojuka-intro .ci-final-art .ci-final-wordmark{
+ clip-path:inset(74% 0 18.5% 0);
+ filter:brightness(0) saturate(100%) invert(88%) sepia(21%) saturate(653%) hue-rotate(349deg) brightness(108%) contrast(95%);
+ pointer-events:none;
+}
+
 #cojuka-intro .ci-final-art{display:none;position:relative;width:min(690px,90vw,68svh);aspect-ratio:1;margin:0 auto;animation:ci-pulse 1.65s ease-in-out infinite;transform-origin:center}
 #cojuka-intro .ci-final-art img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain}
 #cojuka-intro.ci-image-loaded .ci-final-art{display:block}
@@ -34,7 +42,8 @@
  <div class="ci-glow" aria-hidden="true"></div>
  <div class="ci-stage">
   <div class="ci-final-art" aria-label="COJUKA CONSULTING GROUP">
-   <img id="ci-official-image" src="{{ asset('images/cojuka-logo-accueil-final.png') }}?v=20261018b" alt="COJUKA CONSULTING GROUP — globe rouge et Afrique" width="1254" height="1254" decoding="async" fetchpriority="high">
+   <img id="ci-official-image" src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018-final" alt="COJUKA CONSULTING GROUP — globe rouge et Afrique" width="1254" height="1254" decoding="async" fetchpriority="high">
+   <img class="ci-final-wordmark" src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018-final" alt="" aria-hidden="true" width="1254" height="1254" decoding="async">
   </div>
   <div class="ci-old-art">
    <div class="ci-heartbeat" aria-hidden="true"><span class="ci-beat-line"></span><img class="ci-intro-emblem" src="{{ asset('images/cojuka-intro-africa.svg') }}?v=2" alt=""></div>

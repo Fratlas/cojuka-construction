@@ -74,7 +74,7 @@ body{background:#19222c}
 .auth-feature{background:rgba(8,16,26,.68);border:1px solid #ffffff3b;box-shadow:0 14px 32px #0002;border-radius:16px;padding:17px 13px}
 .auth-feature-icon{background:#681624;border-color:#f5b9c3}
 .auth-note{font-size:.78rem}
-.auth-workspace{position:relative;z-index:2;flex:0 0 min(44%,650px);width:min(44%,650px);min-height:calc(100svh - 50px);border-radius:24px;padding:clamp(45px,5vw,90px) clamp(32px,4.3vw,75px);background:rgba(255,255,255,.985);box-shadow:0 28px 80px #0004;align-self:center}
+.auth-workspace{position:relative;z-index:2;flex:0 0 min(44%,650px);width:min(44%,650px);min-height:calc(100svh - 50px);border-radius:24px;padding:clamp(34px,3.75vw,68px) clamp(24px,3.225vw,56px);background:rgba(255,255,255,.985);box-shadow:0 28px 80px #0004;align-self:center}
 .auth-panel{max-width:500px}
 .auth-panel h1{font-size:clamp(2.8rem,3.7vw,4rem);letter-spacing:-.07em;margin:16px 0}
 .auth-panel .eyebrow{letter-spacing:.22em}
@@ -83,9 +83,9 @@ body{background:#19222c}
 .auth-panel .btn-primary{min-height:62px}
 .auth-panel .btn-outline-primary{border:1.5px solid var(--cojuka-red);background:#fff}
 .auth-back{margin-top:32px}
-@media(max-width:1100px){.auth-shell{padding:20px}.auth-intro{padding:32px 22px}.auth-workspace{flex-basis:47%;width:47%;padding:45px 35px}.auth-intro h2{font-size:clamp(2.8rem,4.5vw,4.4rem)}.auth-features{gap:7px}.auth-feature{padding:12px 8px}}
-@media(max-width:850px){.auth-shell{display:flex;flex-direction:column;justify-content:flex-start;padding:0;background-position:center top}.auth-shell::before{background:linear-gradient(180deg,rgba(9,16,26,.68),rgba(9,16,26,.42) 50%,rgba(9,16,26,.68))}.auth-intro{flex:auto;min-height:0;width:100%;padding:26px 24px 34px;gap:24px}.auth-message{margin:15px 0 0}.auth-intro h2{font-size:clamp(2.35rem,7vw,3.6rem)}.auth-intro p{max-width:600px}.auth-workspace{flex:auto;min-height:0;width:calc(100% - 28px);max-width:680px;align-self:center;border-radius:22px;margin:0 14px 25px;padding:48px clamp(22px,6vw,65px);box-shadow:0 12px 45px #0003}.auth-panel{max-width:100%}.auth-features{display:none}.auth-note{display:none}}
-@media(max-width:480px){.auth-intro{padding:24px 20px 28px}.auth-brand img{width:220px}.auth-intro h2{font-size:2.4rem}.auth-intro p{font-size:.92rem}.auth-workspace{width:calc(100% - 24px);margin:0 12px 18px;padding:35px 22px}.auth-panel h1{font-size:2.8rem}.auth-panel .description{margin-bottom:28px}}
+@media(max-width:1100px){.auth-shell{padding:20px}.auth-intro{padding:32px 22px}.auth-workspace{flex-basis:47%;width:47%;padding:34px 26px}.auth-intro h2{font-size:clamp(2.8rem,4.5vw,4.4rem)}.auth-features{gap:7px}.auth-feature{padding:12px 8px}}
+@media(max-width:850px){.auth-shell{display:flex;flex-direction:column;justify-content:flex-start;padding:0;background-position:center top}.auth-shell::before{background:linear-gradient(180deg,rgba(9,16,26,.68),rgba(9,16,26,.42) 50%,rgba(9,16,26,.68))}.auth-intro{flex:auto;min-height:0;width:100%;padding:26px 24px 34px;gap:24px}.auth-message{margin:15px 0 0}.auth-intro h2{font-size:clamp(2.35rem,7vw,3.6rem)}.auth-intro p{max-width:600px}.auth-workspace{flex:auto;min-height:0;width:calc(100% - 28px);max-width:680px;align-self:center;border-radius:22px;margin:0 14px 25px;padding:36px clamp(17px,4.5vw,49px);box-shadow:0 12px 45px #0003}.auth-panel{max-width:100%}.auth-features{display:none}.auth-note{display:none}}
+@media(max-width:480px){.auth-intro{padding:24px 20px 28px}.auth-brand img{width:220px}.auth-intro h2{font-size:2.4rem}.auth-intro p{font-size:.92rem}.auth-workspace{width:calc(100% - 24px);margin:0 12px 18px;padding:26px 17px}.auth-panel h1{font-size:2.8rem}.auth-panel .description{margin-bottom:28px}}
 
 /* Consistent authentication scale and readable small-screen rhythm */
 .auth-panel{font-size:1rem}
@@ -96,7 +96,7 @@ body{background:#19222c}
 .auth-panel .btn{font-size:1rem;line-height:1.4}
 .auth-panel .alert{font-size:.94rem}
 .auth-message p{max-width:54ch}
-@media(min-width:851px) and (max-height:760px){.auth-workspace{padding-top:38px;padding-bottom:38px}.auth-intro h2{font-size:clamp(2.7rem,4.4vw,4.7rem)}.auth-features{margin-top:18px}.auth-panel .description{margin-bottom:24px}}
+@media(min-width:851px) and (max-height:760px){.auth-workspace{padding-top:29px;padding-bottom:29px}.auth-intro h2{font-size:clamp(2.7rem,4.4vw,4.7rem)}.auth-features{margin-top:18px}.auth-panel .description{margin-bottom:24px}}
 @media(max-width:480px){.auth-panel .form-control{font-size:16px}.auth-panel h1{font-size:clamp(2.25rem,10vw,2.8rem)}}
 .auth-brand{display:inline-flex;align-items:center;gap:12px;max-width:100%}
 .auth-brand img{width:clamp(75px,9vw,105px);height:105px;max-height:105px;flex:none}
@@ -105,7 +105,7 @@ body{background:#19222c}
 </style>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
 <link rel="preload" as="image" href="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=78&fm=webp" fetchpriority="high">
-<link rel="stylesheet" href="{{ asset('css/cojuka-glass.css') }}?v=20261018-aurora-05">
+<link rel="stylesheet" href="{{ asset('css/cojuka-glass.css') }}?v=20261018-auth-fill25-06">
 </head>
 <body class="cojuka-glass cojuka-glass-auth">
 <div class="auth-shell">

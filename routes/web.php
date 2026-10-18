@@ -12,6 +12,7 @@ Route::post('/assistant/appel-vocal', [App\Http\Controllers\CojukaRealtimeContro
 Route::post('/assistant/reponse', [App\Http\Controllers\CojukaAssistantController::class, 'reply'])->middleware('throttle:12,1')->name('cojuka.assistant.reply');
 Route::view('/', 'welcome')->name('home');
 Route::view('/groupe', 'group')->name('group');
+Route::view('/explorer', 'explorer')->name('explorer');
 Route::view('/groupe/histoire', 'group-history')->name('group.history');
 Route::get('/groupe/entites', [GroupPublicController::class, 'index'])->name('group.portal');
 Route::get('/groupe/dossiers/{topic}', function (string $topic) {

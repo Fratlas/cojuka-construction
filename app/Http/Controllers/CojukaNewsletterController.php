@@ -35,6 +35,11 @@ class CojukaNewsletterController
   $subscriber=DB::table('cojuka_newsletter_subscribers')->where('email',$email)->first();
   $confirm=URL::temporarySignedRoute('cojuka.newsletter.confirm',now()->addDays(2),['subscriber'=>$subscriber->id,'token'=>$token]);
   $unsubscribe=URL::signedRoute('cojuka.newsletter.unsubscribe',['subscriber'=>$subscriber->id]);
+  // Laravel's local log/array mailer stores mail without delivering it.
+  // Never claim a confirmation message was sent in that configuration.
+  if(in_array(config('mail.default'),['log','array'],true)){
+   return back()->with('newsletter_notice','Inscription enregistrée, mais l’envoi des e-mails n’est pas encore configuré. La confirmation sera possible lorsque la messagerie du site sera activée.');
+  }
   try{
    Mail::raw("Bonjour,\n\nVous avez demandé à recevoir les actualités de COJUKA Consulting Group.\n\nPour confirmer votre inscription (48 heures) :\n".$confirm."\n\nSi vous n'êtes pas à l'origine de cette demande, ignorez ce message.\n\nSe désinscrire : ".$unsubscribe."\n\nCOJUKA Consulting Group",function($message)use($email){
     $message->to($email)->subject('COJUKA — Confirmez votre abonnement');

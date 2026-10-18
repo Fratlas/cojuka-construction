@@ -35,8 +35,8 @@
  <div class="ci-glow" aria-hidden="true"></div>
  <div class="ci-stage">
   <div class="ci-final-art" aria-label="COJUKA CONSULTING GROUP">
-   <img id="ci-official-image" src="{{ asset('images/cojuka-welcome-final.png') }}?v=20261018" alt="COJUKA Consulting Group — globe rouge, Afrique centrée" width="1254" height="1254" decoding="async" fetchpriority="high">
-   <img class="ci-final-wordmark" src="{{ asset('images/cojuka-welcome-final.png') }}?v=20261018" alt="" aria-hidden="true" width="1254" height="1254">
+   <img id="ci-official-image" src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018" alt="COJUKA Consulting Group — globe rouge, Afrique centrée" width="1254" height="1254" decoding="async" fetchpriority="high">
+   <img class="ci-final-wordmark" src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018" alt="" aria-hidden="true" width="1254" height="1254">
   </div>
   <div class="ci-old-art">
    <div class="ci-heartbeat" aria-hidden="true"><span class="ci-beat-line"></span><img class="ci-intro-emblem" src="{{ asset('images/cojuka-intro-africa.svg') }}?v=2" alt=""></div>

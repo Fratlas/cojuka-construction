@@ -74,7 +74,6 @@ document.addEventListener('DOMContentLoaded',function(){
   }
   function start(i){
    if(state[i].failed||reduced||saveData)return;
-   if(pending===i&&watchdog)return;
    if(pending>=0&&pending!==i){videos[pending].pause();videos[pending].classList.remove('is-active','is-playing')}
    pending=i;
    clearTimeout(watchdog);

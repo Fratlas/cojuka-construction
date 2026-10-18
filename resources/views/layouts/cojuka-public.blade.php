@@ -21,6 +21,13 @@
 .cojuka-footer-links a,.cojuka-footer-links p{font-size:.89rem;color:#64666b!important;text-decoration:none;margin:0;line-height:1.65}
 .cojuka-footer-links a:hover{color:#86212e!important}
 .cojuka-footer-bottom{border-top:1px solid #e0e1e4;padding-top:24px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:.8rem;color:#797b81}
+.cojuka-footer-bottom a,.cojuka-footer-bottom .cg-cookie-footer-link{
+ display:inline-flex;align-items:center;color:inherit;text-decoration:underline;text-underline-offset:3px;
+ border:0;background:none;padding:0;font-size:inherit;line-height:inherit;cursor:pointer
+}
+.cojuka-footer-bottom a:hover,.cojuka-footer-bottom .cg-cookie-footer-link:hover{color:#253244!important}
+.cojuka-footer-bottom a:focus-visible,.cojuka-footer-bottom .cg-cookie-footer-link:focus-visible{outline:3px solid #9aa7b5;outline-offset:3px}
+
 @media(max-width:991.98px){.cojuka-footer-main{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:575.98px){.cojuka-site-footer{padding-top:48px!important}.cojuka-footer-main{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 18px;padding-bottom:36px}.cojuka-footer-brand{grid-column:1/-1}.cojuka-footer-bottom{flex-direction:column}}
 </style>
@@ -34,6 +41,7 @@
 @yield('content')
 @include('partials.cojuka-footer')
 @include('partials.cojuka-gallery-modal')
+@include('partials.cojuka-cookies')
 @include('partials.cojuka-back-to-top')
 @include('partials.cojuka-ai-assistant')
 @include('partials.cojuka-mining-announcement')

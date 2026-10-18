@@ -14,7 +14,7 @@ class GroupUsersController {
    'departments'=>GroupAccess::ready()?DB::table('group_departments')->where('active',1)->orderBy('name')->get():collect(),
    'entities'=>GroupEntity::orderBy('name')->get(['id','name']),
    'assigned'=>GroupAccess::ready()?DB::table('group_user_entity_access')->get()->groupBy('user_id')->map(fn($rows)=>$rows->pluck('group_entity_id')->map(fn($id)=>(int)$id)->all())->all():[],
-   'accessReady'=>GroupAccess::ready(),
+   'accessReady'=>GroupAccess::ready() && \Illuminate\Support\Facades\Schema::hasColumn('users','group_role'),
   ]);
  }
  public function update(Request $request,User $user){

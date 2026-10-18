@@ -1,6 +1,6 @@
 @php
 $fields = match($module) {
- 'entites' => ['name'=>'Nom','slug'=>'Identifiant URL','type'=>'Type','country'=>'Pays','sector'=>'Secteur','summary'=>'Résumé','description'=>'Description','website'=>'Site web'],
+ 'entites' => ['name'=>'Nom','slug'=>'Identifiant URL','type'=>'Type','country'=>'Pays','sector'=>'Secteur','summary'=>'Résumé','description'=>'Description','website'=>'Site web','rccm'=>'RCCM','id_nat'=>'ID.NAT (identification nationale)','nif'=>'NIF','numero_impot'=>'Numéro d’impôt','cnss'=>'CNSS','adresse_siege'=>'Adresse du siège','telephone'=>'Téléphone','email_contact'=>'E-mail société','representant_legal'=>'Représentant légal','date_immatriculation'=>'Date d’immatriculation'],
  'projets' => ['group_entity_id'=>'Filiale','title'=>'Titre','category'=>'Catégorie','location'=>'Localisation','status'=>'Statut','start_date'=>'Date de début','end_date'=>'Date de fin','budget'=>'Budget','currency'=>'Devise','description'=>'Description'],
  default => ['group_entity_id'=>'Filiale','name'=>'Nom','kind'=>'Type d’actif','location'=>'Localisation','reference'=>'Référence','status'=>'Statut','notes'=>'Notes']
 };
@@ -25,7 +25,7 @@ $fields = match($module) {
      @endforeach
     </select>
    @else
-    <input class="form-control" id="{{ $field }}-{{ $item?->id ?? 'new' }}" name="{{ $field }}" type="{{ str_contains($field, 'date') ? 'date' : ($field === 'budget' ? 'number' : ($field === 'website' ? 'url' : 'text')) }}" @if($field === 'budget') step="0.01" min="0" @endif value="{{ $item?->$field instanceof \Carbon\CarbonInterface ? $item->$field->format('Y-m-d') : ($item?->$field ?? ($field === 'currency' ? 'USD' : '')) }}" @if(in_array($field, ['name','slug','type','title','kind','status','currency'])) required @endif>
+    <input class="form-control" id="{{ $field }}-{{ $item?->id ?? 'new' }}" name="{{ $field }}" type="{{ str_contains($field, 'date') ? 'date' : ($field === 'budget' ? 'number' : ($field === 'website' ? 'url' : ($field === 'email_contact' ? 'email' : 'text'))) }}" @if($field === 'budget') step="0.01" min="0" @endif value="{{ $item?->$field instanceof \Carbon\CarbonInterface ? $item->$field->format('Y-m-d') : ($item?->$field ?? ($field === 'currency' ? 'USD' : '')) }}" @if(in_array($field, ['name','slug','type','title','kind','status','currency'])) required @endif>
    @endif
   </div>
  @endforeach

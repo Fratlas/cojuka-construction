@@ -143,6 +143,7 @@ body{font-size:15px;line-height:1.55}
  overlay.addEventListener('click',close);document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 })();
 </script>
+@yield('page_scripts')
 <script defer src="{{ asset('js/cojuka-glow.js') }}?v=20261018-aurora-01"></script>
 </body>
 </html>

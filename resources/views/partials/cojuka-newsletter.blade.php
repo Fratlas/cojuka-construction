@@ -15,7 +15,7 @@
     <label class="cg-newsletter-label" for="cojuka-newsletter-email">Votre adresse e-mail</label>
     <div class="cg-newsletter-input-row"><input type="email" name="email" id="cojuka-newsletter-email" placeholder="exemple@entreprise.com" maxlength="255" autocomplete="email" required value="{{ old('email') }}" aria-describedby="cojuka-newsletter-privacy"><button type="submit" aria-label="S'inscrire à la newsletter COJUKA"><span>S'inscrire</span><i class="bi bi-arrow-up-right" aria-hidden="true"></i></button></div>
     <label class="cg-newsletter-consent"><input type="checkbox" name="consent" value="1" required {{ old('consent')?'checked':'' }}><span>J’accepte de recevoir les actualités de COJUKA Consulting Group par e-mail. Je peux me désinscrire à tout moment.</span></label>
-    <p id="cojuka-newsletter-privacy" class="cg-newsletter-privacy"><i class="bi bi-shield-check" aria-hidden="true"></i> Aucun abonnement sans confirmation par e-mail. Données utilisées uniquement pour la newsletter.</p>
+    <p id="cojuka-newsletter-privacy" class="cg-newsletter-privacy"><i class="bi bi-shield-check" aria-hidden="true"></i> Aucun abonnement sans confirmation. <a href="{{ route('cojuka.privacy') }}">Confidentialité et données</a>.</p>
    </form>
   </div>
  </div>

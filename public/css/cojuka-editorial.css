@@ -247,3 +247,26 @@ html[data-cojuka-theme="dark"] body.cojuka-glass-public .cg-social-links a{backg
 @media(prefers-reduced-motion:reduce){
  .cg-marquee-tile,.cg-marquee-tile img,.cg-process-card,.cg-social-links a{transition:none!important;transform:none!important}
 }
+
+/* Newsletter text stays readable on a night-blue panel in BOTH site themes.
+   Overrides generic footer text colors without changing other footer links. */
+html body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-panel,
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-panel{
+ color:#fff!important;
+}
+html body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-copy h2,
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-copy h2{color:#fff!important}
+html body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-copy h2 em,
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-copy h2 em{color:#e3b78b!important}
+html body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-panel
+ :is(.cg-newsletter-copy>p:last-child,.cg-newsletter-label,.cg-newsletter-consent span){
+ color:#edf2fa!important;
+}
+html body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-panel .cg-newsletter-overline{color:#e6bb88!important}
+html body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-panel .cg-newsletter-privacy{color:#cbd8e9!important}
+html body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-panel .cg-newsletter-input-row input{color:#1c2c43!important;background:#fff!important}
+html body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-panel .cg-newsletter-input-row input::placeholder{color:#697b94!important}
+html body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-panel .cg-newsletter-input-row button{color:#fff!important}
+html body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-panel .cg-newsletter-message{color:#1b344d!important}
+html body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-panel .cg-newsletter-message,
+html body.cojuka-glass-public .cojuka-site-footer .cg-newsletter-panel .cg-newsletter-message span{color:#1b344d!important}

@@ -5,13 +5,13 @@
  */
 .cojuka-glass {
   --cg-wine: #86212e;
-  --cg-light: rgba(255,255,255,.78);
+  --cg-light: rgba(255,255,255,.62);
   --cg-light-border: rgba(255,255,255,.92);
   --cg-light-shadow: 0 12px 42px rgba(31,42,64,.09), inset 0 1px 0 rgba(255,255,255,.76);
-  --cg-dark: rgba(20,31,47,.66);
+  --cg-dark: rgba(20,31,47,.46);
   --cg-dark-border: rgba(255,255,255,.22);
   --cg-dark-shadow: 0 18px 48px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.12);
-  --cg-blur: blur(15px) saturate(145%);
+  --cg-blur: blur(8px) saturate(145%);
   --cg-radius: 22px;
 }
 
@@ -62,8 +62,8 @@ body.cojuka-glass-public {
 .cojuka-glass-public main :is(.btn-outline-light-custom,.photo-showcase-link){
   background:rgba(255,255,255,.12);
   border-color:rgba(255,255,255,.48);
-  -webkit-backdrop-filter:blur(8px);
-  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(4px);
+  backdrop-filter:blur(4px);
 }
 .cojuka-glass-public main :is(.contact-section,.statement,.hero,.entity-hero,.consulting-video-hero) .btn-outline-light-custom{
   color:#fff;
@@ -76,8 +76,8 @@ body.cojuka-glass-public {
   background:rgba(250,250,252,.79)!important;
   border-bottom:1px solid rgba(255,255,255,.72)!important;
   box-shadow:0 7px 25px rgba(19,28,47,.06)!important;
-  -webkit-backdrop-filter:blur(18px) saturate(155%);
-  backdrop-filter:blur(18px) saturate(155%);
+  -webkit-backdrop-filter:blur(9px) saturate(155%);
+  backdrop-filter:blur(9px) saturate(155%);
 }
 .cojuka-glass-public .cojuka-global-nav .dropdown-menu {
   background:rgba(255,255,255,.96)!important;
@@ -95,14 +95,14 @@ body.cojuka-glass-public {
   background:rgba(255,255,255,.96)!important;
   border:1px solid rgba(255,255,255,.85)!important;
   box-shadow:0 22px 65px rgba(11,22,38,.20);
-  -webkit-backdrop-filter:blur(17px);
-  backdrop-filter:blur(17px);
+  -webkit-backdrop-filter:blur(9px);
+  backdrop-filter:blur(9px);
 }
 .cojuka-glass #cojuka-ai-launch{
   background:rgba(24,36,54,.87)!important;
   border:1px solid rgba(255,255,255,.18);
-  -webkit-backdrop-filter:blur(12px);
-  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(6px);
+  backdrop-filter:blur(6px);
 }
 
 /* Cinematic / Explorer : darker glass, never blur the full video stage */
@@ -111,8 +111,8 @@ body.cojuka-glass-public {
   color:#f5f6fa;
   border:1px solid rgba(255,255,255,.23)!important;
   box-shadow:var(--cg-dark-shadow);
-  -webkit-backdrop-filter:blur(12px) saturate(125%);
-  backdrop-filter:blur(12px) saturate(125%);
+  -webkit-backdrop-filter:blur(6px) saturate(125%);
+  backdrop-filter:blur(6px) saturate(125%);
 }
 .cojuka-glass-public .cx-page .cx-card[aria-current="true"]{
   border-color:#dfb982!important;
@@ -123,8 +123,8 @@ body.cojuka-glass-public {
 .cojuka-glass-public .cx-page .cx-stage-info a{
   background:rgba(26,39,57,.45);
   border-color:rgba(255,255,255,.62);
-  -webkit-backdrop-filter:blur(12px);
-  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(6px);
+  backdrop-filter:blur(6px);
 }
 
 /* -------- Suite interne : fond éclairé, cartes vitrées -------- */
@@ -152,15 +152,15 @@ body.cojuka-glass-admin {
 .cojuka-glass-admin .sidebar .side-link.active{
   background:rgba(255,255,255,.115)!important;
   border-color:rgba(255,255,255,.14);
-  -webkit-backdrop-filter:blur(8px);
-  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(4px);
+  backdrop-filter:blur(4px);
 }
 .cojuka-glass-admin .topbar{
   background:rgba(255,255,255,.77)!important;
   border-bottom:1px solid rgba(255,255,255,.82)!important;
   box-shadow:0 5px 28px rgba(31,46,69,.045);
-  -webkit-backdrop-filter:blur(20px) saturate(145%);
-  backdrop-filter:blur(20px) saturate(145%);
+  -webkit-backdrop-filter:blur(10px) saturate(145%);
+  backdrop-filter:blur(10px) saturate(145%);
 }
 .cojuka-glass-admin .today-pill,
 .cojuka-glass-admin .topbar .avatar{
@@ -198,15 +198,15 @@ body.cojuka-glass-admin {
 .cojuka-glass-admin .page-content :is(.btn-outline-secondary,.btn-outline-dark,.btn-light){
   background:rgba(255,255,255,.73)!important;
   border:1px solid rgba(142,158,182,.32)!important;
-  -webkit-backdrop-filter:blur(8px);
-  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(4px);
+  backdrop-filter:blur(4px);
 }
 .cojuka-glass-admin .modal-content{
   background:rgba(255,255,255,.97)!important;
   border:1px solid rgba(255,255,255,.95)!important;
   box-shadow:0 26px 80px rgba(13,25,45,.27);
-  -webkit-backdrop-filter:blur(18px);
-  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(9px);
+  backdrop-filter:blur(9px);
 }
 .cojuka-glass-admin .modal-content :is(.form-control,.form-select){
   background:#fff;
@@ -216,8 +216,8 @@ body.cojuka-glass-admin {
   background:rgba(255,255,255,.97);
   border:1px solid #ffffffed;
   box-shadow:0 20px 55px #15263d22;
-  -webkit-backdrop-filter:blur(14px);
-  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(7px);
+  backdrop-filter:blur(7px);
 }
 .cojuka-glass-admin .page-content :is(.card,.modal-content,.form-control,.form-select):focus-within{
   border-color:rgba(153,60,82,.52)!important;
@@ -234,15 +234,15 @@ body.cojuka-glass-admin {
   background:rgba(255,255,255,.88)!important;
   border:1px solid rgba(255,255,255,.82)!important;
   box-shadow:0 26px 80px rgba(7,16,29,.3),inset 0 1px rgba(255,255,255,.94);
-  -webkit-backdrop-filter:blur(24px) saturate(125%);
-  backdrop-filter:blur(24px) saturate(125%);
+  -webkit-backdrop-filter:blur(12px) saturate(125%);
+  backdrop-filter:blur(12px) saturate(125%);
 }
 .cojuka-glass-auth .auth-feature{
   background:rgba(19,28,43,.55)!important;
   border:1px solid rgba(255,255,255,.3)!important;
   box-shadow:inset 0 1px rgba(255,255,255,.12),0 16px 38px rgba(0,0,0,.15);
-  -webkit-backdrop-filter:blur(12px);
-  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(6px);
+  backdrop-filter:blur(6px);
 }
 .cojuka-glass-auth .auth-panel .form-control,
 .cojuka-glass-auth .auth-panel .form-select{
@@ -252,8 +252,8 @@ body.cojuka-glass-admin {
 .cojuka-glass-auth .auth-lang select{
   background:rgba(255,255,255,.9);
   border-color:rgba(255,255,255,.92);
-  -webkit-backdrop-filter:blur(9px);
-  backdrop-filter:blur(9px);
+  -webkit-backdrop-filter:blur(5px);
+  backdrop-filter:blur(5px);
 }
 
 /* -------- Legacy standalone workspace -------- */
@@ -285,12 +285,12 @@ body.cojuka-glass-admin {
  .cojuka-glass-public .cx-page :is(.cx-mode,.cx-card,.cx-controls button,.cx-stage-side button){background:#172336!important}
 }
 @media(max-width:767px){
- .cojuka-glass{--cg-blur:blur(8px) saturate(125%);--cg-light:rgba(255,255,255,.88)}
+ .cojuka-glass{--cg-blur:blur(4px) saturate(125%);--cg-light:rgba(255,255,255,.88)}
  .cojuka-glass-public .cojuka-global-nav.site-nav,
- .cojuka-glass-admin .topbar{backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
+ .cojuka-glass-admin .topbar{backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
  .cojuka-glass-admin .sidebar .side-link,
  .cojuka-glass-public .cx-page :is(.cx-mode,.cx-card,.cx-controls button,.cx-stage-side button){-webkit-backdrop-filter:none;backdrop-filter:none}
- .cojuka-glass-auth .auth-workspace{background:rgba(255,255,255,.94)!important;-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px)}
+ .cojuka-glass-auth .auth-workspace{background:rgba(255,255,255,.94)!important;-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
 }
 @media(prefers-reduced-transparency:reduce){
  .cojuka-glass-public main :is(.service-card,.info-card,.history-card,.service,.model-card,.cojuka-atlas-photo){background:#fff!important}
@@ -355,7 +355,7 @@ html[data-cojuka-theme="dark"] .cojuka-glass-public .cojuka-site-footer .cojuka-
   --cg-bordeaux:#86212e;
   --cg-highlight:rgba(255,255,255,.94);
   --cg-reflection:linear-gradient(128deg,rgba(255,255,255,.90) 0%,rgba(255,255,255,.52) 26%,rgba(255,255,255,.17) 59%,rgba(255,255,255,.60) 100%);
-  --cg-prism:linear-gradient(135deg,rgba(255,255,255,.85),rgba(253,245,249,.51) 42%,rgba(225,235,249,.44) 100%);
+  --cg-prism:linear-gradient(135deg,rgba(255,255,255,.68),rgba(253,245,249,.37) 42%,rgba(225,235,249,.32) 100%);
   --cg-edge:rgba(255,255,255,.86);
   --cg-lift:0 20px 60px -24px rgba(39,42,78,.28),0 8px 24px -14px rgba(99,54,76,.14),inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(255,255,255,.22);
   --cg-motion:cubic-bezier(.22,1,.36,1);
@@ -384,8 +384,8 @@ body.cojuka-glass-public{
   border:1px solid var(--cg-edge)!important;
   border-radius:24px!important;
   box-shadow:var(--cg-lift)!important;
-  -webkit-backdrop-filter:blur(22px) saturate(165%);
-  backdrop-filter:blur(22px) saturate(165%);
+  -webkit-backdrop-filter:blur(11px) saturate(165%);
+  backdrop-filter:blur(11px) saturate(165%);
   transition:transform .55s var(--cg-motion),box-shadow .55s var(--cg-motion),border-color .3s ease;
 }
 @media(hover:hover) and (pointer:fine){
@@ -402,8 +402,8 @@ body.cojuka-glass-public{
 }
 .cojuka-glass-public main .cojuka-atlas-photo figcaption{
   background:rgba(255,255,255,.65)!important;
-  -webkit-backdrop-filter:blur(12px);
-  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(6px);
+  backdrop-filter:blur(6px);
 }
 .cojuka-glass-public main .history-belgium .history-card{
   background:linear-gradient(145deg,rgba(44,56,77,.86),rgba(20,28,45,.93))!important;
@@ -421,8 +421,8 @@ body.cojuka-glass-public{
   border-radius:999px;
   color:#fff!important;
   background:linear-gradient(120deg,rgba(255,255,255,.18),rgba(255,255,255,.055));
-  -webkit-backdrop-filter:blur(15px);
-  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(8px);
+  backdrop-filter:blur(8px);
   box-shadow:inset 0 1px rgba(255,255,255,.25),0 9px 30px rgba(0,0,0,.13);
   text-shadow:0 1px 5px rgba(0,0,0,.25);
 }
@@ -432,9 +432,9 @@ body.cojuka-glass-public{
   padding:clamp(14px,2vw,24px) clamp(17px,2.4vw,30px);
   border:1px solid rgba(255,255,255,.25);
   border-radius:18px;
-  background:linear-gradient(110deg,rgba(13,24,39,.52),rgba(18,31,48,.24));
-  -webkit-backdrop-filter:blur(13px);
-  backdrop-filter:blur(13px);
+  background:linear-gradient(110deg,rgba(13,24,39,.40),rgba(18,31,48,.18));
+  -webkit-backdrop-filter:blur(7px);
+  backdrop-filter:blur(7px);
   box-shadow:inset 0 1px rgba(255,255,255,.18),0 16px 48px -20px rgba(0,0,0,.55);
   color:#f5f7fb!important;
 }
@@ -443,8 +443,8 @@ body.cojuka-glass-public{
   background:linear-gradient(145deg,rgba(255,255,255,.19),rgba(255,255,255,.055))!important;
   border:1px solid rgba(255,255,255,.55)!important;
   box-shadow:inset 0 1px rgba(255,255,255,.28),0 10px 34px rgba(0,0,0,.18);
-  -webkit-backdrop-filter:blur(15px);
-  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(8px);
+  backdrop-filter:blur(8px);
   color:#fff!important;
 }
 .cojuka-glass-public main .hero-content .btn-white,
@@ -461,12 +461,12 @@ body.cojuka-glass-public{
 .cojuka-glass-public .cojuka-entity-panel .cojuka-entity-content{
   max-width:min(760px,100%);
   padding:clamp(20px,3vw,40px);
-  background:linear-gradient(115deg,rgba(19,31,47,.72),rgba(19,30,48,.31));
+  background:linear-gradient(115deg,rgba(19,31,47,.56),rgba(19,30,48,.23));
   border:1px solid rgba(255,255,255,.25);
   border-radius:25px;
   box-shadow:inset 0 1px rgba(255,255,255,.15),0 25px 80px -40px rgba(0,0,0,.7);
-  -webkit-backdrop-filter:blur(17px);
-  backdrop-filter:blur(17px);
+  -webkit-backdrop-filter:blur(9px);
+  backdrop-filter:blur(9px);
 }
 .cojuka-glass-public .cojuka-entity-panel .cojuka-entity-link{
   background:rgba(255,255,255,.93);
@@ -477,29 +477,29 @@ body.cojuka-glass-public{
   background:rgba(246,248,252,.80)!important;
   border-color:rgba(255,255,255,.9)!important;
   box-shadow:0 8px 25px rgba(0,0,0,.22),inset 0 1px white;
-  -webkit-backdrop-filter:blur(12px);
-  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(6px);
+  backdrop-filter:blur(6px);
 }
 /* Floating navigation: rich transparency, restrained border and specular highlight. */
 body.cojuka-glass-public .cojuka-global-nav.site-nav{
-  background:rgba(249,250,253,.71)!important;
+  background:rgba(249,250,253,.58)!important;
   border-bottom:1px solid rgba(255,255,255,.84)!important;
   box-shadow:0 10px 44px -20px rgba(23,36,65,.27),inset 0 1px rgba(255,255,255,.75)!important;
-  -webkit-backdrop-filter:blur(26px) saturate(175%);
-  backdrop-filter:blur(26px) saturate(175%);
+  -webkit-backdrop-filter:blur(13px) saturate(175%);
+  backdrop-filter:blur(13px) saturate(175%);
 }
 body.cojuka-glass-public .cojuka-global-nav .dropdown-menu{
-  background:rgba(249,250,254,.89)!important;
+  background:rgba(249,250,254,.78)!important;
   box-shadow:0 22px 70px rgba(22,27,52,.16),inset 0 1px white!important;
   border:1px solid rgba(255,255,255,.95)!important;
-  -webkit-backdrop-filter:blur(28px);
-  backdrop-filter:blur(28px);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
 }
 @media(max-width:1399.98px){
  body.cojuka-glass-public .cojuka-global-nav .navbar-collapse{
-  background:rgba(250,251,254,.94)!important;
-  -webkit-backdrop-filter:blur(24px);
-  backdrop-filter:blur(24px);
+  background:rgba(250,251,254,.85)!important;
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
  }
 }
 .cojuka-glass-public .cojuka-site-footer{
@@ -531,17 +531,17 @@ body.cojuka-glass-public .cojuka-global-nav .dropdown-menu{
   padding:clamp(18px,2.2vw,32px);
   border:1px solid rgba(255,255,255,.25);
   border-radius:24px;
-  background:linear-gradient(125deg,rgba(15,27,43,.65),rgba(16,29,47,.27));
-  -webkit-backdrop-filter:blur(15px) saturate(135%);
-  backdrop-filter:blur(15px) saturate(135%);
+  background:linear-gradient(125deg,rgba(15,27,43,.51),rgba(16,29,47,.20));
+  -webkit-backdrop-filter:blur(8px) saturate(135%);
+  backdrop-filter:blur(8px) saturate(135%);
   box-shadow:inset 0 1px rgba(255,255,255,.18),0 25px 65px -30px rgba(0,0,0,.68);
 }
 .cojuka-glass-public .cx-page :is(.cx-mode,.cx-card,.cx-controls button,.cx-stage-side button){
-  background:linear-gradient(145deg,rgba(50,65,90,.72),rgba(21,35,52,.55))!important;
+  background:linear-gradient(145deg,rgba(50,65,90,.54),rgba(21,35,52,.41))!important;
   border:1px solid rgba(255,255,255,.29)!important;
   box-shadow:inset 0 1px rgba(255,255,255,.17),0 15px 44px rgba(1,7,15,.31)!important;
-  -webkit-backdrop-filter:blur(17px);
-  backdrop-filter:blur(17px);
+  -webkit-backdrop-filter:blur(9px);
+  backdrop-filter:blur(9px);
 }
 /* Suite management: pale multicolour glass surfaces with dimensional depth. */
 .cojuka-glass-admin .workspace{
@@ -552,22 +552,22 @@ body.cojuka-glass-public .cojuka-global-nav .dropdown-menu{
   #edf1f7!important;
 }
 .cojuka-glass-admin .page-content .card{
- background:linear-gradient(145deg,rgba(255,255,255,.83),rgba(248,249,254,.63))!important;
+ background:linear-gradient(145deg,rgba(255,255,255,.68),rgba(248,249,254,.48))!important;
  border:1px solid rgba(255,255,255,.96)!important;
  box-shadow:var(--cg-lift)!important;
  border-radius:24px!important;
- -webkit-backdrop-filter:blur(23px) saturate(158%);
- backdrop-filter:blur(23px) saturate(158%);
+ -webkit-backdrop-filter:blur(12px) saturate(158%);
+ backdrop-filter:blur(12px) saturate(158%);
 }
 .cojuka-glass-admin .page-content .card:hover{
  box-shadow:0 30px 75px -28px rgba(32,43,79,.25),inset 0 1px rgba(255,255,255,.97)!important;
 }
 .cojuka-glass-admin .topbar{
- background:rgba(255,255,255,.70)!important;
+ background:rgba(255,255,255,.60)!important;
  border-bottom:1px solid rgba(255,255,255,.93)!important;
  box-shadow:0 11px 36px -24px rgba(27,45,73,.32),inset 0 1px rgba(255,255,255,.94)!important;
- -webkit-backdrop-filter:blur(25px) saturate(170%);
- backdrop-filter:blur(25px) saturate(170%);
+ -webkit-backdrop-filter:blur(13px) saturate(170%);
+ backdrop-filter:blur(13px) saturate(170%);
 }
 .cojuka-glass-admin .sidebar{
  background:linear-gradient(160deg,rgba(28,42,65,.97),rgba(9,19,35,.99))!important;
@@ -587,8 +587,8 @@ body.cojuka-glass-public .cojuka-global-nav .dropdown-menu{
  border:1px solid rgba(255,255,255,.98)!important;
  box-shadow:0 30px 110px rgba(17,26,42,.30),inset 0 1px white!important;
  border-radius:24px!important;
- -webkit-backdrop-filter:blur(24px);
- backdrop-filter:blur(24px);
+ -webkit-backdrop-filter:blur(12px);
+ backdrop-filter:blur(12px);
 }
 .cojuka-glass-admin .page-content :is(.form-control,.form-select),
 .cojuka-glass-admin .modal-content :is(.form-control,.form-select){
@@ -606,18 +606,18 @@ body.cojuka-glass-public .cojuka-global-nav .dropdown-menu{
 }
 /* Photo sign-in uses a thicker, luminous frosted sheet. */
 .cojuka-glass-auth .auth-workspace{
- background:linear-gradient(145deg,rgba(255,255,255,.91),rgba(244,247,252,.80))!important;
+ background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(244,247,252,.68))!important;
  border:1px solid rgba(255,255,255,.95)!important;
  border-radius:28px!important;
  box-shadow:0 35px 100px rgba(3,12,28,.34),inset 0 1px white,inset 1px 0 rgba(255,255,255,.68)!important;
- -webkit-backdrop-filter:blur(30px) saturate(155%);
- backdrop-filter:blur(30px) saturate(155%);
+ -webkit-backdrop-filter:blur(15px) saturate(155%);
+ backdrop-filter:blur(15px) saturate(155%);
 }
 .cojuka-glass-auth .auth-feature{
- background:linear-gradient(120deg,rgba(29,43,62,.65),rgba(26,37,58,.34))!important;
+ background:linear-gradient(120deg,rgba(29,43,62,.50),rgba(26,37,58,.26))!important;
  border-color:rgba(255,255,255,.34)!important;
- -webkit-backdrop-filter:blur(15px);
- backdrop-filter:blur(15px);
+ -webkit-backdrop-filter:blur(8px);
+ backdrop-filter:blur(8px);
 }
 .cojuka-glass-auth .auth-panel :is(.form-control,.form-select){
  background:rgba(255,255,255,.94)!important;
@@ -627,8 +627,8 @@ body.cojuka-glass-public .cojuka-global-nav .dropdown-menu{
  background:rgba(250,251,254,.92)!important;
  border:1px solid rgba(255,255,255,.92)!important;
  box-shadow:0 30px 90px rgba(11,22,38,.24),inset 0 1px white!important;
- -webkit-backdrop-filter:blur(23px);
- backdrop-filter:blur(23px);
+ -webkit-backdrop-filter:blur(12px);
+ backdrop-filter:blur(12px);
 }
 .cojuka-glass .cai-head{
  background:linear-gradient(130deg,rgba(32,47,68,.93),rgba(24,34,55,.88))!important;
@@ -663,11 +663,11 @@ html[data-cojuka-theme="dark"] body.cojuka-glass-public .cojuka-global-nav.site-
 html[data-cojuka-theme="dark"] .cojuka-glass-public .cojuka-entity-content{background:linear-gradient(110deg,rgba(10,19,30,.77),rgba(12,21,34,.42))}
 @media(max-width:767px){
  .cojuka-glass-public main :is(.service-card,.info-card,.history-card,.service,.cojuka-atlas-photo),
- .cojuka-glass-admin .page-content .card{-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
- .cojuka-glass-public .cojuka-entity-panel .cojuka-entity-content{padding:19px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
- .cojuka-glass-public .cx-page .cx-stage-info{padding:17px;backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
- .cojuka-glass-auth .auth-workspace{-webkit-backdrop-filter:blur(13px);backdrop-filter:blur(13px)}
- .cojuka-glass-public main .hero-content>.hero-sub{padding:14px 17px;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+ .cojuka-glass-admin .page-content .card{-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
+ .cojuka-glass-public .cojuka-entity-panel .cojuka-entity-content{padding:19px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+ .cojuka-glass-public .cx-page .cx-stage-info{padding:17px;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+ .cojuka-glass-auth .auth-workspace{-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px)}
+ .cojuka-glass-public main .hero-content>.hero-sub{padding:14px 17px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 }
 @media(prefers-reduced-transparency:reduce){
  .cojuka-glass-public main .hero-content>.hero-sub{background:rgba(12,22,36,.96)!important}
@@ -702,60 +702,60 @@ html[data-cojuka-theme="dark"] .cojuka-glass-public .cojuka-entity-content{backg
 
 /* COJUKA — clearer glass: lower fog intensity, increased translucency. */
 .cojuka-glass{
- --cg-blur:blur(9px) saturate(120%);
+ --cg-blur:blur(5px) saturate(120%);
  --cg-light:rgba(255,255,255,.55);
  --cg-prism:linear-gradient(135deg,rgba(255,255,255,.57),rgba(248,248,254,.32) 55%,rgba(230,239,250,.28));
 }
 .cojuka-glass-public main :is(.service-card,.info-card,.history-card,.service,.model-card,.cojuka-atlas-photo,.entity-photo-tile){
  background:var(--cg-prism)!important;
- -webkit-backdrop-filter:blur(10px) saturate(125%);
- backdrop-filter:blur(10px) saturate(125%);
+ -webkit-backdrop-filter:blur(5px) saturate(125%);
+ backdrop-filter:blur(5px) saturate(125%);
 }
 body.cojuka-glass-public .cojuka-global-nav.site-nav{
  background:rgba(249,250,253,.58)!important;
- -webkit-backdrop-filter:blur(11px) saturate(130%);
- backdrop-filter:blur(11px) saturate(130%);
+ -webkit-backdrop-filter:blur(6px) saturate(130%);
+ backdrop-filter:blur(6px) saturate(130%);
 }
 body.cojuka-glass-public .cojuka-global-nav .dropdown-menu{
  background:rgba(249,250,254,.75)!important;
- -webkit-backdrop-filter:blur(12px);
- backdrop-filter:blur(12px);
+ -webkit-backdrop-filter:blur(6px);
+ backdrop-filter:blur(6px);
 }
 .cojuka-glass-public .cojuka-entity-panel .cojuka-entity-content,
 .cojuka-glass-public .cx-page .cx-stage-info{
- -webkit-backdrop-filter:blur(9px) saturate(115%);
- backdrop-filter:blur(9px) saturate(115%);
+ -webkit-backdrop-filter:blur(5px) saturate(115%);
+ backdrop-filter:blur(5px) saturate(115%);
 }
 .cojuka-glass-public .cx-page :is(.cx-mode,.cx-card,.cx-controls button,.cx-stage-side button){
  background:rgba(31,45,65,.42)!important;
- -webkit-backdrop-filter:blur(8px);
- backdrop-filter:blur(8px);
+ -webkit-backdrop-filter:blur(4px);
+ backdrop-filter:blur(4px);
 }
 .cojuka-glass-admin .page-content .card{
  background:linear-gradient(145deg,rgba(255,255,255,.65),rgba(248,249,254,.46))!important;
- -webkit-backdrop-filter:blur(11px) saturate(125%);
- backdrop-filter:blur(11px) saturate(125%);
+ -webkit-backdrop-filter:blur(6px) saturate(125%);
+ backdrop-filter:blur(6px) saturate(125%);
 }
 .cojuka-glass-admin .topbar{
  background:rgba(255,255,255,.60)!important;
- -webkit-backdrop-filter:blur(12px) saturate(125%);
- backdrop-filter:blur(12px) saturate(125%);
+ -webkit-backdrop-filter:blur(6px) saturate(125%);
+ backdrop-filter:blur(6px) saturate(125%);
 }
 .cojuka-glass-auth .auth-workspace{
  background:linear-gradient(145deg,rgba(255,255,255,.77),rgba(244,247,252,.66))!important;
- -webkit-backdrop-filter:blur(14px) saturate(125%);
- backdrop-filter:blur(14px) saturate(125%);
+ -webkit-backdrop-filter:blur(7px) saturate(125%);
+ backdrop-filter:blur(7px) saturate(125%);
 }
 .cojuka-glass #cojuka-ai-panel{
  background:rgba(250,251,254,.83)!important;
- -webkit-backdrop-filter:blur(12px);
- backdrop-filter:blur(12px);
+ -webkit-backdrop-filter:blur(6px);
+ backdrop-filter:blur(6px);
 }
 @media(max-width:767px){
  .cojuka-glass-public main :is(.service-card,.info-card,.history-card,.service,.cojuka-atlas-photo),
  .cojuka-glass-admin .page-content .card,
  .cojuka-glass-auth .auth-workspace{
-  -webkit-backdrop-filter:blur(6px);
-  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(4px);
+  backdrop-filter:blur(4px);
  }
 }

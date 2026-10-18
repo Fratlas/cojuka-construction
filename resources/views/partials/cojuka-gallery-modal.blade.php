@@ -105,7 +105,7 @@ img[data-cg-photo-popup]{outline-offset:-4px}
   }
   function galleryFor(trigger){
    const section=trigger.closest(
-    '.cojuka-atlas-grid,.cg-marquee-track,.entity-photo-grid,.entity-gallery,.cojuka-photo-gallery,.cojuka-profile-main'
+    '.cg-mine-grid,.cg-mine-track,.cojuka-atlas-grid,.cg-marquee-track,.entity-photo-grid,.entity-gallery,.cojuka-photo-gallery,.cojuka-profile-main'
    );
    const collection=section||document;
    return Array.from(collection.querySelectorAll(selector)).filter(item=>!!source(item));

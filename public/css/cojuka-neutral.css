@@ -515,3 +515,50 @@ body.cojuka-glass-public
    var(--entity-photo)!important;
  }
 }
+
+
+/* Shared home / group hero typography — same title, alignment and spacing. */
+body.cojuka-glass-public .hero > .cojuka-hero-layout{
+ position:relative;z-index:3;width:100%;
+ padding-top:clamp(120px,16vh,175px)!important;
+ padding-bottom:clamp(98px,12vh,150px)!important;
+}
+body.cojuka-glass-public .hero .cojuka-hero-layout .cojuka-hero-copy{
+ width:100%;max-width:1080px;
+ opacity:1;transform:none;
+}
+body.cojuka-glass-public .hero .cojuka-hero-layout .cojuka-hero-copy
+ [data-cojuka-hero-eyebrow]{
+ display:block!important;width:max-content;max-width:100%;
+ font-size:clamp(11px,.9vw,13px)!important;
+ font-weight:800!important;letter-spacing:.19em!important;
+ color:#FFFFFF!important;text-shadow:0 2px 12px rgba(0,0,0,.35);
+ margin-bottom:clamp(18px,2.2vw,28px)!important;
+}
+body.cojuka-glass-public .hero .cojuka-hero-layout .cojuka-hero-copy
+ [data-cojuka-hero-title]{
+ font-size:clamp(3.6rem,9vw,8.6rem)!important;
+ font-weight:850!important;line-height:.99!important;
+ letter-spacing:-.071em!important;max-width:1080px;
+ color:#FFFFFF!important;text-wrap:balance;
+ margin:0 0 clamp(26px,3vw,43px)!important;
+}
+body.cojuka-glass-public .hero .cojuka-hero-layout .cojuka-hero-copy
+ :is(.btn-pill,.btn-brand){
+ font-weight:750;
+}
+@media(max-width:767px){
+ body.cojuka-glass-public .hero > .cojuka-hero-layout{
+  padding-top:clamp(88px,12vh,125px)!important;
+  padding-bottom:clamp(105px,15vh,155px)!important;
+ }
+ body.cojuka-glass-public .hero .cojuka-hero-layout .cojuka-hero-copy
+ [data-cojuka-hero-title]{
+  font-size:clamp(3.05rem,11vw,5rem)!important;
+  line-height:1.025!important;
+ }
+}
+@media(max-width:370px){
+ body.cojuka-glass-public .hero .cojuka-hero-layout .cojuka-hero-copy
+ [data-cojuka-hero-title]{font-size:clamp(2.6rem,10.4vw,3.3rem)!important}
+}

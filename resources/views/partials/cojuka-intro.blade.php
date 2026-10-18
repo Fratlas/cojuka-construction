@@ -32,11 +32,11 @@
  filter:brightness(0) saturate(100%) invert(88%) sepia(21%) saturate(653%) hue-rotate(349deg) brightness(108%) contrast(95%);
 }
 
-#cojuka-intro .ci-final-art{display:block;position:relative;width:min(440px,73vw,57svh);aspect-ratio:1;margin:0 auto;animation:ci-pulse 1.65s ease-in-out infinite;transform-origin:center}
+#cojuka-intro .ci-final-art{display:block;position:relative;width:min(310px,55vw,42svh);aspect-ratio:1;margin:0 auto;animation:ci-pulse 1.65s ease-in-out infinite;transform-origin:center}
 #cojuka-intro .ci-final-art img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain}
 /* The official artwork is the sole intro logo; no fallback logo swap. */
-@media(max-width:767px){#cojuka-intro .ci-final-art{width:min(360px,66vw,58svh)}}
-@media(max-height:540px){#cojuka-intro .ci-final-art{width:min(300px,55vw,56svh)}}
+@media(max-width:767px){#cojuka-intro .ci-final-art{width:min(250px,50vw,42svh)}}
+@media(max-height:540px){#cojuka-intro .ci-final-art{width:min(215px,42vw,38svh)}}
 @media(prefers-reduced-motion:reduce){#cojuka-intro .ci-final-art{animation:none!important}}
 </style>
 <div id="cojuka-intro" role="status" aria-label="Bienvenue chez COJUKA" aria-live="off">

@@ -3,6 +3,16 @@
 @section('content')
 <div class="mb-4"><p class="text-uppercase text-secondary small fw-bold mb-1">Administration / Contrôle des accès</p><h1 class="h2 fw-bold">Départements et permissions</h1><p class="text-secondary">Chaque département n'accède qu'aux modules et aux opérations explicitement autorisés. Les super administrateurs sont exemptés de ces restrictions.</p></div>
 <div class="alert alert-info border-0"><strong>Principe de moindre privilège :</strong> cochez uniquement les droits nécessaires. La suppression et l'export de données sont désactivés par défaut.</div>
+<div class="card p-3 p-md-4 mb-4">
+ <div class="d-flex flex-wrap gap-3 align-items-center justify-content-between mb-3">
+  <div><h2 class="h5 fw-bold mb-1">Sauvegarde des permissions CSV</h2><p class="text-secondary small mb-0">Exportez et réimportez la matrice des droits des départements existants. L’import met uniquement à jour les lignes présentes.</p></div>
+  <a class="btn btn-outline-dark" href="{{ route('gestion.departments.export') }}"><i class="bi bi-download me-1"></i>Exporter CSV</a>
+ </div>
+ <form method="post" action="{{ route('gestion.departments.import') }}" enctype="multipart/form-data" class="row g-2 align-items-end" onsubmit="return confirm('Confirmer la mise à jour des permissions départementales ?')">@csrf
+  <div class="col-md-8"><label class="form-label" for="departmentsCsv">Importer CSV (maximum 1 000 lignes, 1 Mo)</label><input class="form-control" id="departmentsCsv" type="file" name="file" accept=".csv,.txt,text/csv" required></div>
+  <div class="col-md-4"><button class="btn btn-dark w-100" type="submit">Importer les permissions</button></div>
+ </form>
+</div>
 @foreach($departments as $department)
 <div class="card p-3 p-md-4 mb-4">
 <h2 class="h5 fw-bold mb-3">{{ $department->name }} <span class="text-secondary small fw-normal">({{ $department->code }})</span></h2>

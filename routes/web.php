@@ -14,6 +14,7 @@ use App\Http\Controllers\GroupNewsletterController;
 Route::post('/assistant/appel-vocal', [App\Http\Controllers\CojukaRealtimeController::class, 'connect'])->middleware('throttle:5,1')->name('cojuka.assistant.realtime');
 Route::post('/assistant/reponse', [App\Http\Controllers\CojukaAssistantController::class, 'reply'])->middleware('throttle:12,1')->name('cojuka.assistant.reply');
 Route::view('/', 'welcome')->name('home');
+Route::view('/confidentialite','privacy')->name('cojuka.privacy');
 Route::post('/newsletter/inscription',[CojukaNewsletterController::class,'subscribe'])->middleware('throttle:5,1')->name('cojuka.newsletter.subscribe');
 Route::get('/newsletter/confirmation/{subscriber}',[CojukaNewsletterController::class,'confirm'])->middleware('signed')->whereNumber('subscriber')->name('cojuka.newsletter.confirm');
 Route::get('/newsletter/desinscription/{subscriber}',[CojukaNewsletterController::class,'unsubscribe'])->middleware('signed')->whereNumber('subscriber')->name('cojuka.newsletter.unsubscribe');

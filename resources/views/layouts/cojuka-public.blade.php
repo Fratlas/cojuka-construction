@@ -35,6 +35,7 @@
 <link rel="stylesheet" href="{{ asset('css/cojuka-contrast.css') }}?v=20261018-contrast-02">
 <link rel="stylesheet" href="{{ asset('css/cojuka-editorial.css') }}?v=20261018-truewhite-fade-04">
 <link rel="stylesheet" href="{{ asset('css/cojuka-neutral.css') }}?v=20261018-contact-title-07">
+<link rel="stylesheet" href="{{ asset('css/cojuka-spacing.css') }}?v=20261018-rhythm-01">
 </head>
 <body class="cojuka-glass cojuka-glass-public">
 @include('partials.cojuka-header')

@@ -39,7 +39,7 @@ class GroupAdminController {
   return view('gestion.group-dashboard',[
     'entities'=>GroupEntity::when($allowed!==null,fn($q)=>$q->whereIn('id',$allowed))->count(),'projects'=>$canProjects?(clone $projectQuery)->count():0,'assets'=>$canAssets?(clone $assetQuery)->count():0,
     'recent'=>$canProjects?(clone $projectQuery)->with('entity')->latest()->limit(7)->get():collect(),
-    'suiteStats'=>$ready?(clone $suiteQuery)->selectRaw('module, count(*) as total')->groupBy('module')->pluck('total','module')->all():[],
+    'suiteStats'=>$moduleCounts,
     'suiteReady'=>$ready,'entityOptions'=>GroupEntity::when($allowed!==null,fn($q)=>$q->whereIn('id',$allowed))->orderBy('name')->get(['id','name']),
     'selectedEntity'=>$entityId,
     'projectStatuses'=>$projectStatuses,'assetKinds'=>$assetKinds,'moduleCounts'=>$moduleCounts,

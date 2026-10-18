@@ -1,15 +1,15 @@
 @php
 /* Unique illustrative photos on this strip; no cloned DOM cards for seamless motion. */
 $cojukaMarqueePhotos=[
- ['photo-1486406146926-c627a92ad1ab','Architecture et perspectives','construction','Construction','Une illustration des paysages urbains et du rôle des études architecturales dans le développement des infrastructures.']
- ['photo-1565043666747-69f6646db940','Ingénierie et industrie','kojuka-mining','Industrie','Un regard sur l’environnement industriel, les équipements et les métiers qui accompagnent les projets de ressources naturelles.']
- ['photo-1519389950473-47ba0277781c','Équipes et technologies','consultance','Innovation','La technologie et le travail d’équipe soutiennent la coordination, la planification et l’évolution des projets.']
- ['photo-1497436072909-60f362e1d4b1','Territoires et énergie','energie','Énergie','L'énergie et les territoires constituent des enjeux de développement durable et de modernisation des infrastructures.']
- ['photo-1556761175-b413da4baf72','Stratégie et collaboration','consultance','Consultance','La consultance favorise la réflexion stratégique, les échanges professionnels et l’accompagnement des organisations.']
- ['photo-1451187580459-43490279c0fa','Réseaux et connexions','logistique','Logistique','Les réseaux et les connexions permettent d’articuler logistique, mobilité et échanges entre les territoires.']
- ['photo-1497366216548-37526070297c','Environnement professionnel','impact-center','Coopération','La coopération entre équipes et structures crée des passerelles entre savoir-faire et opportunités.']
- ['photo-1460925895917-afdab827c52f','Données et stratégie','consultance','Développement','Les données, les analyses et les indicateurs contribuent aux décisions et à la conduite des activités.']
- ['photo-1449158743715-0a90ebb6d2d8','Architecture contemporaine','genie','Génie civil','L’ingénierie et la conception donnent forme aux ouvrages, espaces et infrastructures de demain.']
+ ['photo-1486406146926-c627a92ad1ab','Architecture et perspectives','construction','Construction','Une illustration des paysages urbains et du rôle des études architecturales dans le développement des infrastructures.'],
+ ['photo-1565043666747-69f6646db940','Ingénierie et industrie','kojuka-mining','Industrie','Un regard sur l’environnement industriel, les équipements et les métiers qui accompagnent les projets de ressources naturelles.'],
+ ['photo-1519389950473-47ba0277781c','Équipes et technologies','consultance','Innovation','La technologie et le travail d’équipe soutiennent la coordination, la planification et l’évolution des projets.'],
+ ['photo-1497436072909-60f362e1d4b1','Territoires et énergie','energie','Énergie','L’énergie et les territoires constituent des enjeux de développement durable et de modernisation des infrastructures.'],
+ ['photo-1556761175-b413da4baf72','Stratégie et collaboration','consultance','Consultance','La consultance favorise la réflexion stratégique, les échanges professionnels et l’accompagnement des organisations.'],
+ ['photo-1451187580459-43490279c0fa','Réseaux et connexions','logistique','Logistique','Les réseaux et les connexions permettent d’articuler logistique, mobilité et échanges entre les territoires.'],
+ ['photo-1497366216548-37526070297c','Environnement professionnel','impact-center','Coopération','La coopération entre équipes et structures crée des passerelles entre savoir-faire et opportunités.'],
+ ['photo-1460925895917-afdab827c52f','Données et stratégie','consultance','Développement','Les données, les analyses et les indicateurs contribuent aux décisions et à la conduite des activités.'],
+ ['photo-1449158743715-0a90ebb6d2d8','Architecture contemporaine','genie','Génie civil','L’ingénierie et la conception donnent forme aux ouvrages, espaces et infrastructures de demain.'],
  ['photo-1504384308090-c894fdcc538d','Espaces de travail modernes','eden-park-investments','Investissement','Les espaces professionnels illustrent l’organisation et l’évolution des environnements de travail.']
 ];
 @endphp

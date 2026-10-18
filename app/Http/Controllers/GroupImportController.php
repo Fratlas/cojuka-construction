@@ -23,7 +23,7 @@ class GroupImportController
         return response()->streamDownload(function() use($fields) {
             $out=fopen('php://output','w');
             fwrite($out,"\xEF\xBB\xBF");
-            fputcsv($out,$fields,';');
+            fputcsv($out,$fields,';','"','');
             fclose($out);
         },'cojuka-modele-'.$module.'.csv',['Content-Type'=>'text/csv; charset=UTF-8']);
     }
@@ -44,7 +44,7 @@ class GroupImportController
         return response()->streamDownload(function()use($records,$columns){
             $out=fopen('php://output','wb');
             fwrite($out,"\xEF\xBB\xBF");
-            fputcsv($out,$columns,';');
+            fputcsv($out,$columns,';','"','');
             $cell=static function($value){
                 if($value instanceof \DateTimeInterface)$value=$value->format('Y-m-d');
                 if(is_bool($value))$value=$value?'1':'0';
@@ -55,7 +55,7 @@ class GroupImportController
             foreach($records as $record){
                 $row=[];
                 foreach($columns as $column)$row[]=$cell($record->getAttribute($column));
-                fputcsv($out,$row,';');
+                fputcsv($out,$row,';','"','');
             }
             fclose($out);
         },'cojuka-'.$module.'-'.now()->format('Ymd').'.csv',['Content-Type'=>'text/csv; charset=UTF-8','Cache-Control'=>'private, no-store']);
@@ -75,7 +75,7 @@ class GroupImportController
             if($first===false) return back()->withErrors(['file'=>'Fichier vide.']);
             $delimiter=substr_count($first,';') >= substr_count($first,',') ? ';' : ',';
             rewind($handle);
-            $header=fgetcsv($handle,0,$delimiter);
+            $header=fgetcsv($handle,0,$delimiter,'"','');
             if(!$header) return back()->withErrors(['file'=>'En-tête CSV manquante.']);
             $header=array_map(fn($s)=>trim(preg_replace('/^\xEF\xBB\xBF/','',(string)$s)),$header);
             if(count($header)!==count(array_unique($header)) || array_diff($fields,$header) || array_diff($header,$fields)){

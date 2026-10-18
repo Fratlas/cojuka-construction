@@ -131,7 +131,6 @@
 <div class="container hero-content cojuka-hero-copy" data-cojuka-hero-copy>
 <div class="eyebrow" data-cojuka-hero-eyebrow>COJUKA CONSULTING GROUP · RDC</div>
 <h1 id="hero-title" data-cojuka-hero-title>COJUKA Consulting Group</h1>
-<p class="hero-sub mb-4" data-cojuka-hero-description>Le Mining est notre priorité : activités minières, carrières et ressources naturelles, soutenues par l'immobilier, la construction et la logistique.</p>
 <div class="d-flex gap-3 flex-wrap"><a href="{{ route('group') }}" class="btn-pill btn-white" data-cojuka-hero-cta>Découvrir le groupe <span aria-hidden="true">↗</span></a><a href="{{ route('group.portal') }}" class="btn-pill btn-outline-light-custom">Nos entités <span aria-hidden="true">↓</span></a></div>
 </div><div class="scroll-indicator" aria-hidden="true">Défiler <span>↓</span></div>
 </section>

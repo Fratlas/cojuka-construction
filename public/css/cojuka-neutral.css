@@ -562,3 +562,19 @@ body.cojuka-glass-public .hero .cojuka-hero-layout .cojuka-hero-copy
  body.cojuka-glass-public .hero .cojuka-hero-layout .cojuka-hero-copy
  [data-cojuka-hero-title]{font-size:clamp(2.6rem,10.4vw,3.3rem)!important}
 }
+
+/* Homepage contact call-to-action: smaller, balanced heading on desktop/mobile. */
+body.cojuka-glass-public .cojuka-home-main .contact-section h2{
+ font-size:clamp(2.25rem,4.6vw,4.75rem)!important;
+ font-weight:850!important;
+ line-height:1.09!important;
+ letter-spacing:-.057em!important;
+ max-width:880px;
+ text-wrap:balance;
+}
+@media(max-width:767px){
+ body.cojuka-glass-public .cojuka-home-main .contact-section h2{
+  font-size:clamp(2rem,8.5vw,3.45rem)!important;
+  line-height:1.12!important;
+ }
+}

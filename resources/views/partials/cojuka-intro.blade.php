@@ -25,7 +25,6 @@
 /* Artwork faithful to the approved COJUKA globe image; only the wordmark's tint changes. */
 #cojuka-intro .ci-final-art{display:none;position:relative;width:min(690px,90vw,68svh);aspect-ratio:1;margin:0 auto;animation:ci-pulse 1.65s ease-in-out infinite;transform-origin:center}
 #cojuka-intro .ci-final-art img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain}
-#cojuka-intro .ci-final-art .ci-final-wordmark{clip-path:inset(74% 0 18.5% 0);filter:brightness(0) saturate(100%) invert(88%) sepia(21%) saturate(653%) hue-rotate(349deg) brightness(108%) contrast(95%);pointer-events:none}
 #cojuka-intro.ci-image-loaded .ci-final-art{display:block}
 #cojuka-intro.ci-image-loaded .ci-old-art{display:none}
 @media(max-height:540px){#cojuka-intro .ci-final-art{width:min(460px,82vw,60svh)}}
@@ -35,8 +34,7 @@
  <div class="ci-glow" aria-hidden="true"></div>
  <div class="ci-stage">
   <div class="ci-final-art" aria-label="COJUKA CONSULTING GROUP">
-   <img id="ci-official-image" src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018" alt="COJUKA Consulting Group — globe rouge, Afrique centrée" width="1254" height="1254" decoding="async" fetchpriority="high">
-   <img class="ci-final-wordmark" src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018" alt="" aria-hidden="true" width="1254" height="1254">
+   <img id="ci-official-image" src="{{ asset('images/cojuka-logo-accueil-final.png') }}?v=20261018b" alt="COJUKA CONSULTING GROUP — globe rouge et Afrique" width="1254" height="1254" decoding="async" fetchpriority="high">
   </div>
   <div class="ci-old-art">
    <div class="ci-heartbeat" aria-hidden="true"><span class="ci-beat-line"></span><img class="ci-intro-emblem" src="{{ asset('images/cojuka-intro-africa.svg') }}?v=2" alt=""></div>

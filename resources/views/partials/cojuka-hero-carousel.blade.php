@@ -34,24 +34,40 @@
 .cojuka-carousel-arrow:hover{background:rgba(255,255,255,.28)}
 .cojuka-carousel-count{font:600 11px/1.2 system-ui,sans-serif;letter-spacing:.05em;color:#fff;margin-left:2px;font-variant-numeric:tabular-nums}
 
-/* The editorial message crossfades in sync with the currently visible slide. */
+/* Smooth, genuine two-phase text fade, synchronized with committed slide.
+   Disable conflicting one-time heroReveal fill animations so opacity can change. */
 .cojuka-hero-copy :is(
  [data-cojuka-hero-eyebrow],
  [data-cojuka-hero-title],
  [data-cojuka-hero-description],
  [data-cojuka-hero-cta]
 ){
- transition:opacity .28s ease,translate .34s cubic-bezier(.22,1,.36,1);
+ animation:none!important;
+ opacity:1;
+ transform:translate3d(0,0,0);
+ transition:
+  opacity .76s cubic-bezier(.22,1,.36,1),
+  transform .82s cubic-bezier(.22,1,.36,1);
+ will-change:opacity;
 }
 .cojuka-hero-copy.is-copy-switching :is(
  [data-cojuka-hero-eyebrow],
  [data-cojuka-hero-title],
  [data-cojuka-hero-description],
  [data-cojuka-hero-cta]
-){opacity:0;translate:0 11px}
+){
+ opacity:0!important;
+ transform:translate3d(0,12px,0);
+ transition-duration:.40s,.40s;
+ transition-timing-function:ease-in,ease-in;
+}
 @media(prefers-reduced-motion:reduce){
- .cojuka-hero-copy :is([data-cojuka-hero-eyebrow],[data-cojuka-hero-title],[data-cojuka-hero-description],[data-cojuka-hero-cta]){
-  transition:none!important;translate:none!important
+ .cojuka-hero-copy :is(
+  [data-cojuka-hero-eyebrow],[data-cojuka-hero-title],
+  [data-cojuka-hero-description],[data-cojuka-hero-cta]
+ ){
+  transition:none!important;animation:none!important;
+  transform:none!important;will-change:auto;
  }
 }
 
@@ -139,7 +155,9 @@ document.addEventListener('DOMContentLoaded',function(){
    };
    if(immediate||window.matchMedia('(prefers-reduced-motion: reduce)').matches){apply();return}
    copy.classList.add('is-copy-switching');
-   copyTimer=window.setTimeout(apply,220);
+   // Let old words fade completely before inserting the next scene's text.
+   // The new text then fades into place over 760 ms.
+   copyTimer=window.setTimeout(apply,415);
   }
   if(!slides.length)return;
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;

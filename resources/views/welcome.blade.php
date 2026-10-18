@@ -94,6 +94,31 @@
 .feature-line{align-items:start;padding:2rem 0}
 .feature-line .feature-number{color:#c5c9d0;font-size:clamp(2.4rem,5vw,4.2rem)!important;font-weight:800!important;line-height:1.05}
 @media(max-width:575px){.feature-line .feature-number{font-size:2.5rem!important}.feature-line .col-2{width:19%}.feature-line .col-10{width:81%}}
+
+/* Hero sur l'image, sans cache ni glassmorphisme : libellé uniquement. */
+.hero [data-cojuka-hero-eyebrow],
+.consulting-video-hero [data-cojuka-hero-eyebrow]{
+  display:inline-block!important;
+  width:auto!important;
+  max-width:100%;
+  padding:0!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  background:none!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  outline:0!important;
+  isolation:auto!important;
+}
+.hero [data-cojuka-hero-eyebrow]::before,
+.hero [data-cojuka-hero-eyebrow]::after,
+.consulting-video-hero [data-cojuka-hero-eyebrow]::before,
+.consulting-video-hero [data-cojuka-hero-eyebrow]::after{content:none!important;display:none!important}
 </style>
 @endsection
 @section('content')

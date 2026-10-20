@@ -224,3 +224,40 @@ html[data-cojuka-theme="dark"] .cojuka-global-nav .dropdown-item:hover{backgroun
   .cojuka-global-nav .navbar-brand img,.cojuka-global-nav .nav-link{transition:none!important;transform:none!important}
 }
 </style>
+
+<script>
+/* COJUKA mobile nav interaction enhancements — progressive enhancement. */
+document.addEventListener('DOMContentLoaded',function(){
+ const collapse=document.getElementById('cojukaGlobalNav');
+ const toggle=document.querySelector('.cojuka-global-nav .navbar-toggler');
+ const navbar=document.querySelector('.cojuka-global-nav');
+ if(!collapse||!toggle||!navbar||!window.bootstrap||!bootstrap.Collapse)return;
+ const mobile=window.matchMedia('(max-width:1399.98px)');
+ const instance=bootstrap.Collapse.getOrCreateInstance(collapse,{toggle:false});
+ collapse.addEventListener('shown.bs.collapse',()=>{
+  toggle.setAttribute('aria-label','Fermer le menu de navigation');
+ });
+ collapse.addEventListener('hidden.bs.collapse',()=>{
+  toggle.setAttribute('aria-label','Ouvrir le menu de navigation');
+ });
+ collapse.addEventListener('click',function(event){
+  const anchor=event.target.closest('a[href]');
+  if(!anchor||anchor.matches('[data-bs-toggle="dropdown"]')||!mobile.matches)return;
+  const url=new URL(anchor.href,location.href);
+  // Collapse immediately after a valid page navigation, including hash links.
+  if(url.protocol==='http:'||url.protocol==='https:')instance.hide();
+ });
+ document.addEventListener('click',function(event){
+  if(mobile.matches&&collapse.classList.contains('show')&&!navbar.contains(event.target)){
+   instance.hide();
+  }
+ });
+ document.addEventListener('keydown',function(event){
+  if(event.key==='Escape'&&mobile.matches&&collapse.classList.contains('show')){
+   const dropdown=collapse.querySelector('.dropdown-menu.show');
+   if(dropdown)return; // Let Bootstrap close the nested dropdown first.
+   instance.hide();toggle.focus();
+  }
+ });
+});
+</script>

@@ -64,24 +64,24 @@ $cojukaPhotos = [
   ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab','Bâtiments et activités économiques'],
  ],
  'construction.mp4'=>[
-  ['https://images.unsplash.com/photo-1504307651254-35680f356dfd','Chantier de construction et équipements'],
-  ['https://images.unsplash.com/photo-1487958449943-2429e8be8625','Projet architectural contemporain'],
-  ['https://images.unsplash.com/photo-1600607687939-ce8a6c25118c','Bâtiment et aménagement immobilier'],
+  ['https://images.unsplash.com/photo-1503387762-592deb58ef4e','Chantier de construction et équipements'],
+  ['https://images.unsplash.com/photo-1527576539890-dfa815648363','Projet architectural contemporain'],
+  ['https://images.unsplash.com/photo-1600585154340-be6161a56a0c','Bâtiment et aménagement immobilier'],
  ],
  'logistique.mp4'=>[
   ['https://images.unsplash.com/photo-1494412519320-aa613dfb7738','Transport maritime et conteneurs'],
   ['https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d','Entreposage et organisation logistique'],
-  ['https://images.unsplash.com/photo-1504307651254-35680f356dfd','Coordination des moyens opérationnels'],
+  ['https://images.unsplash.com/photo-1578575437130-527eed3abbec','Coordination des moyens opérationnels'],
  ],
  'consultance.mp4'=>[
-  ['https://images.unsplash.com/photo-1497366754035-f200968a6e72','Espace de travail collaboratif'],
-  ['https://images.unsplash.com/photo-1497366811353-6870744d04b2','Bureaux et environnement professionnel'],
-  ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab','Organisation et développement stratégique'],
+  ['https://images.unsplash.com/photo-1521737711867-e3b97375f902','Espace de travail collaboratif'],
+  ['https://images.unsplash.com/photo-1556761175-b413da4baf72','Bureaux et environnement professionnel'],
+  ['https://images.unsplash.com/photo-1460925895917-afdab827c52f','Organisation et développement stratégique'],
  ],
 ];
  $cojukaPhotos['genie.mp4'] = [
-  ['https://images.unsplash.com/photo-1504307651254-35680f356dfd','Travaux de génie civil et chantier'],
-  ['https://images.unsplash.com/photo-1487958449943-2429e8be8625','Architecture et structures'],
+  ['https://images.unsplash.com/photo-1541888946425-d81bb19240f5','Travaux de génie civil et chantier'],
+  ['https://images.unsplash.com/photo-1511818966892-d7d671e672a2','Architecture et structures'],
   ['https://images.unsplash.com/photo-1581092160562-40aa08e78837','Ingénierie et études techniques'],
  ];
  $cojukaPhotos['energie.mp4'] = [
@@ -90,8 +90,8 @@ $cojukaPhotos = [
   ['https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9','Énergie renouvelable et production'],
  ];
  $cojukaPhotos['materiel.mp4'] = [
-  ['https://images.unsplash.com/photo-1581092160607-ee22621dd758','Équipements et machines industrielles'],
-  ['https://images.unsplash.com/photo-1504307651254-35680f356dfd','Matériel de chantier'],
+  ['https://images.unsplash.com/photo-1581094288338-2314dddb7ece','Équipements et machines industrielles'],
+  ['https://images.unsplash.com/photo-1565008447742-97f6f38c985c','Matériel de chantier'],
   ['https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc','Atelier et équipements techniques'],
  ];
  $cojukaPhotos['education.mp4'] = [
@@ -100,9 +100,9 @@ $cojukaPhotos = [
   ['https://images.unsplash.com/photo-1427504494785-3a9ca7044f45','Salle d’enseignement'],
  ];
  $cojukaPhotos['cargo.mp4'] = [
-  ['https://images.unsplash.com/photo-1494412519320-aa613dfb7738','Fret maritime et transport de conteneurs'],
-  ['https://images.unsplash.com/photo-1578575437130-527eed3abbec','Conteneurs et transport de marchandises'],
-  ['https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d','Entrepôt et préparation des expéditions'],
+  ['https://images.unsplash.com/photo-1565793298595-6ba897a279a7','Fret maritime et transport de conteneurs'],
+  ['https://images.unsplash.com/photo-1497436072909-60f362e1d4b1','Conteneurs et transport de marchandises'],
+  ['https://images.unsplash.com/photo-1451187580459-43490279c0fa','Entrepôt et préparation des expéditions'],
  ];
  $cojukaPhotos['sante.mp4'] = [
   ['https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d','Bâtiment hospitalier et infrastructures de santé'],
@@ -110,9 +110,9 @@ $cojukaPhotos = [
   ['https://images.unsplash.com/photo-1551076805-e1869033e561','Équipements et environnement médical'],
  ];
  $cojukaPhotos['public.mp4'] = [
-  ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab','Bâtiments institutionnels'],
+  ['https://images.unsplash.com/photo-1497366216548-37526070297c','Bâtiments institutionnels'],
   ['https://images.unsplash.com/photo-1529107386315-e1a2ed48a620','Institutions et gouvernance'],
-  ['https://images.unsplash.com/photo-1497366811353-6870744d04b2','Coordination administrative'],
+  ['https://images.unsplash.com/photo-1504384308090-c894fdcc538d','Coordination administrative'],
  ];
 $entityPhotos = $cojukaPhotos[$profile['video'] ?? ''] ?? (isset($profile['photo']) ? [[$profile['photo'], $profile['category']], ['https://images.unsplash.com/photo-1487958449943-2429e8be8625', 'Perspectives et infrastructures'], ['https://images.unsplash.com/photo-1497366811353-6870744d04b2', 'Coordination des projets']] : $cojukaPhotos['construction.mp4']);
 
@@ -193,18 +193,10 @@ $topicLink=$topicLinks[$profile['video'] ?? ''] ?? null;
 <section class="section-pad soft"><div class="container"><p class="eyebrow mb-3">Notre positionnement</p><div class="row g-5 align-items-start"><div class="col-lg-5"><h2 class="display-title">{{ $profile['intro'] }}</h2></div><div class="col-lg-7"><p class="lead text-secondary" style="line-height:1.85">{{ $profile['details'] }}</p><div class="d-flex flex-wrap gap-2 mt-4"><span class="badge rounded-pill text-bg-light border px-3 py-2">{{ $profile['category'] }}</span><span class="badge rounded-pill text-bg-light border px-3 py-2">{{ $profile['location'] }}</span></div></div></div></div></section>
 <section class="section-pad"><div class="container"><p class="eyebrow mb-3">Domaines d'intervention</p><h2 class="display-title mb-5">Nos activités et expertises</h2><div class="row g-4">
 @foreach($profile['services'] as $index => $service)
-<div class="col-md-6"><article class="info-card entity-service-photo"><img role="button" tabindex="0" data-cg-photo-popup
- data-photo-title="{{ $service[0] }}"
- data-photo-sector="{{ $profile['name'] }}"
- data-photo-description="{{ $service[1] }}"
- src="{{ $entityPhotos[$index % count($entityPhotos)][0] }}{{ str_contains($entityPhotos[$index % count($entityPhotos)][0], 'unsplash.com') ? '?auto=format&fit=crop&w=850&q=72&fm=webp' : '' }}" alt="{{ $entityPhotos[$index % count($entityPhotos)][1] }}" loading="lazy" decoding="async" width="850" height="470"><div class="index mb-3">EXPERTISE</div><h3 class="h4 fw-bold mb-3">{{ $service[0] }}</h3><p class="text-secondary mb-0">{{ $service[1] }}</p></article></div>
+<div class="col-md-6"><article class="info-card"><div class="index mb-3">EXPERTISE</div><h3 class="h4 fw-bold mb-3">{{ $service[0] }}</h3><p class="text-secondary mb-0">{{ $service[1] }}</p></article></div>
 @endforeach
 </div></div></section>
-<section class="section-pad soft" aria-labelledby="entity-gallery-more"><div class="container"><div class="row g-4 align-items-center mb-4"><div class="col-lg-8"><p class="eyebrow">Regards sur le secteur</p><h2 id="entity-gallery-more" class="display-title">Explorer les activités en images.</h2></div><div class="col-lg-4"><p class="text-secondary">Visuels documentaires d’illustration, non contractuels. Ils ne présentent pas nécessairement des sites ou des réalisations de COJUKA.</p></div></div><div class="row g-4">@foreach($entityPhotos as $i=>$photo)<div class="col-md-6 col-lg-4"><figure class="entity-photo-tile h-100"><img role="button" tabindex="0" data-cg-photo-popup
- data-photo-title="{{ $photo[1] }}"
- data-photo-sector="{{ $profile['name'] }}"
- data-photo-description="Une illustration de {{ $photo[1] }} dans l’univers {{ $profile['name'] }}. Le visuel présente un domaine d’activité et ne constitue pas une référence de réalisation du groupe."
- src="{{ $photo[0] }}{{ str_contains($photo[0], 'unsplash.com') ? '?auto=format&fit=crop&w=900&q=75&fm=webp' : '' }}" alt="{{ $photo[1] }}" loading="lazy" decoding="async" width="900" height="650"><figcaption><span class="index">0{{ $i+1 }} / SECTEUR</span><div>{{ $photo[1] }}</div></figcaption></figure></div>@endforeach</div></div></section>
+
 <section class="section-pad soft" id="publics"><div class="container"><p class="eyebrow mb-3">À qui nous nous adressons</p><h2 class="display-title mb-5">Des interlocuteurs, des besoins spécifiques.</h2><div class="row g-4">@foreach($profile['audiences'] as $index => $audience)<div class="col-md-4"><article class="info-card"><div class="index mb-3">0{{ $index+1 }} / PARTENAIRES</div><h3 class="h4 fw-bold mb-3">{{ $audience[0] }}</h3><p class="text-secondary mb-0">{{ $audience[1] }}</p></article></div>@endforeach</div></div></section>
 <section class="section-pad soft"><div class="container"><p class="eyebrow mb-3">Activités &amp; perspectives</p><h2 class="display-title mb-5">Nos axes de développement</h2><div class="row g-4">
 @foreach($profile['focus'] as $index => $item)

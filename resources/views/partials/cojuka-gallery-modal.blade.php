@@ -102,6 +102,7 @@ img[data-cg-photo-popup]{outline-offset:-4px}
   const title=document.getElementById('cojukaGalleryTitle');
   const sector=document.getElementById('cojukaGallerySector');
   const description=document.getElementById('cojukaGalleryDescription');
+  const illustrationNote=modal.querySelector('.cg-gallery-disclaimer');
   const link=document.getElementById('cojukaGalleryLink');
   const count=document.getElementById('cojukaGalleryCount');
   const thumbs=document.getElementById('cojukaGalleryThumbnails');
@@ -172,6 +173,7 @@ img[data-cg-photo-popup]{outline-offset:-4px}
    title.textContent=titleText;
    sector.textContent=sectorText;
    description.textContent=descriptionText;
+   if(illustrationNote)illustrationNote.hidden=target.dataset.photoOriginal==='1';
    const href=target.dataset.photoHref||'';
    link.hidden=!href;
    if(href)link.href=href;

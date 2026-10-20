@@ -1,0 +1,47 @@
+/* COJUKA / Expérience 2026 — mobile, accessibilité, lisibilité.
+   Non invasif : ne recolore jamais l'emblème officiel. */
+.cojuka-skip{
+ position:fixed;left:clamp(12px,2vw,30px);top:12px;z-index:200000;
+ display:inline-flex;align-items:center;gap:8px;padding:12px 18px;
+ border-radius:12px;background:#fff!important;color:#142336!important;
+ border:2px solid #7a8b9e;box-shadow:0 16px 40px #07152344;
+ text-decoration:none;font:800 14px/1.3 system-ui,sans-serif;
+ transform:translateY(calc(-100% - 30px));transition:transform .18s ease;
+}
+.cojuka-skip:focus-visible{transform:translateY(0);outline:3px solid #8294a7;outline-offset:3px}
+#cojuka-main-start{display:block;height:0;scroll-margin-top:clamp(70px,8vh,105px);outline:0}
+body.cojuka-glass-public main [id]{scroll-margin-top:clamp(85px,10vh,125px)}
+body.cojuka-glass-public :is(button,a,input,textarea,select):focus-visible{
+ outline:3px solid #94a5b8;outline-offset:3px;
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public :is(button,a,input,textarea,select):focus-visible{
+ outline-color:#EAF0F8;
+}
+body.cojuka-glass-public main img{
+ max-width:100%;
+}
+body.cojuka-glass-public :is(.cg-photo-open,.cg-mine-photo,.cg-mine-flow-image) img{
+ display:block;
+}
+@media(max-width:767.98px){
+ body.cojuka-glass-public main{min-width:0}
+ body.cojuka-glass-public main :is(h1,h2,h3,p){overflow-wrap:break-word}
+ body.cojuka-glass-public main :is(.container,.container-fluid,.row,.col-lg-6,.col-lg-7,.col-lg-8){
+  min-width:0;
+ }
+ body.cojuka-glass-public .cg-gallery-details{
+  padding-bottom:calc(38px + env(safe-area-inset-bottom,0px));
+ }
+ body.cojuka-glass-public .cg-gallery-modal .cg-gallery-sound-toggle,
+ body.cojuka-glass-public .cg-gallery-modal .cg-gallery-close{
+  min-width:42px;min-height:42px;
+ }
+ body.cojuka-glass-public .cojuka-site-footer .cojuka-footer-links a{
+  padding-block:3px;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ .cojuka-skip{transition:none}
+ body.cojuka-glass-public main img{scroll-behavior:auto}
+}
+/* Improvements kept neutral in day and night modes; no red atmospheric glow. */

@@ -55,7 +55,7 @@ html[data-cojuka-theme="dark"] body.cojuka-glass-public .history-founder-portrai
    data-photo-title="Jules Kabongo" data-photo-sector="COJUKA CONSULTING GROUP · HISTOIRE"
    data-photo-description="Portrait institutionnel de Jules Kabongo, présenté dans l’histoire de COJUKA Consulting Group. Photographie communiquée pour cette page."
    data-photo-original="1" aria-label="Agrandir le portrait de Jules Kabongo">
-   <img src="{{ asset('images/history/jules-kabongo.webp') }}" alt="Portrait en noir et blanc de Jules Kabongo, en costume, installé à un bureau" width="400" height="414" loading="lazy" decoding="async">
+   <img src="{{ asset('images/history/jules-kabongo.avif') }}" alt="Portrait en noir et blanc de Jules Kabongo, en costume, installé à un bureau" width="360" height="373" loading="lazy" decoding="async">
    <span class="history-founder-zoom" aria-hidden="true"><i class="bi bi-arrows-fullscreen"></i></span>
   </button>
   <figcaption>Jules Kabongo <small>Portrait institutionnel · Document communiqué</small></figcaption>

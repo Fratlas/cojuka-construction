@@ -32,7 +32,7 @@
 .cg-gallery-modal .modal-content{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.82);border-radius:27px;background:#FFFFFF!important;box-shadow:0 42px 110px rgba(5,13,28,.32)}
 .cg-gallery-layout{display:grid;grid-template-columns:minmax(0,1.22fr) minmax(280px,.78fr);min-height:425px}
 .cg-gallery-media{min-width:0;background:#e8edf3;display:flex;align-items:center;justify-content:center}
-.cg-gallery-media img{display:block;width:100%;height:100%;max-height:80svh;min-height:400px;object-fit:contain;background:#131d2b}
+.cg-gallery-media img{display:block;width:100%;height:100%;max-height:80svh;min-height:400px;object-fit:contain;background:#131d2b;opacity:1;transition:opacity .22s ease}
 .cg-gallery-details{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-width:0;padding:clamp(28px,4vw,60px);color:var(--cg-gallery-ink)}
 .cg-gallery-eyebrow{font-size:11px;font-weight:850;letter-spacing:.19em;text-transform:uppercase;color:#606c7a!important;margin:0 0 18px}
 .cg-gallery-details h2{font-size:clamp(2rem,3.4vw,3.2rem);line-height:1.09;letter-spacing:-.065em;font-weight:850;color:#192536!important;margin:0;overflow-wrap:anywhere}
@@ -99,6 +99,7 @@ img[data-cg-photo-popup]{outline-offset:-4px}
  border:1px solid rgba(226,233,244,.28);border-radius:14px;
  box-shadow:0 12px 30px rgba(0,0,0,.18);font:650 13px/1.5 system-ui,sans-serif}
 .cg-gallery-load[hidden]{display:none!important}
+@media(prefers-reduced-motion:reduce){.cg-gallery-media img{transition:none!important}}
 </style>
 <script>
 (function(){
@@ -161,6 +162,7 @@ img[data-cg-photo-popup]{outline-offset:-4px}
   let originalSource='',fallbackAttempted=false;
   function fullSource(image){
    const raw=image.currentSrc||image.src;
+   if(navigator.connection&&(navigator.connection.saveData||/^(?:slow-2g|2g)$/.test(navigator.connection.effectiveType||'')))return raw;
    try{
     const url=new URL(raw,document.baseURI);
     if(url.hostname==='images.unsplash.com'){
@@ -173,12 +175,12 @@ img[data-cg-photo-popup]{outline-offset:-4px}
     return url.toString();
    }catch(_error){return raw}
   }
-  picture.addEventListener('load',()=>{if(loadStatus)loadStatus.hidden=true;picture.style.visibility='visible'});
+  picture.addEventListener('load',()=>{if(loadStatus)loadStatus.hidden=true;picture.style.visibility='visible';picture.style.opacity='1'});
   picture.addEventListener('error',()=>{
    if(!fallbackAttempted&&picture.src!==originalSource&&originalSource){
     fallbackAttempted=true;picture.src=originalSource;return;
    }
-   picture.style.visibility='hidden';
+   picture.style.visibility='hidden';picture.style.opacity='0';
    if(loadStatus){loadStatus.textContent='Cette image est temporairement indisponible. Vous pouvez passer à une autre photo.';loadStatus.hidden=false}
   });
   const selector='[data-cg-photo-popup]';
@@ -211,7 +213,7 @@ img[data-cg-photo-popup]{outline-offset:-4px}
     'Photographie illustrative des domaines d’activité, des compétences et des perspectives de COJUKA Consulting Group.';
    originalSource=image.currentSrc||image.src;
    fallbackAttempted=false;
-   picture.style.visibility='visible';
+   picture.style.visibility='visible';picture.style.opacity='0';
    if(loadStatus){loadStatus.textContent='Chargement de la photographie…';loadStatus.hidden=false}
    picture.alt=image.alt||titleText;
    picture.src=fullSource(image);
@@ -283,7 +285,7 @@ img[data-cg-photo-popup]{outline-offset:-4px}
   modal.addEventListener('hide.bs.modal',()=>soundCue('close'));
   modal.addEventListener('hidden.bs.modal',function(){
    picture.removeAttribute('src');
-   picture.style.visibility='visible';
+   picture.style.visibility='visible';picture.style.opacity='1';
    originalSource='';fallbackAttempted=false;
    if(loadStatus)loadStatus.hidden=true;
    thumbs.replaceChildren();

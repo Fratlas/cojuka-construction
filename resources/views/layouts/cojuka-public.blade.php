@@ -3,6 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="COJUKA Consulting Group">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+<link rel="dns-prefetch" href="//commons.wikimedia.org">
 <meta name="theme-color" content="#ffffff">
 <link rel="shortcut icon" href="{{ asset('favicon.svg') }}?v=3" type="image/svg+xml">
 <link rel="icon" type="image/svg+xml" sizes="any" href="{{ asset('favicon.svg') }}?v=3">
@@ -36,9 +42,12 @@
 <link rel="stylesheet" href="{{ asset('css/cojuka-editorial.css') }}?v=20261018-truewhite-fade-04">
 <link rel="stylesheet" href="{{ asset('css/cojuka-neutral.css') }}?v=20261018-contact-title-07">
 <link rel="stylesheet" href="{{ asset('css/cojuka-spacing.css') }}?v=20261018-rhythm-01">
+<link rel="stylesheet" href="{{ asset('css/cojuka-experience.css') }}?v=20261020-premium-01">
 </head>
 <body class="cojuka-glass cojuka-glass-public">
+<a class="cojuka-skip" href="#cojuka-main-start">Aller au contenu principal <i class="bi bi-arrow-down" aria-hidden="true"></i></a>
 @include('partials.cojuka-header')
+<div id="cojuka-main-start" tabindex="-1"></div>
 @yield('content')
 @include('partials.cojuka-footer')
 @include('partials.cojuka-gallery-modal')

@@ -9,6 +9,7 @@
     <div class="cg-gallery-media">
      <button type="button" class="cg-gallery-nav cg-gallery-prev" id="cojukaGalleryPrev" aria-label="Photo précédente"><i class="bi bi-chevron-left" aria-hidden="true"></i></button>
      <img id="cojukaGalleryImage" src="" alt="" loading="eager" decoding="async">
+     <div id="cojukaGalleryLoad" class="cg-gallery-load" role="status" aria-live="polite" hidden>Chargement de la photographie…</div>
      <button type="button" class="cg-gallery-nav cg-gallery-next" id="cojukaGalleryNext" aria-label="Photo suivante"><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
     </div>
     <div class="cg-gallery-details">
@@ -31,7 +32,7 @@
 .cg-gallery-modal .modal-content{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.82);border-radius:27px;background:#FFFFFF!important;box-shadow:0 42px 110px rgba(5,13,28,.32)}
 .cg-gallery-layout{display:grid;grid-template-columns:minmax(0,1.22fr) minmax(280px,.78fr);min-height:425px}
 .cg-gallery-media{min-width:0;background:#e8edf3;display:flex;align-items:center;justify-content:center}
-.cg-gallery-media img{display:block;width:100%;height:100%;max-height:80svh;min-height:400px;object-fit:cover}
+.cg-gallery-media img{display:block;width:100%;height:100%;max-height:80svh;min-height:400px;object-fit:contain;background:#131d2b}
 .cg-gallery-details{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-width:0;padding:clamp(28px,4vw,60px);color:var(--cg-gallery-ink)}
 .cg-gallery-eyebrow{font-size:11px;font-weight:850;letter-spacing:.19em;text-transform:uppercase;color:#606c7a!important;margin:0 0 18px}
 .cg-gallery-details h2{font-size:clamp(2rem,3.4vw,3.2rem);line-height:1.09;letter-spacing:-.065em;font-weight:850;color:#192536!important;margin:0;overflow-wrap:anywhere}
@@ -90,6 +91,14 @@ img[data-cg-photo-popup]{outline-offset:-4px}
 .cg-gallery-sound-toggle:hover{background:#e8ebf0}
 .cg-gallery-sound-toggle:focus-visible{outline:3px solid #8a9fb4;outline-offset:3px}
 
+
+/* Never crop portraits or mineral specimens in an enlarged photo. */
+.cg-gallery-load{position:absolute;z-index:1;inset:auto 60px 28px;
+ max-width:calc(100% - 120px);text-align:center;pointer-events:none;
+ background:rgba(18,30,46,.86);color:#fff;padding:13px 18px;
+ border:1px solid rgba(226,233,244,.28);border-radius:14px;
+ box-shadow:0 12px 30px rgba(0,0,0,.18);font:650 13px/1.5 system-ui,sans-serif}
+.cg-gallery-load[hidden]{display:none!important}
 </style>
 <script>
 (function(){
@@ -110,6 +119,17 @@ img[data-cg-photo-popup]{outline-offset:-4px}
   const next=document.getElementById('cojukaGalleryNext');
   const soundButton=document.getElementById('cojukaGallerySound');
   let soundEnabled=true,audioContext=null;
+  // Remember visitors' audio choice across gallery openings and page visits.
+  try{soundEnabled=window.localStorage.getItem('cojuka-gallery-sound')!=='off'}catch(_error){}
+  function updateSoundButton(){
+   if(!soundButton)return;
+   soundButton.setAttribute('aria-pressed',String(soundEnabled));
+   const label=soundEnabled?'Désactiver le son de la galerie':'Réactiver le son de la galerie';
+   soundButton.setAttribute('aria-label',label);soundButton.title=label;
+   const glyph=soundButton.querySelector('i');
+   if(glyph){glyph.classList.toggle('bi-volume-up',soundEnabled);glyph.classList.toggle('bi-volume-mute',!soundEnabled)}
+  }
+  updateSoundButton();
   function soundCue(kind){
    if(!soundEnabled)return;
    const Constructor=window.AudioContext||window.webkitAudioContext;
@@ -133,12 +153,33 @@ img[data-cg-photo-popup]{outline-offset:-4px}
   }
   soundButton?.addEventListener('click',()=>{
    soundEnabled=!soundEnabled;
-   soundButton.setAttribute('aria-pressed',String(soundEnabled));
-   const label=soundEnabled?'Désactiver le son de la galerie':'Réactiver le son de la galerie';
-   soundButton.setAttribute('aria-label',label);soundButton.title=label;
-   soundButton.querySelector('i')?.classList.toggle('bi-volume-up',soundEnabled);
-   soundButton.querySelector('i')?.classList.toggle('bi-volume-mute',!soundEnabled);
+   try{window.localStorage.setItem('cojuka-gallery-sound',soundEnabled?'on':'off')}catch(_error){}
+   updateSoundButton();
    if(soundEnabled)soundCue('open');
+  });
+  const loadStatus=document.getElementById('cojukaGalleryLoad');
+  let originalSource='',fallbackAttempted=false;
+  function fullSource(image){
+   const raw=image.currentSrc||image.src;
+   try{
+    const url=new URL(raw,document.baseURI);
+    if(url.hostname==='images.unsplash.com'){
+     url.searchParams.set('w','1500');
+     url.searchParams.set('q','82');
+     url.searchParams.set('fit','max');
+    }else if(url.hostname==='commons.wikimedia.org'&&url.pathname.includes('/Special:FilePath/')){
+     url.searchParams.set('width','1450');
+    }
+    return url.toString();
+   }catch(_error){return raw}
+  }
+  picture.addEventListener('load',()=>{if(loadStatus)loadStatus.hidden=true;picture.style.visibility='visible'});
+  picture.addEventListener('error',()=>{
+   if(!fallbackAttempted&&picture.src!==originalSource&&originalSource){
+    fallbackAttempted=true;picture.src=originalSource;return;
+   }
+   picture.style.visibility='hidden';
+   if(loadStatus){loadStatus.textContent='Cette image est temporairement indisponible. Vous pouvez passer à une autre photo.';loadStatus.hidden=false}
   });
   const selector='[data-cg-photo-popup]';
   let gallery=[],position=0,lastTrigger=null;
@@ -168,8 +209,12 @@ img[data-cg-photo-popup]{outline-offset:-4px}
    const descriptionText=target.dataset.photoDescription||
     card?.querySelector('.service-description,.model-label p,.text-secondary')?.textContent?.trim()||
     'Photographie illustrative des domaines d’activité, des compétences et des perspectives de COJUKA Consulting Group.';
-   picture.src=image.currentSrc||image.src;
+   originalSource=image.currentSrc||image.src;
+   fallbackAttempted=false;
+   picture.style.visibility='visible';
+   if(loadStatus){loadStatus.textContent='Chargement de la photographie…';loadStatus.hidden=false}
    picture.alt=image.alt||titleText;
+   picture.src=fullSource(image);
    title.textContent=titleText;
    sector.textContent=sectorText;
    description.textContent=descriptionText;
@@ -238,6 +283,9 @@ img[data-cg-photo-popup]{outline-offset:-4px}
   modal.addEventListener('hide.bs.modal',()=>soundCue('close'));
   modal.addEventListener('hidden.bs.modal',function(){
    picture.removeAttribute('src');
+   picture.style.visibility='visible';
+   originalSource='';fallbackAttempted=false;
+   if(loadStatus)loadStatus.hidden=true;
    thumbs.replaceChildren();
    lastTrigger?.focus?.({preventScroll:true});
    lastTrigger=null;gallery=[];

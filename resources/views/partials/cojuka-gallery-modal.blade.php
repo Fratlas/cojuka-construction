@@ -3,6 +3,7 @@
  aria-labelledby="cojukaGalleryTitle" aria-describedby="cojukaGalleryDescription">
  <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down">
   <div class="modal-content">
+   <button type="button" class="cg-gallery-sound-toggle" id="cojukaGallerySound" aria-pressed="true" title="Désactiver le son de la galerie" aria-label="Désactiver le son de la galerie"><i class="bi bi-volume-up" aria-hidden="true"></i></button>
    <button type="button" class="cg-gallery-close" data-bs-dismiss="modal" aria-label="Fermer la photo"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
    <div class="cg-gallery-layout">
     <div class="cg-gallery-media">
@@ -81,6 +82,14 @@ img[data-cg-photo-popup]{outline-offset:-4px}
 @media(max-width:767px){.cg-gallery-nav{width:40px;height:40px}.cg-gallery-prev{left:9px}.cg-gallery-next{right:9px}
  .cg-gallery-thumbnails button{flex-basis:64px;width:64px;height:52px}}
 
+/* Gallery sound feedback: self-contained Web Audio, no external MP3 dependency. */
+.cg-gallery-sound-toggle{position:absolute;top:16px;right:65px;z-index:5;
+ display:grid;place-items:center;width:40px;height:40px;border:1px solid #d9dfe8;
+ border-radius:50%;background:rgba(255,255,255,.95);color:#243449;font-size:17px;
+ cursor:pointer}
+.cg-gallery-sound-toggle:hover{background:#e8ebf0}
+.cg-gallery-sound-toggle:focus-visible{outline:3px solid #8a9fb4;outline-offset:3px}
+
 </style>
 <script>
 (function(){
@@ -98,6 +107,38 @@ img[data-cg-photo-popup]{outline-offset:-4px}
   const thumbs=document.getElementById('cojukaGalleryThumbnails');
   const prev=document.getElementById('cojukaGalleryPrev');
   const next=document.getElementById('cojukaGalleryNext');
+  const soundButton=document.getElementById('cojukaGallerySound');
+  let soundEnabled=true,audioContext=null;
+  function soundCue(kind){
+   if(!soundEnabled)return;
+   const Constructor=window.AudioContext||window.webkitAudioContext;
+   if(!Constructor)return;
+   try{
+    audioContext=audioContext||new Constructor();
+    if(audioContext.state==='suspended')audioContext.resume().catch(()=>{});
+    const now=audioContext.currentTime;
+    const notes=kind==='open'?[{f:523,start:0},{f:659,start:.058}]:[{f:392,start:0}];
+    for(const note of notes){
+     const oscillator=audioContext.createOscillator();
+     const gain=audioContext.createGain();
+     oscillator.type='sine';oscillator.frequency.value=note.f;
+     gain.gain.setValueAtTime(0.0001,now+note.start);
+     gain.gain.exponentialRampToValueAtTime(.018,now+note.start+.018);
+     gain.gain.exponentialRampToValueAtTime(.0001,now+note.start+.16);
+     oscillator.connect(gain);gain.connect(audioContext.destination);
+     oscillator.start(now+note.start);oscillator.stop(now+note.start+.17);
+    }
+   }catch(_error){/* The gallery remains usable even when audio is blocked. */}
+  }
+  soundButton?.addEventListener('click',()=>{
+   soundEnabled=!soundEnabled;
+   soundButton.setAttribute('aria-pressed',String(soundEnabled));
+   const label=soundEnabled?'Désactiver le son de la galerie':'Réactiver le son de la galerie';
+   soundButton.setAttribute('aria-label',label);soundButton.title=label;
+   soundButton.querySelector('i')?.classList.toggle('bi-volume-up',soundEnabled);
+   soundButton.querySelector('i')?.classList.toggle('bi-volume-mute',!soundEnabled);
+   if(soundEnabled)soundCue('open');
+  });
   const selector='[data-cg-photo-popup]';
   let gallery=[],position=0,lastTrigger=null;
   function source(trigger){
@@ -163,6 +204,7 @@ img[data-cg-photo-popup]{outline-offset:-4px}
      thumbs.append(button);
     });
    }
+   soundCue('open');
    display(position,false);
    viewer.show();
   }
@@ -191,6 +233,7 @@ img[data-cg-photo-popup]{outline-offset:-4px}
    swipeX=null;
   },{passive:true});
   media.addEventListener('touchcancel',()=>swipeX=null,{passive:true});
+  modal.addEventListener('hide.bs.modal',()=>soundCue('close'));
   modal.addEventListener('hidden.bs.modal',function(){
    picture.removeAttribute('src');
    thumbs.replaceChildren();

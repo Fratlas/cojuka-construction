@@ -176,6 +176,7 @@ $entityHighlightsCurrent = $entityHighlights[$profile['video'] ?? ''] ?? array_m
      Does not alter construction, logistics or the other group structures. --}}
 @if(($profile['video'] ?? '') === 'kojuka-mining.mp4')
  @include('partials.cojuka-mining-showcase')
+ @include('partials.cojuka-stock-films', ['cojukaStockContext'=>'mining'])
 @endif
 <section class="section-pad entity-highlights" aria-labelledby="entity-highlights-title"><div class="container"><p class="eyebrow mb-3">Les points clés de cette entité</p><h2 id="entity-highlights-title" class="display-title mb-4">Des priorités adaptées à notre domaine.</h2><div class="row g-4">@foreach($entityHighlightsCurrent as $highlight)<div class="col-md-4"><article class="info-card h-100"><div class="index mb-3">DOMAINE</div><h3 class="h4 fw-bold mb-3">{{ $highlight[0] }}</h3><p class="text-secondary mb-0">{{ $highlight[1] }}</p></article></div>@endforeach</div></div></section>
 @php

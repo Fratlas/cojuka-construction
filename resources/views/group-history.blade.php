@@ -36,7 +36,7 @@
 .history-founder-zoom{position:absolute;right:15px;bottom:15px;display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:rgba(20,32,47,.78);color:#fff}
 .history-founder-portrait figcaption{display:block;padding:16px 20px;font-size:15px;font-weight:800;color:#263649;line-height:1.45}
 .history-founder-portrait figcaption small{display:block;margin-top:3px;font-weight:500;color:#637386;font-size:12px}
-.history-founder-milestones{height:auto!important;padding:clamp(22px,2.5vw,32px)!important}
+.history-founder-milestones{height:auto;padding:0}
 .history-founder-open:focus-visible{outline:3px solid #8395a9;outline-offset:-3px}
 html[data-cojuka-theme="dark"] body.cojuka-glass-public .history-founder-portrait{background:#253345;border-color:#405268}
 html[data-cojuka-theme="dark"] body.cojuka-glass-public .history-founder-portrait figcaption{color:#fff}
@@ -135,7 +135,7 @@ html[data-cojuka-theme="dark"] body.cojuka-glass-public .history-founder-steps l
  .history-founder-copy{padding-top:0}
  body.cojuka-glass-public .history-founder-copy h2{
   font-size:clamp(2.2rem,9.2vw,3.6rem)!important;line-height:1.08!important}
- .history-founder-portrait{justify-self:start;max-width:480px}
+ .history-founder-portrait{order:-1;justify-self:start;max-width:480px}
  .history-founder-milestones{margin-top:31px}
  .history-founder-milestones-head{align-items:flex-start;flex-direction:column;gap:6px}
  .history-founder-steps{gap:22px 17px}
@@ -166,7 +166,7 @@ html[data-cojuka-theme="dark"] body.cojuka-glass-public .history-founder-steps l
      data-photo-title="Jules Kabongo" data-photo-sector="COJUKA CONSULTING GROUP · HISTOIRE"
      data-photo-description="Portrait institutionnel de Jules Kabongo, présenté dans l’histoire de COJUKA Consulting Group. Photographie communiquée pour cette page."
      data-photo-original="1" aria-label="Agrandir le portrait de Jules Kabongo">
-     <img src="{{ asset('images/history/jules-kabongo.avif') }}" alt="Portrait en noir et blanc de Jules Kabongo, en costume, installé à un bureau" width="360" height="373" loading="eager" decoding="async" fetchpriority="high">
+     <img src="{{ asset('images/history/jules-kabongo.avif') }}" alt="Portrait en noir et blanc de Jules Kabongo, en costume, installé à un bureau" width="360" height="373" loading="lazy" decoding="async">
      <span class="history-founder-zoom" aria-hidden="true"><i class="bi bi-arrows-fullscreen"></i></span>
     </button>
     <figcaption><strong>Jules Kabongo</strong><small>Portrait institutionnel · Document communiqué</small></figcaption>

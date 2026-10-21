@@ -43,6 +43,7 @@
 <link rel="stylesheet" href="{{ asset('css/cojuka-neutral.css') }}?v=20261018-contact-title-07">
 <link rel="stylesheet" href="{{ asset('css/cojuka-spacing.css') }}?v=20261018-rhythm-01">
 <link rel="stylesheet" href="{{ asset('css/cojuka-experience.css') }}?v=20261020-premium-01">
+<link rel="stylesheet" href="{{ asset('css/cojuka-media-clarity.css') }}?v=20261021-clear-media-01">
 </head>
 <body class="cojuka-glass cojuka-glass-public">
 <a class="cojuka-skip" href="#cojuka-main-start">Aller au contenu principal <i class="bi bi-arrow-down" aria-hidden="true"></i></a>

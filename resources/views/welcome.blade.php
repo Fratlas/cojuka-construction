@@ -143,6 +143,7 @@
 </section>
 @include('partials.cojuka-entities-carousel')
 @include('partials.cojuka-photo-marquee')
+@include('partials.cojuka-stock-films', ['cojukaStockContext'=>'home'])
 <section id="apropos" class="section-pad">
 <div class="container">
  <div class="row g-5 align-items-start">

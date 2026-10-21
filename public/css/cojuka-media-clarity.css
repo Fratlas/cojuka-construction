@@ -1,0 +1,101 @@
+/* COJUKA / Clearer media, less double-overlay.
+ * This file is loaded LAST so it can neutralize historic cinematic masks.
+ * The official emblem and video assets are never filtered or recolored.
+ */
+body.cojuka-glass-public main .hero:before{
+ background:linear-gradient(90deg,
+  rgba(8,14,23,.34) 0%,
+  rgba(8,14,23,.16) 54%,
+  rgba(8,14,23,.035) 100%)!important;
+ opacity:1!important;
+ filter:none!important;
+}
+body.cojuka-glass-public main .hero.consulting-video-hero:before{
+ background:linear-gradient(90deg,
+  rgba(8,14,23,.34) 0%,
+  rgba(8,14,23,.15) 53%,
+  rgba(8,14,23,.03) 100%)!important;
+}
+body.cojuka-glass-public main .hero .motion-stage:after{
+ content:none!important;display:none!important;
+ background:none!important;
+}
+body.cojuka-glass-public main .hero:after{
+ content:none!important;display:none!important;
+ background:none!important;
+}
+body.cojuka-glass-public main .cojuka-video-carousel{
+ filter:none!important;
+}
+/* Entity hero: previously the video was itself dimmed to 82%, then masked.
+   Keep the footage at full opacity and use ONE light gradient for text. */
+body.cojuka-glass-public main .entity-hero .entity-background-video.is-playing{
+ opacity:1!important;
+ filter:none!important;
+}
+body.cojuka-glass-public main .entity-hero .entity-video-overlay{
+ background:linear-gradient(90deg,
+  rgba(10,19,29,.32),
+  rgba(10,19,29,.12) 58%,
+  rgba(10,19,29,.035))!important;
+ backdrop-filter:none!important;
+ -webkit-backdrop-filter:none!important;
+}
+body.cojuka-glass-public main .cojuka-entities-hero:before{
+ background:linear-gradient(90deg,
+  rgba(10,19,29,.31),
+  rgba(10,19,29,.12) 56%,
+  rgba(10,19,29,.02))!important;
+}
+/* Real entity photo slider: reveal more image details. */
+body.cojuka-glass-public main .cojuka-home-entities .cojuka-entity-photo{
+ background-image:linear-gradient(90deg,
+  rgba(11,21,33,.32) 0%,
+  rgba(11,21,33,.09) 49%,
+  rgba(11,21,33,0) 100%),
+  var(--entity-photo)!important;
+ filter:none!important;
+}
+body.cojuka-glass-public main .cojuka-home-entities .cojuka-entity-panel:after{
+ background:linear-gradient(0deg,rgba(12,21,32,.08),transparent 43%)!important;
+}
+/* Slider gallery caption shade is only a subtle aid to the white label. */
+body.cojuka-glass-public main .cg-marquee-shade{
+ background:linear-gradient(0deg,rgba(6,13,24,.52),transparent 86%)!important;
+}
+body.cojuka-glass-public main :is(.hero,.entity-hero,.cojuka-entity-panel,.cojuka-entities-hero)
+ :is(h1,h2,h3,.eyebrow,.cojuka-entity-label){
+ text-shadow:0 3px 15px rgba(3,10,20,.54)!important;
+}
+body.cojuka-glass-public main .cojuka-home-entities .cojuka-entity-panel p{
+ text-shadow:0 2px 10px rgba(4,9,17,.38);
+}
+/* The mining announcement may be closed; its dark image mask used to hide
+   most of the image. Reduce its density, keep the popup text readable. */
+body.cojuka-glass-public #cojuka-mining-announce .cma-panel:before{
+ background:linear-gradient(90deg,
+  rgba(11,19,29,.43) 0%,
+  rgba(11,19,29,.19) 56%,
+  rgba(11,19,29,.045) 100%)!important;
+}
+@media(max-width:767.98px){
+ body.cojuka-glass-public main .hero:before,
+ body.cojuka-glass-public main .hero.consulting-video-hero:before{
+  background:linear-gradient(90deg,
+   rgba(8,14,23,.43) 0%,
+   rgba(8,14,23,.23) 54%,
+   rgba(8,14,23,.07) 100%)!important;
+ }
+ body.cojuka-glass-public main .entity-hero .entity-video-overlay{
+  background:linear-gradient(90deg,rgba(9,17,29,.40),rgba(9,17,29,.13))!important;
+ }
+ body.cojuka-glass-public main .cojuka-home-entities .cojuka-entity-photo{
+  background-image:linear-gradient(90deg,
+   rgba(12,21,34,.41),
+   rgba(12,21,34,.13) 61%,
+   rgba(12,21,34,.04)),var(--entity-photo)!important;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ body.cojuka-glass-public main .cojuka-video-carousel .cojuka-carousel-photo{transition:none!important}
+}

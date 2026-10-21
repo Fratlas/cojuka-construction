@@ -136,6 +136,9 @@ html[data-cojuka-theme="dark"] body.cojuka-glass-public :is(.cg-real-film-intro-
 @media(max-width:900px){.cg-real-film-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cg-real-film-intro{grid-template-columns:1fr;gap:14px}}
 @media(max-width:600px){.cg-real-film-grid{grid-template-columns:1fr}.cg-real-film-section{padding:38px 0!important}.cg-real-film-media{aspect-ratio:16/10}}
 @media(prefers-reduced-motion:reduce){.cg-real-film-play{transition:none!important}}
+.cg-real-film-media.is-loading .cg-real-film-play{opacity:.8;animation:cg-real-film-wait 1.8s ease-in-out infinite}
+@keyframes cg-real-film-wait{50%{transform:scale(.9);opacity:.57}}
+@media(prefers-reduced-motion:reduce){.cg-real-film-media.is-loading .cg-real-film-play{animation:none!important}}
 </style>
 <script>
 (function(){
@@ -144,33 +147,55 @@ html[data-cojuka-theme="dark"] body.cojuka-glass-public :is(.cg-real-film-intro-
   document.querySelectorAll('[data-cg-film-player]').forEach(panel=>{
    const video=panel.querySelector('video[data-cg-film-src]');
    const launch=panel.querySelector('.cg-real-film-launch');
+   const message=launch?.querySelector('span:last-child');
    const error=panel.querySelector('.cg-real-film-error');
    if(!video||!launch)return;
-   let started=false;
+   let started=false,timeout=null,sequence=0;
+   function reset(){
+    panel.classList.remove('is-playing','is-loading');
+    started=false;
+    launch.removeAttribute('aria-busy');
+    if(message)message.textContent='Voir la séquence';
+   }
+   function fail(token){
+    if(token!==sequence)return;
+    clearTimeout(timeout);
+    reset();
+    try{video.pause();video.removeAttribute('src');video.load()}catch(_error){}
+    if(error)error.hidden=false;
+   }
    launch.addEventListener('click',()=>{
     if(started)return;
     started=true;
-    // Only one documentary video plays at a time, keeping CPU/bandwidth low.
+    const token=++sequence;
+    if(error)error.hidden=true;
+    panel.classList.add('is-loading');
+    launch.setAttribute('aria-busy','true');
+    if(message)message.textContent='Chargement de la vidéo…';
     document.querySelectorAll('[data-cg-film-player] video').forEach(other=>{
      if(other!==video&&!other.paused)other.pause();
     });
+    // A distant UHD video can be slow; no preload before explicit interaction.
+    // A timeout retains the possibility of opening the publisher page.
+    timeout=setTimeout(()=>fail(token),17000);
     video.src=video.dataset.cgFilmSrc;
     video.preload='metadata';
     video.load();
-    video.play().then(()=>{
-     panel.classList.add('is-playing');
-     if(error)error.hidden=true;
-    }).catch(()=>{
-     started=false;
-     video.removeAttribute('src');
-     video.load();
-     if(error)error.hidden=false;
-    });
+    const playing=video.play();
+    if(playing&&typeof playing.then==='function'){
+     playing.then(()=>{
+      if(token!==sequence||!started)return;
+      clearTimeout(timeout);
+      panel.classList.remove('is-loading');
+      panel.classList.add('is-playing');
+      launch.removeAttribute('aria-busy');
+      if(message)message.textContent='Voir la séquence';
+     }).catch(()=>fail(token));
+    }
    });
-   video.addEventListener('error',()=>{
-    started=false;
-    if(error)error.hidden=false;
-    panel.classList.remove('is-playing');
+   video.addEventListener('error',()=>{if(started)fail(sequence)});
+   document.addEventListener('visibilitychange',()=>{
+    if(document.hidden&&!video.paused)video.pause();
    });
   });
  }

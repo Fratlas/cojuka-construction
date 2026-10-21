@@ -147,6 +147,11 @@ $cojukaStockFilms=$cojukaStockFilms[$cojukaStockContext]??$cojukaStockFilms['hom
    </div>
    <p class="cg-real-film-intro-text">Au-delà des créations audiovisuelles, découvrez des séquences filmées sur de véritables sites industriels, chantiers et infrastructures.</p>
   </div>
+  <div class="cg-real-film-overview">
+   <span><i class="bi bi-collection-play" aria-hidden="true"></i> {{ count($cojukaStockFilms) }} vidéos documentaires</span>
+   <span><i class="bi bi-badge-hd" aria-hidden="true"></i> Full HD &amp; 4K</span>
+   <span><i class="bi bi-play-btn" aria-hidden="true"></i> Lecture sur demande</span>
+  </div>
   <div class="cg-real-film-grid cg-real-film-grid--{{ $cojukaStockContext }}">
    @foreach($cojukaStockFilms as $film)
    <article class="cg-real-film-card">
@@ -159,6 +164,7 @@ $cojukaStockFilms=$cojukaStockFilms[$cojukaStockContext]??$cojukaStockFilms['hom
       <span>Voir la séquence</span>
      </button>
      <span class="cg-real-film-category">{{ $film['category'] }}</span>
+     <span class="cg-real-film-quality">{{ preg_match('/(?:3840_2160|2160_3840)/', $film['src']) ? '4K' : 'HD' }}</span>
      <div class="cg-real-film-error" role="status" hidden>La vidéo n’est pas disponible ici. <a href="{{ $film['source'] }}" target="_blank" rel="noopener noreferrer">Ouvrir la source sur Pexels ↗</a></div>
     </div>
     <div class="cg-real-film-body">
@@ -219,6 +225,11 @@ html[data-cojuka-theme="dark"] body.cojuka-glass-public :is(.cg-real-film-intro-
 .cg-real-film-media.is-loading .cg-real-film-play{opacity:.8;animation:cg-real-film-wait 1.8s ease-in-out infinite}
 @keyframes cg-real-film-wait{50%{transform:scale(.9);opacity:.57}}
 @media(prefers-reduced-motion:reduce){.cg-real-film-media.is-loading .cg-real-film-play{animation:none!important}}
+.cg-real-film-overview{display:flex;align-items:center;flex-wrap:wrap;gap:9px 20px;margin:0 0 25px}
+.cg-real-film-overview span{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:750;color:#667487}
+.cg-real-film-overview i{font-size:15px;color:#65788d}
+.cg-real-film-quality{position:absolute;top:15px;right:15px;z-index:2;pointer-events:none;border:1px solid rgba(255,255,255,.4);border-radius:8px;background:rgba(14,24,38,.78);color:#fff;padding:6px 10px;letter-spacing:.08em;font:800 10px/1.2 system-ui,sans-serif}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cg-real-film-overview :is(span,i){color:#e0e7f0!important}
 </style>
 <script>
 (function(){

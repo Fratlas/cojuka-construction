@@ -233,9 +233,9 @@ $cojukaStockFilms=$cojukaStockFilms[$cojukaStockContext]??$cojukaStockFilms['hom
    <span><i class="bi bi-badge-hd" aria-hidden="true"></i> Full HD &amp; 4K</span>
    <span><i class="bi bi-play-btn" aria-hidden="true"></i> Lecture sur demande</span>
   </div>
-  <div class="cg-real-film-grid cg-real-film-grid--{{ $cojukaStockContext }}">
+  <div class="cg-real-film-grid cg-real-film-grid--{{ $cojukaStockContext }}" id="cg-film-grid-{{ $cojukaStockContext }}">
    @foreach($cojukaStockFilms as $film)
-   <article class="cg-real-film-card">
+   <article class="cg-real-film-card{{ !empty($film['vertical']) ? ' cg-real-film-card--portrait' : '' }}">
     <div class="cg-real-film-media" data-cg-film-player>
      <video playsinline muted controls preload="none" poster="{{ $film['poster'] }}"
       aria-label="Vidéo documentaire : {{ $film['title'] }}"
@@ -258,6 +258,12 @@ $cojukaStockFilms=$cojukaStockFilms[$cojukaStockContext]??$cojukaStockFilms['hom
    </article>
    @endforeach
   </div>
+  <button type="button" class="cg-real-film-more" hidden
+    aria-controls="cg-film-grid-{{ $cojukaStockContext }}" aria-expanded="false">
+    <i class="bi bi-collection-play" aria-hidden="true"></i>
+    <span>Afficher les autres vidéos</span>
+    <i class="bi bi-arrow-down" aria-hidden="true"></i>
+  </button>
   <p class="cg-real-film-notice"><i class="bi bi-info-circle" aria-hidden="true"></i>
    Vidéos de stock utilisées à titre d’illustration, sous <a href="https://www.pexels.com/license/" target="_blank" rel="noopener noreferrer">licence gratuite Pexels</a>.
    Les séquences ne représentent pas des chantiers ou sites miniers appartenant à COJUKA.
@@ -311,11 +317,40 @@ html[data-cojuka-theme="dark"] body.cojuka-glass-public :is(.cg-real-film-intro-
 .cg-real-film-overview i{font-size:15px;color:#65788d}
 .cg-real-film-quality{position:absolute;top:15px;right:15px;z-index:2;pointer-events:none;border:1px solid rgba(255,255,255,.4);border-radius:8px;background:rgba(14,24,38,.78);color:#fff;padding:6px 10px;letter-spacing:.08em;font:800 10px/1.2 system-ui,sans-serif}
 html[data-cojuka-theme="dark"] body.cojuka-glass-public .cg-real-film-overview :is(span,i){color:#e0e7f0!important}
+/* New clips are progressively revealed, rather than creating an endless page. */
+.cg-real-film-card[hidden],.cg-real-film-more[hidden]{display:none!important}
+.cg-real-film-card--portrait .cg-real-film-media video{object-fit:contain}
+.cg-real-film-more{display:flex;align-items:center;justify-content:center;gap:13px;
+ margin:30px auto 4px;padding:14px 24px;border:1px solid #bcc7d5;border-radius:99px;
+ background:#f7f9fc;color:#26374c;font-size:13px;font-weight:850;cursor:pointer;
+ transition:background .18s,border-color .18s,transform .18s}
+.cg-real-film-more:hover{background:#e6ebf2;border-color:#94a5b9;transform:translateY(-2px)}
+.cg-real-film-more:focus-visible{outline:3px solid #8c9fb4;outline-offset:3px}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cg-real-film-more{
+ background:#293649;color:#fff;border-color:#5d7085}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public .cg-real-film-more:hover{background:#43546a}
+@media(prefers-reduced-motion:reduce){.cg-real-film-more{transition:none!important}}
 </style>
 <script>
 (function(){
  'use strict';
  function init(){
+  // Keep the first six cards instantly visible; reveal the others on demand.
+  // With JavaScript disabled all 25 cards remain accessible.
+  document.querySelectorAll('[data-cg-real-film]').forEach(section=>{
+   const cards=Array.from(section.querySelectorAll('.cg-real-film-card'));
+   const expand=section.querySelector('.cg-real-film-more');
+   if(!expand||cards.length<=6)return;
+   cards.slice(6).forEach(card=>{card.hidden=true});
+   const label=expand.querySelector('span');
+   if(label)label.textContent='Afficher '+(cards.length-6)+' autres vidéos';
+   expand.hidden=false;
+   expand.addEventListener('click',()=>{
+    cards.slice(6).forEach(card=>{card.hidden=false});
+    expand.setAttribute('aria-expanded','true');
+    expand.hidden=true;
+   });
+  });
   document.querySelectorAll('[data-cg-film-player]').forEach(panel=>{
    const video=panel.querySelector('video[data-cg-film-src]');
    const launch=panel.querySelector('.cg-real-film-launch');

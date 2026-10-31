@@ -1,0 +1,162 @@
+/* COJUKA Gestion — responsive workspace for phones, tablets and desktops.
+ * Loaded after existing glass/admin/chart sheets. Do not alter entity
+ * permissions, form names, tables data or official COJUKA logo colours.
+ */
+body.cojuka-glass-admin{overflow-x:clip}
+body.cojuka-glass-admin .app-shell{min-width:0;max-width:100%}
+body.cojuka-glass-admin .workspace{min-width:0;width:100%;max-width:100%}
+body.cojuka-glass-admin .page-content{min-width:0;max-width:min(1540px,100%);overflow-wrap:break-word}
+body.cojuka-glass-admin .page-content .row>*{min-width:0}
+body.cojuka-glass-admin .page-content :is(.card,.modal-content,.alert,.cg-chart-panel){min-width:0}
+body.cojuka-glass-admin .page-content :is(p,h1,h2,h3,h4,small,span){overflow-wrap:break-word}
+body.cojuka-glass-admin .page-content :is(input,select,textarea){max-width:100%;min-width:0}
+body.cojuka-glass-admin .page-content input[type="file"]{width:100%;max-width:100%}
+body.cojuka-glass-admin .page-content .pagination{flex-wrap:wrap;gap:4px}
+body.cojuka-glass-admin .page-content .table-responsive{
+ max-width:100%;width:100%;overflow-x:auto;overflow-y:visible;
+ -webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;
+ scrollbar-width:thin;scrollbar-color:#9eacbd #ecf1f6;
+ border-radius:12px;
+}
+body.cojuka-glass-admin .page-content .table-responsive>table{width:max-content;min-width:100%;margin-bottom:0}
+body.cojuka-glass-admin .page-content .table-responsive th,
+body.cojuka-glass-admin .page-content .table-responsive td{vertical-align:middle}
+body.cojuka-glass-admin .page-content .table-responsive :is(.btn,select,input){max-width:none}
+body.cojuka-glass-admin .cg-table-scroll-label{
+ display:flex;align-items:center;gap:7px;color:#68798c;
+ font-size:11px;font-weight:700;letter-spacing:.01em;margin:0 0 9px;
+}
+body.cojuka-glass-admin .cg-table-scroll-label i{font-size:15px}
+body.cojuka-glass-admin .sidebar .cg-sidebar-close{display:none}
+body.cojuka-glass-admin .topbar .top-title{white-space:normal;line-height:1.27}
+body.cojuka-glass-admin .cg-chart-panel svg{max-width:100%}
+body.cojuka-glass-admin .modal-dialog{max-width:calc(100vw - 24px);margin-inline:auto}
+body.cojuka-glass-admin .modal-dialog .modal-content{overflow-wrap:anywhere}
+body.cojuka-glass-admin .modal-body .row{--bs-gutter-y:1rem}
+@media(max-width:1199.98px){
+ body.cojuka-glass-admin .page-content{padding-inline:clamp(17px,2.5vw,27px)}
+ body.cojuka-glass-admin .cg-analytics-grid{gap:16px}
+ body.cojuka-glass-admin .topbar{gap:10px}
+ body.cojuka-glass-admin .top-actions{gap:8px}
+}
+@media(max-width:900px){
+ body.cojuka-glass-admin.cg-admin-nav-open{overflow:hidden!important;touch-action:none}
+ body.cojuka-glass-admin .sidebar{
+  display:flex!important;position:fixed!important;inset:0 auto 0 0;
+  height:100vh;height:100dvh;max-height:100dvh;
+  width:min(86vw,318px)!important;max-width:318px;flex-basis:auto!important;
+  transform:translate3d(-105%,0,0);visibility:hidden;
+  transition:transform .25s ease,visibility .25s ease;
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  overscroll-behavior:contain;overflow-y:auto;
+  z-index:1051!important;
+  box-shadow:12px 0 36px rgba(9,19,34,.24);
+ }
+ body.cojuka-glass-admin .sidebar.open{
+  transform:translate3d(0,0,0);visibility:visible;
+ }
+ body.cojuka-glass-admin .sidebar .cg-sidebar-close{
+  display:inline-grid;place-items:center;flex:0 0 40px;
+  height:40px;width:40px;padding:0;margin-left:auto;border-radius:11px;
+  color:#fff;background:#ffffff13;border:1px solid #ffffff32;
+ }
+ body.cojuka-glass-admin .sidebar .brand{position:relative;gap:7px;padding:18px 12px;min-height:95px}
+ body.cojuka-glass-admin .sidebar .brand .cojuka-brand-logo{width:56px!important;max-width:56px!important;height:56px!important;max-height:56px!important}
+ body.cojuka-glass-admin .sidebar .brand .brand-name{font-size:10px;letter-spacing:0}
+ body.cojuka-glass-admin .sidebar .side-link{min-height:46px;margin-block:3px}
+ body.cojuka-glass-admin .mobile-overlay.show{
+  display:block!important;position:fixed;inset:0;background:rgba(10,18,31,.66);
+  z-index:1050!important;backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+ }
+ body.cojuka-glass-admin .mobile-toggle{
+  display:inline-flex!important;align-items:center;justify-content:center;
+  flex:0 0 44px;min-height:44px;width:44px;padding:7px;
+  border:1px solid #dde4ed!important;border-radius:12px;
+ }
+ body.cojuka-glass-admin .topbar{
+  height:auto!important;min-height:67px!important;
+  padding:10px clamp(12px,3vw,24px)!important;
+  gap:8px;position:sticky;top:0;z-index:1020!important;
+ }
+ body.cojuka-glass-admin .topbar>div:first-child{min-width:0;gap:10px!important}
+ body.cojuka-glass-admin .topbar>div:first-child>div{min-width:0}
+ body.cojuka-glass-admin .topbar .top-eyebrow{font-size:9px;line-height:1.2}
+ body.cojuka-glass-admin .topbar .top-title{font-size:clamp(13px,2.8vw,17px);max-width:100%;overflow-wrap:anywhere}
+ body.cojuka-glass-admin .topbar .top-actions{flex:none;gap:7px}
+ body.cojuka-glass-admin .topbar .avatar{height:35px;width:35px;flex:none}
+ body.cojuka-glass-admin .page-content{
+  padding:clamp(17px,2.7vw,25px) clamp(13px,3.1vw,23px) 35px!important;
+  max-width:100%;
+ }
+}
+@media(max-width:767.98px){
+ body.cojuka-glass-admin .page-content>.d-flex:has(h1),
+ body.cojuka-glass-admin .page-content>.d-flex:has(.h2){
+  flex-direction:column;align-items:stretch!important;gap:14px!important;
+ }
+ body.cojuka-glass-admin .page-content>.d-flex:has(h1)>:first-child,
+ body.cojuka-glass-admin .page-content>.d-flex:has(.h2)>:first-child{min-width:0}
+ body.cojuka-glass-admin .page-content>.d-flex:has(h1)>:is(.d-flex,.btn),
+ body.cojuka-glass-admin .page-content>.d-flex:has(.h2)>:is(.d-flex,.btn){width:100%;min-width:0}
+ body.cojuka-glass-admin .page-content>.d-flex:has(h1)>.d-flex,
+ body.cojuka-glass-admin .page-content>.d-flex:has(.h2)>.d-flex{
+  flex-wrap:wrap!important;gap:8px!important;
+ }
+ body.cojuka-glass-admin .page-content>.d-flex:has(h1)>.d-flex>*,
+ body.cojuka-glass-admin .page-content>.d-flex:has(.h2)>.d-flex>*{
+  flex:1 1 145px;min-height:44px;white-space:normal;text-align:center;
+ }
+ body.cojuka-glass-admin .page-content>.d-flex:has(h1)>.btn,
+ body.cojuka-glass-admin .page-content>.d-flex:has(.h2)>.btn{white-space:normal}
+ body.cojuka-glass-admin .page-content h1{font-size:clamp(23px,5.8vw,32px)!important;line-height:1.19}
+ body.cojuka-glass-admin .page-content h2{font-size:clamp(18px,4.6vw,25px)!important}
+ body.cojuka-glass-admin .page-content .card.p-4,
+ body.cojuka-glass-admin .page-content .card.p-3,
+ body.cojuka-glass-admin .page-content .card.p-md-4{padding:clamp(14px,3.2vw,19px)!important}
+ body.cojuka-glass-admin .page-content .btn{min-height:44px;max-width:100%;white-space:normal}
+ body.cojuka-glass-admin .page-content .form-control,
+ body.cojuka-glass-admin .page-content .form-select,
+ body.cojuka-glass-admin .modal-body .form-control,
+ body.cojuka-glass-admin .modal-body .form-select{
+  min-height:44px;font-size:16px!important;/* avoid iOS input zoom */
+ }
+ body.cojuka-glass-admin .page-content .table-responsive>table{min-width:max(620px,100%)}
+ body.cojuka-glass-admin .page-content .table-responsive table th,
+ body.cojuka-glass-admin .page-content .table-responsive table td{padding:12px 13px}
+ body.cojuka-glass-admin .page-content .table-responsive .btn{min-height:38px;white-space:nowrap}
+ body.cojuka-glass-admin .page-content .table-responsive .d-flex{flex-wrap:wrap;gap:6px!important}
+ body.cojuka-glass-admin .cg-donut-wrap{flex-wrap:wrap}
+ body.cojuka-glass-admin .cg-analytics-grid{grid-template-columns:minmax(0,1fr)}
+ body.cojuka-glass-admin .cg-chart-panel{min-height:0}
+ body.cojuka-glass-admin .modal-dialog{
+  margin:10px auto;max-width:calc(100vw - 20px);
+  max-height:calc(100dvh - 20px);
+ }
+ body.cojuka-glass-admin .modal-content{max-height:calc(100dvh - 20px);overflow:hidden}
+ body.cojuka-glass-admin .modal-body{overflow-y:auto;min-height:0;overscroll-behavior:contain}
+ body.cojuka-glass-admin .modal-header{flex-shrink:0}
+ body.cojuka-glass-admin .modal-footer{flex-shrink:0;gap:8px}
+ body.cojuka-glass-admin .modal-footer .btn{flex:1 1 130px;white-space:normal}
+ body.cojuka-glass-admin .page-content .pagination .page-link{min-width:38px;text-align:center}
+}
+@media(max-width:479.98px){
+ body.cojuka-glass-admin .topbar .top-eyebrow{display:none}
+ body.cojuka-glass-admin .topbar .top-title{font-size:clamp(12px,3.7vw,15px)}
+ body.cojuka-glass-admin .topbar .avatar{width:33px;height:33px;border-radius:10px}
+ body.cojuka-glass-admin .page-content .cg-chart-panel{padding:15px!important}
+ body.cojuka-glass-admin .cg-donut-wrap{flex-direction:column;align-items:stretch}
+ body.cojuka-glass-admin .cg-donut{width:min(190px,65vw);flex:none;align-self:center}
+ body.cojuka-glass-admin .cg-chart-legend{width:100%}
+ body.cojuka-glass-admin .cg-suite-status .cg-bar-list{grid-template-columns:1fr}
+ body.cojuka-glass-admin .page-content :is(.col-6,.col-sm-6)> .card .h2{overflow-wrap:anywhere}
+ body.cojuka-glass-admin .page-content footer{font-size:11px}
+}
+@media(max-width:340px){
+ body.cojuka-glass-admin .topbar .top-title{font-size:12px}
+ body.cojuka-glass-admin .topbar .avatar{display:none}
+ body.cojuka-glass-admin .page-content{padding-inline:11px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ body.cojuka-glass-admin .sidebar{transition:none!important}
+}

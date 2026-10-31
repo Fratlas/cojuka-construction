@@ -111,12 +111,13 @@ body{font-size:15px;line-height:1.55}
 @include('partials.cojuka-design')
 <link rel="stylesheet" href="{{ asset('css/cojuka-glass.css') }}?v=20261018-admin-crystal-06">
 <link rel="stylesheet" href="{{ asset('css/cojuka-management-charts.css') }}?v=20261018-charts-01">
+<link rel="stylesheet" href="{{ asset('css/cojuka-admin-mobile.css') }}?v=20261031-mobile-01">
 </head>
 <body class="cojuka-glass cojuka-glass-admin">
-<div id="mobileOverlay" class="mobile-overlay"></div>
+<div id="mobileOverlay" class="mobile-overlay" aria-hidden="true"></div>
 <div class="app-shell">
 <aside id="sideNav" class="sidebar" aria-label="Navigation de gestion">
- <div class="brand"><img class="cojuka-brand-logo cojuka-brand-logo--small" src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018-color-gestion" alt="COJUKA Consulting Group — logo officiel en couleurs" width="1254" height="1254" decoding="async"><div><div class="brand-name">COJUKA<br>CONSULTING<br>GROUP</div><div class="brand-caption">EXECUTIVE SUITE</div></div></div>
+ <div class="brand"><img class="cojuka-brand-logo cojuka-brand-logo--small" src="{{ asset('images/cojuka-welcome-final.avif') }}?v=20261018-color-gestion" alt="COJUKA Consulting Group — logo officiel en couleurs" width="1254" height="1254" decoding="async"><div><div class="brand-name">COJUKA<br>CONSULTING<br>GROUP</div><div class="brand-caption">EXECUTIVE SUITE</div></div><button type="button" id="cgSidebarClose" class="cg-sidebar-close" aria-label="Fermer le menu de gestion" hidden><i class="bi bi-x-lg" aria-hidden="true"></i></button></div>
  <div class="nav-caption">Vue générale</div>
  <a class="side-link {{ request()->routeIs('gestion.group.dashboard') ? 'active' : '' }}" href="{{ route('gestion.group.dashboard') }}"><i class="bi bi-grid-1x2"></i> Tableau de bord</a>
  <a class="side-link" href="{{ route('gestion.group.dashboard') }}#gestion-graphiques"><i class="bi bi-bar-chart-line"></i> Analyses &amp; graphiques</a>
@@ -155,7 +156,7 @@ body{font-size:15px;line-height:1.55}
 <div class="workspace">
 <header class="topbar">
  <div class="d-flex align-items-center gap-3">
-  <button class="btn btn-light mobile-toggle" id="menuToggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false"><i class="bi bi-list fs-5"></i></button>
+  <button class="btn btn-light mobile-toggle" id="menuToggle" type="button" aria-label="Ouvrir le menu de gestion" aria-controls="sideNav" aria-expanded="false"><i class="bi bi-list fs-5"></i></button>
   <div><div class="top-eyebrow">COJUKA / Gestion stratégique</div><div class="top-title">@yield('title', 'Tableau de bord')</div></div>
  </div>
  <div class="top-actions">
@@ -178,14 +179,7 @@ body{font-size:15px;line-height:1.55}
 </div>
 @include('partials.cojuka-ai-assistant')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-(function(){
- const toggle=document.getElementById('menuToggle'),sidebar=document.getElementById('sideNav'),overlay=document.getElementById('mobileOverlay');
- function close(){sidebar.classList.remove('open');overlay.classList.remove('show');toggle.setAttribute('aria-expanded','false')}
- toggle.addEventListener('click',()=>{const open=sidebar.classList.toggle('open');overlay.classList.toggle('show',open);toggle.setAttribute('aria-expanded',open?'true':'false')});
- overlay.addEventListener('click',close);document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
-})();
-</script>
+<script defer src="{{ asset('js/cojuka-admin-mobile.js') }}?v=20261031-mobile-01"></script>
 @yield('page_scripts')
 <script defer src="{{ asset('js/cojuka-glow.js') }}?v=20261018-aurora-01"></script>
 </body>

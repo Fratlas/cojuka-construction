@@ -10,6 +10,8 @@ class CojukaRealtimeController
  public function connect(Request $request)
  {
   $data=$request->validate(['sdp'=>'required|string|max:20000']);
+  // Laravel trims input strings, which drops the final CRLF that SDP parsers require.
+  $sdp=preg_replace("/\r?\n/","\r\n",trim($data['sdp']))."\r\n";
   $key=config('cojuka.openai.key');
   if(!$key)return response()->json(['error'=>'Configuration OpenAI manquante.'],503);
   $user=$request->user();
@@ -28,7 +30,7 @@ class CojukaRealtimeController
    // Plain form fields, as in OpenAI's FormData example (no file parts).
    $response=Http::withToken($key)->timeout(25)->asMultipart()
     ->post('https://api.openai.com/v1/realtime/calls',[
-     ['name'=>'sdp','contents'=>$data['sdp']],
+     ['name'=>'sdp','contents'=>$sdp],
      ['name'=>'session','contents'=>json_encode($session,JSON_UNESCAPED_UNICODE)],
     ]);
    if(!$response->successful()){

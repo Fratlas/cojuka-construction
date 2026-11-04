@@ -1,0 +1,99 @@
+/* COJUKA / Polish 2026 — couleur de marque, micro-animations, transitions.
+   Chargé en dernier sur le site public. Tout reste visible sans JavaScript,
+   et les animations s'arrêtent si le visiteur a demandé moins de mouvement. */
+:root{
+ --cx-wine:#86212e;--cx-wine-2:#a52d41;--cx-gold:#b88a55;--cx-ink:#151b28;
+ --cx-ease:cubic-bezier(.22,1,.36,1);--cx-fast:.22s;--cx-mid:.45s;
+ --cx-brand-grad:linear-gradient(100deg,#86212e 0%,#a52d41 45%,#b88a55 100%);
+ --cx-shadow-1:0 1px 2px rgba(16,24,40,.05),0 8px 24px -12px rgba(16,24,40,.14);
+ --cx-shadow-2:0 2px 6px rgba(16,24,40,.06),0 24px 48px -20px rgba(16,24,40,.28);
+}
+html[data-cojuka-theme="dark"]{--cx-shadow-1:0 1px 2px #0006,0 8px 24px -12px #000a;--cx-shadow-2:0 2px 6px #0007,0 24px 48px -18px #000c}
+
+/* ---------- Mobile : plus de débordement horizontal ---------- */
+@media(max-width:767.98px){
+ body.cojuka-glass-public main .row.g-5{--bs-gutter-x:1.5rem}
+}
+
+/* ---------- Page : entrée douce ---------- */
+@keyframes cx-page-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+body.cojuka-glass-public main{animation:cx-page-in .6s var(--cx-ease) both}
+
+/* ---------- Rideau de transition entre pages (couleur de marque) ---------- */
+html body #cojuka-page-curtain{background:var(--cx-ink)}
+html body #cojuka-page-curtain::before{
+ content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--cx-brand-grad);
+ transform-origin:left;animation:cx-curtain-bar 1s var(--cx-ease) infinite
+}
+@keyframes cx-curtain-bar{0%{transform:scaleX(0)}60%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+
+/* ---------- Barre de lecture ---------- */
+body.cojuka-glass-public .progress-line{background:var(--cx-brand-grad)!important;height:3px}
+
+/* ---------- Navigation : ombre au défilement + soulignement animé ---------- */
+body.cojuka-glass-public .cojuka-global-nav{transition:box-shadow var(--cx-mid) var(--cx-ease),background-color var(--cx-mid) var(--cx-ease)}
+body.cx-scrolled .cojuka-global-nav{box-shadow:0 10px 30px -18px rgba(16,24,40,.35)!important}
+@media(min-width:1400px){
+ body.cojuka-glass-public .cojuka-global-nav .nav-link:not(.nav-contact):not(.dropdown-toggle){position:relative}
+ body.cojuka-glass-public .cojuka-global-nav .nav-link:not(.nav-contact):not(.dropdown-toggle)::after{
+  content:"";position:absolute;left:.35rem;right:.35rem;bottom:.3rem;height:2px;border-radius:2px;
+  background:var(--cx-brand-grad);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--cx-ease)
+ }
+ body.cojuka-glass-public .cojuka-global-nav .nav-link:not(.nav-contact):not(.dropdown-toggle):is(:hover,:focus-visible,.active)::after{transform:scaleX(1)}
+}
+
+/* ---------- Titres : accent de marque sur la seconde partie ---------- */
+html:not([data-cojuka-theme="dark"]) body.cojuka-glass-public :is(#cg-photo-marquee-title,.cg-real-film-section h2) :is(span,em){
+ background:var(--cx-brand-grad);-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent
+}
+html[data-cojuka-theme="dark"] body.cojuka-glass-public :is(#cg-photo-marquee-title,.cg-real-film-section h2) :is(span,em){
+ background:linear-gradient(100deg,#f1c9cf,#e7c79d);-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent
+}
+body.cojuka-glass-public :is(.cg-kicker-line,.cg-real-film-rule){background:var(--cx-brand-grad)!important}
+body.cojuka-glass-public :is(.section-kicker,.eyebrow)::before{
+ content:"";display:inline-block;vertical-align:middle;width:22px;height:2px;margin-right:10px;border-radius:2px;background:var(--cx-brand-grad)
+}
+body.cojuka-glass-public .hero :is(.section-kicker,.eyebrow)::before{background:#fff}
+
+/* ---------- Boutons : relief et flèche qui avance ---------- */
+body.cojuka-glass-public :is(.btn,.btn-pill){transition:transform var(--cx-fast) var(--cx-ease),box-shadow var(--cx-fast) var(--cx-ease),background-color var(--cx-fast),color var(--cx-fast),border-color var(--cx-fast)}
+body.cojuka-glass-public :is(.btn,.btn-pill):hover{transform:translateY(-2px);box-shadow:var(--cx-shadow-1)}
+body.cojuka-glass-public :is(.btn,.btn-pill):active{transform:translateY(0) scale(.98);transition-duration:.08s}
+body.cojuka-glass-public a :is(.bi-arrow-up-right,.bi-arrow-right,.bi-chevron-right){display:inline-block;transition:transform .3s var(--cx-ease)}
+body.cojuka-glass-public a:hover :is(.bi-arrow-up-right){transform:translate(3px,-3px)}
+body.cojuka-glass-public a:hover :is(.bi-arrow-right,.bi-chevron-right){transform:translateX(4px)}
+
+/* ---------- Cartes : élévation et zoom photo ---------- */
+body.cojuka-glass-public :is(.service-card,.model-card,.cg-real-film-card,.cg-marquee-tile,.cojuka-atlas-photo,.card){
+ transition:transform .5s var(--cx-ease),box-shadow .5s var(--cx-ease),border-color .3s
+}
+@media(hover:hover){
+ body.cojuka-glass-public :is(.service-card,.model-card,.cg-real-film-card,.card):hover{transform:translateY(-6px);box-shadow:var(--cx-shadow-2)}
+ body.cojuka-glass-public .cg-marquee-tile:hover{transform:translateY(-8px)}
+ body.cojuka-glass-public :is(.service-card,.model-card,.cg-marquee-tile,.cojuka-atlas-photo,.cojuka-entity-panel,.cg-real-film-media) img{transition:transform 1.1s var(--cx-ease),filter .6s}
+ body.cojuka-glass-public :is(.service-card,.model-card,.cg-marquee-tile,.cojuka-atlas-photo,.cg-real-film-card):hover img{transform:scale(1.06)}
+}
+body.cojuka-glass-public :is(.service-img,.cg-real-film-media,.cojuka-atlas-photo,.photo-showcase-media){overflow:hidden}
+
+/* ---------- Apparition au défilement (ajoutée par cojuka-polish.js) ---------- */
+.cx-js .cx-reveal{opacity:0;transform:translateY(22px);transition:opacity .8s var(--cx-ease),transform .8s var(--cx-ease);transition-delay:var(--cx-delay,0s)}
+.cx-js .cx-reveal.cx-in{opacity:1;transform:none}
+
+/* ---------- Bannière cookies : l'assistant ne la recouvre plus ---------- */
+body:has(.cg-cookie-banner:not([hidden])) :is(#cojuka-ai-launch,#cojuka-guide-suggestion,#cojuka-back-to-top){
+ opacity:0!important;pointer-events:none!important;transform:translateY(12px)!important
+}
+.cg-cookie-banner:not([hidden]){animation:cx-pop-in .5s var(--cx-ease) both}
+@keyframes cx-pop-in{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+
+/* ---------- Divers ---------- */
+body.cojuka-glass-public ::selection{background:var(--cx-wine);color:#fff}
+@supports(scrollbar-color:auto){html{scrollbar-color:#b9bfc8 transparent}}
+
+@media(prefers-reduced-motion:reduce){
+ body.cojuka-glass-public main,.cg-cookie-banner:not([hidden]){animation:none!important}
+ html body #cojuka-page-curtain::before{animation:none}
+ .cx-js .cx-reveal{opacity:1!important;transform:none!important;transition:none!important}
+ body.cojuka-glass-public :is(.btn,.btn-pill,.service-card,.model-card,.cg-real-film-card,.cg-marquee-tile,.card):hover{transform:none!important}
+ body.cojuka-glass-public :is(.service-card,.model-card,.cg-marquee-tile,.cojuka-atlas-photo,.cg-real-film-card):hover img{transform:none!important}
+}

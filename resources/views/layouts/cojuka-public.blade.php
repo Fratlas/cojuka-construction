@@ -44,6 +44,7 @@
 <link rel="stylesheet" href="{{ asset('css/cojuka-spacing.css') }}?v=20261018-rhythm-01">
 <link rel="stylesheet" href="{{ asset('css/cojuka-experience.css') }}?v=20261020-premium-01">
 <link rel="stylesheet" href="{{ asset('css/cojuka-media-clarity.css') }}?v=20261021-clear-media-01">
+<link rel="stylesheet" href="{{ asset('css/cojuka-polish.css') }}?v=20261104-polish-01">
 </head>
 <body class="cojuka-glass cojuka-glass-public">
 <a class="cojuka-skip" href="#cojuka-main-start">Aller au contenu principal <i class="bi bi-arrow-down" aria-hidden="true"></i></a>
@@ -62,5 +63,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 @yield('page_scripts')
 <script defer src="{{ asset('js/cojuka-glow.js') }}?v=20261018-aurora-01"></script>
+<script defer src="{{ asset('js/cojuka-polish.js') }}?v=20261104-polish-01"></script>
 </body>
 </html>

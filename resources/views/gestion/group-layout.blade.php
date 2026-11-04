@@ -112,6 +112,7 @@ body{font-size:15px;line-height:1.55}
 <link rel="stylesheet" href="{{ asset('css/cojuka-glass.css') }}?v=20261018-admin-crystal-06">
 <link rel="stylesheet" href="{{ asset('css/cojuka-management-charts.css') }}?v=20261018-charts-01">
 <link rel="stylesheet" href="{{ asset('css/cojuka-admin-mobile.css') }}?v=20261031-mobile-01">
+<link rel="stylesheet" href="{{ asset('css/cojuka-admin-polish.css') }}?v=20261104-polish-01">
 </head>
 <body class="cojuka-glass cojuka-glass-admin">
 <div id="mobileOverlay" class="mobile-overlay" aria-hidden="true"></div>
@@ -182,5 +183,6 @@ body{font-size:15px;line-height:1.55}
 <script defer src="{{ asset('js/cojuka-admin-mobile.js') }}?v=20261031-mobile-01"></script>
 @yield('page_scripts')
 <script defer src="{{ asset('js/cojuka-glow.js') }}?v=20261018-aurora-01"></script>
+<script defer src="{{ asset('js/cojuka-admin-polish.js') }}?v=20261104-polish-01"></script>
 </body>
 </html>

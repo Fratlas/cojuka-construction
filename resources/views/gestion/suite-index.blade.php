@@ -17,7 +17,7 @@
 @if($module==='rh')
 <div class="row g-3 mb-4">
  @foreach([['Effectif enregistré',$hrStats['total']??0],['Personnel actif',$hrStats['active']??0],['En congé',$hrStats['leave']??0],['Contrats à échéance (30 jours)',$hrStats['contract_ends_soon']??0]] as $metric)
- <div class="col-6 col-xl-3"><div class="card border-0 shadow-sm p-3 h-100"><span class="small text-secondary">{{ $metric[0] }}</span><div class="h2 fw-bold mt-2 mb-0">{{ $metric[1] }}</div></div></div>
+ <div class="col-6 col-xl-3"><div class="card border-0 shadow-sm p-3 h-100 cx-kpi"><span class="small text-secondary">{{ $metric[0] }}</span><div class="h2 fw-bold mt-2 mb-0" @if(is_numeric($metric[1])) data-cx-count="{{ (int) $metric[1] }}" @endif>{{ $metric[1] }}</div></div></div>
  @endforeach
 </div>
 <div class="alert alert-light border mb-4">Gestion du personnel : matricules, affectations, contrats, congés et qualifications. Le bouton « Documents » permet de joindre facultativement un contrat, diplôme, attestation ou scan d’identité dans un espace privé. Évitez toute information médicale sensible dans les observations.</div>

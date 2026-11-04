@@ -1,0 +1,98 @@
+/* COJUKA / Gestion — Polish 2026.
+   Couleur de marque, cartes de chiffres lisibles, tableaux plus clairs, transitions douces.
+   Chargé en dernier dans l'espace de gestion. */
+:root{
+ --cx-wine:#86212e;--cx-wine-2:#a52d41;--cx-gold:#b88a55;
+ --cx-ease:cubic-bezier(.22,1,.36,1);
+ --cx-brand-grad:linear-gradient(100deg,#86212e 0%,#a52d41 45%,#b88a55 100%);
+ --cx-surface:#ffffff;--cx-line:#e6e9ef;--cx-ink:#142139;--cx-muted:#667085;
+ --cx-shadow-1:0 1px 2px rgba(16,24,40,.05),0 10px 26px -16px rgba(16,24,40,.22);
+ --cx-shadow-2:0 2px 6px rgba(16,24,40,.06),0 26px 50px -24px rgba(16,24,40,.32);
+}
+
+/* ---------- Entrée de page : contenu en cascade ---------- */
+@keyframes cx-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+body.cojuka-glass-admin .page-content>*{animation:cx-rise .55s var(--cx-ease) both}
+body.cojuka-glass-admin .page-content>*:nth-child(2){animation-delay:.05s}
+body.cojuka-glass-admin .page-content>*:nth-child(3){animation-delay:.1s}
+body.cojuka-glass-admin .page-content>*:nth-child(4){animation-delay:.15s}
+body.cojuka-glass-admin .page-content>*:nth-child(5){animation-delay:.2s}
+body.cojuka-glass-admin .page-content>*:nth-child(n+6){animation-delay:.25s}
+
+/* ---------- Barre latérale ---------- */
+body.cojuka-glass-admin .sidebar{background:linear-gradient(180deg,#121c2d 0%,#0e1624 100%)!important}
+body.cojuka-glass-admin .sidebar .nav-caption{color:#8494aa}
+body.cojuka-glass-admin .side-link{position:relative;transition:background-color .25s var(--cx-ease),color .25s,transform .25s var(--cx-ease)}
+body.cojuka-glass-admin .side-link i{transition:transform .3s var(--cx-ease),color .25s}
+body.cojuka-glass-admin .side-link:hover i{transform:scale(1.12);color:#e7c79d}
+body.cojuka-glass-admin .sidebar .side-link.active{
+ background:linear-gradient(90deg,rgba(165,45,65,.38),rgba(165,45,65,.08))!important;color:#fff!important;
+ border-color:rgba(208,72,94,.45)!important;box-shadow:inset 3px 0 0 #d0485e,0 8px 22px -12px rgba(165,45,65,.6)!important
+}
+body.cojuka-glass-admin .sidebar .side-link.active i{color:#f3c4cc!important}
+
+/* ---------- Barre du haut ---------- */
+body.cojuka-glass-admin .topbar{position:sticky;top:0;z-index:1020;backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px)}
+body.cojuka-glass-admin .topbar::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--cx-brand-grad);opacity:.85;transform-origin:left;animation:cx-bar 1s var(--cx-ease) both}
+@keyframes cx-bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* ---------- Titre de page ---------- */
+body.cojuka-glass-admin .page-content>div:first-child .text-uppercase.small{color:var(--cx-wine)!important;letter-spacing:.08em}
+
+/* ---------- Cartes de chiffres ---------- */
+body.cojuka-glass-admin .cx-kpi{position:relative;overflow:hidden;transition:transform .35s var(--cx-ease),box-shadow .35s var(--cx-ease)}
+body.cojuka-glass-admin .cx-kpi::before{content:"";position:absolute;left:0;top:0;right:0;height:3px;background:var(--cx-brand-grad);transform:scaleX(.18);transform-origin:left;transition:transform .5s var(--cx-ease)}
+body.cojuka-glass-admin a:hover>.cx-kpi,body.cojuka-glass-admin a:focus-visible>.cx-kpi{transform:translateY(-4px);box-shadow:var(--cx-shadow-2)!important}
+body.cojuka-glass-admin a:hover>.cx-kpi::before,body.cojuka-glass-admin a:focus-visible>.cx-kpi::before{transform:scaleX(1)}
+body.cojuka-glass-admin .cx-kpi [data-cx-count]{font-variant-numeric:tabular-nums;color:var(--cx-ink);letter-spacing:-.04em}
+body.cojuka-glass-admin .cx-kpi-icon{
+ flex:0 0 auto;display:inline-grid;place-items:center;width:42px;height:42px;border-radius:13px;font-size:19px;
+ color:var(--cx-wine);background:linear-gradient(140deg,rgba(165,45,65,.12),rgba(184,138,85,.16));
+ transition:transform .4s var(--cx-ease)
+}
+body.cojuka-glass-admin .cx-kpi-icon--sm{width:32px;height:32px;border-radius:10px;font-size:15px}
+body.cojuka-glass-admin a:hover>.cx-kpi .cx-kpi-icon{transform:rotate(-6deg) scale(1.08)}
+body.cojuka-glass-admin .cx-kpi .text-primary{font-weight:700}
+body.cojuka-glass-admin .card{transition:box-shadow .3s var(--cx-ease),transform .3s var(--cx-ease)}
+
+/* ---------- Boutons ---------- */
+body.cojuka-glass-admin .btn{transition:transform .2s var(--cx-ease),box-shadow .2s var(--cx-ease),background-color .2s,color .2s,border-color .2s}
+body.cojuka-glass-admin .btn:hover{transform:translateY(-1px)}
+body.cojuka-glass-admin .btn:active{transform:scale(.98);transition-duration:.08s}
+body.cojuka-glass-admin .btn-dark{background:linear-gradient(135deg,#1a2436,#0f1726)!important;border-color:#0f1726!important}
+body.cojuka-glass-admin .btn-dark:hover{box-shadow:0 10px 22px -12px rgba(15,23,38,.7)}
+body.cojuka-glass-admin .btn-primary{background:linear-gradient(135deg,var(--cx-wine-2),var(--cx-wine))!important;border-color:var(--cx-wine)!important}
+
+/* ---------- Formulaires ---------- */
+body.cojuka-glass-admin :is(.form-control,.form-select){border-radius:12px;transition:border-color .2s,box-shadow .2s}
+body.cojuka-glass-admin :is(.form-control,.form-select):focus{border-color:#c77a87!important;box-shadow:0 0 0 4px rgba(165,45,65,.14)!important}
+
+/* ---------- Tableaux ---------- */
+body.cojuka-glass-admin .table thead th{position:sticky;top:0;z-index:1;background:#f7f8fb!important;color:#5b6577;text-transform:uppercase;letter-spacing:.06em;font-weight:800;border-bottom:1px solid var(--cx-line)!important}
+body.cojuka-glass-admin .table tbody tr{transition:background-color .18s}
+body.cojuka-glass-admin .table tbody tr:hover>*{background:#fbf5f6!important}
+body.cojuka-glass-admin .table tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--cx-wine-2)}
+
+/* ---------- Badges de statut (couleur ajoutée par cojuka-admin-polish.js) ---------- */
+body.cojuka-glass-admin .badge{border-radius:999px;padding:.42em .8em;font-weight:700;letter-spacing:.01em}
+body.cojuka-glass-admin .badge.cx-tone-ok{background:#e7f6ee!important;color:#146c43!important}
+body.cojuka-glass-admin .badge.cx-tone-run{background:#e8f0fe!important;color:#1d4ed8!important}
+body.cojuka-glass-admin .badge.cx-tone-wait{background:#fff4e0!important;color:#9a5b00!important}
+body.cojuka-glass-admin .badge.cx-tone-stop{background:#fdecee!important;color:#a52d41!important}
+body.cojuka-glass-admin .badge.cx-tone-neutral{background:#eef1f5!important;color:#475467!important}
+
+/* ---------- États vides et modales ---------- */
+body.cojuka-glass-admin .modal.fade .modal-dialog{transform:translateY(18px) scale(.98);transition:transform .35s var(--cx-ease)}
+body.cojuka-glass-admin .modal.show .modal-dialog{transform:none}
+body.cojuka-glass-admin .modal-content{border-radius:20px!important;border:0!important;box-shadow:0 40px 80px -30px rgba(15,23,38,.45)!important}
+body.cojuka-glass-admin .alert{border-radius:14px}
+
+/* ---------- Mode sombre du système (si le thème du site l'active) ---------- */
+html[data-cojuka-theme="dark"] body.cojuka-glass-admin .table thead th{background:#1a2333!important;color:#aab4c4}
+html[data-cojuka-theme="dark"] body.cojuka-glass-admin .table tbody tr:hover>*{background:#232b3b!important}
+html[data-cojuka-theme="dark"] body.cojuka-glass-admin .cx-kpi [data-cx-count]{color:#f1f4f8}
+
+@media(prefers-reduced-motion:reduce){
+ body.cojuka-glass-admin .page-content>*,body.cojuka-glass-admin .topbar::after{animation:none!important}
+ body.cojuka-glass-admin :is(.cx-kpi,.btn,.side-link,.cx-kpi-icon){transition:none!important;transform:none!important}
+}

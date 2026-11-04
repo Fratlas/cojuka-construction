@@ -242,6 +242,46 @@ body.cojuka-glass-public .cx-page .cx-scrolly .cx-stage{flex:1 1 auto;height:aut
  .cx-scrolly .cx-timeline .cx-card .cx-chap-desc{display:none}
 }
 @media(prefers-reduced-motion:reduce){.cx-scroll-hint i{animation:none}}
+
+/* ===== Mode cinéma : plein écran au défilement, rideau entre scènes, titre de chapitre ===== */
+.cx-scrolly .cx-sticky{width:100vw;margin-left:calc(50% - 50vw);padding:0;gap:0}
+body.cojuka-glass-public .cx-page .cx-scrolly .cx-stage{
+ --z:1;border:0!important;border-radius:0!important;box-shadow:none!important;
+ clip-path:inset(calc((1 - var(--z)) * 22px) calc((1 - var(--z)) * clamp(16px,3.4vw,56px)) calc((1 - var(--z)) * 6px) round calc((1 - var(--z)) * 26px));
+ will-change:clip-path
+}
+.cx-scrolly .cx-stage-top{left:clamp(20px,4vw,64px);right:clamp(20px,4vw,64px)}
+.cx-scrolly .cx-segments{left:clamp(20px,4vw,64px);right:clamp(20px,4vw,64px)}
+.cx-page .cx-stage-count,.cx-page .cx-stage-label{text-shadow:0 1px 3px rgba(0,0,0,.8),0 0 18px rgba(0,0,0,.6)!important;color:#fff!important}
+.cx-scrolly .cx-timeline{padding:12px clamp(16px,3.4vw,56px) 14px;background:linear-gradient(180deg,#0d141f,#111822)}
+/* Rideau : la scène entrante se dévoile dans le sens du défilement */
+.cx-scrolly .cx-stage video{transition:opacity 0s .95s!important}
+.cx-scrolly .cx-stage video.cx-active{transition:none!important;animation:cx-curtain-down .95s cubic-bezier(.77,0,.18,1) both}
+.cx-scrolly .cx-stage[data-dir="up"] video.cx-active{animation-name:cx-curtain-up}
+@keyframes cx-curtain-down{from{clip-path:inset(100% 0 0 0);transform:scale(1.12)}to{clip-path:inset(0 0 0 0);transform:scale(1)}}
+@keyframes cx-curtain-up{from{clip-path:inset(0 0 100% 0);transform:scale(1.12)}to{clip-path:inset(0 0 0 0);transform:scale(1)}}
+/* Titre de chapitre géant, éphémère */
+.cx-chapter{position:absolute;z-index:7;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 clamp(22px,6vw,110px);pointer-events:none;opacity:0}
+.cx-chapter b{display:block;font-size:clamp(70px,14vw,230px);line-height:.85;font-weight:800;letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.85);text-shadow:none}
+.cx-chapter strong{display:block;margin-top:clamp(8px,1.4vw,18px);font-size:clamp(34px,6.2vw,104px);line-height:.98;font-weight:800;letter-spacing:-.055em;color:#fff;text-shadow:0 4px 40px rgba(0,0,0,.55);max-width:14ch}
+.cx-chapter em{display:block;margin-top:14px;font-style:normal;font-size:clamp(11px,1vw,13px);font-weight:750;letter-spacing:.22em;text-transform:uppercase;color:#f1d3a8;text-shadow:0 1px 10px rgba(0,0,0,.7)}
+.cx-chapter.is-playing{animation:cx-chapter-life 2.9s cubic-bezier(.22,1,.36,1) both}
+.cx-chapter.is-playing b{animation:cx-chapter-num 2.9s cubic-bezier(.22,1,.36,1) both}
+.cx-chapter.is-playing strong{animation:cx-chapter-title 2.9s cubic-bezier(.22,1,.36,1) both}
+@keyframes cx-chapter-life{0%{opacity:0}12%{opacity:1}72%{opacity:1}100%{opacity:0}}
+@keyframes cx-chapter-num{0%{transform:translateY(40px);filter:blur(10px)}22%{transform:none;filter:none}100%{transform:translateY(-30px)}}
+@keyframes cx-chapter-title{0%{transform:translateY(60px);opacity:0;filter:blur(12px)}26%{transform:none;opacity:1;filter:none}100%{transform:translateY(-20px)}}
+/* Pendant la visite : rien ne gêne l'image */
+body.cx-immersed :is(#cojuka-ai-launch,#cojuka-guide-suggestion,#cojuka-back-to-top){opacity:0!important;pointer-events:none!important;transform:translateY(16px)!important;transition:opacity .4s,transform .4s!important}
+@media(max-width:600px){
+ .cx-chapter{justify-content:flex-end;padding-bottom:22%}
+ .cx-scrolly .cx-timeline{padding:9px 16px 10px}
+}
+@media(prefers-reduced-motion:reduce){
+ .cx-scrolly .cx-stage video.cx-active{animation:none!important}
+ .cx-chapter{display:none}
+ body.cojuka-glass-public .cx-page .cx-scrolly .cx-stage{clip-path:none}
+}
 </style>
 @endsection
 @section('content')
@@ -269,6 +309,7 @@ foreach($exploreScenes as $i=>$scene){
   <div class="cx-segments" aria-hidden="true">@foreach($exploreScenes as $i=>$scene)<span><i data-cx-seg="{{ $i }}"></i></span>@endforeach</div>
   <div class="cx-stage-top"><span class="cx-stage-label">Un voyage au cœur de nos secteurs</span><span class="cx-stage-count" id="cx-counter">01 / 05</span></div>
   <div class="cx-stage-side"><button id="cx-prev" type="button" aria-label="Scène précédente" title="Précédent">‹</button><button id="cx-next" type="button" aria-label="Scène suivante" title="Suivant">›</button></div>
+  <div class="cx-chapter" id="cx-chapter" aria-hidden="true"><b id="cx-chapter-num">01</b><strong id="cx-chapter-title">Mining</strong><em>COJUKA Consulting Group</em></div>
   <span class="cx-scroll-hint" aria-hidden="true"><i class="bi bi-mouse"></i> Faites défiler</span>
  </div>
  <ol class="cx-timeline" id="cx-grid" aria-label="Chapitres de la visite">
@@ -341,6 +382,8 @@ foreach($exploreScenes as $i=>$scene){
      ambient[next].classList.add('is-on');ambient[ambSlot].classList.remove('is-on');ambSlot=next;
    }
    if(info){info.classList.remove('cx-enter');void info.offsetWidth;info.classList.add('cx-enter')}
+   const chap=byId('cx-chapter');
+   if(chap&&scrollMode&&!reduced){byId('cx-chapter-num').textContent=String(index+1).padStart(2,'0');byId('cx-chapter-title').textContent=scenes[index].title;chap.classList.remove('is-playing');void chap.offsetWidth;chap.classList.add('is-playing')}
    const card=cards[index];
    if(timeline&&card&&timeline.scrollWidth>timeline.clientWidth+4){
      const li=card.parentElement;timeline.scrollTo({left:li.offsetLeft-parseFloat(getComputedStyle(timeline).paddingLeft||0),behavior:reduced?'auto':'smooth'});
@@ -509,8 +552,11 @@ foreach($exploreScenes as $i=>$scene){
      const r=range(),p=Math.max(0,Math.min(.9999,(window.scrollY-r.top)/r.len)),n=scenes.length;
      const idx=Math.floor(p*n),frac=p*n-idx;
      scrolly.classList.toggle('cx-scrolled',window.scrollY>r.top+20);
+     const vh=window.innerHeight,nav=navHeight(),top=scrolly.getBoundingClientRect().top-nav,bottom=scrolly.getBoundingClientRect().bottom;
+     stage.style.setProperty('--z',(1-Math.max(0,Math.min(1,top/(vh*.55)))).toFixed(3));
+     document.body.classList.toggle('cx-immersed',top<=1&&bottom>vh*.6);
      if(idx===state.index&&!state.switching)fill(idx,frac);
-     if(idx!==wantedIndex){wantedIndex=idx;clearTimeout(scrollTimer);scrollTimer=setTimeout(()=>{if(state.started&&wantedIndex!==state.index)change(wantedIndex)},140)}
+     if(idx!==wantedIndex){stage.dataset.dir=idx<wantedIndex?'up':'down';wantedIndex=idx;clearTimeout(scrollTimer);scrollTimer=setTimeout(()=>{if(state.started&&wantedIndex!==state.index)change(wantedIndex)},140)}
    });
  }
  if(scrollMode){

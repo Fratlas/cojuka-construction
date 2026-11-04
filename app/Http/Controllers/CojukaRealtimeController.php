@@ -10,7 +10,7 @@ class CojukaRealtimeController
  public function connect(Request $request)
  {
   $data=$request->validate(['sdp'=>'required|string|max:20000']);
-  $key=config('services.openai.key') ?: env('OPENAI_API_KEY');
+  $key=config('cojuka.openai.key');
   if(!$key)return response()->json(['error'=>'Configuration OpenAI manquante.'],503);
   $user=$request->user();
   $admin=$user && GroupAccess::any($user);
@@ -20,7 +20,7 @@ class CojukaRealtimeController
   if($admin)$instructions.=' Modules autorisés pour cet utilisateur : '.implode(', ',$allowed).'. Ne divulgue aucune donnée personnelle ou financière.';
   $session=[
    'type'=>'realtime',
-   'model'=>config('services.openai.realtime_model','gpt-realtime-mini'),
+   'model'=>config('cojuka.openai.realtime_model','gpt-realtime-mini'),
    'instructions'=>$instructions,
    'audio'=>['output'=>['voice'=>'cedar'],'input'=>['turn_detection'=>['type'=>'server_vad','create_response'=>true,'interrupt_response'=>true]]],
   ];

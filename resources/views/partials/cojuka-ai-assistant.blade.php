@@ -38,7 +38,8 @@ if($cojukaAssistantAdmin){
 .cai-form button{border:0;background:#1c2937;color:white;border-radius:12px;padding:9px 13px}
 .cai-permission-help{margin:0 12px 12px;padding:12px 14px;border:1px solid #f0c58b;border-radius:12px;background:#fff9ef;color:#4b3522;font-size:12px}.cai-permission-help[hidden]{display:none!important}.cai-permission-help strong{display:block;font-size:13px;margin-bottom:5px}.cai-permission-help ol{padding-left:20px;margin:8px 0}.cai-permission-help li{margin:5px 0}.cai-permission-help button{border:1px solid #b88950;border-radius:8px;background:white;padding:5px 10px;color:#4b3522}.cai-voice{display:flex;gap:8px;align-items:center;padding:0 12px 10px;background:#fff;flex-wrap:wrap}.cai-voice button{border:1px solid #cdd5dd;background:#f7f9fb;color:#1c2937;border-radius:20px;padding:7px 11px;font-size:12px;font-weight:650}.cai-voice button[aria-pressed="true"]{background:#dceefb;border-color:#4d8dbd}.cai-voice-status{font-size:11px;color:#536576;flex:1;min-width:135px}.cai-note{font-size:11px;color:#667482;padding:0 14px 11px;background:white}
 @media(max-width:600px){#cojuka-ai-launch{bottom:77px;right:13px}#cojuka-ai-panel{bottom:137px;max-height:calc(100dvh - 154px)}}
-#cojuka-ai-launch{cursor:pointer;min-height:45px}
+#cojuka-ai-launch{cursor:pointer;min-height:45px;pointer-events:auto!important;z-index:20050!important}
+#cojuka-ai-panel{z-index:20051!important}
 #cojuka-ai-launch:focus-visible,#cojuka-ai-panel button:focus-visible,#cojuka-ai-panel input:focus-visible{outline:3px solid #9babbf;outline-offset:3px}
 #cojuka-ai-panel.is-open{display:flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important}
 #cojuka-ai-panel{height:min(650px,calc(100dvh - 165px));min-height:260px}
@@ -89,6 +90,36 @@ if($cojukaAssistantAdmin){
  <div class="cai-note">Guide informatif : aucune modification des données. Ne communiquez pas de mots de passe ni d’informations confidentielles.</div>
 </section>
 <script>
+/* Independent panel control; chat/voice errors must never block opening. */
+(function(){
+ function init(){
+  var button=document.getElementById('cojuka-ai-launch'),panel=document.getElementById('cojuka-ai-panel'),close=document.getElementById('cojuka-ai-close');
+  if(!button||!panel)return;
+  function change(open,focus){
+   panel.classList.toggle('is-open',open);
+   panel.style.setProperty('display',open?'flex':'none','important');
+   panel.style.setProperty('visibility',open?'visible':'hidden','important');
+   panel.setAttribute('aria-hidden',String(!open));
+   button.setAttribute('aria-expanded',String(open));
+   if(open){
+    var tip=document.getElementById('cojuka-guide-suggestion');if(tip)tip.hidden=true;
+    if(focus&&close)close.focus({preventScroll:true});
+   }else{
+    panel.dispatchEvent(new Event('cojuka:assistant-closed'));
+    if(focus)button.focus({preventScroll:true});
+   }
+  }
+  window.cojukaAssistantPanel={open:function(){change(true,false)},close:function(){change(false,true)}};
+  button.addEventListener('click',function(e){e.preventDefault();change(!panel.classList.contains('is-open'),true)});
+  if(close)close.addEventListener('click',function(){change(false,true)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&panel.classList.contains('is-open'))change(false,true)});
+  document.addEventListener('pointerdown',function(e){if(panel.classList.contains('is-open')&&!panel.contains(e.target)&&!button.contains(e.target))change(false,false)});
+  change(false,false);
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+</script>
+<script>
 window.cojukaMicrophoneHelp=function(){var help=document.getElementById('cai-permission-help');if(help){help.hidden=false;help.scrollIntoView({block:'nearest',behavior:'smooth'})}};
 document.getElementById('cai-permission-close')?.addEventListener('click',function(){document.getElementById('cai-permission-help').hidden=true});
 window.cojukaMicError=async function(e){
@@ -131,7 +162,7 @@ document.getElementById('cai-request-mic')?.addEventListener('click',function(){
  if(!launch||!panel)return;
  var suggestion=document.getElementById('cojuka-guide-suggestion'),openGuide=document.getElementById('cojuka-guide-open'),dismiss=document.getElementById('cojuka-guide-dismiss');
  if(suggestion){try{if(sessionStorage.getItem('cojuka-guide-tip-dismissed')==='1')suggestion.hidden=true}catch(e){}}
- if(openGuide)openGuide.addEventListener('click',function(){toggle(true);if(suggestion)suggestion.hidden=true;var guide=Array.from(panel.querySelectorAll('.cai-guide')).find(function(item){return item.textContent.includes('Guide interne complet')});if(guide){guide.open=true;guide.scrollIntoView({block:'nearest',behavior:'smooth'})}});
+ if(openGuide)openGuide.addEventListener('click',function(){window.cojukaAssistantPanel?.open();if(suggestion)suggestion.hidden=true;var guide=Array.from(panel.querySelectorAll('.cai-guide')).find(function(item){return item.textContent.includes('Guide interne complet')});if(guide){guide.open=true;guide.scrollIntoView({block:'nearest',behavior:'smooth'})}});
  if(dismiss)dismiss.addEventListener('click',function(){suggestion.hidden=true;try{sessionStorage.setItem('cojuka-guide-tip-dismissed','1')}catch(e){}});
  var history=[];
  var mic=document.getElementById('cai-mic'),speakButton=document.getElementById('cai-speak'),stopVoice=document.getElementById('cai-stop-voice'),voiceStatus=document.getElementById('cai-voice-status');
@@ -155,19 +186,7 @@ document.getElementById('cai-request-mic')?.addEventListener('click',function(){
   try{recognition.start()}catch(e){statusVoice('Impossible de démarrer le microphone')}
  });
 
- function toggle(open){
-  panel.classList.toggle('is-open',open);
-  launch.setAttribute('aria-expanded',open?'true':'false');
-  launch.setAttribute('aria-label',open?'Fermer l’assistant COJUKA':'Ouvrir l’assistant COJUKA');
-  if(open){if(suggestion)suggestion.hidden=true;input.focus({preventScroll:true})}
-  else{stopSpeaking();if(recognition&&listening)recognition.stop();launch.focus({preventScroll:true})}
- }
- launch.addEventListener('click',function(){toggle(!panel.classList.contains('is-open'))});
- close.addEventListener('click',function(){toggle(false)});
- document.addEventListener('pointerdown',function(event){
-  if(panel.classList.contains('is-open')&&!panel.contains(event.target)&&!launch.contains(event.target))toggle(false);
- });
- document.addEventListener('keydown',function(e){if(e.key==='Escape'&&panel.classList.contains('is-open'))toggle(false)});
+ panel.addEventListener('cojuka:assistant-closed',function(){stopSpeaking();if(recognition&&listening)recognition.stop()});
  function bubble(message,user){var el=document.createElement('div');el.className='cai-bubble'+(user?' is-user':'');el.textContent=message;body.appendChild(el);body.scrollTop=body.scrollHeight;return el}
  async function ask(message){
   if(!message||send.disabled)return;

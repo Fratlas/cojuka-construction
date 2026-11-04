@@ -174,12 +174,21 @@ document.getElementById('cai-request-mic')?.addEventListener('click',function(){
   bubble(message,true);input.value='';send.disabled=true;
   var waiting=bubble('Recherche d’une réponse…',false);
   try{
-   var response=await fetch('{{ route('cojuka.assistant.reply') }}',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json','X-CSRF-TOKEN':document.querySelector('meta[name="csrf-token"]')?.content||'{{ csrf_token() }}'},credentials:'same-origin',body:JSON.stringify({message:message,history:history.slice(-8)})});
-   if(!response.ok)throw new Error('Service indisponible');
+   var controller=new AbortController();
+   var timeout=setTimeout(function(){controller.abort()},20000);
+   var response;
+   try{
+    response=await fetch('{{ route('cojuka.assistant.reply') }}',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json','X-CSRF-TOKEN':document.querySelector('meta[name="csrf-token"]')?.content||'{{ csrf_token() }}'},credentials:'same-origin',signal:controller.signal,body:JSON.stringify({message:message,history:history.slice(-8)})});
+   }finally{clearTimeout(timeout)}
+   if(!response.ok){
+    if(response.status===419)throw new Error('Session expirée : actualisez la page.');
+    if(response.status===429)throw new Error('Trop de demandes. Réessayez dans une minute.');
+    throw new Error('Service temporairement indisponible.');
+   }
    var data=await response.json();waiting.textContent=data.reply||'Consultez les tutoriels.';
    readReply(waiting.textContent);history.push({role:'user',content:message},{role:'assistant',content:waiting.textContent});history=history.slice(-8);
-  }catch(e){waiting.textContent='Le service de réponse est indisponible. Les tutoriels ci-dessus restent accessibles.'}
-  send.disabled=false;body.scrollTop=body.scrollHeight;
+  }catch(e){waiting.textContent=e.name==='AbortError'?'La réponse prend trop de temps. Réessayez ou utilisez les tutoriels.':(e.message||'Service indisponible.')+' Les tutoriels restent accessibles.'}
+  finally{send.disabled=false;body.scrollTop=body.scrollHeight}
  }
  form.addEventListener('submit',function(e){e.preventDefault();ask(input.value.trim())});
  panel.querySelectorAll('[data-cai-question]').forEach(function(button){button.addEventListener('click',function(){ask(button.dataset.caiQuestion)})});

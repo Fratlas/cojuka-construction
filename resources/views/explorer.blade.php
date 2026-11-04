@@ -218,6 +218,30 @@ body.cojuka-glass-public .cx-page .cx-timeline .cx-card[aria-current="true"]::af
  .cx-timeline li,.cx-timeline .cx-chap-desc,.cx-timeline .cx-chap-media img,.cx-ambient i{transition:none!important;animation:none!important}
  .cx-stage-info.cx-enter :is(h2,p,.cx-eyebrow){animation:none!important}
 }
+
+/* ===== Visite au défilement : la vidéo reste à l'écran, le scroll change de scène ===== */
+.cx-page{overflow:clip!important}
+.cx-scrolly{position:relative;height:calc(var(--cx-n,5) * 70svh + 100svh - var(--cx-nav,70px))}
+.cx-sticky{position:sticky;top:var(--cx-nav,70px);height:calc(100svh - var(--cx-nav,70px));display:flex;flex-direction:column;gap:12px;padding:12px 0 14px}
+body.cojuka-glass-public .cx-page .cx-scrolly .cx-stage{flex:1 1 auto;height:auto!important;min-height:0!important}
+.cx-scrolly .cx-timeline{margin:0;flex:0 0 auto}
+.cx-scrolly .cx-timeline .cx-chap-media{height:clamp(46px,7svh,78px)}
+.cx-scrolly .cx-timeline .cx-chap-num{font-size:clamp(18px,1.8vw,26px);bottom:6px}
+.cx-scrolly .cx-timeline .cx-card .cx-chap-text{padding:9px 12px 12px}
+.cx-scrolly .cx-timeline .cx-card[aria-current="true"] .cx-chap-desc{max-height:3em}
+.cx-scroll-hint{position:absolute;z-index:6;left:50%;bottom:16px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:99px;background:rgba(10,15,24,.55);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:12px;font-weight:650;letter-spacing:.03em;pointer-events:none;transition:opacity .5s}
+.cx-scroll-hint i{display:inline-block;animation:cx-bob 1.6s ease-in-out infinite}
+@keyframes cx-bob{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
+.cx-scrolly.cx-scrolled .cx-scroll-hint{opacity:0}
+@media(max-width:950px){.cx-scrolly .cx-timeline li{flex:0 0 40%}.cx-scrolly .cx-timeline li:has(.cx-card[aria-current="true"]){flex:0 0 60%}}
+@media(max-width:600px){
+ .cx-sticky{gap:9px;padding:8px 0 10px}
+ .cx-scrolly .cx-timeline .cx-chap-media{height:44px}
+ .cx-scrolly .cx-timeline li{flex:0 0 46%}
+ .cx-scrolly .cx-timeline li:has(.cx-card[aria-current="true"]){flex:0 0 70%}
+ .cx-scrolly .cx-timeline .cx-card .cx-chap-desc{display:none}
+}
+@media(prefers-reduced-motion:reduce){.cx-scroll-hint i{animation:none}}
 </style>
 @endsection
 @section('content')
@@ -237,22 +261,25 @@ foreach($exploreScenes as $i=>$scene){
 @endphp
 <main class="cx-page"><div class="cx-ambient" aria-hidden="true"><i id="cx-amb-a"></i><i id="cx-amb-b"></i></div><div class="cx-wrap">
  <div class="cx-heading"><div><div class="cx-eyebrow">COJUKA · Expérience immersive</div>
- <h1>Explorer le groupe.</h1><p class="cx-intro">Parcourez automatiquement cinq univers du groupe, avec des transitions cinématographiques. Reprenez le contrôle à tout moment.</p></div><span class="cx-mode" id="cx-mode" data-paused="false"><span class="cx-mode-dot" aria-hidden="true"></span><span id="cx-mode-text">Visite automatique</span></span></div>
+ <h1>Explorer le groupe.</h1><p class="cx-intro">Faites défiler la page pour traverser cinq univers du groupe : chaque scène change et se lance au fil de votre descente.</p></div><span class="cx-mode" id="cx-mode" data-paused="false"><span class="cx-mode-dot" aria-hidden="true"></span><span id="cx-mode-text">Défilez pour explorer</span></span></div>
+ <section class="cx-scrolly" id="cx-scrolly" aria-label="Visite au défilement"><div class="cx-sticky">
  <div class="cx-stage" id="cx-stage" aria-label="Exploration des activités COJUKA">
   <div class="cx-poster is-visible" id="cx-poster-a" aria-hidden="true"></div><div class="cx-poster" id="cx-poster-b" aria-hidden="true"></div>
   <video id="cx-video-a" playsinline webkit-playsinline preload="metadata" muted aria-hidden="true"></video><video id="cx-video-b" playsinline webkit-playsinline preload="metadata" muted aria-hidden="true"></video>
   <div class="cx-segments" aria-hidden="true">@foreach($exploreScenes as $i=>$scene)<span><i data-cx-seg="{{ $i }}"></i></span>@endforeach</div>
   <div class="cx-stage-top"><span class="cx-stage-label">Un voyage au cœur de nos secteurs</span><span class="cx-stage-count" id="cx-counter">01 / 05</span></div>
   <div class="cx-stage-side"><button id="cx-prev" type="button" aria-label="Scène précédente" title="Précédent">‹</button><button id="cx-next" type="button" aria-label="Scène suivante" title="Suivant">›</button></div>
+  <span class="cx-scroll-hint" aria-hidden="true"><i class="bi bi-mouse"></i> Faites défiler</span>
  </div>
- <div class="cx-stage-info"><span class="cx-eyebrow">COJUKA CONSULTING GROUP</span><h2 id="cx-title">Mining</h2><p id="cx-description"></p><a id="cx-link" href="{{ route('group.profile','kojuka-mining') }}" style="font-weight:700">Découvrir cette activité ↗</a></div>
- <div class="cx-controls" role="group" aria-label="Commandes de la visite"><button id="cx-play" type="button" aria-pressed="true">Ⅱ Pause automatique</button><button id="cx-mute" type="button" aria-pressed="false">🔇 Activer le son</button><button id="cx-fullscreen" type="button" aria-label="Afficher l'expérience en plein écran">⛶ Plein écran</button><div class="cx-progress-wrap"><label for="cx-progress" class="visually-hidden">Progression de la scène</label><input id="cx-progress" class="cx-progress" type="range" min="0" max="100" value="0" aria-label="Progression de la scène"><span id="cx-time" class="cx-time">00:00</span></div></div>
  <ol class="cx-timeline" id="cx-grid" aria-label="Chapitres de la visite">
  @foreach($exploreScenes as $i=>$scene)
  <li><button type="button" class="cx-card" data-cx-index="{{ $i }}" aria-current="{{ $i===0?'true':'false' }}"><span class="cx-chap-media"><img loading="lazy" src="https://images.unsplash.com/{{ $scene[3] }}?auto=format&fit=crop&w=600&q=72" alt=""><span class="cx-chap-num" aria-hidden="true">{{ str_pad($i+1,2,'0',STR_PAD_LEFT) }}</span></span><span class="cx-chap-text"><span class="cx-chap-title">{{ $scene[0] }}</span><span class="cx-chap-desc">{{ $scene[1] }}</span></span><span class="cx-chap-bar" aria-hidden="true"><i data-cx-bar="{{ $i }}"></i></span></button></li>
  @endforeach
  </ol>
- <p class="cx-note" id="cx-note">L’expérience démarre automatiquement, sans son. Les images et vidéos servent à illustrer les secteurs du groupe.</p>
+ </div></section>
+ <div class="cx-stage-info"><span class="cx-eyebrow">COJUKA CONSULTING GROUP</span><h2 id="cx-title">Mining</h2><p id="cx-description"></p><a id="cx-link" href="{{ route('group.profile','kojuka-mining') }}" style="font-weight:700">Découvrir cette activité ↗</a></div>
+ <div class="cx-controls" role="group" aria-label="Commandes de la visite"><button id="cx-play" type="button" aria-pressed="true">Ⅱ Pause automatique</button><button id="cx-mute" type="button" aria-pressed="false">🔇 Activer le son</button><button id="cx-fullscreen" type="button" aria-label="Afficher l'expérience en plein écran">⛶ Plein écran</button><div class="cx-progress-wrap"><label for="cx-progress" class="visually-hidden">Progression de la scène</label><input id="cx-progress" class="cx-progress" type="range" min="0" max="100" value="0" aria-label="Progression de la scène"><span id="cx-time" class="cx-time">00:00</span></div></div>
+ <p class="cx-note" id="cx-note">Faites défiler pour changer de scène. Les vidéos se lancent sans son. Les images et vidéos servent à illustrer les secteurs du groupe.</p>
 </div></main>
 @endsection
 @section('page_scripts')
@@ -272,6 +299,9 @@ foreach($exploreScenes as $i=>$scene){
  function loopsFor(d){return Math.max(1,Math.ceil(minScene/Math.max(1,d-1.15)))}
  const state={index:0,active:1,poster:0,mode:'photo',wanted:!reduced&&!saveData,sound:false,started:false,inView:false,switching:false,token:0,photoElapsed:0,lastTick:performance.now(),timeout:null,cleanup:null};
  const cards=Array.from(document.querySelectorAll('[data-cx-index]'));
+ // Mode défilement : la position dans la page choisit la scène ; pas de minuterie.
+ const scrolly=byId('cx-scrolly');
+ const scrollMode=!!(scrolly&&window.CSS&&CSS.supports('position','sticky'));
  function format(seconds){const n=Math.max(0,Math.floor(Number(seconds)||0));return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
  function allowed(){return state.wanted&&state.inView&&!document.hidden}
  function notice(message){note.textContent=message}
@@ -281,7 +311,7 @@ foreach($exploreScenes as $i=>$scene){
    muteButton.textContent=state.sound?'🔊 Couper le son':'🔇 Activer le son';
    muteButton.setAttribute('aria-pressed',String(state.sound));
    mode.dataset.paused=String(!state.wanted);
-   byId('cx-mode-text').textContent=!state.wanted?'Visite en pause':state.mode==='video'?'Visite automatique':'Visite illustrée automatique';
+   byId('cx-mode-text').textContent=!state.wanted?'Visite en pause':scrollMode?'Défilez pour explorer':state.mode==='video'?'Visite automatique':'Visite illustrée automatique';
  }
  function information(index){
    const scene=scenes[index];
@@ -328,12 +358,12 @@ foreach($exploreScenes as $i=>$scene){
      const v=players[state.active],duration=v.duration;
      if(Number.isFinite(duration)&&duration>0){
        progress.value=String(Math.min(100,100*v.currentTime/duration));
-       const seg=Math.max(1,duration-1.15);fill(state.index,((state.loops||0)*seg+Math.min(v.currentTime,seg))/(seg*loopsFor(duration)));
+       const seg=Math.max(1,duration-1.15);if(!scrollMode)fill(state.index,((state.loops||0)*seg+Math.min(v.currentTime,seg))/(seg*loopsFor(duration)));
        timer.textContent=format(v.currentTime)+' / '+format(duration);
      }
    }else{
      progress.value=String(Math.min(100,state.photoElapsed/photoDuration*100));
-     fill(state.index,state.photoElapsed/photoDuration);
+     if(!scrollMode)fill(state.index,state.photoElapsed/photoDuration);
      timer.textContent=format(state.photoElapsed/1000)+' / '+format(photoDuration/1000);
    }
  }
@@ -390,7 +420,7 @@ foreach($exploreScenes as $i=>$scene){
      if(token===state.token){const standby=players[1-state.active];prepare(standby,(state.index+1)%scenes.length)}
    },1300);
    finishTransition();
-   notice('Lecture automatique · transitions douces entre les univers. Les vidéos sont des illustrations.');
+   notice(scrollMode?'Faites défiler pour passer à l’univers suivant. Les vidéos sont des illustrations.':'Lecture automatique · transitions douces entre les univers. Les vidéos sont des illustrations.');
    if(!allowed())incoming.pause();
  }
  function change(index){
@@ -450,18 +480,45 @@ foreach($exploreScenes as $i=>$scene){
    if(state.mode==='photo'){
      state.photoElapsed+=elapsed;
      seekInfo();
-     if(state.photoElapsed>=photoDuration)change(state.index+1);
+     if(state.photoElapsed>=photoDuration){if(scrollMode)state.photoElapsed=0;else change(state.index+1)}
    }else{
      const v=players[state.active],d=v.duration;
      seekInfo();
-     if(Number.isFinite(d)&&d>2&&v.currentTime>=d-1.15){if((state.loops||0)+1<loopsFor(d)){state.loops=(state.loops||0)+1;v.currentTime=0}else change(state.index+1)}
+     if(Number.isFinite(d)&&d>2&&v.currentTime>=d-1.15){if(scrollMode||(state.loops||0)+1<loopsFor(d)){state.loops=(state.loops||0)+1;v.currentTime=0}else change(state.index+1)}
    }
  },220);
  posters[0].style.backgroundImage='url("'+scenes[0].poster+'")';
  information(0);sync();seekInfo();
- cards.forEach(card=>card.addEventListener('click',()=>change(Number(card.dataset.cxIndex))));
- byId('cx-prev').addEventListener('click',()=>change(state.index-1));
- byId('cx-next').addEventListener('click',()=>change(state.index+1));
+ function go(index){
+   if(!scrollMode||document.fullscreenElement){change(index);return}
+   const n=scenes.length,t=((index%n)+n)%n;
+   window.scrollTo({top:sceneTop(t),behavior:reduced?'auto':'smooth'});
+ }
+ cards.forEach(card=>card.addEventListener('click',()=>go(Number(card.dataset.cxIndex))));
+ byId('cx-prev').addEventListener('click',()=>go(state.index-1));
+ byId('cx-next').addEventListener('click',()=>go(state.index+1));
+ // Défilement → scène + remplissage des barres.
+ function navHeight(){const nav=document.querySelector('.cojuka-global-nav');return nav?Math.round(nav.getBoundingClientRect().height):70}
+ function range(){const top=scrolly.getBoundingClientRect().top+window.scrollY-navHeight();const len=Math.max(1,scrolly.offsetHeight-(window.innerHeight-navHeight()));return {top,len}}
+ function sceneTop(i){const r=range();return Math.round(r.top+r.len*(i+.02)/scenes.length)}
+ let scrollTimer=null,wantedIndex=0,rafPending=false;
+ function onScroll(){
+   if(rafPending)return;rafPending=true;
+   requestAnimationFrame(()=>{
+     rafPending=false;
+     const r=range(),p=Math.max(0,Math.min(.9999,(window.scrollY-r.top)/r.len)),n=scenes.length;
+     const idx=Math.floor(p*n),frac=p*n-idx;
+     scrolly.classList.toggle('cx-scrolled',window.scrollY>r.top+20);
+     if(idx===state.index&&!state.switching)fill(idx,frac);
+     if(idx!==wantedIndex){wantedIndex=idx;clearTimeout(scrollTimer);scrollTimer=setTimeout(()=>{if(state.started&&wantedIndex!==state.index)change(wantedIndex)},140)}
+   });
+ }
+ if(scrollMode){
+   document.documentElement.style.setProperty('--cx-nav',navHeight()+'px');
+   scrolly.style.setProperty('--cx-n',scenes.length);
+   window.addEventListener('scroll',onScroll,{passive:true});
+   window.addEventListener('resize',()=>{document.documentElement.style.setProperty('--cx-nav',navHeight()+'px');onScroll()},{passive:true});
+ }
  playButton.addEventListener('click',()=>{
    if(!state.started){state.started=true;state.inView=true;setWanted(true);change(state.index);return}
    setWanted(!state.wanted);
@@ -485,23 +542,23 @@ foreach($exploreScenes as $i=>$scene){
    seekInfo();
  });
  players.forEach((v,i)=>{
-   v.addEventListener('ended',()=>{if(i!==state.active||state.mode!=='video'||state.switching||!allowed())return;if((state.loops||0)+1<loopsFor(v.duration)){state.loops=(state.loops||0)+1;v.currentTime=0;v.play().catch(()=>{})}else change(state.index+1)});
+   v.addEventListener('ended',()=>{if(i!==state.active||state.mode!=='video'||state.switching||!allowed())return;if(scrollMode||(state.loops||0)+1<loopsFor(v.duration)){state.loops=(state.loops||0)+1;v.currentTime=0;v.play().catch(()=>{})}else change(state.index+1)});
    v.addEventListener('error',()=>{
      if(i===state.active&&state.mode==='video')showPhoto(state.index,state.token,'La vidéo est indisponible : la visite continue en images.');
    });
  });
  // Glisser sur la vidéo (mobile) pour changer de scène.
- let touchX=null,touchY=null;
+ let touchX=null,touchY=null;if(!scrollMode){
  stage.addEventListener('touchstart',e=>{const t=e.changedTouches[0];touchX=t.clientX;touchY=t.clientY},{passive:true});
  stage.addEventListener('touchend',e=>{
    if(touchX===null)return;const t=e.changedTouches[0],dx=t.clientX-touchX,dy=t.clientY-touchY;touchX=null;
    if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.4)change(state.index+(dx<0?1:-1));
- },{passive:true});
+ },{passive:true});}
  document.addEventListener('keydown',event=>{
    const target=event.target;
    if(event.altKey||event.metaKey||event.ctrlKey||target.closest('input,textarea,select,button,[contenteditable="true"]')||!state.inView)return;
-   if(event.key==='ArrowRight'){event.preventDefault();change(state.index+1)}
-   if(event.key==='ArrowLeft'){event.preventDefault();change(state.index-1)}
+   if(event.key==='ArrowRight'){event.preventDefault();go(state.index+1)}
+   if(event.key==='ArrowLeft'){event.preventDefault();go(state.index-1)}
  });
  document.addEventListener('visibilitychange',()=>{state.lastTick=performance.now();if(document.hidden)pause();else resume()});
  window.addEventListener('pagehide',()=>{cancelPending();pause()},{once:true});
@@ -510,7 +567,8 @@ foreach($exploreScenes as $i=>$scene){
    state.lastTick=performance.now();
    if(!state.started&&state.inView){
      state.started=true;
-     if(state.wanted)change(0);
+     if(scrollMode)onScroll();
+     if(state.wanted)change(scrollMode?wantedIndex:0);
      else{information(0);sync()}
    }else if(!state.inView)pause();
    else resume();

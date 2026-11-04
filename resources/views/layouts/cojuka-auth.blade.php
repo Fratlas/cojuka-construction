@@ -117,6 +117,28 @@ body{background:#19222c}
  .auth-panel .description{margin-bottom:clamp(19px,2.2vh,29px)}
  .auth-back{margin-top:22px}
 }
+/* Parcours de connexion : étapes, aides, case « rester connecté », envoi en cours */
+.auth-steps{list-style:none;counter-reset:st;padding:0;display:grid;gap:10px;color:#4b5565}
+.auth-steps li{counter-increment:st;position:relative;padding-left:38px;line-height:1.5}
+.auth-steps li::before{content:counter(st);position:absolute;left:0;top:-1px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;background:#eef0f4;color:#5b6577}
+.auth-steps li.is-done::before{content:"✓";background:#e6f5ec;color:#157347}
+.auth-steps li.is-current::before{background:#86212e;color:#fff;box-shadow:0 0 0 5px rgba(134,33,46,.14)}
+.auth-hint{color:#667085;margin-top:-2px}
+.auth-hint.is-ok{color:#157347}.auth-hint.is-bad{color:#a52d41}
+.auth-pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:#e0a23b;margin-right:6px;vertical-align:middle;animation:auth-pulse 1.6s ease-in-out infinite}
+@keyframes auth-pulse{0%,100%{box-shadow:0 0 0 0 rgba(224,162,59,.45)}50%{box-shadow:0 0 0 7px rgba(224,162,59,0)}}
+.auth-help{color:#3f4857!important}
+.auth-panel .description{color:#3a4352!important}
+.auth-panel .auth-hint{color:#3f4857}
+.auth-panel .auth-steps{color:#2f3744}
+.auth-panel .auth-divider{color:#4b5565}
+.form-check-input{width:1.15em;height:1.15em;cursor:pointer}.form-check-input:checked{background-color:#86212e;border-color:#86212e}
+.form-check-input:focus{box-shadow:0 0 0 4px rgba(134,33,46,.15);border-color:#c77a87}
+.form-check-label{color:#3f4857;font-size:.9rem;cursor:pointer}
+button[type=submit].is-loading{opacity:.8;pointer-events:none}
+button[type=submit].is-loading::after{content:"";display:inline-block;width:14px;height:14px;margin-left:10px;vertical-align:-2px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:auth-spin .7s linear infinite}
+@keyframes auth-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.auth-pulse,button[type=submit].is-loading::after{animation:none}}
 </style>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
 <link rel="preload" as="image" href="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=78&fm=webp" fetchpriority="high">
@@ -148,6 +170,10 @@ body{background:#19222c}
 </main>
 </div>
 @yield('page_scripts')
+<script>
+// Bouton « en cours » : évite les doubles envois et montre que la demande part.
+document.addEventListener('submit',function(e){var b=e.target.querySelector('button[type=submit][data-loading-text]');if(!b||e.defaultPrevented)return;setTimeout(function(){b.classList.add('is-loading');b.textContent=b.getAttribute('data-loading-text')},0)},true);
+</script>
 <script defer src="{{ asset('js/cojuka-glow.js') }}?v=20261018-aurora-01"></script>
 </body>
 </html>

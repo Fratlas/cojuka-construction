@@ -10,6 +10,20 @@
     @if(\App\Support\GroupAccess::can(auth()->user(),'projets'))<a class="btn btn-dark rounded-pill px-4" href="{{ route('gestion.group.list', 'projets') }}">Gérer les projets →</a>@endif
 </div>
 <div class="card p-4 mb-4"><form method="get" action="{{ route('gestion.group.dashboard') }}" class="row g-3 align-items-end"><div class="col-md-8"><label class="form-label" for="entityFilter">Afficher les données de</label><select id="entityFilter" name="entity" class="form-select"><option value="">Toutes les entités</option>@foreach($entityOptions as $entity)<option value="{{ $entity->id }}" @selected($selectedEntity === $entity->id)>{{ $entity->name }}</option>@endforeach</select></div><div class="col-md-4"><button class="btn btn-dark w-100" type="submit">Filtrer le tableau de bord</button></div></form></div>
+@php
+ $pendingQuery = (auth()->user()?->is_group_admin && \Illuminate\Support\Facades\Schema::hasColumn('users', 'group_department_id'))
+  ? \App\Models\User::where('is_group_admin', false)->whereNull('group_department_id') : null;
+ $pendingCount = $pendingQuery ? (clone $pendingQuery)->count() : 0;
+ $pendingUsers = $pendingQuery ? $pendingQuery->latest('id')->take(3)->get(['id', 'name']) : collect();
+@endphp
+@if($pendingUsers->isNotEmpty())
+<div class="cx-pending card border-0 p-3 p-md-4 mb-4" role="status">
+ <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+  <div class="d-flex align-items-center gap-3"><span class="cx-kpi-icon" aria-hidden="true"><i class="bi bi-person-plus"></i></span><div><strong>{{ $pendingCount }} compte(s) en attente d’autorisation</strong><div class="small text-secondary">@foreach($pendingUsers as $u){{ $u->name }}@if(!$loop->last) · @endif @endforeach</div></div></div>
+  <a class="btn btn-dark rounded-pill px-4" href="{{ route('gestion.users.index') }}">Attribuer les accès →</a>
+ </div>
+</div>
+@endif
 @if(!$suiteReady)
     <div class="alert alert-warning border-0 rounded-4" role="alert">
         <strong>Configuration en attente :</strong> les modules opérationnels nécessitent la création des tables MySQL. Le suivi des entités, projets et actifs reste accessible.

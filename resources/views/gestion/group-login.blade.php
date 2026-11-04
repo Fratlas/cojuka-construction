@@ -19,10 +19,14 @@
 <button type="button" class="auth-password-toggle" id="toggle-login-password" aria-label="Afficher le mot de passe" aria-pressed="false">Voir</button>
 </div>
 </div>
-<button class="btn btn-primary w-100" type="submit">Accéder à mon espace &nbsp; →</button>
+<div class="d-flex justify-content-between align-items-center gap-3 mb-4 flex-wrap">
+<label class="form-check d-flex align-items-center gap-2 mb-0" for="remember"><input class="form-check-input mt-0" type="checkbox" id="remember" name="remember" value="1" @checked(old('remember'))><span class="form-check-label">Rester connecté sur cet appareil</span></label>
+</div>
+<button class="btn btn-primary w-100" type="submit" data-loading-text="Connexion en cours…">Accéder à mon espace &nbsp; →</button>
 </form>
 <div class="auth-divider">ou</div>
 <a class="btn btn-outline-primary w-100 d-flex justify-content-center align-items-center" href="{{ route('register') }}">Créer un compte &nbsp; →</a>
+<p class="auth-help small text-center mt-3 mb-0">Mot de passe oublié ? Demandez à un administrateur COJUKA de réinitialiser votre accès.</p>
 @endsection
 @section('page_scripts')
 <script>

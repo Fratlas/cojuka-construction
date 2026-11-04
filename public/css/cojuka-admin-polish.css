@@ -92,6 +92,10 @@ html[data-cojuka-theme="dark"] body.cojuka-glass-admin .table thead th{backgroun
 html[data-cojuka-theme="dark"] body.cojuka-glass-admin .table tbody tr:hover>*{background:#232b3b!important}
 html[data-cojuka-theme="dark"] body.cojuka-glass-admin .cx-kpi [data-cx-count]{color:#f1f4f8}
 
+/* ---------- Comptes en attente ---------- */
+body.cojuka-glass-admin .cx-side-badge{margin-left:auto;min-width:22px;height:22px;padding:0 7px;border-radius:99px;display:inline-grid;place-items:center;font-size:11px;font-weight:800;background:#d0485e;color:#fff;box-shadow:0 0 0 3px rgba(208,72,94,.25)}
+body.cojuka-glass-admin .cx-pending{background:linear-gradient(100deg,#fff7f8,#fffaf3)!important;box-shadow:inset 4px 0 0 #a52d41,0 10px 26px -18px rgba(134,33,46,.4)!important}
+
 @media(prefers-reduced-motion:reduce){
  body.cojuka-glass-admin .page-content>*,body.cojuka-glass-admin .topbar::after{animation:none!important}
  body.cojuka-glass-admin :is(.cx-kpi,.btn,.side-link,.cx-kpi-icon){transition:none!important;transform:none!important}

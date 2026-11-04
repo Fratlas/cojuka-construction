@@ -112,7 +112,7 @@ body{font-size:15px;line-height:1.55}
 <link rel="stylesheet" href="{{ asset('css/cojuka-glass.css') }}?v=20261018-admin-crystal-06">
 <link rel="stylesheet" href="{{ asset('css/cojuka-management-charts.css') }}?v=20261018-charts-01">
 <link rel="stylesheet" href="{{ asset('css/cojuka-admin-mobile.css') }}?v=20261031-mobile-01">
-<link rel="stylesheet" href="{{ asset('css/cojuka-admin-polish.css') }}?v=20261104-polish-01">
+<link rel="stylesheet" href="{{ asset('css/cojuka-admin-polish.css') }}?v=20261104-polish-02">
 </head>
 <body class="cojuka-glass cojuka-glass-admin">
 <div id="mobileOverlay" class="mobile-overlay" aria-hidden="true"></div>
@@ -132,7 +132,13 @@ body{font-size:15px;line-height:1.55}
  <a class="side-link {{ request()->is('gestion/actifs*') ? 'active' : '' }}" href="{{ route('gestion.group.list', 'actifs') }}"><i class="bi bi-box-seam"></i> Actifs</a>
  @endif
  @if(auth()->user()?->is_group_admin)
- <a class="side-link {{ request()->is('gestion/utilisateurs*') ? 'active' : '' }}" href="{{ route('gestion.users.index') }}"><i class="bi bi-people"></i> Utilisateurs & accès</a>
+ <a class="side-link {{ request()->is('gestion/utilisateurs*') ? 'active' : '' }}" href="{{ route('gestion.users.index') }}"><i class="bi bi-people"></i> Utilisateurs & accès
+ @php
+  $cxPending = (auth()->user()?->is_group_admin && \Illuminate\Support\Facades\Schema::hasColumn('users', 'group_department_id'))
+   ? \App\Models\User::where('is_group_admin', false)->whereNull('group_department_id')->count() : 0;
+ @endphp
+ @if($cxPending > 0)<span class="cx-side-badge" title="{{ $cxPending }} compte(s) en attente d’autorisation">{{ $cxPending }}</span>@endif
+ </a>
  @endif
  @if(auth()->user()?->is_group_admin)<a class="side-link {{ request()->routeIs('gestion.departments.*') ? 'active' : '' }}" href="{{ route('gestion.departments.index') }}"><i class="bi bi-shield-lock"></i> Permissions départements</a>@endif
  @if(auth()->user()?->is_group_admin)<a class="side-link {{ request()->routeIs('gestion.newsletter.*') ? 'active' : '' }}" href="{{ route('gestion.newsletter.index') }}"><i class="bi bi-envelope-paper"></i> Newsletter</a>@endif

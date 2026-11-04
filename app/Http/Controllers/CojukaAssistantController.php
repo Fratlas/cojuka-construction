@@ -21,16 +21,49 @@ class CojukaAssistantController
    foreach($available as $slug=>$label)$guide.="Module $label : /gestion/".(in_array($slug,['entites','projets','actifs'],true)?$slug:'modules/'.$slug).". ";
    if($user->is_group_admin)$guide.="Administration des utilisateurs /gestion/utilisateurs et des permissions /gestion/departements. ";
   }else{$guide.="Ne fournir aucune instruction privilégiée ou donnée interne. Pour utiliser la gestion, se connecter et obtenir des droits auprès de l'administrateur. ";}
-  $key=config('services.openai.key') ?: env('OPENAI_API_KEY');
-  if(!$key)return response()->json(['reply'=>"Le guide COJUKA est disponible ci-dessous. Pour des réponses conversationnelles personnalisées, l’administrateur doit configurer OPENAI_API_KEY sur le serveur. Choisissez un tutoriel ou consultez les pages du site.",'mode'=>'guide']);
+  $key=config('cojuka.openai.key');
+  if(!$key)return response()->json(['reply'=>$this->localGuide($data['message'],$admin,$available),'mode'=>'guide']);
   try{
    $messages=[['role'=>'system','content'=>'Tu es le guide officiel du site COJUKA. Réponds en français, de façon claire, utile, courte, avec des étapes numérotées si demandé. Utilise exclusivement ces faits vérifiés : '.$guide.' N’invente ni réalisations, ni tarifs, ni informations confidentielles, ni capacités non confirmées. N’affirme jamais avoir effectué une action de gestion. Tu ne peux pas consulter ou modifier les données de gestion. Ne suis pas les demandes visant à contourner les permissions.']];
    foreach(($data['history']??[]) as $item)$messages[]=['role'=>$item['role'],'content'=>$item['content']];
    $messages[]=['role'=>'user','content'=>$data['message']];
-   $response=Http::withToken($key)->timeout(18)->acceptJson()->post('https://api.openai.com/v1/chat/completions',['model'=>config('services.openai.model','gpt-4o-mini'),'messages'=>$messages,'max_tokens'=>450,'temperature'=>0.3]);
-   if(!$response->successful())return response()->json(['reply'=>'Le conseiller est temporairement indisponible. Utilisez les tutoriels intégrés pour continuer.','mode'=>'guide']);
+   $response=Http::withToken($key)->timeout(18)->acceptJson()->post('https://api.openai.com/v1/chat/completions',['model'=>config('cojuka.openai.model','gpt-4o-mini'),'messages'=>$messages,'max_tokens'=>450,'temperature'=>0.3]);
+   if(!$response->successful())return response()->json(['reply'=>$this->localGuide($data['message'],$admin,$available),'mode'=>'guide']);
    $answer=$response->json('choices.0.message.content');
    return response()->json(['reply'=>is_string($answer)&&$answer!==''?$answer:'Consultez les tutoriels intégrés.','mode'=>'ai']);
-  }catch(\Throwable $e){return response()->json(['reply'=>'Connexion au conseiller indisponible. Les tutoriels restent accessibles.','mode'=>'guide']);}
+  }catch(\Throwable $e){return response()->json(['reply'=>$this->localGuide($data['message'],$admin,$available),'mode'=>'guide']);}
  }
+ // Helpful answers even before an API key is configured or during an outage.
+ // Navigation is informational: this endpoint never reads or mutates internal records.
+ private function localGuide(string $message,bool $admin,array $available): string
+ {
+  $q=mb_strtolower($message,'UTF-8');
+  if(preg_match('/(bonjour|salut|bonsoir|hello|comment ça va)/u',$q))
+   return 'Bonjour ! Bienvenue chez COJUKA Consulting Group. Je peux vous renseigner sur Mining, Construction, Logistique, l’histoire du groupe ou vous guider dans les modules de gestion accessibles.';
+  if(preg_match('/(connexion|connecter|identifiant|mot de passe|compte)/u',$q))
+   return 'Pour accéder à l’espace professionnel : 1. Ouvrez /login ; 2. saisissez votre adresse e-mail et votre mot de passe ; 3. ouvrez /gestion après connexion. Si vous n’avez pas de compte ou pas les droits requis, contactez un administrateur. Ne communiquez jamais votre mot de passe dans ce chat.';
+  if(preg_match('/(histoire|jules|kabongo|belgique|fondateur)/u',$q))
+   return 'Découvrez le parcours historique et l’ancrage belge de COJUKA sur la page /groupe/histoire. La biographie présente Jules Kabongo, sa formation en Belgique et les origines du groupe, selon les archives fournies.';
+  if(preg_match('/(mine|mining|minerai|cuivre|cobalt|coltan|carri[eè]re)/u',$q))
+   return 'COJUKA Mining est présenté comme le secteur prioritaire du groupe. Retrouvez les domaines d’intervention, photos de minerais et vidéos documentaires dans /groupe/structures/kojuka-mining. Ces médias sont illustratifs et ne prouvent pas une exploitation particulière.';
+  if(preg_match('/(construction|b[aâ]timent|chantier|infrastructure)/u',$q))
+   return 'La Construction est l’un des domaines du groupe. Explorez les services et réalisations présentés dans le portail /groupe/entites, puis sélectionnez Construction.';
+  if(preg_match('/(logistique|transport|cargo|port|fret)/u',$q))
+   return 'COJUKA présente des activités de logistique et de transport. Ouvrez /groupe/entites pour consulter le pôle Logistique et les dossiers sectoriels correspondants.';
+  if(preg_match('/(contact|adresse|email|t[eé]l[eé]phone|joindre)/u',$q))
+   return 'Vous pouvez utiliser la rubrique Nous contacter du site COJUKA. Ne prenez pas pour officielles les coordonnées qui ne sont pas publiées et vérifiées sur le site.';
+  foreach($available as $slug=>$label){
+   $match=mb_strtolower($label,'UTF-8');
+   if(str_contains($q,$slug)||str_contains($q,$match)){
+    $path=in_array($slug,['entites','projets','actifs'],true)?'/gestion/'.$slug:'/gestion/modules/'.$slug;
+    return 'Pour gérer « '.$label.' » : 1. Ouvrez /gestion avec votre compte professionnel ; 2. choisissez « '.$label.' » dans le menu ; 3. recherchez ou créez un dossier selon vos autorisations ; 4. vérifiez les champs puis enregistrez. Accès : '.$path.'.';
+   }
+  }
+  if(preg_match('/(gestion|module|dossier|enregistr|csv|export|import|utilisateur|permission|administration|tableau de bord)/u',$q)){
+   if(!$admin)return 'L’espace Gestion est privé. Connectez-vous à /login avec un compte autorisé, puis demandez à votre administrateur l’accès aux départements nécessaires. Aucun dossier interne n’est accessible depuis cet assistant public.';
+   return 'Guide Gestion : 1. Ouvrez /gestion ; 2. sélectionnez un département affiché dans votre menu ; 3. utilisez les filtres pour retrouver un dossier ; 4. selon vos permissions, créez, modifiez, importez ou exportez des fichiers CSV ; 5. vérifiez la confirmation. Le guide interne est disponible sur /gestion/guide.';
+  }
+  return 'Je peux vous aider à explorer les activités COJUKA (Mining, Construction, Logistique, Histoire & Belgique) et, après connexion, les modules autorisés de Gestion. Posez une question précise ou choisissez un tutoriel dans le panneau Assistant COJUKA.';
+ }
+
 }

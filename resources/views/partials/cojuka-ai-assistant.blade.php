@@ -113,22 +113,6 @@ window.cojukaRequestMic=async function(){
   window.cojukaMicrophoneHelp();return false;
  }finally{button.disabled=false}
 };
-document.getElementById('cai-permission-test');
- if(!window.isSecureContext){status.textContent='HTTPS obligatoire : ouvrez https://cojuka.com';window.cojukaMicrophoneHelp();return false}
- if(!navigator.mediaDevices?.getUserMedia){status.textContent='Ce navigateur ne permet pas de demander le microphone.';window.cojukaMicrophoneHelp();return false}
- button.disabled=true;status.textContent='Demande d’autorisation du microphone…';
- try{
-  var stream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
-  stream.getTracks().forEach(function(track){track.stop()});
-  status.textContent='Microphone autorisé ! Vous pouvez lancer l’appel vocal.';
-  document.getElementById('cai-permission-help').hidden=true;
-  return true;
- }catch(e){
-  var name=e?.name||'';
-  status.textContent=name==='NotAllowedError'||name==='PermissionDeniedError'?'Microphone bloqué par le navigateur ou Android. Consultez le guide ci-dessous.':name==='NotFoundError'?'Aucun microphone détecté.':'Erreur microphone : '+name;
-  window.cojukaMicrophoneHelp();return false;
- }finally{button.disabled=false}
-};
 document.getElementById('cai-permission-test')?.addEventListener('click',function(){window.cojukaRequestMic()});
 document.getElementById('cai-request-mic')?.addEventListener('click',function(){window.cojukaRequestMic()});
 (function(){
@@ -155,7 +139,7 @@ document.getElementById('cai-request-mic')?.addEventListener('click',function(){
   stopSpeaking();recognition=new Recognition();recognition.lang='fr-FR';recognition.interimResults=false;recognition.maxAlternatives=1;
   recognition.onstart=function(){listening=true;mic.setAttribute('aria-pressed','true');mic.textContent='● Écoute…';statusVoice('Parlez maintenant')};
   recognition.onresult=function(e){var transcript=e.results[0][0].transcript.trim();input.value=transcript;voiceQuestion=true;statusVoice('Question reconnue : '+transcript.slice(0,80))};
-  recognition.onerror=function(e){voiceQuestion=false;var denied=e.error==='not-allowed'||e.error==='service-not-allowed';statusVoice(denied?'Microphone refusé : consultez le guide affiché.':'Reconnaissance vocale : '+e.error);if(denied){window.cojukaMicError(e).then(function(msg){say(msg)});window.cojukaMicrophoneHelp()}};
+  recognition.onerror=function(e){voiceQuestion=false;var denied=e.error==='not-allowed'||e.error==='service-not-allowed';statusVoice(denied?'Microphone refusé : consultez le guide affiché.':'Reconnaissance vocale : '+e.error);if(denied){window.cojukaMicError(e).then(function(msg){statusVoice(msg)});window.cojukaMicrophoneHelp()}};
   recognition.onend=function(){listening=false;mic.setAttribute('aria-pressed','false');mic.textContent='🎙️ Parler';if(voiceQuestion){voiceQuestion=false;voiceEnabled=true;speakButton.setAttribute('aria-pressed','true');speakButton.textContent='🔊 Réponses vocales : oui';ask(input.value.trim())}};
   try{recognition.start()}catch(e){statusVoice('Impossible de démarrer le microphone')}
  });

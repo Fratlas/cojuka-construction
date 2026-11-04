@@ -63,6 +63,7 @@ Route::get('/compte-en-attente/statut', [GroupLoginController::class, 'status'])
 Route::post('/deconnexion', [GroupLoginController::class, 'logout'])->middleware('auth')->name('logout');
 Route::middleware(['auth', 'group.admin'])->prefix('gestion')->name('gestion.')->group(function () {
  Route::get('/', [GroupAdminController::class, 'dashboard'])->name('group.dashboard');
+ Route::post('/maintenance/base-de-donnees', [App\Http\Controllers\GroupMaintenanceController::class, 'migrate'])->middleware('throttle:3,1')->name('maintenance.migrate');
  Route::view('/guide', 'gestion.guide')->name('guide');
  Route::get('/newsletter', [GroupNewsletterController::class, 'index'])->middleware('can:manage-users')->name('newsletter.index');
  Route::get('/newsletter/export-csv', [GroupNewsletterController::class, 'export'])->middleware('can:manage-users')->name('newsletter.export');

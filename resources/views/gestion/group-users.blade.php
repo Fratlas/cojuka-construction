@@ -14,7 +14,8 @@
  </form>
 </div>
 @if(!$accessReady)
-<div class="alert alert-warning"><strong>Configuration requise :</strong> exécutez le SQL de contrôle d'accès dans la base COJUKA avant de modifier les affectations.</div>
+<div class="alert alert-warning"><strong>Configuration requise :</strong> la base de données doit être mise à jour avant de pouvoir attribuer les accès.
+@if(auth()->user()?->is_group_admin)<form method="POST" action="{{ route('gestion.maintenance.migrate') }}" class="mt-3 mb-0">@csrf<button class="btn btn-dark rounded-pill px-4" type="submit" onclick="this.disabled=true;this.textContent='Mise à jour en cours…';this.form.submit()"><i class="bi bi-database-gear me-2" aria-hidden="true"></i>Mettre à jour la base de données</button><span class="small text-secondary ms-2">Sans risque : ajoute uniquement ce qui manque, ne supprime rien.</span></form>@endif</div>
 @endif
 <div class="card p-3 p-md-4"><div class="table-responsive"><table class="table table-hover align-middle">
 <thead><tr><th>Collaborateur</th><th>Statut</th><th style="min-width:300px">Département et filiales autorisées</th><th class="text-end">Enregistrer</th></tr></thead>

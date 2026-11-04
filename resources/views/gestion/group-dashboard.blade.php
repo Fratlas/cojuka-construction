@@ -27,6 +27,7 @@
 @if(!$suiteReady)
     <div class="alert alert-warning border-0 rounded-4" role="alert">
         <strong>Configuration en attente :</strong> les modules opérationnels nécessitent la création des tables MySQL. Le suivi des entités, projets et actifs reste accessible.
+        @if(auth()->user()?->is_group_admin)<form method="POST" action="{{ route('gestion.maintenance.migrate') }}" class="mt-3 mb-0">@csrf<button class="btn btn-dark rounded-pill px-4" type="submit" onclick="this.disabled=true;this.textContent='Mise à jour en cours…';this.form.submit()"><i class="bi bi-database-gear me-2" aria-hidden="true"></i>Mettre à jour la base de données</button><span class="small text-secondary ms-2">Sans risque : ajoute uniquement ce qui manque, ne supprime rien.</span></form>@endif
     </div>
 @endif
 <div class="row g-3 mb-5">

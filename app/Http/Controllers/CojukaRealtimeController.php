@@ -30,8 +30,19 @@ class CojukaRealtimeController
     ->attach('session',json_encode($session,JSON_UNESCAPED_UNICODE),'session.json',['Content-Type'=>'application/json'])
     ->post('https://api.openai.com/v1/realtime/calls');
    if(!$response->successful()){
-    \Log::warning('COJUKA Realtime API error',['status'=>$response->status()]);
-    return response()->json(['error'=>'Connexion vocale indisponible. Vérifiez la facturation et les accès API.'],502);
+    $status=$response->status();
+    $err=(array)($response->json('error')??[]);
+    $code=(string)($err['code']??$err['type']??'');
+    \Log::warning('COJUKA Realtime API error',['status'=>$status,'code'=>$code,'message'=>mb_substr((string)($err['message']??$response->body()),0,500)]);
+    $reason=match(true){
+     $status===401=>'clé API OpenAI invalide ou révoquée',
+     $code==='insufficient_quota'=>'crédit OpenAI épuisé (facturation)',
+     $status===429=>'trop de demandes, réessayez dans un instant',
+     $status===403||$code==='model_not_found'||$status===404=>'ce projet OpenAI n’a pas accès au modèle vocal '.config('cojuka.openai.realtime_model','gpt-realtime-mini'),
+     $status===400=>'requête refusée par OpenAI (paramètres)',
+     default=>'erreur OpenAI '.$status,
+    };
+    return response()->json(['error'=>'Connexion vocale indisponible : '.$reason.'.','status'=>$status,'code'=>$code],502);
    }
    return response($response->body(),200)->header('Content-Type','application/sdp')->header('Cache-Control','no-store');
   }catch(\Throwable $e){

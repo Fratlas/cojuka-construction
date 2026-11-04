@@ -38,6 +38,17 @@ if($cojukaAssistantAdmin){
 .cai-form button{border:0;background:#1c2937;color:white;border-radius:12px;padding:9px 13px}
 .cai-permission-help{margin:0 12px 12px;padding:12px 14px;border:1px solid #f0c58b;border-radius:12px;background:#fff9ef;color:#4b3522;font-size:12px}.cai-permission-help[hidden]{display:none!important}.cai-permission-help strong{display:block;font-size:13px;margin-bottom:5px}.cai-permission-help ol{padding-left:20px;margin:8px 0}.cai-permission-help li{margin:5px 0}.cai-permission-help button{border:1px solid #b88950;border-radius:8px;background:white;padding:5px 10px;color:#4b3522}.cai-voice{display:flex;gap:8px;align-items:center;padding:0 12px 10px;background:#fff;flex-wrap:wrap}.cai-voice button{border:1px solid #cdd5dd;background:#f7f9fb;color:#1c2937;border-radius:20px;padding:7px 11px;font-size:12px;font-weight:650}.cai-voice button[aria-pressed="true"]{background:#dceefb;border-color:#4d8dbd}.cai-voice-status{font-size:11px;color:#536576;flex:1;min-width:135px}.cai-note{font-size:11px;color:#667482;padding:0 14px 11px;background:white}
 @media(max-width:600px){#cojuka-ai-launch{bottom:77px;right:13px}#cojuka-ai-panel{bottom:137px;max-height:calc(100dvh - 154px)}}
+#cojuka-ai-launch{cursor:pointer;min-height:45px}
+#cojuka-ai-launch:focus-visible,#cojuka-ai-panel button:focus-visible,#cojuka-ai-panel input:focus-visible{outline:3px solid #9babbf;outline-offset:3px}
+#cojuka-ai-panel.is-open{display:flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important}
+#cojuka-ai-panel{height:min(650px,calc(100dvh - 165px));min-height:260px}
+#cojuka-ai-panel .cai-head{flex:none}
+#cojuka-ai-panel .cai-body{min-height:0;flex:1 1 auto;overscroll-behavior:contain}
+#cojuka-ai-panel .cai-form,#cojuka-ai-panel .cai-note{flex:none}
+#cojuka-ai-panel .cai-voice{flex:none;max-height:140px;overflow-y:auto;overscroll-behavior:contain}
+#cojuka-ai-panel .cai-close{min-height:40px;min-width:40px;cursor:pointer}
+@media(max-width:600px){#cojuka-ai-panel{height:calc(100dvh - 151px);max-height:calc(100dvh - 151px);min-height:240px}
+ #cojuka-ai-panel .cai-form input{font-size:16px}}
 @media(prefers-reduced-motion:reduce){#cojuka-ai-launch,#cojuka-ai-panel{animation:none!important;transition:none!important}}
 .cai-suggest{position:fixed;right:clamp(15px,2.5vw,32px);bottom:154px;z-index:1069;display:flex;align-items:center;gap:8px;max-width:min(310px,calc(100vw - 30px));background:white;color:#1c2937;border:1px solid #dce4ed;border-radius:16px;padding:11px 13px;box-shadow:0 12px 35px #15233430;font:600 13px/1.4 system-ui,sans-serif}
 .cai-suggest:after{content:"";position:absolute;bottom:-7px;right:28px;width:13px;height:13px;background:#fff;transform:rotate(45deg);border-right:1px solid #dce4ed;border-bottom:1px solid #dce4ed}
@@ -144,9 +155,18 @@ document.getElementById('cai-request-mic')?.addEventListener('click',function(){
   try{recognition.start()}catch(e){statusVoice('Impossible de démarrer le microphone')}
  });
 
- function toggle(open){panel.classList.toggle('is-open',open);launch.setAttribute('aria-expanded',open?'true':'false');if(open)input.focus();else {stopSpeaking();if(recognition&&listening)recognition.stop();launch.focus()}}
+ function toggle(open){
+  panel.classList.toggle('is-open',open);
+  launch.setAttribute('aria-expanded',open?'true':'false');
+  launch.setAttribute('aria-label',open?'Fermer l’assistant COJUKA':'Ouvrir l’assistant COJUKA');
+  if(open){if(suggestion)suggestion.hidden=true;input.focus({preventScroll:true})}
+  else{stopSpeaking();if(recognition&&listening)recognition.stop();launch.focus({preventScroll:true})}
+ }
  launch.addEventListener('click',function(){toggle(!panel.classList.contains('is-open'))});
  close.addEventListener('click',function(){toggle(false)});
+ document.addEventListener('pointerdown',function(event){
+  if(panel.classList.contains('is-open')&&!panel.contains(event.target)&&!launch.contains(event.target))toggle(false);
+ });
  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&panel.classList.contains('is-open'))toggle(false)});
  function bubble(message,user){var el=document.createElement('div');el.className='cai-bubble'+(user?' is-user':'');el.textContent=message;body.appendChild(el);body.scrollTop=body.scrollHeight;return el}
  async function ask(message){
